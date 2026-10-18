@@ -1,0 +1,71 @@
+getting_started\first_3d_game\02.player_input.html | mostly_en=True (EN:69/ES:56) | headings=[] | h1=Escena del jugador y acciones de entrada
+getting_started\first_3d_game\04.mob_scene.html | mostly_en=True (EN:102/ES:129) | headings=[] | h1=Diseñar la escena de los enemigos
+getting_started\first_3d_game\07.killing_player.html | mostly_en=True (EN:163/ES:90) | headings=[] | h1=Eliminar al jugador
+tutorials\3d\3d_antialiasing.html | mostly_en=True (EN:159/ES:21) | headings=[] | h1=3D antialiasing
+tutorials\3d\3d_rendering_limitations.html | mostly_en=True (EN:69/ES:68) | headings=[] | h1=Limitaciones del renderizado 3D
+tutorials\3d\csg_tools.html | mostly_en=True (EN:181/ES:56) | headings=[] | h1=Prototipando niveles con CSG
+tutorials\3d\environment_and_post_processing.html | mostly_en=True (EN:735/ES:104) | headings=[] | h1=Entorno y post proceso
+tutorials\3d\global_illumination\faking_global_illumination.html | mostly_en=True (EN:96/ES:0) | headings=[] | h1=Faking global illumination
+tutorials\3d\global_illumination\introduction_to_global_illumination.html | mostly_en=True (EN:240/ES:14) | headings=[] | h1=Introducción a la iluminación global
+tutorials\3d\global_illumination\reflection_probes.html | mostly_en=True (EN:158/ES:1) | headings=[] | h1=Reflection Probe
+tutorials\3d\global_illumination\using_lightmap_gi.html | mostly_en=True (EN:474/ES:46) | headings=[] | h1=Using Lightmap global illumination
+tutorials\3d\global_illumination\using_sdfgi.html | mostly_en=True (EN:215/ES:11) | headings=[] | h1=Signed distance field global illumination (SDFGI)
+tutorials\3d\global_illumination\using_voxel_gi.html | mostly_en=True (EN:153/ES:28) | headings=[] | h1=Using Voxel global illumination
+tutorials\3d\mesh_lod.html | mostly_en=True (EN:132/ES:2) | headings=[] | h1=Mesh level of detail (LOD)
+tutorials\3d\occlusion_culling.html | mostly_en=True (EN:243/ES:6) | headings=[] | h1=Eliminación de oclusión
+tutorials\3d\particles\attractors.html | mostly_en=True (EN:144/ES:0) | headings=[] | h1=Atractores de partículas 3D
+tutorials\3d\particles\collision.html | mostly_en=True (EN:172/ES:0) | headings=[] | h1=3D Particle collisions
+tutorials\3d\particles\complex_shapes.html | mostly_en=True (EN:110/ES:0) | headings=[] | h1=Complex emission shapes
+tutorials\3d\particles\process_material_properties.html | mostly_en=True (EN:361/ES:92) | headings=[] | h1=Process material properties
+tutorials\3d\particles\properties.html | mostly_en=True (EN:133/ES:83) | headings=[] | h1=Propiedades del sistema de partículas 3D
+tutorials\3d\particles\subemitters.html | mostly_en=True (EN:74/ES:0) | headings=[] | h1=Subemisores de partículas
+tutorials\3d\particles\trails.html | mostly_en=True (EN:163/ES:0) | headings=[] | h1=Rastro de partículas 3D
+tutorials\3d\particles\turbulence.html | mostly_en=True (EN:93/ES:0) | headings=[] | h1=Particle turbulence
+tutorials\3d\procedural_geometry\arraymesh.html | mostly_en=True (EN:67/ES:85) | headings=[] | h1=Usar ArrayMesh
+tutorials\3d\procedural_geometry\meshdatatool.html | mostly_en=True (EN:77/ES:29) | headings=[] | h1=Usar MeshDataTool
+tutorials\3d\resolution_scaling.html | mostly_en=True (EN:138/ES:4) | headings=[] | h1=Resolution scaling
+tutorials\3d\spring_arm.html | mostly_en=True (EN:58/ES:31) | headings=[] | h1=Cámara en tercera persona con brazo de resorte
+tutorials\3d\using_gridmaps.html | mostly_en=True (EN:167/ES:39) | headings=[] | h1=Usar GridMaps
+tutorials\3d\using_multi_mesh_instance.html | mostly_en=True (EN:38/ES:47) | headings=[] | h1=Using MultiMeshInstance3D
+tutorials\3d\variable_rate_shading.html | mostly_en=True (EN:114/ES:1) | headings=[] | h1=Variable rate shading
+tutorials\3d\visibility_ranges.html | mostly_en=True (EN:214/ES:1) | headings=[] | h1=Visibility ranges (HLOD)
+tutorials\3d\volumetric_fog.html | mostly_en=True (EN:245/ES:6) | headings=[] | h1=Volumetric fog and fog volumes
+tutorials\animation\creating_movies.html | mostly_en=True (EN:308/ES:58) | headings=[] | h1=Crear videos
+tutorials\assets_pipeline\import_process.html | mostly_en=True (EN:77/ES:29) | headings=[] | h1=Proceso de importación
+tutorials\assets_pipeline\importing_3d_scenes\advanced_import_settings.html | mostly_en=True (EN:178/ES:17) | headings=[] | h1=Advanced Import Settings
+tutorials\assets_pipeline\importing_3d_scenes\available_formats.html | mostly_en=True (EN:150/ES:15) | headings=[] | h1=Available 3D formats
+tutorials\assets_pipeline\importing_3d_scenes\import_configuration.html | mostly_en=True (EN:326/ES:25) | headings=[] | h1=Import configuration
+tutorials\assets_pipeline\importing_3d_scenes\model_export_considerations.html | mostly_en=True (EN:63/ES:35) | headings=[] | h1=Model export considerations
+tutorials\assets_pipeline\importing_3d_scenes\node_type_customization.html | mostly_en=True (EN:99/ES:30) | headings=[] | h1=Node type customization using name suffixes
+tutorials\assets_pipeline\importing_audio_samples.html | mostly_en=True (EN:193/ES:7) | headings=[] | h1=Importar muestras de audio
+tutorials\assets_pipeline\importing_images.html | mostly_en=True (EN:380/ES:35) | headings=[] | h1=Importar imágenes
+tutorials\assets_pipeline\retargeting_3d_skeletons.html | mostly_en=True (EN:166/ES:0) | headings=[] | h1=Retargeting 3D Skeletons
+tutorials\audio\audio_effects.html | mostly_en=True (EN:252/ES:2) | headings=[] | h1=Efectos de audio
+tutorials\audio\audio_streams.html | mostly_en=True (EN:64/ES:39) | headings=[] | h1=Corriente de Audio
+tutorials\audio\text_to_speech.html | mostly_en=True (EN:93/ES:1) | headings=[] | h1=Text to speech
+tutorials\best_practices\godot_interfaces.html | mostly_en=True (EN:108/ES:81) | headings=[] | h1=Interfaces en Godot
+tutorials\best_practices\godot_notifications.html | mostly_en=True (EN:71/ES:61) | headings=[] | h1=Notificaciones en Godot
+tutorials\best_practices\logic_preferences.html | mostly_en=True (EN:98/ES:58) | headings=[] | h1=Recomendaciones de lógica
+tutorials\best_practices\scene_organization.html | mostly_en=True (EN:182/ES:65) | headings=[] | h1=Organización de la escena
+tutorials\editor\game_embedding.html | mostly_en=True (EN:280/ES:24) | headings=[] | h1=Game embedding
+tutorials\editor\inspector_dock.html | mostly_en=True (EN:87/ES:47) | headings=[] | h1=Inspector Dock
+tutorials\export\android_gradle_build.html | mostly_en=True (EN:35/ES:11) | headings=[] | h1=Gradle builds for Android
+tutorials\export\exporting_for_android.html | mostly_en=True (EN:81/ES:66) | headings=[] | h1=Exportación para Android
+tutorials\export\exporting_for_dedicated_servers.html | mostly_en=True (EN:151/ES:17) | headings=[] | h1=Exportar para servidores dedicados
+tutorials\export\exporting_for_ios.html | mostly_en=True (EN:75/ES:47) | headings=[] | h1=Exportar para iOS
+tutorials\export\exporting_for_linux.html | mostly_en=True (EN:51/ES:17) | headings=[] | h1=Exportar para Linux
+tutorials\export\exporting_for_macos.html | mostly_en=True (EN:101/ES:101) | headings=[] | h1=Exportar para macOS
+tutorials\export\exporting_for_web.html | mostly_en=True (EN:275/ES:114) | headings=[] | h1=Exportar para la Web
+tutorials\export\exporting_for_windows.html | mostly_en=True (EN:58/ES:18) | headings=[] | h1=Exportación para Windows
+tutorials\export\exporting_pcks.html | mostly_en=True (EN:194/ES:25) | headings=[] | h1=Exportar paquetes, parches y mods
+tutorials\export\exporting_projects.html | mostly_en=True (EN:88/ES:120) | headings=[] | h1=Exportar proyectos
+tutorials\export\feature_tags.html | mostly_en=True (EN:47/ES:54) | headings=[] | h1=Etiquetas de características
+tutorials\export\one-click_deploy.html | mostly_en=True (EN:106/ES:55) | headings=[] | h1=Despliegue con un solo clic
+tutorials\io\background_loading.html | mostly_en=True (EN:55/ES:0) | headings=[] | h1=Carga en segundo plano
+tutorials\io\index.html | mostly_en=False (EN:8/ES:0) | headings=[] | h1=File and data I/O
+tutorials\io\runtime_file_loading_and_saving.html | mostly_en=True (EN:174/ES:0) | headings=[] | h1=Carga y guardado de archivos en tiempo de ejecución
+tutorials\io\saving_games.html | mostly_en=True (EN:139/ES:39) | headings=[] | h1=Guardar partidas
+tutorials\migrating\upgrading_to_godot_4.4.html | mostly_en=True (EN:40/ES:51) | headings=[] | h1=Migrar desde Godot 4.3 a Godot 4.4
+tutorials\migrating\upgrading_to_godot_4.5.html | mostly_en=True (EN:63/ES:92) | headings=[] | h1=Migrar desde Godot 4.4 a Godot 4.5
+tutorials\migrating\upgrading_to_godot_4.6.html | mostly_en=True (EN:60/ES:27) | headings=[] | h1=Migrar desde Godot 4.5 a Godot 4.6
+tutorials\migrating\upgrading_to_godot_4.7.html | mostly_en=True (EN:129/ES:0) | headings=[] | h1=Upgrading from Godot 4.6 to Godot 4.7
