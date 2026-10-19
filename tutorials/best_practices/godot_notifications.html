@@ -13060,10 +13060,10 @@
 <p>Y muchos de los callbacks que existen en Nodes no tienen ningún método dedicado, pero son igualmente útiles.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../classes/class_node.html#class-node-constant-notification-parented"><span class="std std-ref">Node::NOTIFICATION_PARENTED</span></a>:
-a callback that triggers anytime you add a child node to another node.</p></li>
+un callback que se dispara cada vez que agregas un nodo hijo a otro nodo.</p></li>
 <li><p><a class="reference internal" href="../../classes/class_node.html#class-node-constant-notification-unparented"><span class="std std-ref">Node::NOTIFICATION_UNPARENTED</span></a>:
-a callback that triggers anytime you remove a child node from another
-node.</p></li>
+un callback que se dispara cada vez que eliminas un nodo hijo de otro
+nodo.</p></li>
 </ul>
 <p>El método universal <code class="docutils literal notranslate"><span class="pre">_notification()</span></code> proporciona acceso a todas estas notificaciones personalizadas.</p>
 <div class="admonition note">
@@ -13071,16 +13071,16 @@ node.</p></li>
 <p>Los métodos en la documentación etiquetados como &quot;virtuales&quot; también están destinados a ser sobrescritos por scripts.</p>
 <p>Un ejemplo clásico es el método <a class="reference internal" href="../../classes/class_object.html#class-object-private-method-init"><span class="std std-ref">_init</span></a> en Object. Este no posee un equivalente <code class="docutils literal notranslate"><span class="pre">NOTIFICATION_*</span></code>, pero el motor llamará igual al método. La mayoría de los lenguajes (excepto C#) dependen de este como constructor.</p>
 </div>
-<p>So, when should you use each of these notifications or
-virtual functions?</p>
+<p>Entonces, ¿cuándo deberías usar cada una de estas notificaciones o
+funciones virtuales?</p>
 <section id="process-vs-physics-process-vs-input">
 <h2>_process vs. _physics_process vs. *_input<a class="headerlink" href="#process-vs-physics-process-vs-input" title="Link to this heading"></a></h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">_process()</span></code> when you need a framerate-dependent delta time between
-frames. If code that updates object data needs to update as often as
-possible, this is the right place. Recurring logic checks and data caching
-often execute here, but it comes down to how often
-the evaluations need to update. If they don't need to execute every frame, then
-implementing a Timer-timeout loop is another option.</p>
+<p>Usa <code class="docutils literal notranslate"><span class="pre">_process()</span></code> cuando necesites un tiempo delta dependiente de la tasa de cuadros (framerate)
+entre fotogramas. Si el código que actualiza los datos del objeto necesita actualizarse con la mayor
+frecuencia posible, este es el lugar adecuado. Las comprobaciones lógicas periódicas y el almacenamiento en caché de datos
+suelen ejecutarse aquí, pero todo depende de con qué frecuencia
+necesiten actualizarse las evaluaciones. Si no necesitan ejecutarse en cada fotograma,
+implementar un bucle con un temporizador (Timer) es otra opción.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-0-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button><button aria-controls="panel-0-Qysr" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Qysr" name="Qysr" role="tab" tabindex="-1">C++</button></div><div aria-labelledby="tab-0-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allows for recurring operations that don&#39;t trigger script logic</span>
 <span class="c1"># every frame (or even every fixed frame).</span>
@@ -13134,18 +13134,18 @@ implementing a Timer-timeout loop is another option.</p>
 </pre></div>
 </div>
 </div></div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code> when you need a framerate-independent delta time
-between frames. If code needs consistent updates over time, regardless
-of how fast or slow time advances, this is the right place.
-Recurring kinematic and object transform operations should execute here.</p>
-<p>While it is possible, to achieve the best performance, you should avoid
-making input checks during these callbacks. <code class="docutils literal notranslate"><span class="pre">_process()</span></code> and
-<code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code> will trigger at every opportunity (they do not &quot;rest&quot; by
-default). In contrast, <code class="docutils literal notranslate"><span class="pre">*_input()</span></code> callbacks will trigger only on frames in
-which the engine has actually detected the input.</p>
-<p>You can check for input actions within the input callbacks just the same.
-If you want to use delta time, you can fetch it from the related
-delta time methods as needed.</p>
+<p>Usa <code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code> cuando necesites un tiempo delta independiente de los cuadros por segundo
+entre fotogramas. Si el código necesita actualizaciones constantes a lo largo del tiempo, sin importar
+qué tan rápido o lento avance el tiempo, este es el lugar adecuado.
+Las operaciones cinemáticas recurrentes y las transformaciones de objetos deben ejecutarse aquí.</p>
+<p>Aunque es posible, para lograr el mejor rendimiento debes evitar
+realizar comprobaciones de entrada durante estas retrollamadas. <code class="docutils literal notranslate"><span class="pre">_process()</span></code> y
+<code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code> se ejecutarán en cada oportunidad posible (no &quot;descansan&quot; por
+defecto). Por el contrario, los callbacks de <code class="docutils literal notranslate"><span class="pre">*_input()</span></code> se activarán únicamente en los fotogramas
+en los que el motor haya detectado realmente una entrada.</p>
+<p>Puedes comprobar las acciones de entrada dentro de los callbacks de entrada de igual manera.
+Si deseas utilizar el tiempo delta, puedes obtenerlo mediante los métodos relacionados
+de delta time según sea necesario.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-1-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button><button aria-controls="panel-1-Qysr" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Qysr" name="Qysr" role="tab" tabindex="-1">C++</button></div><div aria-labelledby="tab-1-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># Called every frame, even when the engine detects no input.</span>
 <span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">):</span>

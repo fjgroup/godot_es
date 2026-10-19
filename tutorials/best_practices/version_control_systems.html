@@ -13104,12 +13104,11 @@ instead.</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="w"> </span><span class="n">lfs</span><span class="w"> </span><span class="n">track</span><span class="w"> </span><span class="s2">&quot;*.glb&quot;</span>
 </pre></div>
 </div>
-<p>When you add or modify files that are tracked by LFS, Git will automatically
-store them in LFS instead of the regular Git history. You can push and pull
-LFS files just like regular Git files, but keep in mind that LFS files are
-stored separately from the rest of your Git history. This means that you may
-need to install Git LFS on any machine that you clone the repository to in
-order to access the LFS files.</p>
+<p>Cuando agregas o modificas archivos rastreados por LFS, Git los almacenará
+automáticamente en LFS en lugar del historial regular de Git. Puedes subir (push) y bajar (pull)
+archivos LFS al igual que los archivos comunes de Git, pero ten en cuenta que los archivos LFS se
+almacenan de forma separada del resto de tu historial de Git. Esto significa que es posible que debas
+instalar Git LFS en cualquier máquina en la que clones el repositorio para poder acceder a los archivos LFS.</p>
 <p>A continuación se muestra un archivo <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> de ejemplo que puedes usar como punto de partida para Git LFS. Se eligieron estos tipos de archivos porque son de uso común, pero puedes modificar la lista para incluir cualquier tipo binario que puedes tener en tu proyecto.</p>
 <div class="highlight-unixconfig notranslate"><div class="highlight"><pre><span></span><span class="c"># Normalize EOL for all files that Git considers text files.</span>
 <span class="s">* text=auto eol=lf</span>

@@ -13046,15 +13046,15 @@
 <section id="adding-nodes-and-changing-properties-which-first">
 <h2>Agregar nodos y cambiar propiedades: ¿qué es lo primero?<a class="headerlink" href="#adding-nodes-and-changing-properties-which-first" title="Link to this heading"></a></h2>
 <p>Cuando se inicializan nodos de un script en tiempo de ejecución, puede que necesites cambiar propiedades como el nombre o la posición del nodo. Un dilema común es ¿cuándo deberías cambiar estos valores?</p>
-<p>It is the best practice to change values on a node before adding it to the
-scene tree. Some properties' setters have code to update other
-corresponding values, and that code can be slow! For most cases, this code
-has no impact on your game's performance, but in heavy use cases such as
-procedural generation, it can bring your game to a crawl.</p>
-<p>For these reasons, it is usually best practice to set the initial values
-of a node before adding it to the scene tree. There are some exceptions where
-values <em>can't</em> be set before being added to the scene tree, like setting global
-position.</p>
+<p>Es una buena práctica cambiar los valores en un nodo antes de agregarlo al
+árbol de escenas. Los métodos setter de algunas propiedades tienen código para actualizar otros
+valores correspondientes, ¡y ese código puede ser lento! En la mayoría de los casos, este código
+no tiene impacto en el rendimiento de tu juego, pero en casos de uso intensivo como
+la generación procedimental, puede ralentizar tu juego drásticamente.</p>
+<p>Por estas razones, por lo general es una buena práctica establecer los valores iniciales
+de un nodo antes de agregarlo al árbol de escenas. Existen algunas excepciones donde los
+valores <em>no pueden</em> establecerse antes de agregarse al árbol de escenas, como al configurar la
+posición global.</p>
 </section>
 <section id="loading-vs-preloading">
 <h2>Cargar (load) vs. pre-cargar (preload)<a class="headerlink" href="#loading-vs-preloading" title="Link to this heading"></a></h2>
@@ -13163,27 +13163,26 @@ resources to delete themselves from memory).</p></li>
 </section>
 <section id="large-levels-static-vs-dynamic">
 <h2>Niveles grandes: estático vs dinámico<a class="headerlink" href="#large-levels-static-vs-dynamic" title="Link to this heading"></a></h2>
-<p>If one is creating a large level, which circumstances are most appropriate?
-Is it better to create the level as one static space? Or is it better to load
-the level in pieces and shift the world's content as needed?</p>
+<p>Si se está creando un nivel grande, ¿cuáles circunstancias son más apropiadas?
+¿Es mejor crear el nivel como un único espacio estático? ¿O es mejor cargar
+el nivel por partes y desplazar el contenido del mundo según sea necesario?</p>
 <p>Bien, la respuesta simple es &quot;cuando la performance lo requiera&quot;. El dilema asociado con las dos opciones es una de las viejas opciones de programación: se optimiza memoria por sobre velocidad o viceversa?</p>
 <p>La respuesta inexperta es de usar un nivel estático que cargue todo de una vez pero, dependiendo del proyecto, esto puede consumir una gran cantidad de memoria. El desperdicio de la RAM de los usuario hace que los programas comiencen a funcionar más lento o directamente cuelgues de cualquier otra cosa que la computadora esté tratando de ejecutar al mismo tiempo.</p>
 <p>Sin importar qué, se debe romper escenas largas en otras más pequeñas (para ayudar en la reusabilidad de contenido). Los desarrolladores pueden entonces designar un nodo que manipule la creación/carga y borrado/descarga de recursos y nodos en tiempo real. Juegos con gra variedad y tamaño de entornos o elementos generados proceduralmente normalmente emplean esas estrategias para evitar desperdiciar memoria.</p>
-<p>On the flip side, coding a dynamic system is more complex; it uses more
-programmed logic which results in opportunities for errors and bugs. If one
-isn't careful, they can develop a system that bloats the technical debt of
-the application.</p>
-<p>Como tales, las mejores opciones serían...</p>
+<p>Por otra parte, programar un sistema dinámico es más complejo; utiliza más
+lógica programada, lo que da pie a posibles errores y fallos. Si no se tiene
+cuidado, se puede desarrollar un sistema que incremente en exceso la deuda técnica
+de la aplicación.</p>
+<p>Por lo tanto, las mejores opciones serían:</p>
 <ol class="arabic simple">
-<li><p>Use static levels for smaller games.</p></li>
-<li><p>If one has the time/resources on a medium/large game, create a library or
-plugin that can manage nodes and resources with code. If refined
-over time so as to improve usability and stability, then it could evolve
-into a reliable tool across projects.</p></li>
-<li><p>Use dynamic logic for a medium/large game because one has the coding
-skills, but not the time or resources to refine the code (game's
-gotta get done). Could potentially refactor later to outsource the code
-into a plugin.</p></li>
+<li><p>Usar niveles estáticos para juegos más pequeños.</p></li>
+<li><p>Si se dispone del tiempo/recursos en un juego mediano/grande, crear una biblioteca o
+plugin que pueda administrar nodos y recursos mediante código. Si se refina
+con el tiempo para mejorar la usabilidad y estabilidad, puede convertirse
+en una herramienta confiable para múltiples proyectos.</p></li>
+<li><p>Usar lógica dinámica para un juego mediano/grande si se tienen los conocimientos de
+programación, pero no el tiempo ni recursos para pulir el código al máximo (el juego
+debe terminarse). Se puede refactorizar más tarde para convertir el código en un plugin.</p></li>
 </ol>
 <p>Para ejemplos de los varios modos en que se pueden cambiar escenas en tiempo de ejecución, lee la documentación de <a class="reference internal" href="../scripting/change_scenes_manually.html#doc-change-scenes-manually"><span class="std std-ref">&quot;Cambiar escenas manualmente&quot;</span></a>.</p>
 </section>

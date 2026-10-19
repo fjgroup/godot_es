@@ -13050,14 +13050,14 @@
 <p>Existen varios métodos para mejorar el desempeño y el rendimiento de la batería:</p>
 <ul class="simple">
 <li><p>En 3D, pulsa sobre el botón de <strong>Perspectiva</strong>, en la esquina superior izquierda y habilita <strong>Media Resolución</strong>. La ventana ahora será renderizada a la mitad de la resolución, que puede llegar a ser hasta 4 veces más rápida.</p></li>
-<li><p>Open the Editor Settings and increase the value of <strong>Low Processor Mode Sleep (µsec)</strong>
-to <code class="docutils literal notranslate"><span class="pre">33000</span></code> (30 FPS). This value determines the amount of <em>microseconds</em>
-between frames to render. Higher values will make the editor feel less reactive,
-but will help decrease CPU and GPU usage significantly.</p></li>
-<li><p>If you have a node that causes the editor to redraw continuously (such as
-particles), hide it and show it using a script in the <code class="docutils literal notranslate"><span class="pre">_ready()</span></code> method.
-This way, it will be hidden in the editor, but will still be visible in the
-running project.</p></li>
+<li><p>Abre la Configuración del Editor y aumenta el valor de <strong>Low Processor Mode Sleep (µsec)</strong>
+a <code class="docutils literal notranslate"><span class="pre">33000</span></code> (30 FPS). Este valor determina la cantidad de <em>microsegundos</em>
+entre cuadros a renderizar. Valores más altos harán que el editor se sienta menos reactivo,
+pero ayudarán a reducir el uso de CPU y GPU significativamente.</p></li>
+<li><p>Si tienes un nodo que hace que el editor se redibuje continuamente (como
+partículas), ocúltalo y muéstralo usando un script en el método <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>.
+De esta manera, estará oculto en el editor, pero seguirá siendo visible en el
+proyecto en ejecución.</p></li>
 </ul>
 </section>
 <section id="the-editor-stutters-and-flickers-on-my-variable-refresh-rate-monitor-g-sync-freesync">
@@ -13065,13 +13065,13 @@ running project.</p></li>
 <p>Esto es un problema conocido &lt;<a class="reference external" href="https://github.com/godotengine/godot/issues/38219">https://github.com/godotengine/godot/issues/38219</a>&gt;`__. Los monitores de frecuencia de actualización variable necesitan ajuste en sus curvas de gamma continuamente para mantener un valor de luz consistente. Esto puede provocar que aparezca parpadeo en zonas oscuras de la imágen cuando la actualización de pantalla varía mucho, lo que sucede debido a que el Editor de Godot sólo redibuja cuando es necesario.</p>
 <p>Hay varias soluciones para esto:</p>
 <ul class="simple">
-<li><p>Enable <strong>Interface &gt; Editor &gt; Update Continuously</strong> in the Editor Settings. Keep in mind
-this will increase power usage and heat/noise emissions since the editor will
-now be rendering constantly, even if nothing has changed on screen. To
-alleviate this, you can increase <strong>Low Processor Mode Sleep (µsec)</strong> to
-<code class="docutils literal notranslate"><span class="pre">33000</span></code> (30 FPS) in the Editor Settings. This value determines the amount of
-<em>microseconds</em> between frames to render. Higher values will make the editor
-feel less reactive, but will help decrease CPU and GPU usage significantly.</p></li>
+<li><p>Habilita <strong>Interfaz &gt; Editor &gt; Actualizar Continuamente</strong> en la Configuración del Editor. Ten en cuenta
+que esto aumentará el uso de energía y las emisiones de calor/ruido ya que el editor
+ahora estará renderizando constantemente, incluso si nada ha cambiado en pantalla. Para
+aliviar esto, puedes aumentar <strong>Low Processor Mode Sleep (µsec)</strong> a
+<code class="docutils literal notranslate"><span class="pre">33000</span></code> (30 FPS) en la Configuración del Editor. Este valor determina la cantidad de
+<em>microsegundos</em> entre cuadros a renderizar. Valores más altos harán que el editor
+se sienta menos reactivo, pero ayudarán a reducir el uso de CPU y GPU significativamente.</p></li>
 <li><p>Alternativamente, deshabilita la frecuencia de actualización variable en tu monitor o en el controlador gráfico.</p></li>
 <li><p>El parpadeo por Frecuencia de Actualización Variable, puede ser reducido en algunos monitores usando el <strong>Control VRR</strong> o el <strong>Control de áreas oscuras</strong> en las opciones de configuración de su monitor (OSD). Estas opciones pueden incrementar retardos de entrada o resultar en &quot;Aplastado de Negros&quot; (cruched blacks).</p></li>
 <li><p>Si utilizas un monitor basado en <strong>Diodo Orgánico Emisiorde Luz (OLED)</strong>, utiliza el tema preestablecido <strong>Black (OLED)</strong> en las opciones del Editor. Esto oculta las fallas del VRR gracias a los niveles oscuros ajustados.</p></li>
@@ -13079,11 +13079,11 @@ feel less reactive, but will help decrease CPU and GPU usage significantly.</p><
 </section>
 <section id="the-editor-or-project-takes-a-very-long-time-to-start">
 <h2>El editor o el proyecto tarda mucho tiempo en iniciar<a class="headerlink" href="#the-editor-or-project-takes-a-very-long-time-to-start" title="Link to this heading"></a></h2>
-<p>When using one of the RenderingDevice-based renderers (Forward+ or Mobile), the first
-startup is expected to be relatively long. This is because shaders
-need to be compiled before they can be cached. Shaders also need to be cached
-again after updating Godot, after updating graphics drivers or after switching
-graphics cards.</p>
+<p>Al utilizar uno de los renderizadores basados en RenderingDevice (Forward+ o Mobile), se espera
+que el primer inicio sea relativamente largo. Esto se debe a que los shaders
+deben compilarse antes de poder almacenarse en caché. Los shaders también deben guardarse
+en caché nuevamente después de actualizar Godot, actualizar controladores gráficos o cambiar
+de tarjeta gráfica.</p>
 <p>Si el problema persiste después del primer arranque, esto es un problema conocido &lt;<a class="reference external" href="https://github.com/godotengine/godot/issues/20566">https://github.com/godotengine/godot/issues/20566</a>&gt;`__ en Windows cuando se tienen conectados periféricos USB específicos. En particular, el software iCUE de Corsair parece ser el causante del fallo. Intenta actualizar los controladores de tus periféricos USB a su última versión. Si el error persiste, debes desconectar los periféricos defectuosos antes de abrir el editor. A continuación, puedes volver a conectar el periférico.</p>
 <p>Los cortafuegos como Portmaster también pueden bloquear el puerto de depuración. Esto provoca que el proyecto tarde mucho tiempo en iniciarse, mientras que no se pueden utilizar las funciones de depuración en el editor (como ver la salida <code class="docutils literal notranslate"><span class="pre">print()</span></code>). Puedes solucionar esto cambiando el puerto de depuración utilizado por el proyecto en la Configuración del Editor (<strong>Red &gt; Depuración &gt; Puerto Remoto</strong>). El valor por defecto es <code class="docutils literal notranslate"><span class="pre">6007</span></code>; prueba con otro valor que sea mayor que <code class="docutils literal notranslate"><span class="pre">1024</span></code>, como <code class="docutils literal notranslate"><span class="pre">7007</span></code>.</p>
 <p>En Windows, al cargar el proyecto por primera vez tras encender el PC, Windows Defender hará que la validación de la caché del sistema de archivos al iniciar el proyecto tarde considerablemente más. Esto es especialmente evidente en proyectos con una gran cantidad de archivos. Considera agregar la carpeta del proyecto a la lista de exclusiones. Para ello, ve a Protección contra virus y amenazas &gt; Configuración de protección contra virus y amenazas &gt; Agregar o quitar exclusiones.</p>
@@ -13128,10 +13128,10 @@ graphics cards.</p>
 <ul class="simple">
 <li><p><strong>NVIDIA (Windows):</strong> Abre el menú de inicio y selecciona <strong>Panel de Control de NVIDIA</strong>. Abre la pestaña <strong>Administrar configuración 3D</strong> a la izquierda. En la lista del medio, desplázate hasta <strong>Antialiasing Aproximado Rápido</strong> y ajústalo a <strong>Controlado por la Aplicación</strong>.</p></li>
 <li><p><strong>NVIDIA (Linux):</strong> Abre el menú de aplicaciones y selecciona <strong>Configuración de NVIDIA X</strong>. Elige <strong>Configuración de Antialiasing</strong> a la izquierda y desmarca <strong>Habilitar FXAA</strong>.</p></li>
-<li><p><strong>AMD (Windows):</strong> Open the start menu and choose <strong>AMD Software</strong>. Click the
-settings &quot;cog&quot; icon in the top-right corner. Go to the <strong>Graphics</strong> tab,
-scroll to the bottom and click <strong>Advanced</strong> to unfold its settings. Disable
-<strong>Morphological Antialiasing</strong>.</p></li>
+<li><p><strong>AMD (Windows):</strong> Abre el menú de inicio y selecciona <strong>AMD Software</strong>. Haz clic en el
+icono de &quot;engranaje&quot; de configuración en la esquina superior derecha. Ve a la pestaña <strong>Gráficos</strong>,
+desplázate hasta el final y haz clic en <strong>Avanzado</strong> para desplegar sus ajustes. Desactiva
+<strong>Antialiasing Morfológico</strong>.</p></li>
 </ul>
 <p>Utilidades de terceros independientes de proveedores, como vkBasalt, también pueden forzar la nitidez o el FXAA en todas las aplicaciones Vulkan. Es posible que tambien desees verificar su configuración.</p>
 <p>Luego de cambiar las opciones en el controlador gráfico o las herramientas de terceros para ello, reinicie Godot para hacer los cambios efectivos.</p>
@@ -13139,11 +13139,11 @@ scroll to the bottom and click <strong>Advanced</strong> to unfold its settings.
 </section>
 <section id="the-editor-project-freezes-or-displays-glitched-visuals-after-resuming-the-pc-from-suspend">
 <h2>El editor/proyecto se congela o muestra fallos visuales después de reanudar el PC desde la suspensión<a class="headerlink" href="#the-editor-project-freezes-or-displays-glitched-visuals-after-resuming-the-pc-from-suspend" title="Link to this heading"></a></h2>
-<p>This is a known issue on Linux with NVIDIA graphics when using the proprietary
-driver. There is no definitive fix yet, as suspend on Linux + NVIDIA is often
-buggy when OpenGL or Vulkan is involved. The Compatibility rendering method
-(which uses OpenGL) is generally less prone to suspend-related issues compared
-to the Forward+ and Mobile renderers (which use Vulkan).</p>
+<p>Este es un problema conocido en Linux con gráficos NVIDIA al usar el controlador
+propietario. Todavía no hay una solución definitiva, ya que la suspensión en Linux + NVIDIA suele
+tener errores cuando interviene OpenGL o Vulkan. El método de renderizado Compatibility
+(que utiliza OpenGL) es generalmente menos propenso a problemas relacionados con la suspensión en comparación
+con los renderizadores Forward+ y Mobile (que utilizan Vulkan).</p>
 <p>El controlador de NVIDIA ofrece una opción <em>experimental</em> <cite>para preservar la memoria de video después de la suspensión &lt;https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Preserve_video_memory_after_supend&gt;__</cite>, la cual podría resolver este problema. Se ha informado que esta opción funciona mejor con versiones más recientes del controlador de NVIDIA.</p>
 <p>Para evitar la pérdida de trabajo, asegúrate de guardar todo tu progreso y escenas antes de suspender tu PC.</p>
 </section>
@@ -13155,11 +13155,11 @@ to the Forward+ and Mobile renderers (which use Vulkan).</p>
 </section>
 <section id="the-project-crashes-frequently-or-instantly-after-opening-it-from-the-project-manager">
 <h2>El proyecto se bloquea con frecuencia o instantáneamente después de abrirlo desde el administrador de proyectos.<a class="headerlink" href="#the-project-crashes-frequently-or-instantly-after-opening-it-from-the-project-manager" title="Link to this heading"></a></h2>
-<p>This could be caused by a number of things such as an editor plugin, GDExtension
-addon, or something else. In this scenario it's recommended that you open the
-project in recovery mode, and attempt to find and fix whatever is causing the
-crashes. See the <a class="reference internal" href="editor/project_manager.html#doc-project-manager"><span class="std std-ref">Project Manager page</span></a> for more
-information.</p>
+<p>Esto podría deberse a varias razones, como un plugin del editor, un complemento
+GDExtension u otra causa. En este escenario se recomienda abrir el
+proyecto en modo de recuperación e intentar encontrar y solucionar lo que esté provocando los
+bloqueos. Consulta la <a class="reference internal" href="editor/project_manager.html#doc-project-manager"><span class="std std-ref">página del Administrador de Proyectos</span></a> para más
+información.</p>
 </section>
 </section>
 

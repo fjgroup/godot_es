@@ -13041,17 +13041,17 @@
   <section id="player-scene-and-input-actions">
 <span id="doc-first-3d-game-player-scene-and-input"></span><h1>Escena del jugador y acciones de entrada<a class="headerlink" href="#player-scene-and-input-actions" title="Link to this heading"></a></h1>
 <p>En las próximas dos lecciones, diseñaremos la escena del jugador, registraremos acciones de entrada personalizadas y codificaremos el movimiento del jugador. Al final, tendrás un personaje jugable que se mueve en ocho direcciones.</p>
-<p>Create a new scene by going to the <strong>Scene</strong> menu in the top-left
-and clicking <strong>New Scene</strong>.</p>
+<p>Crea una nueva escena yendo al menú <strong>Escena</strong> en la parte superior izquierda
+y haciendo clic en <strong>Nueva Escena</strong>.</p>
 <img alt="../../_images/new_scene.webp" src="../../_images/new_scene.webp" />
 <p>Haz clic en el botón <strong>Otro Nodo</strong> y selecciona el tipo de nodo <code class="docutils literal notranslate"><span class="pre">CharacterBody3D</span></code> para crear un <a class="reference internal" href="../../classes/class_characterbody3d.html#class-characterbody3d"><span class="std std-ref">CharacterBody3D</span></a> como nodo raíz.</p>
 <img alt="../../_images/add_character_body3D.webp" src="../../_images/add_character_body3D.webp" />
-<p>Rename the <a class="reference internal" href="../../classes/class_characterbody3d.html#class-characterbody3d"><span class="std std-ref">CharacterBody3D</span></a> to <code class="docutils literal notranslate"><span class="pre">Player</span></code>.
-Character bodies are complementary to the area and rigid bodies used in the 2D
-game tutorial. Like rigid bodies, they can move and collide with the
-environment, but instead of being controlled by the physics engine, <strong>you</strong> dictate
-their movement. You will see how we use the node's unique features when we code
-the jump and squash mechanics.</p>
+<p>Renombra el <a class="reference internal" href="../../classes/class_characterbody3d.html#class-characterbody3d"><span class="std std-ref">CharacterBody3D</span></a> a <code class="docutils literal notranslate"><span class="pre">Player</span></code>.
+Los cuerpos de personajes (character bodies) son complementarios a las áreas y cuerpos rígidos usados en el tutorial
+del juego 2D. Al igual que los cuerpos rígidos, pueden moverse y colisionar con el
+entorno, pero en lugar de ser controlados por el motor de física, <strong>tú</strong> dictas
+su movimiento. Verás cómo utilizamos las características únicas del nodo cuando programemos
+las mecánicas de salto y aplastamiento.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
 <p>Para obtener más información sobre los diferentes tipos de nodos de física, véase <a class="reference internal" href="../../tutorials/physics/physics_introduction.html#doc-physics-introduction"><span class="std std-ref">Introducción a la física</span></a>.</p>
@@ -13065,53 +13065,53 @@ the jump and squash mechanics.</p>
 <img alt="../../_images/scene_structure.webp" src="../../_images/scene_structure.webp" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">.glb</span></code> files contain 3D scene data based on the open source glTF 2.0
-specification. They're a modern and powerful alternative to a proprietary format
-like FBX, which Godot also supports. To produce these files, we designed the
-model in <a class="reference external" href="https://www.blender.org/">Blender 3D</a> and exported it to glTF.</p>
+<p>Los archivos <code class="docutils literal notranslate"><span class="pre">.glb</span></code> contienen datos de escenas 3D basados en la especificación
+de código abierto glTF 2.0. Son una alternativa moderna y potente a formatos propietarios
+como FBX, que Godot también soporta. Para producir estos archivos, diseñamos el
+modelo en <a class="reference external" href="https://www.blender.org/">Blender 3D</a> y lo exportamos a glTF.</p>
 </div>
-<p>As with all kinds of physics nodes, we need a collision shape for our character
-to collide with the environment. Select the <code class="docutils literal notranslate"><span class="pre">Player</span></code> node again and add a child node
-<a class="reference internal" href="../../classes/class_collisionshape3d.html#class-collisionshape3d"><span class="std std-ref">CollisionShape3D</span></a>. In the <strong>Inspector</strong>, on the <strong>Shape</strong> property,
-add a new <a class="reference internal" href="../../classes/class_sphereshape3d.html#class-sphereshape3d"><span class="std std-ref">SphereShape3D</span></a>.</p>
+<p>Como ocurre con todo tipo de nodos de física, necesitamos una forma de colisión para que nuestro personaje
+pueda colisionar con el entorno. Selecciona nuevamente el nodo <code class="docutils literal notranslate"><span class="pre">Player</span></code> y agrega un nodo hijo
+<a class="reference internal" href="../../classes/class_collisionshape3d.html#class-collisionshape3d"><span class="std std-ref">CollisionShape3D</span></a>. En el <strong>Inspector</strong>, en la propiedad <strong>Shape</strong>,
+agrega una nueva <a class="reference internal" href="../../classes/class_sphereshape3d.html#class-sphereshape3d"><span class="std std-ref">SphereShape3D</span></a>.</p>
 <img alt="../../_images/add_capsuleshape3d.webp" src="../../_images/add_capsuleshape3d.webp" />
 <p>La wireframe de la esfera aparecerá debajo del personaje.</p>
 <img alt="../../_images/sphere_shape.png" src="../../_images/sphere_shape.png" />
 <p>Será la forma que use el motor de física para colisionar con el entorno, por lo que queremos que se ajuste mejor al modelo 3D. Redúcelo un poco arrastrando el punto naranja en la ventana gráfica. Mi esfera tiene un radio de unos <code class="docutils literal notranslate"><span class="pre">0.8</span></code> metros.</p>
 <p>Luego, mueva la forma hacia arriba para que su parte inferior se alinee aproximadamente con el plano de la cuadrícula.</p>
 <img alt="../../_images/moving_the_sphere_up.png" src="../../_images/moving_the_sphere_up.png" />
-<p>To make moving the shape easier, you can toggle the model's visibility by clicking
-the <strong>eye icon</strong> next to the <code class="docutils literal notranslate"><span class="pre">Character</span></code> or the <code class="docutils literal notranslate"><span class="pre">Pivot</span></code> nodes.</p>
+<p>Para facilitar el movimiento de la forma, puedes alternar la visibilidad del modelo haciendo clic
+en el <strong>icono del ojo</strong> junto a los nodos <code class="docutils literal notranslate"><span class="pre">Character</span></code> o <code class="docutils literal notranslate"><span class="pre">Pivot</span></code>.</p>
 <img alt="../../_images/toggling_visibility.webp" src="../../_images/toggling_visibility.webp" />
 <p>Guarda la escena como <code class="docutils literal notranslate"><span class="pre">player.tscn</span></code>.</p>
 <p>Con los nodos listos, casi podemos comenzar a codificar. Pero primero, necesitamos definir algunas acciones de entrada.</p>
 <section id="creating-input-actions">
 <span id="doc-first-3d-game-input-actions"></span><h2>Crear acciones de entrada<a class="headerlink" href="#creating-input-actions" title="Link to this heading"></a></h2>
 <p>Para mover el personaje, escucharemos la entrada del jugador, como presionar las teclas de flecha. En Godot, aunque podríamos escribir todas las combinaciones de teclas en código, hay un poderoso sistema que te permite asignar una etiqueta a un conjunto de teclas y botones. Esto simplifica nuestros scripts y los hace más legibles.</p>
-<p>This system is the Input Map. To access its editor, head to the <strong>Project</strong> menu
-and select <strong>Project Settings...</strong>.</p>
+<p>Este sistema es el Mapa de Entrada (Input Map). Para acceder a su editor, dirígete al menú <strong>Proyecto</strong>
+y selecciona <strong>Ajustes del Proyecto...</strong>.</p>
 <img alt="../../_images/project_settings.webp" src="../../_images/project_settings.webp" />
-<p>At the top, there are multiple tabs. Click on <strong>Input Map</strong>. This window allows
-you to add new actions at the top; they are your labels. In the bottom part, you
-can bind keys to these actions.</p>
+<p>En la parte superior hay múltiples pestañas. Haz clic en <strong>Mapa de Entrada</strong> (Input Map). Esta ventana te permite
+agregar nuevas acciones en la parte superior; estas son tus etiquetas. En la parte inferior, puedes
+vincular teclas y botones a estas acciones.</p>
 <img alt="../../_images/input_map_tab.webp" src="../../_images/input_map_tab.webp" />
-<p>Godot projects come with some predefined actions designed for user interface
-design (see above screenshot). These will become visible if you enable the
-<strong>Show Built-in Actions</strong> toggle. We could use these here, but instead we're
-defining our own to support gamepads. Leave <strong>Show Built-in Actions</strong> disabled.</p>
+<p>Los proyectos de Godot vienen con algunas acciones predefinidas pensadas para el diseño de interfaces
+de usuario (ver captura arriba). Estas se vuelven visibles si activas la opción
+<strong>Mostrar acciones integradas</strong> (Show Built-in Actions). Podríamos utilizarlas aquí, pero en su lugar
+vamos a definir las nuestras para dar soporte a gamepads. Deja <strong>Mostrar acciones integradas</strong> desactivado.</p>
 <p>Vamos a nombrar nuestras acciones <code class="docutils literal notranslate"><span class="pre">move_left</span></code>, <code class="docutils literal notranslate"><span class="pre">move_right</span></code>, <code class="docutils literal notranslate"><span class="pre">move_forward</span></code>, <code class="docutils literal notranslate"><span class="pre">move_back</span></code> y <code class="docutils literal notranslate"><span class="pre">jump</span></code>.</p>
-<p>To add an action, write its name in the bar at the top and press Enter or click the <strong>Add</strong> button.</p>
+<p>Para agregar una acción, escribe su nombre en la barra superior y presiona Enter o haz clic en el botón <strong>Añadir</strong> (Add).</p>
 <img alt="../../_images/adding_action.webp" src="../../_images/adding_action.webp" />
 <p>Crea las siguientes cinco acciones:</p>
 <img alt="../../_images/actions_list_empty.webp" src="../../_images/actions_list_empty.webp" />
-<p>To bind a key or button to an action, click the &quot;<strong>+</strong>&quot; button to its right. Do this
-for <code class="docutils literal notranslate"><span class="pre">move_left</span></code>. Press the left arrow key and click <strong>OK</strong>.</p>
+<p>Para vincular una tecla o botón a una acción, haz clic en el botón &quot;<strong>+</strong>&quot; a su derecha. Haz esto
+para <code class="docutils literal notranslate"><span class="pre">move_left</span></code>. Presiona la tecla de flecha izquierda y haz clic en <strong>Aceptar</strong> (OK).</p>
 <img alt="../../_images/left_inputmap.webp" src="../../_images/left_inputmap.webp" />
 <p>Asigna también la tecla <kbd class="kbd docutils literal notranslate">A</kbd> a la acción <code class="docutils literal notranslate"><span class="pre">move_left</span></code>.</p>
 <img alt="../../_images/keyboard_keys.webp" src="../../_images/keyboard_keys.webp" />
-<p>Let's now add support for a gamepad's left joystick. Click the &quot;<strong>+</strong>&quot; button again
-but this time, select the input within the input tree yourself.
-Select the negative X axis of the left joystick under <strong>Joypad Axes</strong>.</p>
+<p>Añadamos ahora soporte para el joystick izquierdo de un gamepad. Haz clic en el botón &quot;<strong>+</strong>&quot; nuevamente,
+pero esta vez selecciona la entrada dentro del árbol de entradas manualmente.
+Selecciona el eje X negativo del joystick izquierdo en <strong>Ejes de Joypad</strong> (Joypad Axes).</p>
 <img alt="../../_images/joystick_axis_input.webp" src="../../_images/joystick_axis_input.webp" />
 <p>Deja los otros valores por defecto y presiona <strong>OK</strong>.</p>
 <div class="admonition note">
@@ -13120,8 +13120,8 @@ Select the negative X axis of the left joystick under <strong>Joypad Axes</stron
 </div>
 <p>Haz lo mismo para otras acciones de entrada. Por ejemplo, vincula la flecha derecha, D y el eje positivo del joystick izquierdo a <code class="docutils literal notranslate"><span class="pre">move_right</span></code>. Después de vincular todas las teclas, su interfaz debería verse así.</p>
 <img alt="../../_images/move_inputs_mapped.webp" src="../../_images/move_inputs_mapped.webp" />
-<p>The final action to set up is the <code class="docutils literal notranslate"><span class="pre">jump</span></code> action. Bind the Space key and the gamepad's
-A button located under <strong>Joypad Buttons</strong>.</p>
+<p>La última acción que configuraremos es la acción <code class="docutils literal notranslate"><span class="pre">jump</span></code>. Vincula la tecla Espacio y el botón A
+del gamepad ubicado en <strong>Botones de Joypad</strong> (Joypad Buttons).</p>
 <img alt="../../_images/joy_button_option.webp" src="../../_images/joy_button_option.webp" />
 <p>Tu acción de entrada jump debería verse así.</p>
 <img alt="../../_images/jump_input_action.webp" src="../../_images/jump_input_action.webp" />

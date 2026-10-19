@@ -1894,7 +1894,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">File and data I/O</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Entrada/Salida de archivos y datos</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="background_loading.html">Carga en segundo plano</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="background_loading.html#using-resourceloader">Using ResourceLoader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="background_loading.html#example">Ejemplo</a></li>
@@ -12978,7 +12978,7 @@
 	<ul class="wy-breadcrumbs">
 		
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">File and data I/O</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Entrada/Salida de archivos y datos</a></li>
       <li class="breadcrumb-item active">API de serialización Binaria</li>
 	</ul>
 </li>
@@ -13042,21 +13042,21 @@
 <span id="doc-binary-serialization-api"></span><h1>API de serialización Binaria<a class="headerlink" href="#binary-serialization-api" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>Godot has a serialization API based on Variant. It's used for
-converting data types to an array of bytes efficiently. This API is exposed
-via the global <a class="reference internal" href="../../classes/class_%40globalscope.html#class-globalscope-method-bytes-to-var"><span class="std std-ref">bytes_to_var()</span></a>
-and <a class="reference internal" href="../../classes/class_%40globalscope.html#class-globalscope-method-var-to-bytes"><span class="std std-ref">var_to_bytes()</span></a> functions,
-but it is also used in the <code class="docutils literal notranslate"><span class="pre">get_var</span></code> and <code class="docutils literal notranslate"><span class="pre">store_var</span></code> methods of
-<a class="reference internal" href="../../classes/class_fileaccess.html#class-fileaccess"><span class="std std-ref">FileAccess</span></a> as well as the packet APIs for <a class="reference internal" href="../../classes/class_packetpeer.html#class-packetpeer"><span class="std std-ref">PacketPeer</span></a>.
-This format is <em>not</em> used for binary scenes and resources.</p>
+<p>Godot dispone de una API de serialización basada en Variant. Se utiliza para
+convertir tipos de datos en un arreglo de bytes de forma eficiente. Esta API está expuesta
+a través de las funciones globales <a class="reference internal" href="../../classes/class_%40globalscope.html#class-globalscope-method-bytes-to-var"><span class="std std-ref">bytes_to_var()</span></a>
+y <a class="reference internal" href="../../classes/class_%40globalscope.html#class-globalscope-method-var-to-bytes"><span class="std std-ref">var_to_bytes()</span></a>,
+pero también se utiliza en los métodos <code class="docutils literal notranslate"><span class="pre">get_var</span></code> y <code class="docutils literal notranslate"><span class="pre">store_var</span></code> de
+<a class="reference internal" href="../../classes/class_fileaccess.html#class-fileaccess"><span class="std std-ref">FileAccess</span></a> así como en las APIs de paquetes para <a class="reference internal" href="../../classes/class_packetpeer.html#class-packetpeer"><span class="std std-ref">PacketPeer</span></a>.
+Este formato <em>no</em> se utiliza para escenas ni recursos binarios.</p>
 </section>
 <section id="full-objects-vs-object-instance-ids">
-<h2>Full Objects vs Object instance IDs<a class="headerlink" href="#full-objects-vs-object-instance-ids" title="Link to this heading"></a></h2>
-<p>If a variable is serialized with <code class="docutils literal notranslate"><span class="pre">full_objects</span> <span class="pre">=</span> <span class="pre">true</span></code>, then any Objects
-contained in the variable will be serialized and included in the result. This
-is recursive.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">full_objects</span> <span class="pre">=</span> <span class="pre">false</span></code>, then only the instance IDs will be serialized for
-any Objects contained in the variable.</p>
+<h2>Objetos completos vs IDs de instancia de objetos<a class="headerlink" href="#full-objects-vs-object-instance-ids" title="Link to this heading"></a></h2>
+<p>Si una variable se serializa con <code class="docutils literal notranslate"><span class="pre">full_objects</span> <span class="pre">=</span> <span class="pre">true</span></code>, todos los Objetos
+contenidos en la variable serán serializados e incluidos en el resultado. Esto
+es recursivo.</p>
+<p>Si <code class="docutils literal notranslate"><span class="pre">full_objects</span> <span class="pre">=</span> <span class="pre">false</span></code>, solo se serializarán los IDs de instancia para
+los Objetos contenidos en la variable.</p>
 </section>
 <section id="packet-specification">
 <h2>Especificación de paquete<a class="headerlink" href="#packet-specification" title="Link to this heading"></a></h2>
@@ -13804,13 +13804,13 @@ any Objects contained in the variable.</p>
 <tr class="row-even"><td><p>4</p></td>
 <td><p>4</p></td>
 <td><p>Entero</p></td>
-<td><p>Zero (32-bit signed integer)</p></td>
+<td><p>Cero (entero con signo de 32 bits)</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="full-objects-disabled">
-<h4><code class="docutils literal notranslate"><span class="pre">full_objects</span></code> disabled<a class="headerlink" href="#full-objects-disabled" title="Link to this heading"></a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">full_objects</span></code> desactivado<a class="headerlink" href="#full-objects-disabled" title="Link to this heading"></a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Ajuste</p></th>
@@ -13823,13 +13823,13 @@ any Objects contained in the variable.</p>
 <tr class="row-even"><td><p>4</p></td>
 <td><p>8</p></td>
 <td><p>Entero</p></td>
-<td><p>The Object instance ID (64-bit signed integer)</p></td>
+<td><p>El ID de instancia del Objeto (entero con signo de 64 bits)</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="full-objects-enabled">
-<h4><code class="docutils literal notranslate"><span class="pre">full_objects</span></code> enabled<a class="headerlink" href="#full-objects-enabled" title="Link to this heading"></a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">full_objects</span></code> activado<a class="headerlink" href="#full-objects-enabled" title="Link to this heading"></a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Ajuste</p></th>
@@ -13842,12 +13842,12 @@ any Objects contained in the variable.</p>
 <tr class="row-even"><td><p>4</p></td>
 <td><p>4</p></td>
 <td><p>Entero</p></td>
-<td><p>Class name (String length)</p></td>
+<td><p>Nombre de clase (longitud de String)</p></td>
 </tr>
 <tr class="row-odd"><td><p>8</p></td>
 <td><p>X</p></td>
 <td><p>Bytes</p></td>
-<td><p>Class name (UTF-8 encoded string)</p></td>
+<td><p>Nombre de clase (cadena codificada en UTF-8)</p></td>
 </tr>
 <tr class="row-even"><td><p>X+8</p></td>
 <td><p>4</p></td>
@@ -13869,30 +13869,30 @@ any Objects contained in the variable.</p>
 <tr class="row-even"><td><p>Y</p></td>
 <td><p>4</p></td>
 <td><p>Entero</p></td>
-<td><p>Property name (String length)</p></td>
+<td><p>Nombre de propiedad (longitud de String)</p></td>
 </tr>
 <tr class="row-odd"><td><p>Y+4</p></td>
 <td><p>Z</p></td>
 <td><p>Bytes</p></td>
-<td><p>Property name (UTF-8 encoded string)</p></td>
+<td><p>Nombre de propiedad (cadena codificada en UTF-8)</p></td>
 </tr>
 <tr class="row-even"><td><p>Y+4+Z</p></td>
 <td><p>W</p></td>
 <td><p>&lt;variable&gt;</p></td>
-<td><p>Property value, using this same format</p></td>
+<td><p>Valor de propiedad, usando este mismo formato</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Not all properties are included. Only properties that are configured with the
+<p>No todas las propiedades están incluidas. Solo las propiedades configuradas con el flag
 <a class="reference internal" href="../../classes/class_%40globalscope.html#class-globalscope-constant-property-usage-storage"><span class="std std-ref">PROPERTY_USAGE_STORAGE</span></a>
-flag set will be serialized. You can add a new usage flag to a property by overriding the
+serán serializadas. Puedes agregar un nuevo flag de uso a una propiedad sobrescribiendo el método
 <a class="reference internal" href="../../classes/class_object.html#class-object-private-method-get-property-list"><span class="std std-ref">_get_property_list</span></a>
-method in your class. You can also check how property usage is configured by
-calling <code class="docutils literal notranslate"><span class="pre">Object._get_property_list</span></code> See
-<a class="reference internal" href="../../classes/class_%40globalscope.html#enum-globalscope-propertyusageflags"><span class="std std-ref">PropertyUsageFlags</span></a> for the
-possible usage flags.</p>
+en tu clase. También puedes verificar cómo está configurado el uso de la propiedad llamando a
+<code class="docutils literal notranslate"><span class="pre">Object._get_property_list</span></code>. Consulta
+<a class="reference internal" href="../../classes/class_%40globalscope.html#enum-globalscope-propertyusageflags"><span class="std std-ref">PropertyUsageFlags</span></a> para ver
+los flags de uso disponibles.</p>
 </div>
 </section>
 </section>
@@ -14052,7 +14052,7 @@ possible usage flags.</p>
 <tr class="row-odd"><td><p>8..8+longitud*8</p></td>
 <td><p>8</p></td>
 <td><p>Entero</p></td>
-<td><p>64-bit IEEE 754 double-precision float</p></td>
+<td><p>Flotante IEEE 754 de precisión doble de 64 bits</p></td>
 </tr>
 </tbody>
 </table>

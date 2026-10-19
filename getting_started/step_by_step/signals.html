@@ -13096,9 +13096,9 @@
 <p>Allí puedes conectar la señal al nodo Sprite2D. El nodo necesita un método receptor, una función que Godot llamará cuando el Button emita la señal. El editor genera uno para ti. Por convención, llamamos a estos métodos de retrollamada o callback &quot;_on_nombre_nodo_nombre_señal&quot;. Aquí, será &quot;_on_button_pressed&quot;.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When connecting signals via the editor's Signals dock, you can use two
-modes. The simple one only allows you to connect to nodes that have a
-script attached to them and creates a new callback function on them.</p>
+<p>Al conectar señales a través del panel Señales del editor, puedes usar dos
+modos. El modo simple solo te permite conectar a nodos que tengan un script
+adjunto y crea una nueva función de retrollamada (callback) en ellos.</p>
 <img alt="../../_images/signals_advanced_connection_window.webp" src="../../_images/signals_advanced_connection_window.webp" />
 <p>La vista avanzada le permite conectarse a cualquier nodo y a cualquier función integrada, agregar argumentos a la función de devolución de llamada y configurar opciones. Puede alternar el modo en la esquina inferior derecha de la ventana haciendo clic en el botón <span class="role-button role-ui">Avanzado</span>.</p>
 </div>
@@ -13396,10 +13396,10 @@ script attached to them and creates a new callback function on them.</p>
 </div></div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The signal arguments show up in the editor's Signals dock, and Godot can use
-them to generate callback functions for you. However, you can still emit any
-number of arguments when you emit signals. So it's up to you to emit the
-correct values.</p>
+<p>Los argumentos de la señal aparecen en el panel Señales del editor, y Godot puede
+usarlos para generar funciones de retrollamada automáticamente. Sin embargo, aún puedes
+emitir cualquier cantidad de argumentos al emitir señales, por lo que depende de ti emitir
+los valores correctos.</p>
 </div>
 <p>Para emitir valores junto con la señal, agrégualos como argumentos extra a la función <code class="docutils literal notranslate"><span class="pre">emit()</span></code>:</p>
 <div class="sphinx-tabs docutils container">
