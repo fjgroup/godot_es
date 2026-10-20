@@ -1469,27 +1469,27 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Crear videos</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#enabling-movie-maker-mode">Activar el modo Movie Maker</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#command-line-usage">Command line usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#command-line-usage">Uso desde la línea de comandos</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#choosing-an-output-format">Choosing an output format</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ogv-recommended">OGV (recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-an-output-format">Elegir un formato de salida</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ogv-recommended">OGV (recomendado)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#avi">AVI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#png">PNG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#custom">Personalizados</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom">Personalizado</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuración</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quitting-movie-maker-mode">Quitting Movie Maker mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#using-high-quality-graphics-settings">Using high-quality graphics settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rendering-at-a-higher-resolution-than-the-screen-resolution">Rendering at a higher resolution than the screen resolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#post-processing-steps">Pasos para post-procesado</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#converting-ogv-avi-video-to-mp4">Converting OGV/AVI video to MP4</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#converting-png-image-sequence-wav-audio-to-a-video">Converting PNG image sequence + WAV audio to a video</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cutting-video">Cutting video</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resizing-video">Resizing video</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#reducing-framerate">Reducing framerate</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#generating-accumulation-motion-blur-with-ffmpeg">Generating accumulation motion blur with FFmpeg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quitting-movie-maker-mode">Salir del modo Movie Maker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-high-quality-graphics-settings">Uso de configuraciones gráficas de alta calidad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendering-at-a-higher-resolution-than-the-screen-resolution">Renderizar a una resolución mayor que la de la pantalla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#post-processing-steps">Pasos de posprocesamiento</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#converting-ogv-avi-video-to-mp4">Convertir video OGV/AVI a MP4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converting-png-image-sequence-wav-audio-to-a-video">Convertir secuencia de imágenes PNG + audio WAV a video</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cutting-video">Recortar video</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resizing-video">Redimensionar video</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reducing-framerate">Reducir la tasa de fotogramas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-accumulation-motion-blur-with-ffmpeg">Generar desenfoque de movimiento por acumulación con FFmpeg</a></li>
 </ul>
 </li>
 </ul>
@@ -13053,257 +13053,238 @@
 <p>Si ya conoces el flujo de trabajo de Godot, quizá te resulte más productivo usarlo para renderizar video que Blender. Sin embargo, los renderizadores para uso fuera de tiempo real, como Cycles y Eevee, pueden ofrecer mejores resultados visuales a costa de tiempos de renderizado más largos.</p>
 <p>Frente a la grabación de video en tiempo real, la grabación sin tiempo real ofrece varias ventajas:</p>
 <ul class="simple">
-<li><p>Usa cualquier configuración gráfica (incluyendo configuraciones extremadamente demandantes) sin importar la capacidad de tu hardware. El video de salida <em>siempre</em> tendrá el mismo ritmo de fotogramas; nunca mostrarpa fotogramas perdidos o trastabilleo. Un mejor hardware permitirá renderizar una animación dada en menos tiempo, pero el producto visual permanece idéntico.</p></li>
-<li><p>Renderizar a una resolución superior a la de la pantalla sin depender de herramientas específicas del controlador, como Dynamic Super Resolution de NVIDIA o Virtual Super Resolution de AMD.</p></li>
-<li><p>Renderizar a una frecuencia de fotogramas superior a la del video y luego <a class="reference internal" href="#doc-creating-movies-motion-blur"><span class="std std-ref">aplicar un posprocesamiento para generar desenfoque de movimiento de alta calidad</span></a>. Esto también mejora efectos que convergen a lo largo de varios fotogramas, como el antialiasing temporal, SDFGI y la niebla volumétrica.</p></li>
+<li><p>Usa cualquier configuración gráfica (incluidas configuraciones extremadamente exigentes) independientemente de las capacidades de tu hardware. El video de salida <em>siempre</em> tendrá un ritmo de fotogramas (<em>frame pacing</em>) perfecto; nunca presentará caídas de fotogramas ni tirones (<em>stuttering</em>). Un hardware más rápido te permitirá renderizar una animación determinada en menos tiempo, pero el resultado visual permanecerá idéntico.</p></li>
+<li><p>Renderizar a una resolución mayor que la de la pantalla, sin tener que depender de herramientas específicas del controlador como Dynamic Super Resolution de NVIDIA o Virtual Super Resolution de AMD.</p></li>
+<li><p>Renderizar a una tasa de fotogramas superior a la tasa objetivo del video, y luego <a class="reference internal" href="#doc-creating-movies-motion-blur"><span class="std std-ref">aplicar posprocesamiento para generar desenfoque de movimiento de alta calidad</span></a>. Esto también hace que los efectos que convergen a lo largo de varios fotogramas (como el antialiasing temporal, SDFGI y la niebla volumétrica) se vean mejor.</p></li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p><strong>Esta función no está diseñada para capturar partidas en tiempo real.</strong></p>
-<p>Para grabar partidas, conviene usar herramientas como <a class="reference external" href="https://obsproject.com/">OBS Studio</a> o <a class="reference external" href="https://www.maartenbaert.be/simplescreenrecorder/">SimpleScreenRecorder</a>, que capturan el compositor mucho mejor que Godot mediante Vulkan u OpenGL nativos.</p>
-<p>Aun así, si tu juego se ejecuta casi en tiempo real durante la captura, puedes usar esta función; ten en cuenta que no escucharás el audio, ya que se guarda directamente en el archivo de video.</p>
+<p><strong>Esta función no está diseñada para capturar partidas en tiempo real durante el juego.</strong></p>
+<p>Los jugadores deben usar herramientas como <a class="reference external" href="https://obsproject.com/">OBS Studio</a> o <a class="reference external" href="https://www.maartenbaert.be/simplescreenrecorder/">SimpleScreenRecorder</a> para grabar videos de partidas, ya que realizan un trabajo mucho mejor interceptando el compositor de lo que Godot puede hacer usando Vulkan u OpenGL de forma nativa.</p>
+<p>Dicho esto, si tu juego se ejecuta a velocidades cercanas al tiempo real al capturar, aún puedes usar esta función (pero carecerá de reproducción de sonido audible, ya que el sonido se guarda directamente en el archivo de video).</p>
 </div>
 <section id="enabling-movie-maker-mode">
 <h2>Activar el modo Movie Maker<a class="headerlink" href="#enabling-movie-maker-mode" title="Link to this heading"></a></h2>
-<p>Para activar Movie Maker, haz clic en el botón con el icono de rollo de película, en la esquina superior derecha del editor, <em>antes</em> de ejecutar el proyecto:</p>
+<p>Para activar el modo Movie Maker, haz clic en el botón con el icono de "rollo de película" en la esquina superior derecha del editor <em>antes</em> de ejecutar el proyecto:</p>
 <figure class="align-center" id="id1">
-<img alt="Movie Maker está desactivado; haz clic en el icono del rollo de película para activarlo" src="../../_images/creating_movies_enable_movie_maker_mode.webp" />
+<img alt="El modo Movie Maker está desactivado; haz clic en el icono del rollo de película para activarlo" src="../../_images/creating_movies_enable_movie_maker_mode.webp" />
 <figcaption>
-<p><span class="caption-text">Movie Maker está desactivado; haz clic en el icono del rollo de película para activarlo</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">El modo Movie Maker está desactivado; haz clic en el icono del rollo de película para activarlo</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Aparecerá un menú con opciones para activar Movie Maker y abrir sus ajustes. Cuando está activo, el icono muestra un fondo del color de acento:</p>
+<p>Se mostrará un menú con opciones para activar el modo Movie Maker e ir a la configuración. El icono adquiere un fondo que coincide con el color de acento cuando el modo Movie Maker está activado:</p>
 <figure class="align-center" id="id2">
-<img alt="Movie Maker está activado; vuelve a hacer clic en el icono del rollo de película para desactivarlo" src="../../_images/creating_movies_disable_movie_maker_mode.webp" />
+<img alt="El modo Movie Maker está activado; vuelve a hacer clic en el icono del rollo de película para desactivarlo" src="../../_images/creating_movies_disable_movie_maker_mode.webp" />
 <figcaption>
-<p><span class="caption-text">Movie Maker está activado; vuelve a hacer clic en el icono del rollo de película para desactivarlo</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">El modo Movie Maker está activado; vuelve a hacer clic en el icono del rollo de película para desactivarlo</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>El estado de Movie Maker <strong>no</strong> se conserva al cerrar el editor. Si lo necesitas, vuelve a activarlo después de reiniciar el editor.</p>
+<p>El estado de Movie Maker <strong>no</strong> se conserva al salir del editor, por lo que debes volver a activar el modo Movie Maker tras reiniciar el editor si es necesario.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Toggling Movie Maker mode while running the project will not have any
-effect until the project is restarted.</p>
+<p>Alternar el modo Movie Maker mientras se ejecuta el proyecto no tendrá ningún efecto hasta que se reinicie el proyecto.</p>
 </div>
-<p>Before you can record video by running the project, you still need to configure
-the output file path. This path can be set for all scenes in the Project Settings:</p>
+<p>Antes de poder grabar video ejecutando el proyecto, todavía necesitas configurar la ruta del archivo de salida. Esta ruta se puede configurar para todas las escenas en los Ajustes del Proyecto:</p>
 <figure class="align-center" id="id3">
-<img alt="Movie Maker project settings (with Advanced toggle enabled)" src="../../_images/creating_movies_project_settings.webp" />
+<img alt="Ajustes del proyecto de Movie Maker (con la opción Avanzado activada)" src="../../_images/creating_movies_project_settings.webp" />
 <figcaption>
-<p><span class="caption-text">Movie Maker project settings (with Advanced toggle enabled)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Ajustes del proyecto de Movie Maker (con la opción Avanzado activada)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Alternatively, you can set the output file path on a per-scene basis by adding a
-String metadata with the name <code class="docutils literal notranslate"><span class="pre">movie_file</span></code> to the scene's <strong>root node</strong>. This
-is only used when the main scene is set to the scene in question, or when
-running the scene directly by pressing <kbd class="kbd docutils literal notranslate">F6</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">R</kbd></kbd> on macOS).</p>
+<p>Alternativamente, puedes configurar la ruta del archivo de salida para cada escena agregando un metadato de tipo String con el nombre <code class="docutils literal notranslate"><span class="pre">movie_file</span></code> al <strong>nodo raíz</strong> de la escena. Esto solo se utiliza cuando la escena principal está configurada como la escena en cuestión, o al ejecutar la escena directamente presionando <kbd class="kbd docutils literal notranslate">F6</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">R</kbd></kbd> en macOS).</p>
 <figure class="align-center" id="id4">
-<img alt="Inspector view after creating a ``movie_file`` metadata of type String" src="../../_images/creating_movies_set_per_scene_metadata.webp" />
+<img alt="Vista del Inspector tras crear un metadato movie_file de tipo String" src="../../_images/creating_movies_set_per_scene_metadata.webp" />
 <figcaption>
-<p><span class="caption-text">Inspector view after creating a <code class="docutils literal notranslate"><span class="pre">movie_file</span></code> metadata of type String</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Vista del Inspector tras crear un metadato <code class="docutils literal notranslate"><span class="pre">movie_file</span></code> de tipo String</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The path specified in the project settings or metadata can be either absolute,
-or relative to the project root.</p>
-<p>Once you've configured and enabled Movie Maker mode, it will be automatically used
-when running the project from the editor.</p>
+<p>La ruta especificada en los ajustes del proyecto o en los metadatos puede ser absoluta, o relativa a la raíz del proyecto.</p>
+<p>Una vez configurado y activado el modo Movie Maker, se utilizará automáticamente al ejecutar el proyecto desde el editor.</p>
 <section id="command-line-usage">
-<h3>Command line usage<a class="headerlink" href="#command-line-usage" title="Link to this heading"></a></h3>
-<p>El Fabricante de Películas puede ser habilitado desde la <cite>línea de comandos &lt;doc_command_line_tutorial&gt;</cite>:</p>
-<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your_project</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">avi</span>
+<h3>Uso desde la línea de comandos<a class="headerlink" href="#command-line-usage" title="Link to this heading"></a></h3>
+<p>Movie Maker también se puede activar desde la <a class="reference internal" href="../editor/command_line_tutorial.html#doc-command-line-tutorial"><span class="std std-ref">línea de comandos</span></a>:</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">tu_proyecto</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">salida</span><span class="o">.</span><span class="vi">avi</span>
 </pre></div>
 </div>
-<p>If the output path is relative, then it is <strong>relative to the project folder</strong>,
-not the current working directory. In the above example, the file will be
-written to <code class="docutils literal notranslate"><span class="pre">/path/to/your_project/output.avi</span></code>. This behavior is similar to the
-<code class="docutils literal notranslate"><span class="pre">--export-release</span></code> command line argument.</p>
-<p>Since Movie Maker's output resolution is set by the viewport size, you can
-adjust the window size on startup to override it if the project uses the
-<code class="docutils literal notranslate"><span class="pre">disabled</span></code> or <code class="docutils literal notranslate"><span class="pre">canvas_items</span></code> <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">stretch mode</span></a>:</p>
-<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your_project</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">--</span><span class="n">resolution</span><span class="w"> </span><span class="mi">1280</span><span class="n">x720</span>
+<p>Si la ruta de salida es relativa, es <strong>relativa a la carpeta del proyecto</strong>, no al directorio de trabajo actual. En el ejemplo anterior, el archivo se escribirá en <code class="docutils literal notranslate"><span class="pre">/ruta/a/tu_proyecto/salida.avi</span></code>. Este comportamiento es similar al argumento de línea de comandos <code class="docutils literal notranslate"><span class="pre">--export-release</span></code>.</p>
+<p>Dado que la resolución de salida de Movie Maker está definida por el tamaño del viewport, puedes ajustar el tamaño de la ventana al inicio para anularlo si el proyecto utiliza el <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">modo de estiramiento</span></a> <code class="docutils literal notranslate"><span class="pre">disabled</span></code> o <code class="docutils literal notranslate"><span class="pre">canvas_items</span></code>:</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">tu_proyecto</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">salida</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">--</span><span class="n">resolution</span><span class="w"> </span><span class="mi">1280</span><span class="n">x720</span>
 </pre></div>
 </div>
-<p>Note that the window size is clamped by your display's resolution. See
-<a class="reference internal" href="#doc-creating-movies-recording-at-higher-resolution"><span class="std std-ref">Rendering at a higher resolution than the screen resolution</span></a> if you need to record
-a video at a higher resolution than the screen resolution.</p>
-<p>The recording FPS can also be overridden on the command line,
-without having to edit the Project Settings:</p>
-<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your_project</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">--</span><span class="n">fixed</span><span class="o">-</span><span class="n">fps</span><span class="w"> </span><span class="mi">30</span>
+<p>Ten en cuenta que el tamaño de la ventana está limitado por la resolución de tu pantalla. Consulta <a class="reference internal" href="#doc-creating-movies-recording-at-higher-resolution"><span class="std std-ref">Renderizar a una resolución mayor que la de la pantalla</span></a> si necesitas grabar un video a una resolución superior a la de la pantalla.</p>
+<p>La tasa de FPS de grabación también se puede anular desde la línea de comandos, sin tener que editar los Ajustes del Proyecto:</p>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">godot</span><span class="w"> </span><span class="o">--</span><span class="n">path</span><span class="w"> </span><span class="o">/</span><span class="n">ruta</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="n">tu_proyecto</span><span class="w"> </span><span class="o">--</span><span class="n">write</span><span class="o">-</span><span class="n">movie</span><span class="w"> </span><span class="n">salida</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">--</span><span class="n">fixed</span><span class="o">-</span><span class="n">fps</span><span class="w"> </span><span class="mi">30</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">--write-movie</span></code> and <code class="docutils literal notranslate"><span class="pre">--fixed-fps</span></code> command line arguments are both available
-in exported projects. Movie Maker mode cannot be toggled while the project is running,
-but you can use the <a class="reference internal" href="../../classes/class_os.html#class-os-method-execute"><span class="std std-ref">OS.execute()</span></a> method to
-run a second instance of the exported project that will record a video file.</p>
+<p>Los argumentos de línea de comandos <code class="docutils literal notranslate"><span class="pre">--write-movie</span></code> y <code class="docutils literal notranslate"><span class="pre">--fixed-fps</span></code> están disponibles en proyectos exportados. El modo Movie Maker no se puede alternar mientras el proyecto está en ejecución, pero puedes usar el método <a class="reference internal" href="../../classes/class_os.html#class-os-method-execute"><span class="std std-ref">OS.execute()</span></a> para ejecutar una segunda instancia del proyecto exportado que grabará un archivo de video.</p>
 </div>
 </section>
 </section>
 <section id="choosing-an-output-format">
-<h2>Choosing an output format<a class="headerlink" href="#choosing-an-output-format" title="Link to this heading"></a></h2>
-<p>Output formats are provided by the <a class="reference internal" href="../../classes/class_moviewriter.html#class-moviewriter"><span class="std std-ref">MovieWriter</span></a> class.
-Godot has 3 built-in <a class="reference internal" href="../../classes/class_moviewriter.html#class-moviewriter"><span class="std std-ref">MovieWriters</span></a>, and more can be
-implemented by extensions:</p>
+<h2>Elegir un formato de salida<a class="headerlink" href="#choosing-an-output-format" title="Link to this heading"></a></h2>
+<p>Los formatos de salida son proporcionados por la clase <a class="reference internal" href="../../classes/class_moviewriter.html#class-moviewriter"><span class="std std-ref">MovieWriter</span></a>.
+Godot cuenta con 3 <a class="reference internal" href="../../classes/class_moviewriter.html#class-moviewriter"><span class="std std-ref">MovieWriters</span></a> integrados, y se pueden
+implementar más mediante extensiones:</p>
 <section id="ogv-recommended">
-<h3>OGV (recommended)<a class="headerlink" href="#ogv-recommended" title="Link to this heading"></a></h3>
-<p>OGV container with Theora for video and Vorbis for audio. Features lossy video
-and audio compression with a good balance of file size and encoding speed, with
-a better image quality than MJPEG. It has 4 speed levels that can be adjusted
-by changing <strong>Editor &gt; Movie Writer &gt; Encoding Speed</strong> with the fastest one
-being around as fast as AVI with better compression. At slower speed levels, it
-can compress even better while keeping the same image quality. The lossy
-compression quality can be adjusted by changing <strong>Editor &gt; Movie Writer &gt; Video
-Quality</strong> for video and <strong>Editor &gt; Movie Writer &gt; Audio Quality</strong> for audio.</p>
-<p>The Keyframe Interval can be adjusted by changing <strong>Editor &gt; Movie Writer &gt;
-Keyframe Interval</strong>. In some cases, increasing this setting can improve
-compression efficiency without downsides.</p>
-<p>The resulting file can be viewed in Godot with <a class="reference internal" href="../../classes/class_videostreamplayer.html#class-videostreamplayer"><span class="std std-ref">VideoStreamPlayer</span></a> and most video players but not web browsers. OGV
-does not support transparency.</p>
-<p>To use OGV, specify a path to a <code class="docutils literal notranslate"><span class="pre">.ogv</span></code> file to be created in the <strong>Editor &gt;
-Movie Writer &gt; Movie File</strong> project setting.</p>
+<h3>OGV (recomendado)<a class="headerlink" href="#ogv-recommended" title="Link to this heading"></a></h3>
+<p>Contenedor OGV con Theora para video y Vorbis para audio. Cuenta con compresión de video
+y audio con pérdida (<em>lossy</em>), con un buen equilibrio entre tamaño de archivo y velocidad de codificación, y
+una mejor calidad de imagen que MJPEG. Dispone de 4 niveles de velocidad que se pueden ajustar
+cambiando <strong>Editor &gt; Movie Writer &gt; Encoding Speed</strong>, siendo el más rápido
+aproximadamente tan veloz como AVI con mejor compresión. En niveles de velocidad más lentos,
+puede comprimir aún mejor manteniendo la misma calidad de imagen. La calidad de
+compresión con pérdida se puede ajustar modificando <strong>Editor &gt; Movie Writer &gt; Video
+Quality</strong> para el video y <strong>Editor &gt; Movie Writer &gt; Audio Quality</strong> para el audio.</p>
+<p>El intervalo de fotogramas clave (<em>Keyframe Interval</em>) se puede ajustar modificando <strong>Editor &gt; Movie Writer &gt;
+Keyframe Interval</strong>. En algunos casos, aumentar este ajuste puede mejorar la
+eficiencia de compresión sin inconvenientes.</p>
+<p>El archivo resultante se puede reproducir en Godot con <a class="reference internal" href="../../classes/class_videostreamplayer.html#class-videostreamplayer"><span class="std std-ref">VideoStreamPlayer</span></a> y en la mayoría de reproductores de video, pero no en navegadores web. OGV
+no admite transparencia.</p>
+<p>Para usar OGV, especifica una ruta a un archivo <code class="docutils literal notranslate"><span class="pre">.ogv</span></code> para crearlo en el ajuste de proyecto
+<strong>Editor &gt; Movie Writer &gt; Movie File</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>OGV can only be recorded in editor builds.
-On the other hand, <a class="reference internal" href="playing_videos.html#doc-playing-videos"><span class="std std-ref">OGV playback</span></a>
-is possible in both editor and export template builds.</p>
+<p>OGV solo se puede grabar en compilaciones del editor.
+Por otro lado, la <a class="reference internal" href="playing_videos.html#doc-playing-videos"><span class="std std-ref">reproducción de OGV</span></a>
+es posible tanto en el editor como en las plantillas de exportación.</p>
 </div>
 </section>
 <section id="avi">
 <h3>AVI<a class="headerlink" href="#avi" title="Link to this heading"></a></h3>
-<p>AVI container with MJPEG for video and uncompressed audio. Features lossy video
-compression, resulting in medium file sizes and fast encoding. The lossy
-compression quality can be adjusted by changing
+<p>Contenedor AVI con MJPEG para video y audio sin comprimir. Cuenta con compresión de video
+con pérdida, lo que genera tamaños de archivo medianos y codificación rápida. La calidad de
+compresión con pérdida se puede ajustar modificando
 <strong>Editor &gt; Movie Writer &gt; Video Quality</strong>.</p>
-<p>The resulting file can be viewed in most video players, but it must be converted
-to another format for viewing on the web or by Godot with the VideoStreamPlayer
-node. MJPEG does not support transparency. AVI output is currently limited to a
-file of 4 GB in size at most.</p>
-<p>To use AVI, specify a path to a <code class="docutils literal notranslate"><span class="pre">.avi</span></code> file to be created in the
-<strong>Editor &gt; Movie Writer &gt; Movie File</strong> project setting.</p>
+<p>El archivo resultante se puede reproducir en la mayoría de reproductores de video, pero debe convertirse
+a otro formato para reproducirse en la web o en Godot mediante el nodo VideoStreamPlayer.
+MJPEG no admite transparencia. La salida AVI está limitada actualmente a un
+archivo de 4 GB de tamaño como máximo.</p>
+<p>Para usar AVI, especifica una ruta a un archivo <code class="docutils literal notranslate"><span class="pre">.avi</span></code> para crearlo en el ajuste de proyecto
+<strong>Editor &gt; Movie Writer &gt; Movie File</strong>.</p>
 </section>
 <section id="png">
 <h3>PNG<a class="headerlink" href="#png" title="Link to this heading"></a></h3>
-<p>PNG image sequence for video and WAV for audio. Features lossless video
-compression, at the cost of large file sizes and slow encoding. This is designed
-to be
-<a class="reference internal" href="#doc-creating-movies-converting-avi"><span class="std std-ref">encoded to a video file with an external tool after recording</span></a>.</p>
-<p>Transparency is supported, but the root viewport <strong>must</strong> have its
-<code class="docutils literal notranslate"><span class="pre">transparent_bg</span></code> property set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for transparency to be visible on
-the output image. This can be achieved by enabling the <strong>Rendering &gt; Transparent
-Background</strong> advanced project setting. <strong>Display &gt; Window &gt; Size &gt; Transparent</strong>
-and <strong>Display &gt; Window &gt; Per Pixel Transparency &gt; Enabled</strong> can optionally be
-enabled to allow transparency to be previewed while recording the video, but
-they do not have to be enabled for the output image to contain transparency.</p>
-<p>To use PNG, specify a <code class="docutils literal notranslate"><span class="pre">.png</span></code> file to be created in the
-<strong>Editor &gt; Movie Writer &gt; Movie File</strong> project setting. The generated <code class="docutils literal notranslate"><span class="pre">.wav</span></code>
-file will have the same name as the <code class="docutils literal notranslate"><span class="pre">.png</span></code> file (minus the extension).</p>
+<p>Secuencia de imágenes PNG para video y WAV para audio. Cuenta con compresión de video
+sin pérdida (<em>lossless</em>), a costa de archivos grandes y codificación lenta. Está diseñado
+para ser
+<a class="reference internal" href="#doc-creating-movies-converting-avi"><span class="std std-ref">codificado a un archivo de video con una herramienta externa después de grabar</span></a>.</p>
+<p>Se admite transparencia, pero el viewport raíz <strong>debe</strong> tener su propiedad
+<code class="docutils literal notranslate"><span class="pre">transparent_bg</span></code> establecida en <code class="docutils literal notranslate"><span class="pre">true</span></code> para que la transparencia sea visible en
+la imagen de salida. Esto se puede lograr habilitando el ajuste de proyecto avanzado <strong>Rendering &gt; Transparent
+Background</strong>. Opcionalmente, se pueden habilitar <strong>Display &gt; Window &gt; Size &gt; Transparent</strong>
+y <strong>Display &gt; Window &gt; Per Pixel Transparency &gt; Enabled</strong> para permitir la previsualización de la transparencia mientras se graba el video, pero
+no es obligatorio activarlos para que la imagen de salida contenga transparencia.</p>
+<p>Para usar PNG, especifica un archivo <code class="docutils literal notranslate"><span class="pre">.png</span></code> para crearlo en el ajuste de proyecto
+<strong>Editor &gt; Movie Writer &gt; Movie File</strong>. El archivo <code class="docutils literal notranslate"><span class="pre">.wav</span></code> generado
+tendrá el mismo nombre que el archivo <code class="docutils literal notranslate"><span class="pre">.png</span></code> (excepto por la extensión).</p>
 </section>
 <section id="custom">
-<h3>Personalizados<a class="headerlink" href="#custom" title="Link to this heading"></a></h3>
-<p>If you need to encode directly to a different format or pipe a stream through
-third-party software, you can extend the MovieWriter class to create your own
-movie writers. This should typically be done using GDExtension for performance
-reasons.</p>
+<h3>Personalizado<a class="headerlink" href="#custom" title="Link to this heading"></a></h3>
+<p>Si necesitas codificar directamente en un formato diferente o canalizar el flujo a través de
+software de terceros, puedes extender la clase MovieWriter para crear tus propios
+escritores de películas. Esto suele hacerse usando GDExtension por razones de
+rendimiento.</p>
 </section>
 </section>
 <section id="configuration">
 <h2>Configuración<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
-<p>In the <strong>Editor &gt; Movie Writer</strong> section of the Project Settings, there are
-several options you can configure. Some of them are only visible after enabling
-the <strong>Advanced</strong> toggle in the top-right corner of the Project Settings dialog.</p>
+<p>En la sección <strong>Editor &gt; Movie Writer</strong> de los Ajustes del Proyecto, hay
+varias opciones que puedes configurar. Algunas de ellas solo son visibles tras activar
+la opción <strong>Avanzado</strong> en la esquina superior derecha del diálogo de Ajustes del Proyecto.</p>
 <ul class="simple">
-<li><p><strong>Mix Rate Hz:</strong> The audio mix rate to use in the recorded audio when writing
-a movie. This can be different from the project's mix rate, but this
-value must be divisible by the recorded FPS to prevent audio from
-desynchronizing over time.</p></li>
-<li><p><strong>Speaker Mode:</strong> The speaker mode to use in the recorded audio when writing
-a movie (stereo, 5.1 surround or 7.1 surround).</p></li>
-<li><p><strong>Video Quality:</strong> The image quality to use when writing a video to an OGV or
-AVI file, between <code class="docutils literal notranslate"><span class="pre">0.01</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (inclusive). Higher quality values result
-in better-looking output at the cost of larger file sizes. Recommended quality
-values are between <code class="docutils literal notranslate"><span class="pre">0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">0.9</span></code>. Even at quality <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, compression
-remains lossy. This setting does not affect audio quality and is ignored when
-writing to a PNG image sequence.</p></li>
-<li><p><strong>Movie File:</strong> The output path for the movie. This can be absolute or
-relative to the project root.</p></li>
-<li><p><strong>Disable V-Sync:</strong> If enabled, requests V-Sync to be disabled when writing a
-movie. This can speed up video writing if the hardware is fast enough to
-render, encode and save the video at a framerate higher than the monitor's
-refresh rate. This setting has no effect if the operating system or graphics
-driver forces V-Sync with no way for applications to disable it.</p></li>
-<li><p><strong>FPS:</strong> The rendered frames per second in the output movie. Higher values
-result in smoother animation, at the cost of longer rendering times and larger
-output file sizes. Most video hosting platforms do not support FPS values
-higher than 60, but you can use a higher value and use that to generate motion
-blur.</p></li>
-<li><p><strong>Audio Quality:</strong> The audio quality to use when writing a video to an OGV
-file, between <code class="docutils literal notranslate"><span class="pre">-0.1</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (inclusive). Higher quality values result
-in better audio quality at the cost of very slightly larger file sizes.
-Recommended quality values are between <code class="docutils literal notranslate"><span class="pre">0.3</span></code> and <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Even at quality
-<code class="docutils literal notranslate"><span class="pre">1.0</span></code>, compression remains lossy.</p></li>
-<li><p><strong>Encoding Speed:</strong> The speed level to use when writing a video to an OGV
-file. Faster speed levels have less compression efficiency. The image quality
-stays barely the same.</p></li>
-<li><p><strong>Keyframe Interval:</strong> Also known as GOP (Group Of Pictures), the maximum
-number of inter-frames to use when writing to an OGV file. Higher values can
-improve compression efficiency without quality loss but at the cost of slower
-video seeks.</p></li>
+<li><p><strong>Mix Rate Hz:</strong> La tasa de mezcla de audio a usar en el audio grabado al escribir
+una película. Puede ser diferente de la tasa de mezcla del proyecto, pero este
+valor debe ser divisible por la tasa de FPS grabada para evitar que el audio se
+desincronice con el tiempo.</p></li>
+<li><p><strong>Speaker Mode:</strong> El modo de altavoces a usar en el audio grabado al escribir
+una película (estéreo, sonido envolvente 5.1 o sonido envolvente 7.1).</p></li>
+<li><p><strong>Video Quality:</strong> La calidad de imagen a usar al escribir un video en un archivo OGV o
+AVI, entre <code class="docutils literal notranslate"><span class="pre">0.01</span></code> y <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (inclusivo). Valores de calidad más altos dan como resultado
+una mejor salida visual a costa de archivos más grandes. Los valores de calidad recomendados
+están entre <code class="docutils literal notranslate"><span class="pre">0.75</span></code> y <code class="docutils literal notranslate"><span class="pre">0.9</span></code>. Incluso con calidad <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, la compresión
+sigue teniendo pérdidas. Esta configuración no afecta la calidad del audio y se ignora al
+escribir en una secuencia de imágenes PNG.</p></li>
+<li><p><strong>Movie File:</strong> La ruta de salida para la película. Puede ser absoluta o
+relativa a la raíz del proyecto.</p></li>
+<li><p><strong>Disable V-Sync:</strong> Si está habilitado, solicita que se desactive la sincronización vertical (V-Sync) al escribir
+una película. Esto puede acelerar la escritura de video si el hardware es lo suficientemente rápido para
+renderizar, codificar y guardar el video a una tasa de fotogramas superior a la frecuencia de actualización
+del monitor. Esta configuración no tiene efecto si el sistema operativo o el controlador gráfico
+fuerzan V-Sync sin permitir que las aplicaciones la desactiven.</p></li>
+<li><p><strong>FPS:</strong> Los fotogramas por segundo renderizados en la película de salida. Valores más altos
+producen una animación más fluida, a costa de tiempos de renderizado más largos y tamaños de
+archivo de salida mayores. La mayoría de las plataformas de alojamiento de videos no admiten valores de FPS
+superiores a 60, pero puedes usar un valor más alto para generar desenfoque de
+movimiento (<em>motion blur</em>).</p></li>
+<li><p><strong>Audio Quality:</strong> La calidad de audio a usar al escribir un video en un archivo OGV,
+entre <code class="docutils literal notranslate"><span class="pre">-0.1</span></code> y <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (inclusivo). Valores de calidad más altos dan como resultado
+una mejor calidad de audio a costa de un aumento muy ligero en el tamaño del archivo.
+Los valores de calidad recomendados están entre <code class="docutils literal notranslate"><span class="pre">0.3</span></code> y <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Incluso con calidad
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code>, la compresión sigue teniendo pérdidas.</p></li>
+<li><p><strong>Encoding Speed:</strong> El nivel de velocidad a usar al escribir un video en un archivo OGV.
+Niveles de velocidad más rápidos tienen menor eficiencia de compresión. La calidad de imagen
+permanece prácticamente igual.</p></li>
+<li><p><strong>Keyframe Interval:</strong> También conocido como GOP (<em>Group Of Pictures</em>), el número máximo
+de interfotogramas a usar al escribir en un archivo OGV. Valores más altos pueden
+mejorar la eficiencia de compresión sin pérdida de calidad, pero a costa de búsquedas más lentas
+al reproducir el video.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When using the <code class="docutils literal notranslate"><span class="pre">disabled</span></code> or <code class="docutils literal notranslate"><span class="pre">2d</span></code> <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">stretch modes</span></a>,
-the output file's resolution is set by the window size. Make sure to resize
-the window <em>before</em> the splash screen has ended. For this purpose, it's
-recommended to adjust the
-<strong>Display &gt; Window &gt; Size &gt; Window Width Override</strong> and
-<strong>Window Height Override</strong> advanced project settings.</p>
-<p>See also <a class="reference internal" href="#doc-creating-movies-recording-at-higher-resolution"><span class="std std-ref">Rendering at a higher resolution than the screen resolution</span></a>.</p>
+<p>Al usar los modos de estiramiento <code class="docutils literal notranslate"><span class="pre">disabled</span></code> o <code class="docutils literal notranslate"><span class="pre">2d</span></code> <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">stretch modes</span></a>,
+la resolución del archivo de salida viene dada por el tamaño de la ventana. Asegúrate de redimensionar
+la ventana <em>antes</em> de que finalice la pantalla de carga (<em>splash screen</em>). Para este propósito, se
+recomienda ajustar las opciones avanzadas de proyecto
+<strong>Display &gt; Window &gt; Size &gt; Window Width Override</strong> y
+<strong>Window Height Override</strong>.</p>
+<p>Consulta también <a class="reference internal" href="#doc-creating-movies-recording-at-higher-resolution"><span class="std std-ref">Renderizar a una resolución mayor que la de la pantalla</span></a>.</p>
 </div>
 </section>
 <section id="quitting-movie-maker-mode">
-<h2>Quitting Movie Maker mode<a class="headerlink" href="#quitting-movie-maker-mode" title="Link to this heading"></a></h2>
-<p>To safely quit a project that is using Movie Maker mode, use the X button at the
-top of the window, or call <code class="docutils literal notranslate"><span class="pre">get_tree().quit()</span></code> in a script. You can also use
-the <code class="docutils literal notranslate"><span class="pre">--quit-after</span> <span class="pre">N</span></code> command line argument where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of frames
-to render before quitting.</p>
-<p>Pressing <kbd class="kbd docutils literal notranslate">F8</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">.</kbd></kbd> on macOS) or pressing <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">C</kbd></kbd> on the
-terminal running Godot is <strong>not recommended</strong>, as it will result in an
-improperly formatted AVI file with no duration information. For PNG image
-sequences, PNG images will not be negatively altered, but the associated WAV
-file will still lack duration information. OGV files might end up with slightly
-different duration video and audio tracks but still valid.</p>
-<p>Some video players may still be able to play the AVI or WAV file with working
-video and audio. However, software that makes use of the AVI or WAV file such as
-video editors may not be able to open the file.
-<a class="reference internal" href="#doc-creating-movies-converting-avi"><span class="std std-ref">Using a video converter program</span></a>
-can help in those cases.</p>
-<p>If you're using an AnimationPlayer to control a &quot;main action&quot; in the scene (such
-as camera movement), you can enable the <strong>Movie Quit On Finish</strong> property on the
-AnimationPlayer node in question. When enabled, this property will make Godot
-quit on its own when an animation is done playing <em>and</em> the engine is running in
-Movie Maker mode. Note that <em>this property has no effect on looping animations</em>.
-Therefore, you need to make sure that the animation is set as non-looping.</p>
+<h2>Salir del modo Movie Maker<a class="headerlink" href="#quitting-movie-maker-mode" title="Link to this heading"></a></h2>
+<p>Para salir de forma segura de un proyecto que está usando el modo Movie Maker, usa el botón X en la
+parte superior de la ventana, o llama a <code class="docutils literal notranslate"><span class="pre">get_tree().quit()</span></code> en un script. También puedes usar
+el argumento de línea de comandos <code class="docutils literal notranslate"><span class="pre">--quit-after</span> <span class="pre">N</span></code>, donde <code class="docutils literal notranslate"><span class="pre">N</span></code> es el número de fotogramas
+a renderizar antes de salir.</p>
+<p>Presionar <kbd class="kbd docutils literal notranslate">F8</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">.</kbd></kbd> en macOS) o presionar <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">C</kbd></kbd> en la
+terminal que ejecuta Godot <strong>no se recomienda</strong>, ya que provocará un archivo AVI
+con formato incorrecto y sin información de duración. Para secuencias de imágenes
+PNG, las imágenes PNG no se alterarán negativamente, pero el archivo WAV asociado
+carecerá de información de duración. Los archivos OGV pueden terminar con pistas de video
+y audio de duraciones ligeramente distintas, aunque seguirán siendo válidos.</p>
+<p>Algunos reproductores de video aún podrán reproducir el archivo AVI o WAV con video
+y audio funcionales. Sin embargo, el software que hace uso del archivo AVI o WAV, como los
+editores de video, podría no poder abrir el archivo.
+<a class="reference internal" href="#doc-creating-movies-converting-avi"><span class="std std-ref">Usar un programa convertidor de video</span></a>
+puede ayudar en esos casos.</p>
+<p>Si estás usando un AnimationPlayer para controlar una &quot;acción principal&quot; en la escena (como
+el movimiento de la cámara), puedes activar la propiedad <strong>Movie Quit On Finish</strong> en el
+nodo AnimationPlayer en cuestión. Cuando está activada, esta propiedad hará que Godot
+se cierre automáticamente cuando termine de reproducirse la animación <em>y</em> el motor se esté ejecutando en
+modo Movie Maker. Ten en cuenta que <em>esta propiedad no tiene efecto en animaciones en bucle</em>.
+Por lo tanto, debes asegurarte de que la animación esté configurada como no repetitiva.</p>
 </section>
 <section id="using-high-quality-graphics-settings">
-<h2>Using high-quality graphics settings<a class="headerlink" href="#using-high-quality-graphics-settings" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">movie</span></code> <a class="reference internal" href="../export/feature_tags.html#doc-feature-tags"><span class="std std-ref">feature tag</span></a> can be used to override
-specific project settings. This is useful to enable high-quality graphics settings
-that wouldn't be fast enough to run in real-time speeds on your hardware.
-Remember that putting every setting to its maximum value can still slow down
-movie saving speed, especially when recording at higher resolutions. Therefore,
-it's still recommended to only increase graphics settings if they make a meaningful
-difference in the output image.</p>
-<p>This feature tag can also be queried in a script to increase quality settings
-that are set in the Environment resource. For example, to further improve SDFGI
-detail and reduce light leaking:</p>
+<h2>Uso de configuraciones gráficas de alta calidad<a class="headerlink" href="#using-high-quality-graphics-settings" title="Link to this heading"></a></h2>
+<p>La etiqueta de características (<em>feature tag</em>) <code class="docutils literal notranslate"><span class="pre">movie</span></code> <a class="reference internal" href="../export/feature_tags.html#doc-feature-tags"><span class="std std-ref">feature tag</span></a> se puede utilizar para anular
+ajustes de proyecto específicos. Esto es útil para habilitar configuraciones gráficas de alta calidad
+que no serían lo suficientemente rápidas para ejecutarse a velocidades de tiempo real en tu hardware.
+Recuerda que poner cada ajuste en su valor máximo aún puede ralentizar la velocidad de guardado de
+la película, especialmente al grabar a resoluciones más altas. Por lo tanto,
+se recomienda aumentar solo las configuraciones gráficas que marquen una diferencia notable
+en la imagen de salida.</p>
+<p>Esta etiqueta de características también se puede consultar en un script para aumentar las configuraciones de calidad
+definidas en el recurso Environment. Por ejemplo, para mejorar aún más el detalle de SDFGI
+y reducir las fugas de luz:</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-0-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-0-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">extends</span><span class="w"> </span><span class="nb">Node3D</span>
 
 <span class="k">func</span><span class="w"> </span><span class="nf nf-Declaration">_ready</span><span class="p">():</span>
 <span class="w">    </span><span class="k k-ControlFlow">if</span><span class="w"> </span><span class="nb">OS</span><span class="o">.</span><span class="nf">has_feature</span><span class="p">(</span><span class="s2">&quot;movie&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="c1"># When recording a movie, improve SDFGI cell density</span>
-<span class="w">        </span><span class="c1"># without decreasing its maximum distance.</span>
+<span class="w">        </span><span class="c1"># Al grabar una película, mejora la densidad de celdas SDFGI</span>
+<span class="w">        </span><span class="c1"># sin disminuir su distancia máxima.</span>
 <span class="w">        </span><span class="nf">get_viewport</span><span class="p">()</span><span class="o">.</span><span class="vi">world_3d</span><span class="o">.</span><span class="vi">environment</span><span class="o">.</span><span class="vi">sdfgi_min_cell_size</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">0.25</span>
 <span class="w">        </span><span class="nf">get_viewport</span><span class="p">()</span><span class="o">.</span><span class="vi">world_3d</span><span class="o">.</span><span class="vi">environment</span><span class="o">.</span><span class="vi">sdfgi_cascades</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
 </pre></div>
@@ -13316,8 +13297,8 @@ detail and reduce light leaking:</p>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">OS</span><span class="p">.</span><span class="n">HasFeature</span><span class="p">(</span><span class="s">&quot;movie&quot;</span><span class="p">))</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// When recording a movie, improve SDFGI cell density</span>
-<span class="w">            </span><span class="c1">// without decreasing its maximum distance.</span>
+<span class="w">            </span><span class="c1">// Al grabar una película, mejora la densidad de celdas SDFGI</span>
+<span class="w">            </span><span class="c1">// sin disminuir su distancia máxima.</span>
 <span class="w">            </span><span class="n">GetViewport</span><span class="p">().</span><span class="n">World3D</span><span class="p">.</span><span class="n">Environment</span><span class="p">.</span><span class="n">SdfgiMinCellSize</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">0.25f</span><span class="p">;</span>
 <span class="w">            </span><span class="n">GetViewport</span><span class="p">().</span><span class="n">World3D</span><span class="p">.</span><span class="n">Environment</span><span class="p">.</span><span class="n">SdfgiCascades</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
@@ -13328,135 +13309,135 @@ detail and reduce light leaking:</p>
 </div></div>
 </section>
 <section id="rendering-at-a-higher-resolution-than-the-screen-resolution">
-<span id="doc-creating-movies-recording-at-higher-resolution"></span><h2>Rendering at a higher resolution than the screen resolution<a class="headerlink" href="#rendering-at-a-higher-resolution-than-the-screen-resolution" title="Link to this heading"></a></h2>
-<p>The overall rendering quality can be improved significantly by rendering at high
-resolutions such as 4K or 8K.</p>
+<span id="doc-creating-movies-recording-at-higher-resolution"></span><h2>Renderizar a una resolución mayor que la de la pantalla<a class="headerlink" href="#rendering-at-a-higher-resolution-than-the-screen-resolution" title="Link to this heading"></a></h2>
+<p>La calidad general del renderizado se puede mejorar significativamente renderizando a altas
+resoluciones como 4K u 8K.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>For 3D rendering, Godot provides a <strong>Rendering &gt; Scaling 3D &gt; Scale</strong>
-advanced project setting, which can be set above <code class="docutils literal notranslate"><span class="pre">1.0</span></code> to obtain
-<em>supersample antialiasing</em>. The 3D rendering is then <em>downsampled</em> when it's
-drawn on the viewport. This provides an expensive but high-quality form of
-antialiasing, without increasing the final output resolution.</p>
-<p>Consider using this project setting first, as it avoids slowing down movie
-writing speeds and increasing output file size compared to actually
-increasing the output resolution.</p>
+<p>Para el renderizado 3D, Godot proporciona el ajuste de proyecto avanzado <strong>Rendering &gt; Scaling 3D &gt; Scale</strong>,
+que se puede establecer por encima de <code class="docutils literal notranslate"><span class="pre">1.0</span></code> para obtener
+<em>antialiasing por supermuestreo</em> (<em>supersample antialiasing</em>). El renderizado 3D se <em>submuestrea</em> (<em>downsampled</em>) cuando se
+dibuja en el viewport. Esto proporciona una forma de antialiasing costosa pero de alta calidad,
+sin aumentar la resolución de salida final.</p>
+<p>Considera usar este ajuste de proyecto primero, ya que evita ralentizar la velocidad de escritura
+de la película y aumentar el tamaño del archivo de salida en comparación con incrementar
+realmente la resolución de salida.</p>
 </div>
-<p>If you wish to render 2D at a higher resolution, or if you actually need the
-higher raw pixel output for 3D rendering, you can increase the resolution above
-what the screen allows.</p>
-<p>By default, Godot uses the <code class="docutils literal notranslate"><span class="pre">disabled</span></code> <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">stretch modes</span></a>
-in projects. If using <code class="docutils literal notranslate"><span class="pre">disabled</span></code> or <code class="docutils literal notranslate"><span class="pre">canvas_items</span></code> stretch mode,
-the window size dictates the output video resolution.</p>
-<p>On the other hand, if the project is configured to use the <code class="docutils literal notranslate"><span class="pre">viewport</span></code> stretch
-mode, the viewport resolution dictates the output video resolution. The viewport
-resolution is set using the <strong>Display &gt; Window &gt; Size &gt; Viewport Width</strong> and
-<strong>Viewport Height</strong> project settings. This can be used to render a video at a
-higher resolution than the screen resolution.</p>
-<p>To make the window smaller during recording without affecting the output video
-resolution, you can set the <strong>Display &gt; Window &gt; Size &gt; Window Width Override</strong>
-and <strong>Window Height Override</strong> advanced project settings to values greater than
+<p>Si deseas renderizar 2D a una resolución mayor, o si realmente necesitas la
+salida de píxeles sin procesar más alta para renderizado 3D, puedes aumentar la resolución por encima
+de lo que permite la pantalla.</p>
+<p>Por defecto, Godot utiliza el modo de estiramiento <code class="docutils literal notranslate"><span class="pre">disabled</span></code> <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">stretch modes</span></a>
+en los proyectos. Si usas el modo de estiramiento <code class="docutils literal notranslate"><span class="pre">disabled</span></code> o <code class="docutils literal notranslate"><span class="pre">canvas_items</span></code>,
+el tamaño de la ventana dicta la resolución de salida del video.</p>
+<p>Por otra parte, si el proyecto está configurado para usar el modo de estiramiento
+<code class="docutils literal notranslate"><span class="pre">viewport</span></code>, la resolución del viewport dicta la resolución de salida del video. La resolución
+del viewport se configura usando los ajustes de proyecto <strong>Display &gt; Window &gt; Size &gt; Viewport Width</strong> y
+<strong>Viewport Height</strong>. Esto se puede usar para renderizar un video a una resolución
+mayor que la de la pantalla.</p>
+<p>Para hacer la ventana más pequeña durante la grabación sin afectar la resolución del video de
+salida, puedes establecer los ajustes de proyecto avanzados <strong>Display &gt; Window &gt; Size &gt; Window Width Override</strong>
+y <strong>Window Height Override</strong> en valores mayores que
 <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
-<p>To apply a resolution override only when recording a movie, you can override
-those settings with the <code class="docutils literal notranslate"><span class="pre">movie</span></code> <a class="reference internal" href="../export/feature_tags.html#doc-feature-tags"><span class="std std-ref">feature tag</span></a>.</p>
+<p>Para aplicar una anulación de resolución solo al grabar una película, puedes anular
+esos ajustes con la etiqueta de características <code class="docutils literal notranslate"><span class="pre">movie</span></code> <a class="reference internal" href="../export/feature_tags.html#doc-feature-tags"><span class="std std-ref">feature tag</span></a>.</p>
 </section>
 <section id="post-processing-steps">
-<h2>Pasos para post-procesado<a class="headerlink" href="#post-processing-steps" title="Link to this heading"></a></h2>
-<p>Some common post-processing steps are listed below.</p>
+<h2>Pasos de posprocesamiento<a class="headerlink" href="#post-processing-steps" title="Link to this heading"></a></h2>
+<p>A continuación se enumeran algunos pasos de posprocesamiento habituales.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When using several post-processing steps, try to perform all of them in a
-single FFmpeg command. This will save encoding time and improve quality by
-avoiding multiple lossy encoding steps.</p>
+<p>Al usar varios pasos de posprocesamiento, intenta realizarlos todos en un
+único comando de FFmpeg. Esto ahorrará tiempo de codificación y mejorará la calidad al
+evitar múltiples pasos de codificación con pérdida.</p>
 </div>
 <section id="converting-ogv-avi-video-to-mp4">
-<span id="doc-creating-movies-converting-avi"></span><h3>Converting OGV/AVI video to MP4<a class="headerlink" href="#converting-ogv-avi-video-to-mp4" title="Link to this heading"></a></h3>
-<p>While some platforms such as YouTube support uploading the AVI file directly, many
-others will require a conversion step beforehand. <a class="reference external" href="https://handbrake.fr/">HandBrake</a>
-(GUI) and <a class="reference external" href="https://ffmpeg.org/">FFmpeg</a> (CLI) are popular open source tools
-for this purpose. FFmpeg has a steeper learning curve, but it's more powerful.</p>
-<p>The command below converts an OGV/AVI video to an MP4 (H.264) video with a
-Constant Rate Factor (CRF) of 15. This results in a relatively large file, but
-is well-suited for platforms that will re-encode your videos to reduce their
-size (such as most video sharing websites):</p>
+<span id="doc-creating-movies-converting-avi"></span><h3>Convertir video OGV/AVI a MP4<a class="headerlink" href="#converting-ogv-avi-video-to-mp4" title="Link to this heading"></a></h3>
+<p>Aunque algunas plataformas como YouTube admiten subir el archivo AVI directamente, muchas
+otras requerirán un paso de conversión previo. <a class="reference external" href="https://handbrake.fr/">HandBrake</a>
+(interfaz gráfica) y <a class="reference external" href="https://ffmpeg.org/">FFmpeg</a> (línea de comandos) son herramientas populares de código abierto
+para este propósito. FFmpeg tiene una curva de aprendizaje más pronunciada, pero es más potente.</p>
+<p>El siguiente comando convierte un video OGV/AVI a un video MP4 (H.264) con un
+Factor de Tasa Constante (<em>Constant Rate Factor</em> o CRF) de 15. Esto da como resultado un archivo relativamente grande, pero
+es adecuado para plataformas que volverán a codificar tus videos para reducir su
+tamaño (como la mayoría de los sitios web para compartir videos):</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
-<p>To get a smaller file at the cost of quality, <em>increase</em> the CRF value in the
-above command.</p>
-<p>To get a file with a better size/quality ratio (at the cost of slower encoding
-times), add <code class="docutils literal notranslate"><span class="pre">-preset</span> <span class="pre">veryslow</span></code> before <code class="docutils literal notranslate"><span class="pre">-crf</span> <span class="pre">15</span></code> in the above command. On the
-contrary, <code class="docutils literal notranslate"><span class="pre">-preset</span> <span class="pre">veryfast</span></code> can be used to achieve faster encoding at the
-cost of a worse size/quality ratio.</p>
+<p>Para obtener un archivo más pequeño a costa de la calidad, <em>aumenta</em> el valor de CRF en el
+comando anterior.</p>
+<p>Para obtener un archivo con una mejor relación tamaño/calidad (a costa de tiempos de codificación
+más lentos), añade <code class="docutils literal notranslate"><span class="pre">-preset</span> <span class="pre">veryslow</span></code> antes de <code class="docutils literal notranslate"><span class="pre">-crf</span> <span class="pre">15</span></code> en el comando anterior. Por el
+contrario, se puede usar <code class="docutils literal notranslate"><span class="pre">-preset</span> <span class="pre">veryfast</span></code> para lograr una codificación más rápida a
+costa de una peor relación tamaño/calidad.</p>
 </section>
 <section id="converting-png-image-sequence-wav-audio-to-a-video">
-<span id="doc-creating-movies-converting-image-sequence"></span><h3>Converting PNG image sequence + WAV audio to a video<a class="headerlink" href="#converting-png-image-sequence-wav-audio-to-a-video" title="Link to this heading"></a></h3>
-<p>If you chose to record a PNG image sequence with a WAV file beside it,
-you need to convert it to a video before you can use it elsewhere.</p>
-<p>The filename for the PNG image sequence generated by Godot always contains 8
-digits, starting at 0 with zero-padded numbers. If you specify an output
-path <code class="docutils literal notranslate"><span class="pre">folder/example.png</span></code>, Godot will write <code class="docutils literal notranslate"><span class="pre">folder/example00000000.png</span></code>,
-<code class="docutils literal notranslate"><span class="pre">folder/example00000001.png</span></code>, and so on in that folder. The audio will be saved
-at <code class="docutils literal notranslate"><span class="pre">folder/example.wav</span></code>.</p>
-<p>The FPS is specified using the <code class="docutils literal notranslate"><span class="pre">-r</span></code> argument. It should match the FPS
-specified during recording. Otherwise, the video will appear to be slowed down
-or sped up, and audio will be out of sync with the video.</p>
+<span id="doc-creating-movies-converting-image-sequence"></span><h3>Convertir secuencia de imágenes PNG + audio WAV a video<a class="headerlink" href="#converting-png-image-sequence-wav-audio-to-a-video" title="Link to this heading"></a></h3>
+<p>Si optaste por grabar una secuencia de imágenes PNG junto con un archivo WAV,
+necesitas convertirla a un video antes de poder usarla en otros lugares.</p>
+<p>El nombre de archivo para la secuencia de imágenes PNG generada por Godot siempre contiene 8
+dígitos, comenzando en 0 con números rellenados con ceros. Si especificas una ruta
+de salida <code class="docutils literal notranslate"><span class="pre">carpeta/ejemplo.png</span></code>, Godot escribirá <code class="docutils literal notranslate"><span class="pre">carpeta/ejemplo00000000.png</span></code>,
+<code class="docutils literal notranslate"><span class="pre">carpeta/ejemplo00000001.png</span></code>, y así sucesivamente en esa carpeta. El audio se guardará
+en <code class="docutils literal notranslate"><span class="pre">carpeta/ejemplo.wav</span></code>.</p>
+<p>Los FPS se especifican mediante el argumento <code class="docutils literal notranslate"><span class="pre">-r</span></code>. Debe coincidir con los FPS
+especificados durante la grabación. De lo contrario, el video parecerá ralentizado
+o acelerado, y el audio se desincronizará del video.</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">%</span><span class="mi">08</span><span class="n">d</span><span class="o">.</span><span class="vi">png</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">wav</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
-<p>If you recorded a PNG image sequence with transparency enabled, you need to use
-a video format that supports storing transparency. MP4/H.264 doesn't support
-storing transparency, so you can use WebM/VP9 as an alternative:</p>
+<p>Si grabaste una secuencia de imágenes PNG con transparencia habilitada, necesitas usar
+un formato de video que admita almacenar transparencia. MP4/H.264 no admite
+almacenar transparencia, por lo que puedes usar WebM/VP9 como alternativa:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">%</span><span class="mi">08</span><span class="n">d</span><span class="o">.</span><span class="vi">png</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">wav</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="p">:</span><span class="n">v</span><span class="w"> </span><span class="n">libvpx</span><span class="o">-</span><span class="n">vp9</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="o">-</span><span class="n">pix_fmt</span><span class="w"> </span><span class="n">yuva420p</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">webm</span>
 </pre></div>
 </div>
 </section>
 <section id="cutting-video">
-<span id="doc-creating-movies-motion-blur"></span><h3>Cutting video<a class="headerlink" href="#cutting-video" title="Link to this heading"></a></h3>
-<p>You can trim parts of the video you don't want to keep after the video is
-recorded. For example, to discard everything before 12.1 seconds and keep
-only 5.2 seconds of video after that point:</p>
+<span id="doc-creating-movies-motion-blur"></span><h3>Recortar video<a class="headerlink" href="#cutting-video" title="Link to this heading"></a></h3>
+<p>Puedes recortar partes del video que no quieras conservar después de grabarlo.
+Por ejemplo, para descartar todo antes de 12.1 segundos y conservar
+solo 5.2 segundos de video a partir de ese punto:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">-</span><span class="n">ss</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">12.10</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">05.20</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
-<p>Cutting videos can also be done with the GUI tool
+<p>El recorte de videos también se puede realizar con la herramienta gráfica
 <a class="reference external" href="https://losslesscut.app/">LosslessCut</a>.</p>
 </section>
 <section id="resizing-video">
-<h3>Resizing video<a class="headerlink" href="#resizing-video" title="Link to this heading"></a></h3>
-<p>The following command resizes a video to be 1080 pixels tall (1080p),
-while preserving its existing aspect ratio:</p>
+<h3>Redimensionar video<a class="headerlink" href="#resizing-video" title="Link to this heading"></a></h3>
+<p>El siguiente comando redimensiona un video para que tenga 1080 píxeles de alto (1080p),
+manteniendo su relación de aspecto existente:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">-</span><span class="n">vf</span><span class="w"> </span><span class="s2">&quot;scale=-1:1080&quot;</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
 </section>
 <section id="reducing-framerate">
-<span id="doc-creating-movies-reducing-framerate"></span><h3>Reducing framerate<a class="headerlink" href="#reducing-framerate" title="Link to this heading"></a></h3>
-<p>The following command changes a video's framerate to 30 FPS, dropping some of
-the original frames if there are more in the input video:</p>
+<span id="doc-creating-movies-reducing-framerate"></span><h3>Reducir la tasa de fotogramas<a class="headerlink" href="#reducing-framerate" title="Link to this heading"></a></h3>
+<p>El siguiente comando cambia la tasa de fotogramas de un video a 30 FPS, descartando algunos
+de los fotogramas originales si hay más en el video de entrada:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
 </section>
 <section id="generating-accumulation-motion-blur-with-ffmpeg">
-<h3>Generating accumulation motion blur with FFmpeg<a class="headerlink" href="#generating-accumulation-motion-blur-with-ffmpeg" title="Link to this heading"></a></h3>
-<p>Godot does not have built-in support for motion blur, but it can still be
-created in recorded videos.</p>
-<p>If you record the video at a multiple of the original framerate, you can blend
-the frames together then reduce the frameate to produce a video with
-<em>accumulation motion blur</em>. This motion blur can look very good, but it can take
-a long time to generate since you have to render many more frames per second (on
-top of the time spent on post-processing).</p>
-<p>Example with a 240 FPS source video, generating 4× motion blur and decreasing
-its output framerate to 60 FPS:</p>
+<h3>Generar desenfoque de movimiento por acumulación con FFmpeg<a class="headerlink" href="#generating-accumulation-motion-blur-with-ffmpeg" title="Link to this heading"></a></h3>
+<p>Godot no cuenta con soporte integrado para desenfoque de movimiento (<em>motion blur</em>), pero aun así se puede
+crear en videos grabados.</p>
+<p>Si grabas el video a un múltiplo de la tasa de fotogramas original, puedes mezclar
+los fotogramas entre sí y luego reducir la tasa de fotogramas para producir un video con
+<em>desenfoque de movimiento por acumulación</em> (<em>accumulation motion blur</em>). Este desenfoque de movimiento puede verse muy bien, pero puede tardar
+mucho tiempo en generarse, ya que tienes que renderizar muchos más fotogramas por segundo (además
+del tiempo dedicado al posprocesamiento).</p>
+<p>Ejemplo con un video fuente a 240 FPS, generando desenfoque de movimiento 4× y reduciendo
+su tasa de fotogramas de salida a 60 FPS:</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">input</span><span class="o">.</span><span class="vi">avi</span><span class="w"> </span><span class="o">-</span><span class="n">vf</span><span class="w"> </span><span class="s2">&quot;tmix=frames=4, fps=60&quot;</span><span class="w"> </span><span class="o">-</span><span class="n">crf</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="vi">mp4</span>
 </pre></div>
 </div>
-<p>This also makes effects that converge over several frames (such as temporal
-antialiasing, SDFGI and volumetric fog) converge faster and therefore look
-better, since they'll be able to work with more data at a given time.
-See <a class="reference internal" href="#doc-creating-movies-reducing-framerate"><span class="std std-ref">Reducing framerate</span></a> if you want to get this benefit
-without adding motion blur.</p>
+<p>Esto también hace que los efectos que convergen a lo largo de varios fotogramas (como el
+antialiasing temporal, SDFGI y la niebla volumétrica) converjan más rápido y, por lo tanto, se vean
+mejor, ya que podrán trabajar con más datos en un momento dado.
+Consulta <a class="reference internal" href="#doc-creating-movies-reducing-framerate"><span class="std std-ref">Reducir la tasa de fotogramas</span></a> si deseas obtener este beneficio
+sin añadir desenfoque de movimiento.</p>
 </section>
 </section>
 </section>

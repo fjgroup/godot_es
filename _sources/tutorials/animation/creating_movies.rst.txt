@@ -1,332 +1,331 @@
 .. _doc_creating_movies:
 
-Creating movies
-===============
+Crear videos
+============
 
-Godot can record **non-real-time** video and audio from any 2D or 3D project.
-This kind of recording is also called *offline rendering*.
-There are many scenarios where this is useful:
+Godot puede grabar video y audio **fuera de tiempo real** desde cualquier proyecto 2D o 3D.
+Este tipo de grabación también se conoce como *renderizado fuera de línea* (*offline rendering*).
+Hay muchos escenarios donde esto resulta útil:
 
-- Recording game trailers for promotional use.
-- Recording cutscenes that will be :ref:`displayed as pre-recorded videos <doc_playing_videos>`
-  in the final game. This allows for using higher quality settings
-  (at the cost of file size), regardless of the player's hardware.
-- Recording procedurally generated animations or motion design. User interaction
-  remains possible during video recording, and audio can be included as well
-  (although you won't be able to hear it while the video is recording).
-- Comparing the visual output of graphics settings, shaders, or rendering techniques
-  in an animated scene.
+- Grabar tráileres de juegos para uso promocional.
+- Grabar cinemáticas que se :ref:`mostrarán como videos pregrabados <doc_playing_videos>`
+  en el juego final. Esto permite usar configuraciones de mayor calidad
+  (a costa del tamaño del archivo), independientemente del hardware del jugador.
+- Grabar animaciones generadas procedimentalmente o diseño de movimiento (*motion design*). La interacción
+  del usuario sigue siendo posible durante la grabación de video, y también se puede incluir audio
+  (aunque no podrás escucharlo mientras se graba el video).
+- Comparar el resultado visual de distintas configuraciones gráficas, shaders o técnicas de renderizado
+  en una escena animada.
 
-With Godot's animation features such as the AnimationPlayer node, Tweeners,
-particles and shaders, it can effectively be used to create any kind of 2D and
-3D animations (and still images).
+Con las funciones de animación de Godot, como el nodo AnimationPlayer, Tweeners,
+partículas y shaders, se puede utilizar eficazmente para crear cualquier tipo de animaciones 2D y
+3D (así como imágenes fijas).
 
-If you are already used to Godot's workflow, you may find yourself more
-productive by using Godot for video rendering compared to Blender. That said,
-renderers designed for non-real-time usage such as Cycles and Eevee can result
-in better visuals (at the cost of longer rendering times).
+Si ya estás acostumbrado al flujo de trabajo de Godot, puede que te resulte más
+productivo usar Godot para renderizar video en comparación con Blender. Dicho esto,
+los renderizadores diseñados para su uso fuera de tiempo real, como Cycles y Eevee, pueden ofrecer
+mejores resultados visuales (a costa de tiempos de renderizado más largos).
 
-Compared to real-time video recording, some advantages of non-real-time recording include:
+En comparación con la grabación de video en tiempo real, algunas ventajas de la grabación fuera de tiempo real incluyen:
 
-- Use any graphics settings (including extremely demanding settings) regardless
-  of your hardware's capabilities. The output video will *always* have perfect
-  frame pacing; it will never exhibit dropped frames or stuttering.
-  Faster hardware will allow you to render a given animation in less time, but
-  the visual output remains identical.
-- Render at a higher resolution than the screen resolution, without having to
-  rely on driver-specific tools such as NVIDIA's Dynamic Super Resolution or
-  AMD's Virtual Super Resolution.
-- Render at a higher framerate than the video's target framerate, then
-  :ref:`post-process to generate high-quality motion blur <doc_creating_movies_motion_blur>`.
-  This also makes effects that converge over several frames (such as temporal antialiasing,
-  SDFGI and volumetric fog) look better.
+- Usar cualquier configuración gráfica (incluidas configuraciones extremadamente exigentes) independientemente
+  de las capacidades de tu hardware. El video de salida *siempre* tendrá un ritmo de fotogramas
+  (*frame pacing*) perfecto; nunca presentará caídas de fotogramas ni tirones (*stuttering*).
+  Un hardware más rápido te permitirá renderizar una animación determinada en menos tiempo, pero
+  el resultado visual permanecerá idéntico.
+- Renderizar a una resolución mayor que la de la pantalla, sin tener que depender
+  de herramientas específicas del controlador como Dynamic Super Resolution de NVIDIA o
+  Virtual Super Resolution de AMD.
+- Renderizar a una tasa de fotogramas superior a la tasa objetivo del video, y luego
+  :ref:`aplicar posprocesamiento para generar desenfoque de movimiento de alta calidad <doc_creating_movies_motion_blur>`.
+  Esto también hace que los efectos que convergen a lo largo de varios fotogramas (como el antialiasing temporal,
+  SDFGI y la niebla volumétrica) se vean mejor.
 
 .. warning::
 
-    **This feature is not designed for capturing real-time footage during gameplay.**
+    **Esta función no está diseñada para capturar partidas en tiempo real durante el juego.**
 
-    Players should use something like `OBS Studio <https://obsproject.com/>`__ or
+    Los jugadores deben usar herramientas como `OBS Studio <https://obsproject.com/>`__ o
     `SimpleScreenRecorder <https://www.maartenbaert.be/simplescreenrecorder/>`__
-    to record gameplay videos, as they do a much better job at intercepting the
-    compositor than Godot can do using Vulkan or OpenGL natively.
+    para grabar videos de partidas, ya que realizan un trabajo mucho mejor interceptando el
+    compositor de lo que Godot puede hacer usando Vulkan u OpenGL de forma nativa.
 
-    That said, if your game runs at near-real-time speeds when capturing,
-    you can still use this feature (but it will lack audible sound playback,
-    as sound is saved directly to the video file).
+    Dicho esto, si tu juego se ejecuta a velocidades cercanas al tiempo real al capturar,
+    aún puedes usar esta función (pero carecerá de reproducción de sonido audible,
+    ya que el sonido se guarda directamente en el archivo de video).
 
-Enabling Movie Maker mode
--------------------------
+Activar el modo Movie Maker
+---------------------------
 
-To enable Movie Maker mode, click the "movie reel" button in the top-right
-corner of the editor *before* running the project:
+Para activar el modo Movie Maker, haz clic en el botón con el icono de "rollo de película" en la esquina
+superior derecha del editor *antes* de ejecutar el proyecto:
 
 .. figure:: img/creating_movies_enable_movie_maker_mode.webp
    :align: center
-   :alt: Movie Maker mode is disabled, click the "movie reel" icon to enable
+   :alt: El modo Movie Maker está desactivado; haz clic en el icono del "rollo de película" para activarlo
 
-   Movie Maker mode is disabled, click the "movie reel" icon to enable
+   El modo Movie Maker está desactivado; haz clic en el icono del "rollo de película" para activarlo
 
-A menu will be displayed with options to enable Movie Maker mode and to go to
-the settings. The icon gets a background matching the accent color when Movie
-Maker mode is enabled:
+Se mostrará un menú con opciones para activar el modo Movie Maker e ir a
+la configuración. El icono adquiere un fondo que coincide con el color de acento cuando el modo
+Movie Maker está activado:
 
 .. figure:: img/creating_movies_disable_movie_maker_mode.webp
    :align: center
-   :alt: Movie Maker mode is enabled, click the "movie reel" icon again to disable
+   :alt: El modo Movie Maker está activado; vuelve a hacer clic en el icono del "rollo de película" para desactivarlo
 
-   Movie Maker mode is enabled, click the "movie reel" icon again to disable
+   El modo Movie Maker está activado; vuelve a hacer clic en el icono del "rollo de película" para desactivarlo
 
-Movie Maker status is **not** persisted when the editor quits, so you must
-re-enable Movie Maker mode again after restarting the editor if needed.
+El estado de Movie Maker **no** se conserva al salir del editor, por lo que debes
+volver a activar el modo Movie Maker tras reiniciar el editor si es necesario.
 
 .. note::
 
-    Toggling Movie Maker mode while running the project will not have any
-    effect until the project is restarted.
+    Alternar el modo Movie Maker mientras se ejecuta el proyecto no tendrá ningún
+    efecto hasta que se reinicie el proyecto.
 
-Before you can record video by running the project, you still need to configure
-the output file path. This path can be set for all scenes in the Project Settings:
+Antes de poder grabar video ejecutando el proyecto, todavía necesitas configurar
+la ruta del archivo de salida. Esta ruta se puede configurar para todas las escenas en los Ajustes del Proyecto:
 
 .. figure:: img/creating_movies_project_settings.webp
    :align: center
-   :alt: Movie Maker project settings (with Advanced toggle enabled)
+   :alt: Ajustes del proyecto de Movie Maker (con la opción Avanzado activada)
 
-   Movie Maker project settings (with Advanced toggle enabled)
+   Ajustes del proyecto de Movie Maker (con la opción Avanzado activada)
 
-Alternatively, you can set the output file path on a per-scene basis by adding a
-String metadata with the name ``movie_file`` to the scene's **root node**. This
-is only used when the main scene is set to the scene in question, or when
-running the scene directly by pressing :kbd:`F6` (:kbd:`Cmd + R` on macOS).
+Alternativamente, puedes configurar la ruta del archivo de salida para cada escena agregando un
+metadato de tipo String con el nombre ``movie_file`` al **nodo raíz** de la escena. Esto
+solo se utiliza cuando la escena principal está configurada como la escena en cuestión, o al
+ejecutar la escena directamente presionando :kbd:`F6` (:kbd:`Cmd + R` en macOS).
 
 .. figure:: img/creating_movies_set_per_scene_metadata.webp
    :align: center
-   :alt: Inspector view after creating a ``movie_file`` metadata of type String
+   :alt: Vista del Inspector tras crear un metadato ``movie_file`` de tipo String
 
-   Inspector view after creating a ``movie_file`` metadata of type String
+   Vista del Inspector tras crear un metadato ``movie_file`` de tipo String
 
-The path specified in the project settings or metadata can be either absolute,
-or relative to the project root.
+La ruta especificada en los ajustes del proyecto o en los metadatos puede ser absoluta,
+o relativa a la raíz del proyecto.
 
-Once you've configured and enabled Movie Maker mode, it will be automatically used
-when running the project from the editor.
+Una vez configurado y activado el modo Movie Maker, se utilizará automáticamente
+al ejecutar el proyecto desde el editor.
 
-Command line usage
-~~~~~~~~~~~~~~~~~~
+Uso desde la línea de comandos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Movie Maker can also be enabled from the :ref:`command line <doc_command_line_tutorial>`:
-
-::
-
-    godot --path /path/to/your_project --write-movie output.avi
-
-If the output path is relative, then it is **relative to the project folder**,
-not the current working directory. In the above example, the file will be
-written to ``/path/to/your_project/output.avi``. This behavior is similar to the
-``--export-release`` command line argument.
-
-Since Movie Maker's output resolution is set by the viewport size, you can
-adjust the window size on startup to override it if the project uses the
-``disabled`` or ``canvas_items`` :ref:`stretch mode <doc_multiple_resolutions>`:
+Movie Maker también se puede activar desde la :ref:`línea de comandos <doc_command_line_tutorial>`:
 
 ::
 
-    godot --path /path/to/your_project --write-movie output.avi --resolution 1280x720
+    godot --path /ruta/a/tu_proyecto --write-movie salida.avi
 
-Note that the window size is clamped by your display's resolution. See
-:ref:`doc_creating_movies_recording_at_higher_resolution` if you need to record
-a video at a higher resolution than the screen resolution.
+Si la ruta de salida es relativa, es **relativa a la carpeta del proyecto**,
+no al directorio de trabajo actual. En el ejemplo anterior, el archivo se
+escribirá en ``/ruta/a/tu_proyecto/salida.avi``. Este comportamiento es similar al
+argumento de línea de comandos ``--export-release``.
 
-The recording FPS can also be overridden on the command line,
-without having to edit the Project Settings:
+Dado que la resolución de salida de Movie Maker está definida por el tamaño del viewport, puedes
+ajustar el tamaño de la ventana al inicio para anularlo si el proyecto utiliza el
+:ref:`modo de estiramiento <doc_multiple_resolutions>` ``disabled`` o ``canvas_items``:
 
 ::
 
-    godot --path /path/to/your_project --write-movie output.avi --fixed-fps 30
+    godot --path /ruta/a/tu_proyecto --write-movie salida.avi --resolution 1280x720
+
+Ten en cuenta que el tamaño de la ventana está limitado por la resolución de tu pantalla. Consulta
+:ref:`doc_creating_movies_recording_at_higher_resolution` si necesitas grabar
+un video a una resolución superior a la de la pantalla.
+
+La tasa de FPS de grabación también se puede anular desde la línea de comandos,
+sin tener que editar los Ajustes del Proyecto:
+
+::
+
+    godot --path /ruta/a/tu_proyecto --write-movie salida.avi --fixed-fps 30
 
 .. note::
 
-    The ``--write-movie`` and ``--fixed-fps`` command line arguments are both available
-    in exported projects. Movie Maker mode cannot be toggled while the project is running,
-    but you can use the :ref:`OS.execute() <class_OS_method_execute>` method to
-    run a second instance of the exported project that will record a video file.
+    Los argumentos de línea de comandos ``--write-movie`` y ``--fixed-fps`` están disponibles
+    en proyectos exportados. El modo Movie Maker no se puede alternar mientras el proyecto está en ejecución,
+    pero puedes usar el método :ref:`OS.execute() <class_OS_method_execute>` para
+    ejecutar una segunda instancia del proyecto exportado que grabará un archivo de video.
 
-Choosing an output format
--------------------------
+Elegir un formato de salida
+---------------------------
 
-Output formats are provided by the :ref:`MovieWriter <class_MovieWriter>` class.
-Godot has 3 built-in :ref:`MovieWriters <class_MovieWriter>`, and more can be
-implemented by extensions:
+Los formatos de salida son proporcionados por la clase :ref:`MovieWriter <class_MovieWriter>`.
+Godot cuenta con 3 :ref:`MovieWriters <class_MovieWriter>` integrados, y se pueden
+implementar más mediante extensiones:
 
-OGV (recommended)
+OGV (recomendado)
 ~~~~~~~~~~~~~~~~~
 
-OGV container with Theora for video and Vorbis for audio. Features lossy video
-and audio compression with a good balance of file size and encoding speed, with
-a better image quality than MJPEG. It has 4 speed levels that can be adjusted
-by changing **Editor > Movie Writer > Encoding Speed** with the fastest one
-being around as fast as AVI with better compression. At slower speed levels, it
-can compress even better while keeping the same image quality. The lossy
-compression quality can be adjusted by changing **Editor > Movie Writer > Video
-Quality** for video and **Editor > Movie Writer > Audio Quality** for audio.
+Contenedor OGV con Theora para video y Vorbis para audio. Cuenta con compresión de video
+y audio con pérdida (*lossy*), con un buen equilibrio entre tamaño de archivo y velocidad de codificación, y
+una mejor calidad de imagen que MJPEG. Dispone de 4 niveles de velocidad que se pueden ajustar
+cambiando **Editor > Movie Writer > Encoding Speed**, siendo el más rápido
+aproximadamente tan veloz como AVI con mejor compresión. En niveles de velocidad más lentos,
+puede comprimir aún mejor manteniendo la misma calidad de imagen. La calidad de
+compresión con pérdida se puede ajustar modificando **Editor > Movie Writer > Video
+Quality** para el video y **Editor > Movie Writer > Audio Quality** para el audio.
 
-The Keyframe Interval can be adjusted by changing **Editor > Movie Writer >
-Keyframe Interval**. In some cases, increasing this setting can improve
-compression efficiency without downsides.
+El intervalo de fotogramas clave (*Keyframe Interval*) se puede ajustar modificando **Editor > Movie Writer >
+Keyframe Interval**. En algunos casos, aumentar este ajuste puede mejorar la
+eficiencia de compresión sin inconvenientes.
 
-The resulting file can be viewed in Godot with :ref:`VideoStreamPlayer
-<class_VideoStreamPlayer>` and most video players but not web browsers. OGV
-does not support transparency.
+El archivo resultante se puede reproducir en Godot con :ref:`VideoStreamPlayer
+<class_VideoStreamPlayer>` y en la mayoría de reproductores de video, pero no en navegadores web. OGV
+no admite transparencia.
 
-To use OGV, specify a path to a ``.ogv`` file to be created in the **Editor >
-Movie Writer > Movie File** project setting.
+Para usar OGV, especifica una ruta a un archivo ``.ogv`` para crearlo en el ajuste de proyecto
+**Editor > Movie Writer > Movie File**.
 
 .. note::
 
-   OGV can only be recorded in editor builds.
-   On the other hand, :ref:`OGV playback <doc_playing_videos>`
-   is possible in both editor and export template builds.
+   OGV solo se puede grabar en compilaciones del editor.
+   Por otro lado, la :ref:`reproducción de OGV <doc_playing_videos>`
+   es posible tanto en el editor como en las plantillas de exportación.
 
 AVI
 ~~~
 
-AVI container with MJPEG for video and uncompressed audio. Features lossy video
-compression, resulting in medium file sizes and fast encoding. The lossy
-compression quality can be adjusted by changing
+Contenedor AVI con MJPEG para video y audio sin comprimir. Cuenta con compresión de video
+con pérdida, lo que genera tamaños de archivo medianos y codificación rápida. La calidad de
+compresión con pérdida se puede ajustar modificando
 **Editor > Movie Writer > Video Quality**.
 
-The resulting file can be viewed in most video players, but it must be converted
-to another format for viewing on the web or by Godot with the VideoStreamPlayer
-node. MJPEG does not support transparency. AVI output is currently limited to a
-file of 4 GB in size at most.
+El archivo resultante se puede reproducir en la mayoría de reproductores de video, pero debe convertirse
+a otro formato para reproducirse en la web o en Godot mediante el nodo VideoStreamPlayer.
+MJPEG no admite transparencia. La salida AVI está limitada actualmente a un
+archivo de 4 GB de tamaño como máximo.
 
-To use AVI, specify a path to a ``.avi`` file to be created in the
-**Editor > Movie Writer > Movie File** project setting.
+Para usar AVI, especifica una ruta a un archivo ``.avi`` para crearlo en el ajuste de proyecto
+**Editor > Movie Writer > Movie File**.
 
 PNG
 ~~~
 
-PNG image sequence for video and WAV for audio. Features lossless video
-compression, at the cost of large file sizes and slow encoding. This is designed
-to be
-:ref:`encoded to a video file with an external tool after recording <doc_creating_movies_converting_avi>`.
+Secuencia de imágenes PNG para video y WAV para audio. Cuenta con compresión de video
+sin pérdida (*lossless*), a costa de archivos grandes y codificación lenta. Está diseñado
+para ser
+:ref:`codificado a un archivo de video con una herramienta externa después de grabar <doc_creating_movies_converting_avi>`.
 
-Transparency is supported, but the root viewport **must** have its
-``transparent_bg`` property set to ``true`` for transparency to be visible on
-the output image. This can be achieved by enabling the **Rendering > Transparent
-Background** advanced project setting. **Display > Window > Size > Transparent**
-and **Display > Window > Per Pixel Transparency > Enabled** can optionally be
-enabled to allow transparency to be previewed while recording the video, but
-they do not have to be enabled for the output image to contain transparency.
+Se admite transparencia, pero el viewport raíz **debe** tener su propiedad
+``transparent_bg`` establecida en ``true`` para que la transparencia sea visible en
+la imagen de salida. Esto se puede lograr habilitando el ajuste de proyecto avanzado **Rendering > Transparent
+Background**. Opcionalmente, se pueden habilitar **Display > Window > Size > Transparent**
+y **Display > Window > Per Pixel Transparency > Enabled** para permitir la previsualización de la transparencia mientras se graba el video, pero
+no es obligatorio activarlos para que la imagen de salida contenga transparencia.
 
-To use PNG, specify a ``.png`` file to be created in the
-**Editor > Movie Writer > Movie File** project setting. The generated ``.wav``
-file will have the same name as the ``.png`` file (minus the extension).
+Para usar PNG, especifica un archivo ``.png`` para crearlo en el ajuste de proyecto
+**Editor > Movie Writer > Movie File**. El archivo ``.wav`` generado
+tendrá el mismo nombre que el archivo ``.png`` (excepto por la extensión).
 
-Custom
-~~~~~~
+Personalizado
+~~~~~~~~~~~~~
 
-If you need to encode directly to a different format or pipe a stream through
-third-party software, you can extend the MovieWriter class to create your own
-movie writers. This should typically be done using GDExtension for performance
-reasons.
+Si necesitas codificar directamente en un formato diferente o canalizar el flujo a través de
+software de terceros, puedes extender la clase MovieWriter para crear tus propios
+escritores de películas. Esto suele hacerse usando GDExtension por razones de
+rendimiento.
 
-Configuration
+Configuración
 -------------
 
-In the **Editor > Movie Writer** section of the Project Settings, there are
-several options you can configure. Some of them are only visible after enabling
-the **Advanced** toggle in the top-right corner of the Project Settings dialog.
+En la sección **Editor > Movie Writer** de los Ajustes del Proyecto, hay
+varias opciones que puedes configurar. Algunas de ellas solo son visibles tras activar
+la opción **Avanzado** en la esquina superior derecha del diálogo de Ajustes del Proyecto.
 
-- **Mix Rate Hz:** The audio mix rate to use in the recorded audio when writing
-  a movie. This can be different from the project's mix rate, but this
-  value must be divisible by the recorded FPS to prevent audio from
-  desynchronizing over time.
-- **Speaker Mode:** The speaker mode to use in the recorded audio when writing
-  a movie (stereo, 5.1 surround or 7.1 surround).
-- **Video Quality:** The image quality to use when writing a video to an OGV or
-  AVI file, between ``0.01`` and ``1.0`` (inclusive). Higher quality values result
-  in better-looking output at the cost of larger file sizes. Recommended quality
-  values are between ``0.75`` and ``0.9``. Even at quality ``1.0``, compression
-  remains lossy. This setting does not affect audio quality and is ignored when
-  writing to a PNG image sequence.
-- **Movie File:** The output path for the movie. This can be absolute or
-  relative to the project root.
-- **Disable V-Sync:** If enabled, requests V-Sync to be disabled when writing a
-  movie. This can speed up video writing if the hardware is fast enough to
-  render, encode and save the video at a framerate higher than the monitor's
-  refresh rate. This setting has no effect if the operating system or graphics
-  driver forces V-Sync with no way for applications to disable it.
-- **FPS:** The rendered frames per second in the output movie. Higher values
-  result in smoother animation, at the cost of longer rendering times and larger
-  output file sizes. Most video hosting platforms do not support FPS values
-  higher than 60, but you can use a higher value and use that to generate motion
-  blur.
-- **Audio Quality:** The audio quality to use when writing a video to an OGV
-  file, between ``-0.1`` and ``1.0`` (inclusive). Higher quality values result
-  in better audio quality at the cost of very slightly larger file sizes.
-  Recommended quality values are between ``0.3`` and ``0.5``. Even at quality
-  ``1.0``, compression remains lossy.
-- **Encoding Speed:** The speed level to use when writing a video to an OGV
-  file. Faster speed levels have less compression efficiency. The image quality
-  stays barely the same.
-- **Keyframe Interval:** Also known as GOP (Group Of Pictures), the maximum
-  number of inter-frames to use when writing to an OGV file. Higher values can
-  improve compression efficiency without quality loss but at the cost of slower
-  video seeks.
+- **Mix Rate Hz:** La tasa de mezcla de audio a usar en el audio grabado al escribir
+  una película. Puede ser diferente de la tasa de mezcla del proyecto, pero este
+  valor debe ser divisible por la tasa de FPS grabada para evitar que el audio se
+  desincronice con el tiempo.
+- **Speaker Mode:** El modo de altavoces a usar en el audio grabado al escribir
+  una película (estéreo, sonido envolvente 5.1 o sonido envolvente 7.1).
+- **Video Quality:** La calidad de imagen a usar al escribir un video en un archivo OGV o
+  AVI, entre ``0.01`` y ``1.0`` (inclusivo). Valores de calidad más altos dan como resultado
+  una mejor salida visual a costa de archivos más grandes. Los valores de calidad recomendados
+  están entre ``0.75`` y ``0.9``. Incluso con calidad ``1.0``, la compresión
+  sigue teniendo pérdidas. Esta configuración no afecta la calidad del audio y se ignora al
+  escribir en una secuencia de imágenes PNG.
+- **Movie File:** La ruta de salida para la película. Puede ser absoluta o
+  relativa a la raíz del proyecto.
+- **Disable V-Sync:** Si está habilitado, solicita que se desactive la sincronización vertical (V-Sync) al escribir
+  una película. Esto puede acelerar la escritura de video si el hardware es lo suficientemente rápido para
+  renderizar, codificar y guardar el video a una tasa de fotogramas superior a la frecuencia de actualización
+  del monitor. Esta configuración no tiene efecto si el sistema operativo o el controlador gráfico
+  fuerzan V-Sync sin permitir que las aplicaciones la desactiven.
+- **FPS:** Los fotogramas por segundo renderizados en la película de salida. Valores más altos
+  producen una animación más fluida, a costa de tiempos de renderizado más largos y tamaños de
+  archivo de salida mayores. La mayoría de las plataformas de alojamiento de videos no admiten valores de FPS
+  superiores a 60, pero puedes usar un valor más alto para generar desenfoque de
+  movimiento (*motion blur*).
+- **Audio Quality:** La calidad de audio a usar al escribir un video en un archivo OGV,
+  entre ``-0.1`` y ``1.0`` (inclusivo). Valores de calidad más altos dan como resultado
+  una mejor calidad de audio a costa de un aumento muy ligero en el tamaño del archivo.
+  Los valores de calidad recomendados están entre ``0.3`` y ``0.5``. Incluso con calidad
+  ``1.0``, la compresión sigue teniendo pérdidas.
+- **Encoding Speed:** El nivel de velocidad a usar al escribir un video en un archivo OGV.
+  Niveles de velocidad más rápidos tienen menor eficiencia de compresión. La calidad de imagen
+  permanece prácticamente igual.
+- **Keyframe Interval:** También conocido como GOP (*Group Of Pictures*), el número máximo
+  de interfotogramas a usar al escribir en un archivo OGV. Valores más altos pueden
+  mejorar la eficiencia de compresión sin pérdida de calidad, pero a costa de búsquedas más lentas
+  al reproducir el video.
 
 .. note::
 
-    When using the ``disabled`` or ``2d`` :ref:`stretch modes <doc_multiple_resolutions>`,
-    the output file's resolution is set by the window size. Make sure to resize
-    the window *before* the splash screen has ended. For this purpose, it's
-    recommended to adjust the
-    **Display > Window > Size > Window Width Override** and
-    **Window Height Override** advanced project settings.
+    Al usar los modos de estiramiento ``disabled`` o ``2d`` :ref:`stretch modes <doc_multiple_resolutions>`,
+    la resolución del archivo de salida viene dada por el tamaño de la ventana. Asegúrate de redimensionar
+    la ventana *antes* de que finalice la pantalla de carga (*splash screen*). Para este propósito, se
+    recomienda ajustar las opciones avanzadas de proyecto
+    **Display > Window > Size > Window Width Override** y
+    **Window Height Override**.
 
-    See also :ref:`doc_creating_movies_recording_at_higher_resolution`.
+    Consulta también :ref:`doc_creating_movies_recording_at_higher_resolution`.
 
-Quitting Movie Maker mode
--------------------------
+Salir del modo Movie Maker
+--------------------------
 
-To safely quit a project that is using Movie Maker mode, use the X button at the
-top of the window, or call ``get_tree().quit()`` in a script. You can also use
-the ``--quit-after N`` command line argument where ``N`` is the number of frames
-to render before quitting.
+Para salir de forma segura de un proyecto que está usando el modo Movie Maker, usa el botón X en la
+parte superior de la ventana, o llama a ``get_tree().quit()`` en un script. También puedes usar
+el argumento de línea de comandos ``--quit-after N``, donde ``N`` es el número de fotogramas
+a renderizar antes de salir.
 
-Pressing :kbd:`F8` (:kbd:`Cmd + .` on macOS) or pressing :kbd:`Ctrl + C` on the
-terminal running Godot is **not recommended**, as it will result in an
-improperly formatted AVI file with no duration information. For PNG image
-sequences, PNG images will not be negatively altered, but the associated WAV
-file will still lack duration information. OGV files might end up with slightly
-different duration video and audio tracks but still valid.
+Presionar :kbd:`F8` (:kbd:`Cmd + .` en macOS) o presionar :kbd:`Ctrl + C` en la
+terminal que ejecuta Godot **no se recomienda**, ya que provocará un archivo AVI
+con formato incorrecto y sin información de duración. Para secuencias de imágenes
+PNG, las imágenes PNG no se alterarán negativamente, pero el archivo WAV asociado
+carecerá de información de duración. Los archivos OGV pueden terminar con pistas de video
+y audio de duraciones ligeramente distintas, aunque seguirán siendo válidos.
 
-Some video players may still be able to play the AVI or WAV file with working
-video and audio. However, software that makes use of the AVI or WAV file such as
-video editors may not be able to open the file.
-:ref:`Using a video converter program <doc_creating_movies_converting_avi>`
-can help in those cases.
+Algunos reproductores de video aún podrán reproducir el archivo AVI o WAV con video
+y audio funcionales. Sin embargo, el software que hace uso del archivo AVI o WAV, como los
+editores de video, podría no poder abrir el archivo.
+:ref:`Usar un programa convertidor de video <doc_creating_movies_converting_avi>`
+puede ayudar en esos casos.
 
-If you're using an AnimationPlayer to control a "main action" in the scene (such
-as camera movement), you can enable the **Movie Quit On Finish** property on the
-AnimationPlayer node in question. When enabled, this property will make Godot
-quit on its own when an animation is done playing *and* the engine is running in
-Movie Maker mode. Note that *this property has no effect on looping animations*.
-Therefore, you need to make sure that the animation is set as non-looping.
+Si estás usando un AnimationPlayer para controlar una "acción principal" en la escena (como
+el movimiento de la cámara), puedes activar la propiedad **Movie Quit On Finish** en el
+nodo AnimationPlayer en cuestión. Cuando está activada, esta propiedad hará que Godot
+se cierre automáticamente cuando termine de reproducirse la animación *y* el motor se esté ejecutando en
+modo Movie Maker. Ten en cuenta que *esta propiedad no tiene efecto en animaciones en bucle*.
+Por lo tanto, debes asegurarte de que la animación esté configurada como no repetitiva.
 
-Using high-quality graphics settings
-------------------------------------
+Uso de configuraciones gráficas de alta calidad
+-----------------------------------------------
 
-The ``movie`` :ref:`feature tag <doc_feature_tags>` can be used to override
-specific project settings. This is useful to enable high-quality graphics settings
-that wouldn't be fast enough to run in real-time speeds on your hardware.
-Remember that putting every setting to its maximum value can still slow down
-movie saving speed, especially when recording at higher resolutions. Therefore,
-it's still recommended to only increase graphics settings if they make a meaningful
-difference in the output image.
+La etiqueta de características (*feature tag*) ``movie`` :ref:`feature tag <doc_feature_tags>` se puede utilizar para anular
+ajustes de proyecto específicos. Esto es útil para habilitar configuraciones gráficas de alta calidad
+que no serían lo suficientemente rápidas para ejecutarse a velocidades de tiempo real en tu hardware.
+Recuerda que poner cada ajuste en su valor máximo aún puede ralentizar la velocidad de guardado de
+la película, especialmente al grabar a resoluciones más altas. Por lo tanto,
+se recomienda aumentar solo las configuraciones gráficas que marquen una diferencia notable
+en la imagen de salida.
 
-This feature tag can also be queried in a script to increase quality settings
-that are set in the Environment resource. For example, to further improve SDFGI
-detail and reduce light leaking:
+Esta etiqueta de características también se puede consultar en un script para aumentar las configuraciones de calidad
+definidas en el recurso Environment. Por ejemplo, para mejorar aún más el detalle de SDFGI
+y reducir las fugas de luz:
 
 .. tabs::
  .. code-tab:: gdscript
@@ -335,8 +334,8 @@ detail and reduce light leaking:
 
     func _ready():
         if OS.has_feature("movie"):
-            # When recording a movie, improve SDFGI cell density
-            # without decreasing its maximum distance.
+            # Al grabar una película, mejora la densidad de celdas SDFGI
+            # sin disminuir su distancia máxima.
             get_viewport().world_3d.environment.sdfgi_min_cell_size *= 0.25
             get_viewport().world_3d.environment.sdfgi_cascades = 8
 
@@ -350,8 +349,8 @@ detail and reduce light leaking:
         {
             if (OS.HasFeature("movie"))
             {
-                // When recording a movie, improve SDFGI cell density
-                // without decreasing its maximum distance.
+                // Al grabar una película, mejora la densidad de celdas SDFGI
+                // sin disminuir su distancia máxima.
                 GetViewport().World3D.Environment.SdfgiMinCellSize *= 0.25f;
                 GetViewport().World3D.Environment.SdfgiCascades = 8;
             }
@@ -360,109 +359,109 @@ detail and reduce light leaking:
 
 .. _doc_creating_movies_recording_at_higher_resolution:
 
-Rendering at a higher resolution than the screen resolution
------------------------------------------------------------
+Renderizar a una resolución mayor que la de la pantalla
+-------------------------------------------------------
 
-The overall rendering quality can be improved significantly by rendering at high
-resolutions such as 4K or 8K.
+La calidad general del renderizado se puede mejorar significativamente renderizando a altas
+resoluciones como 4K u 8K.
 
 .. note::
 
-    For 3D rendering, Godot provides a **Rendering > Scaling 3D > Scale**
-    advanced project setting, which can be set above ``1.0`` to obtain
-    *supersample antialiasing*. The 3D rendering is then *downsampled* when it's
-    drawn on the viewport. This provides an expensive but high-quality form of
-    antialiasing, without increasing the final output resolution.
+    Para el renderizado 3D, Godot proporciona el ajuste de proyecto avanzado **Rendering > Scaling 3D > Scale**,
+    que se puede establecer por encima de ``1.0`` para obtener
+    *antialiasing por supermuestreo* (*supersample antialiasing*). El renderizado 3D se *submuestrea* (*downsampled*) cuando se
+    dibuja en el viewport. Esto proporciona una forma de antialiasing costosa pero de alta calidad,
+    sin aumentar la resolución de salida final.
 
-    Consider using this project setting first, as it avoids slowing down movie
-    writing speeds and increasing output file size compared to actually
-    increasing the output resolution.
+    Considera usar este ajuste de proyecto primero, ya que evita ralentizar la velocidad de escritura
+    de la película y aumentar el tamaño del archivo de salida en comparación con incrementar
+    realmente la resolución de salida.
 
-If you wish to render 2D at a higher resolution, or if you actually need the
-higher raw pixel output for 3D rendering, you can increase the resolution above
-what the screen allows.
+Si deseas renderizar 2D a una resolución mayor, o si realmente necesitas la
+salida de píxeles sin procesar más alta para renderizado 3D, puedes aumentar la resolución por encima
+de lo que permite la pantalla.
 
-By default, Godot uses the ``disabled`` :ref:`stretch modes <doc_multiple_resolutions>`
-in projects. If using ``disabled`` or ``canvas_items`` stretch mode,
-the window size dictates the output video resolution.
+Por defecto, Godot utiliza el modo de estiramiento ``disabled`` :ref:`stretch modes <doc_multiple_resolutions>`
+en los proyectos. Si usas el modo de estiramiento ``disabled`` o ``canvas_items``,
+el tamaño de la ventana dicta la resolución de salida del video.
 
-On the other hand, if the project is configured to use the ``viewport`` stretch
-mode, the viewport resolution dictates the output video resolution. The viewport
-resolution is set using the **Display > Window > Size > Viewport Width** and
-**Viewport Height** project settings. This can be used to render a video at a
-higher resolution than the screen resolution.
+Por otra parte, si el proyecto está configurado para usar el modo de estiramiento
+``viewport``, la resolución del viewport dicta la resolución de salida del video. La resolución
+del viewport se configura usando los ajustes de proyecto **Display > Window > Size > Viewport Width** y
+**Viewport Height**. Esto se puede usar para renderizar un video a una resolución
+mayor que la de la pantalla.
 
-To make the window smaller during recording without affecting the output video
-resolution, you can set the **Display > Window > Size > Window Width Override**
-and **Window Height Override** advanced project settings to values greater than
+Para hacer la ventana más pequeña durante la grabación sin afectar la resolución del video de
+salida, puedes establecer los ajustes de proyecto avanzados **Display > Window > Size > Window Width Override**
+y **Window Height Override** en valores mayores que
 ``0``.
 
-To apply a resolution override only when recording a movie, you can override
-those settings with the ``movie`` :ref:`feature tag <doc_feature_tags>`.
+Para aplicar una anulación de resolución solo al grabar una película, puedes anular
+esos ajustes con la etiqueta de características ``movie`` :ref:`feature tag <doc_feature_tags>`.
 
-Post-processing steps
----------------------
+Pasos de posprocesamiento
+-------------------------
 
-Some common post-processing steps are listed below.
+A continuación se enumeran algunos pasos de posprocesamiento habituales.
 
 .. note::
 
-    When using several post-processing steps, try to perform all of them in a
-    single FFmpeg command. This will save encoding time and improve quality by
-    avoiding multiple lossy encoding steps.
+    Al usar varios pasos de posprocesamiento, intenta realizarlos todos en un
+    único comando de FFmpeg. Esto ahorrará tiempo de codificación y mejorará la calidad al
+    evitar múltiples pasos de codificación con pérdida.
 
 .. _doc_creating_movies_converting_avi:
 
-Converting OGV/AVI video to MP4
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Convertir video OGV/AVI a MP4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-While some platforms such as YouTube support uploading the AVI file directly, many
-others will require a conversion step beforehand. `HandBrake <https://handbrake.fr/>`__
-(GUI) and `FFmpeg <https://ffmpeg.org/>`__ (CLI) are popular open source tools
-for this purpose. FFmpeg has a steeper learning curve, but it's more powerful.
+Aunque algunas plataformas como YouTube admiten subir el archivo AVI directamente, muchas
+otras requerirán un paso de conversión previo. `HandBrake <https://handbrake.fr/>`__
+(interfaz gráfica) y `FFmpeg <https://ffmpeg.org/>`__ (línea de comandos) son herramientas populares de código abierto
+para este propósito. FFmpeg tiene una curva de aprendizaje más pronunciada, pero es más potente.
 
-The command below converts an OGV/AVI video to an MP4 (H.264) video with a
-Constant Rate Factor (CRF) of 15. This results in a relatively large file, but
-is well-suited for platforms that will re-encode your videos to reduce their
-size (such as most video sharing websites):
+El siguiente comando convierte un video OGV/AVI a un video MP4 (H.264) con un
+Factor de Tasa Constante (*Constant Rate Factor* o CRF) de 15. Esto da como resultado un archivo relativamente grande, pero
+es adecuado para plataformas que volverán a codificar tus videos para reducir su
+tamaño (como la mayoría de los sitios web para compartir videos):
 
 ::
 
     ffmpeg -i input.avi -crf 15 output.mp4
 
-To get a smaller file at the cost of quality, *increase* the CRF value in the
-above command.
+Para obtener un archivo más pequeño a costa de la calidad, *aumenta* el valor de CRF en el
+comando anterior.
 
-To get a file with a better size/quality ratio (at the cost of slower encoding
-times), add ``-preset veryslow`` before ``-crf 15`` in the above command. On the
-contrary, ``-preset veryfast`` can be used to achieve faster encoding at the
-cost of a worse size/quality ratio.
+Para obtener un archivo con una mejor relación tamaño/calidad (a costa de tiempos de codificación
+más lentos), añade ``-preset veryslow`` antes de ``-crf 15`` en el comando anterior. Por el
+contrario, se puede usar ``-preset veryfast`` para lograr una codificación más rápida a
+costa de una peor relación tamaño/calidad.
 
 .. _doc_creating_movies_converting_image_sequence:
 
-Converting PNG image sequence + WAV audio to a video
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Convertir secuencia de imágenes PNG + audio WAV a video
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you chose to record a PNG image sequence with a WAV file beside it,
-you need to convert it to a video before you can use it elsewhere.
+Si optaste por grabar una secuencia de imágenes PNG junto con un archivo WAV,
+necesitas convertirla a un video antes de poder usarla en otros lugares.
 
-The filename for the PNG image sequence generated by Godot always contains 8
-digits, starting at 0 with zero-padded numbers. If you specify an output
-path ``folder/example.png``, Godot will write ``folder/example00000000.png``,
-``folder/example00000001.png``, and so on in that folder. The audio will be saved
-at ``folder/example.wav``.
+El nombre de archivo para la secuencia de imágenes PNG generada por Godot siempre contiene 8
+dígitos, comenzando en 0 con números rellenados con ceros. Si especificas una ruta
+de salida ``carpeta/ejemplo.png``, Godot escribirá ``carpeta/ejemplo00000000.png``,
+``carpeta/ejemplo00000001.png``, y así sucesivamente en esa carpeta. El audio se guardará
+en ``carpeta/ejemplo.wav``.
 
-The FPS is specified using the ``-r`` argument. It should match the FPS
-specified during recording. Otherwise, the video will appear to be slowed down
-or sped up, and audio will be out of sync with the video.
+Los FPS se especifican mediante el argumento ``-r``. Debe coincidir con los FPS
+especificados durante la grabación. De lo contrario, el video parecerá ralentizado
+o acelerado, y el audio se desincronizará del video.
 
 ::
 
     ffmpeg -r 60 -i input%08d.png -i input.wav -crf 15 output.mp4
 
-If you recorded a PNG image sequence with transparency enabled, you need to use
-a video format that supports storing transparency. MP4/H.264 doesn't support
-storing transparency, so you can use WebM/VP9 as an alternative:
+Si grabaste una secuencia de imágenes PNG con transparencia habilitada, necesitas usar
+un formato de video que admita almacenar transparencia. MP4/H.264 no admite
+almacenar transparencia, por lo que puedes usar WebM/VP9 como alternativa:
 
 ::
 
@@ -470,25 +469,25 @@ storing transparency, so you can use WebM/VP9 as an alternative:
 
 .. _doc_creating_movies_motion_blur:
 
-Cutting video
-~~~~~~~~~~~~~
+Recortar video
+~~~~~~~~~~~~~~
 
-You can trim parts of the video you don't want to keep after the video is
-recorded. For example, to discard everything before 12.1 seconds and keep
-only 5.2 seconds of video after that point:
+Puedes recortar partes del video que no quieras conservar después de grabarlo.
+Por ejemplo, para descartar todo antes de 12.1 segundos y conservar
+solo 5.2 segundos de video a partir de ese punto:
 
 ::
 
     ffmpeg -i input.avi -ss 00:00:12.10 -t 00:00:05.20 -crf 15 output.mp4
 
-Cutting videos can also be done with the GUI tool
+El recorte de videos también se puede realizar con la herramienta gráfica
 `LosslessCut <https://losslesscut.app/>`__.
 
-Resizing video
-~~~~~~~~~~~~~~
+Redimensionar video
+~~~~~~~~~~~~~~~~~~~
 
-The following command resizes a video to be 1080 pixels tall (1080p),
-while preserving its existing aspect ratio:
+El siguiente comando redimensiona un video para que tenga 1080 píxeles de alto (1080p),
+manteniendo su relación de aspecto existente:
 
 ::
 
@@ -497,37 +496,37 @@ while preserving its existing aspect ratio:
 
 .. _doc_creating_movies_reducing_framerate:
 
-Reducing framerate
-~~~~~~~~~~~~~~~~~~
+Reducir la tasa de fotogramas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following command changes a video's framerate to 30 FPS, dropping some of
-the original frames if there are more in the input video:
+El siguiente comando cambia la tasa de fotogramas de un video a 30 FPS, descartando algunos
+de los fotogramas originales si hay más en el video de entrada:
 
 ::
 
     ffmpeg -i input.avi -r 30 -crf 15 output.mp4
 
-Generating accumulation motion blur with FFmpeg
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generar desenfoque de movimiento por acumulación con FFmpeg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Godot does not have built-in support for motion blur, but it can still be
-created in recorded videos.
+Godot no cuenta con soporte integrado para desenfoque de movimiento (*motion blur*), pero aun así se puede
+crear en videos grabados.
 
-If you record the video at a multiple of the original framerate, you can blend
-the frames together then reduce the framerate to produce a video with
-*accumulation motion blur*. This motion blur can look very good, but it can take
-a long time to generate since you have to render many more frames per second (on
-top of the time spent on post-processing).
+Si grabas el video a un múltiplo de la tasa de fotogramas original, puedes mezclar
+los fotogramas entre sí y luego reducir la tasa de fotogramas para producir un video con
+*desenfoque de movimiento por acumulación* (*accumulation motion blur*). Este desenfoque de movimiento puede verse muy bien, pero puede tardar
+mucho tiempo en generarse, ya que tienes que renderizar muchos más fotogramas por segundo (además
+del tiempo dedicado al posprocesamiento).
 
-Example with a 240 FPS source video, generating 4× motion blur and decreasing
-its output framerate to 60 FPS:
+Ejemplo con un video fuente a 240 FPS, generando desenfoque de movimiento 4× y reduciendo
+su tasa de fotogramas de salida a 60 FPS:
 
 ::
 
     ffmpeg -i input.avi -vf "tmix=frames=4, fps=60" -crf 15 output.mp4
 
-This also makes effects that converge over several frames (such as temporal
-antialiasing, SDFGI and volumetric fog) converge faster and therefore look
-better, since they'll be able to work with more data at a given time.
-See :ref:`doc_creating_movies_reducing_framerate` if you want to get this benefit
-without adding motion blur.
+Esto también hace que los efectos que convergen a lo largo de varios fotogramas (como el
+antialiasing temporal, SDFGI y la niebla volumétrica) converjan más rápido y, por lo tanto, se vean
+mejor, ya que podrán trabajar con más datos en un momento dado.
+Consulta :ref:`doc_creating_movies_reducing_framerate` si deseas obtener este beneficio
+sin añadir desenfoque de movimiento.
