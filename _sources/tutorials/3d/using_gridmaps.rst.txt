@@ -1,223 +1,151 @@
 .. _doc_using_gridmaps:
 
-Using GridMaps
-==============
+Usar GridMaps
+=============
 
-Introduction
+Introducción
 ------------
 
-:ref:`Gridmaps <class_GridMap>` are a tool for creating 3D
-game levels, similar to the way :ref:`TileMap <doc_using_tilemaps>`
-works in 2D. You start with a predefined collection of 3D meshes (a
-:ref:`class_MeshLibrary`) that can be placed on a grid,
-as if you were building a level with an unlimited amount of Lego blocks.
+Los :ref:`GridMaps <class_GridMap>` son una herramienta para crear niveles de juegos 3D, similar a cómo funciona :ref:`TileMap <doc_using_tilemaps>` en 2D. Comienzas con una colección predefinida de mallas 3D (una :ref:`class_MeshLibrary`) que se pueden colocar en una cuadrícula, como si estuvieras construyendo un nivel con una cantidad ilimitada de bloques de Lego.
 
-Collisions and navigation can also be added to the meshes, just like you
-would do with the tiles of a tilemap.
+Las colisiones y la navegación también se pueden añadir a las mallas, tal como se haría con las celdas (tiles) de un TileMap.
 
-Example project
----------------
+Proyecto de ejemplo
+-------------------
 
-To learn how GridMaps work, start by downloading the sample project:
-`gridmap_starter.zip <https://github.com/godotengine/godot-docs-project-starters/releases/download/latest-4.x/gridmap_starter.zip>`_.
+Para aprender cómo funcionan los GridMaps, empieza descargando el proyecto de ejemplo: `gridmap_starter.zip <https://github.com/godotengine/godot-docs-project-starters/releases/download/latest-4.x/gridmap_starter.zip>`_.
 
-Unzip this project and add it to the Project Manager using the "Import"
-button. You may get a popup saying that it needs to be converted to a newer Godot
-version, click **Convert project.godot**.
+Descomprime este proyecto y añádelo al Administrador de Proyectos (Project Manager) usando el botón "Importar". Es posible que aparezca una ventana emergente indicando que debe convertirse a una versión más reciente de Godot; haz clic en **Convert project.godot**.
 
-Creating a MeshLibrary
-----------------------
+Crear una MeshLibrary
+---------------------
 
-To begin, you need a :ref:`class_MeshLibrary`, which is a collection
-of individual meshes that can be used in the gridmap. Open the "mesh_library_source.tscn"
-scene to see an example of how to set up the mesh library.
+Para comenzar, necesitas una :ref:`class_MeshLibrary`, que es una colección de mallas individuales que se pueden usar en el GridMap. Abre la escena "mesh_library_source.tscn" para ver un ejemplo de cómo configurar la biblioteca de mallas.
 
 .. image:: img/gridmap_meshlibrary1.webp
 
-As you can see, this scene has a :ref:`class_Node3D` node as its root, and
-a number of :ref:`class_MeshInstance3D` node children.
+Como puedes ver, esta escena tiene un nodo :ref:`class_Node3D` como nodo raíz y varios nodos hijos :ref:`class_MeshInstance3D`.
 
-If you don't need any physics in your scene, then you're done. However, in most
-cases you'll want to assign collision bodies to the meshes.
+Si no necesitas física en tu escena, habrás terminado. Sin embargo, en la mayoría de los casos querrás asignar cuerpos de colisión a las mallas.
 
-Collisions
+Colisiones
 ----------
 
-You can manually assign a :ref:`class_StaticBody3D` and
-:ref:`class_CollisionShape3D` to each mesh. Alternatively, you can use the "Mesh" menu
-to automatically create the collision body based on the mesh data.
+Puedes asignar manualmente un :ref:`class_StaticBody3D` y un :ref:`class_CollisionShape3D` a cada malla. Alternativamente, puedes usar el menú "Mesh" para crear automáticamente el cuerpo de colisión basándose en los datos de la malla.
 
 .. image:: img/gridmap_create_body.webp
 
-Note that a "Convex" collision body will work better for simple meshes. For more
-complex shapes, select "Create Trimesh Static Body". Once each mesh has
-a physics body and collision shape assigned, your mesh library is ready to
-be used.
+Ten en cuenta que un cuerpo de colisión "Convexo" funcionará mejor para mallas simples. Para formas más complejas, selecciona "Crear cuerpo estático Trimalla". Una vez que cada malla tenga asignado un cuerpo físico y una forma de colisión, tu biblioteca de mallas estará lista para ser utilizada.
 
 .. image:: img/gridmap_mesh_scene.webp
 
 
-Materials
----------
+Materiales
+----------
 
-Only the materials from within the meshes are used when generating the mesh
-library. Materials set on the node will be ignored.
+Solo se utilizan los materiales definidos dentro de las mallas para generar la biblioteca de mallas. Los materiales configurados en el nodo serán ignorados.
 
 NavigationMeshes
 ----------------
 
-Like all mesh instances, MeshLibrary items can be assigned a :ref:`class_NavigationMesh`
-resource, which can be created manually, or baked as described below.
+Al igual que todas las instancias de malla, los elementos de MeshLibrary pueden tener asignado un recurso :ref:`class_NavigationMesh`, el cual puede crearse manualmente o hornearse como se describe a continuación.
 
-To create the NavigationMesh from a MeshLibrary scene export, place a
-:ref:`class_NavigationRegion3D` child node below the main MeshInstance3D for the GridMap
-item. Add a valid NavigationMesh resource to the NavigationRegion3D and some source
-geometry nodes below and bake the NavigationMesh.
+Para crear el NavigationMesh a partir de una exportación de escena MeshLibrary, coloca un nodo hijo :ref:`class_NavigationRegion3D` debajo del MeshInstance3D principal para el elemento del GridMap. Añade un recurso NavigationMesh válido al NavigationRegion3D y algunos nodos de geometría de origen debajo, y hornea el NavigationMesh.
 
 .. note::
 
-    With small grid cells it is often necessary to reduce the NavigationMesh properties
-    for agent radius and region minimum size.
+    Con celdas de cuadrícula pequeñas, a menudo es necesario reducir las propiedades del NavigationMesh para el radio del agente (agent radius) y el tamaño mínimo de la región (region minimum size).
 
 .. image:: img/meshlibrary_scene.png
 
-Nodes below the NavigationRegion3D are ignored for the MeshLibrary scene export, so
-additional nodes can be added as source geometry just for baking the navmesh.
+Los nodos ubicados debajo del NavigationRegion3D se ignoran durante la exportación de la escena MeshLibrary, por lo que se pueden añadir nodos adicionales como geometría de origen únicamente para hornear el navmesh.
 
 .. warning::
 
-    The baked cell size of the NavigationMesh must match the NavigationServer map cell
-    size to properly merge the navigation meshes of different grid cells.
+    El tamaño de celda horneado (*cell size*) del NavigationMesh debe coincidir con el tamaño de celda del mapa (*map cell size*) del NavigationServer para fusionar correctamente las mallas de navegación de diferentes celdas de la cuadrícula.
 
-Lightmaps
----------
+Mapas de luz (Lightmaps)
+------------------------
 
-It is possible to bake lightmaps onto a GridMap. Lightmap UV2 data will be reused
-from meshes if already present. If UV2 data is not present, then it will be
-automatically generated on bake with a lightmap texel size of 0.1 units.
-To generate UV2 data with a different lightmap texel size, you can set the
-global illumination mode in the Import dock to **Static Lightmaps**
-and specify the texel size there. This option must be changed *before* the scene
-is converted to a MeshLibrary, as changing it later on will not affect
-the existing MeshLibrary data.
+Es posible hornear mapas de luz (*lightmaps*) en un GridMap. Los datos de UV2 para mapas de luz se reutilizarán de las mallas si ya están presentes. Si los datos de UV2 no están presentes, se generarán automáticamente al hornear con un tamaño de téxel de mapa de luz de 0.1 unidades. Para generar datos de UV2 con un tamaño de téxel de mapa de luz diferente, puedes configurar el modo de iluminación global en el dock Importar a **Static Lightmaps** y especificar allí el tamaño de téxel. Esta opción debe cambiarse *antes* de que la escena se convierta en una MeshLibrary, ya que modificarla más tarde no afectará los datos existentes de la MeshLibrary.
 
-Aside from this peculiarity, the lightmap baking process is the same as for any other 3D scene.
-See :ref:`doc_using_lightmap_gi` for more information about lightmap baking.
+Aparte de esta peculiaridad, el proceso de horneado de mapas de luz es el mismo que para cualquier otra escena 3D. Consulta :ref:`doc_using_lightmap_gi` para obtener más información sobre el horneado de mapas de luz.
 
-MeshLibrary format
-------------------
+Formato de MeshLibrary
+----------------------
 
-To summarize the specific constraints of the MeshLibrary format, a MeshLibrary
-scene has a Node3D as the root node, and several child nodes which will become
-MeshLibrary items. Each child of the root node should:
+Para resumir las restricciones específicas del formato MeshLibrary, una escena MeshLibrary tiene un Node3D como nodo raíz y varios nodos hijos que se convertirán en elementos de la MeshLibrary. Cada hijo del nodo raíz debe:
 
-- Be a :ref:`class_MeshInstance3D`, which will become the MeshLibrary item. Only
-  this visual mesh will be exported.
-- Have a material, in the mesh's material slot, *not* the MeshInstance3D's
-  material slots.
-- Have up to one :ref:`class_StaticBody3D` child, for collision. The
-  StaticBody3D should have one or more :ref:`class_CollisionShape3D` children.
-- Have up to one :ref:`class_NavigationRegion3D` child, for navigation. The
-  NavigationRegion3D can have one or more additional :ref:`class_MeshInstance3D`
-  children, which can be baked for navigation, but won't be exported as a visual
-  mesh.
+- Ser un :ref:`class_MeshInstance3D`, que se convertirá en el elemento de la MeshLibrary. Solo esta malla visual será exportada.
+- Tener un material en la ranura de material de la malla (*material slot*), *no* en las ranuras de material del MeshInstance3D.
+- Tener hasta un hijo :ref:`class_StaticBody3D`, para colisión. El StaticBody3D debe tener uno o más hijos :ref:`class_CollisionShape3D`.
+- Tener hasta un hijo :ref:`class_NavigationRegion3D`, para navegación. El NavigationRegion3D puede tener uno o más hijos :ref:`class_MeshInstance3D` adicionales, los cuales se pueden hornear para navegación, pero no se exportarán como malla visual.
 
-Only this specific format is recognized. Other node types placed as children
-will not be recognized and exported. GridMap is not a general-purpose system for
-placing *nodes* on a grid, but rather a specific, optimized system, designed to
-place *meshes* with collisions and navigation.
+Solo se reconoce este formato específico. Otros tipos de nodos colocados como hijos no serán reconocidos ni exportados. GridMap no es un sistema de propósito general para colocar *nodos* en una cuadrícula, sino un sistema específico y optimizado diseñado para colocar *mallas* con colisiones y navegación.
 
-Exporting the MeshLibrary
--------------------------
+Exportación de la MeshLibrary
+-----------------------------
 
-To export the library, click on **Scene > Export As... > MeshLibrary...**, and save it
-as a resource.
+Para exportar la biblioteca, haz clic en **Scene > Export As... > MeshLibrary...** y guárdala como un recurso.
 
 .. image:: img/gridmap_export.webp
 
-You can find an already exported MeshLibrary in the project named ``MeshLibrary.tres``.
+Puedes encontrar una MeshLibrary ya exportada en el proyecto con el nombre ``MeshLibrary.tres``.
 
-Using GridMap
--------------
+Usar GridMap
+------------
 
-Create a new scene and add a GridMap node. Add the mesh library by dragging
-the resource file from the FileSystem dock and dropping it in the **Mesh Library**
-property in the Inspector.
+Crea una nueva escena y añade un nodo GridMap. Añade la biblioteca de mallas arrastrando el archivo de recurso desde el dock FileSystem y soltándolo en la propiedad **Mesh Library** en el Inspector.
 
 .. image:: img/gridmap_mesh_library_inspector.webp
 
-Inspector properties
-~~~~~~~~~~~~~~~~~~~~
+Propiedades del Inspector
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The **Physics Material** setting allows you to override the physics material for
-every mesh in the NavigationMesh.
+El ajuste **Physics Material** te permite sobrescribir el material de física para cada malla en la NavigationMesh.
 
-Under **Cells**, the **Size** property should be set to the size of your meshes. You
-can leave it at the default value for the demo. Uncheck the **Center Y** property.
+Bajo **Cells**, la propiedad **Size** debe configurarse con el tamaño de tus mallas. Puedes dejarla en el valor por defecto para la demo. Desmarca la propiedad **Center Y**.
 
-The **Collision** options allow you to set the collision layer, collision mask, and
-priority for the entire grid. For more information on how those work see the
-:ref:`doc_physics_index` section.
+Las opciones de **Collision** te permiten configurar la capa de colisión (*collision layer*), la máscara de colisión (*collision mask*) y la prioridad para toda la cuadrícula. Para más información sobre cómo funcionan, consulta la sección de :ref:`doc_physics_index`.
 
-Under **Navigation** is the "Bake Navigation" option. If enabled it creates a
-navigation region for each cell that uses a mesh library item with a navigation
-mesh.
+Bajo **Navigation** se encuentra la opción "Bake Navigation". Si está habilitada, crea una región de navegación para cada celda que utilice un elemento de biblioteca de mallas con una malla de navegación.
 
-If you click on the MeshLibrary itself in the inspector you can adjust settings for
-individual meshes, such as their navigation mesh, navigation layers, or if the mesh
-casts shadows.
+Si haces clic en la propia MeshLibrary en el Inspector, puedes ajustar la configuración para mallas individuales, como su malla de navegación, capas de navegación o si la malla proyecta sombras.
 
 .. image:: img/gridmap_mesh_library_settings.webp
 
-GridMap panel
-~~~~~~~~~~~~~
+Panel de GridMap
+~~~~~~~~~~~~~~~~
 
-At the bottom of the editor is the GridMap panel, which should have opened
-automatically when you added the GridMap node.
+En la parte inferior del editor se encuentra el panel de GridMap, que debería haberse abierto automáticamente cuando añadiste el nodo GridMap.
 
 .. image:: img/gridmap_panel.webp
 
-From left to right in the toolbar:
+De izquierda a derecha en la barra de herramientas:
 
-- **Transform**: Adds a gizmo to the scene that allows you to change the
-  relative position and rotation of the gridmap in the scene.
-- **Selection**: While active you can select an area in the viewport, click and drag
-  to select more than one space on the grid.
-- **Erase**: While active, click in the viewport and delete meshes.
-- **Paint**: While active, click in the viewport and add whatever mesh is currently
-  selected in the GridMap panel to the scene.
-- **Pick**: While active, clicking on a gridmap mesh in the viewport will cause
-  it to be selected in the GridMap panel.
-- **Fill**: Fill the area that has been selected in the viewport with whatever mesh
-  is selected in the GridMap bottom panel.
-- **Move**: Move whatever mesh or meshes are currently selected in the viewport.
-- **Duplicate**: Create a copy of whatever the selected mesh or meshes in the
-  GridMap are.
-- **Delete**: Similar to erase, but for the entire selected area.
-- **Cursor Rotate X**: While the paint tool is selected, this will rotate the mesh
-  that will be painted on the X-axis. This will also rotate selected areas if they
-  are being moved.
-- **Cursor Rotate Y**: While the paint tool is selected, this will rotate the mesh
-  that will be painted on the Y-axis. This will also rotate selected areas if they
-  are being moved.
-- **Cursor Rotate Z**: While the paint tool is selected, this will rotate the mesh
-  that will be painted on the Z-axis. This will also rotate selected areas if they
-  are being moved.
-- **Change Grid Floor**: Adjusts what floor is currently being worked on. Can be
-  changed with the arrows, typing a value in the field, or :kbd:`Ctrl + Mouse wheel`.
-- **Filter Meshes**: Used to search for a specific mesh in the bottom panel.
-- **Zoom**: Controls the zoom level on meshes in the bottom panel.
-- **Layout toggles**: These two buttons toggle between different layouts for meshes
-  in the bottom panel.
-- **Tools dropdown**: This button opens a dropdown menu with a few more options.
+- **Transform** (Transformar): Añade un gizmo a la escena que te permite cambiar la posición relativa y la rotación del GridMap en la escena.
+- **Selection** (Selección): Mientras está activo, puedes seleccionar un área en el visor (*viewport*); haz clic y arrastra para seleccionar más de un espacio en la cuadrícula.
+- **Erase** (Borrar): Mientras está activo, haz clic en el visor para eliminar mallas.
+- **Paint** (Pintar): Mientras está activo, haz clic en el visor para añadir a la escena la malla que esté seleccionada actualmente en el panel de GridMap.
+- **Pick** (Cuentagotas/Seleccionar): Mientras está activo, hacer clic en una malla del GridMap en el visor hará que se seleccione en el panel de GridMap.
+- **Fill** (Rellenar): Rellena el área seleccionada en el visor con la malla que esté seleccionada en el panel inferior de GridMap.
+- **Move** (Mover): Mueve la malla o mallas que estén seleccionadas actualmente en el visor.
+- **Duplicate** (Duplicar): Crea una copia de la malla o mallas seleccionadas en el GridMap.
+- **Delete** (Eliminar): Similar a borrar, pero para toda el área seleccionada.
+- **Cursor Rotate X** (Rotar cursor en X): Mientras la herramienta de pintar esté seleccionada, esto rotará en el eje X la malla que se va a pintar. Esto también rotará las áreas seleccionadas si se están moviendo.
+- **Cursor Rotate Y** (Rotar cursor en Y): Mientras la herramienta de pintar esté seleccionada, esto rotará en el eje Y la malla que se va a pintar. Esto también rotará las áreas seleccionadas si se están moviendo.
+- **Cursor Rotate Z** (Rotar cursor en Z): Mientras la herramienta de pintar esté seleccionada, esto rotará en el eje Z la malla que se va a pintar. Esto también rotará las áreas seleccionadas si se están moviendo.
+- **Change Grid Floor** (Cambiar piso de cuadrícula): Ajusta en qué piso o nivel se está trabajando actualmente. Se puede modificar con las flechas, escribiendo un valor en el campo o mediante :kbd:`Ctrl + Rueda del ratón`.
+- **Filter Meshes** (Filtrar mallas): Se utiliza para buscar una malla específica en el panel inferior.
+- **Zoom**: Controla el nivel de zoom de las mallas en el panel inferior.
+- **Layout toggles** (Alternadores de disposición): Estos dos botones alternan entre diferentes disposiciones para las mallas en el panel inferior.
+- **Tools dropdown** (Menú desplegable de herramientas): Este botón abre un menú desplegable con algunas opciones adicionales.
 
 .. image:: img/gridmap_dropdown.webp
 
-Clicking on **Settings** in that dropdown brings up a window that allows you to
-change the **Pick Distance**, which is the maximum distance at which tiles can be placed
-on a GridMap, relative to the camera position (in meters).
+Al hacer clic en **Settings** (Configuración) en ese menú desplegable se abre una ventana que te permite cambiar la **Pick Distance** (Distancia de selección), que es la distancia máxima a la que se pueden colocar bloques en un GridMap con respecto a la posición de la cámara (en metros).
 
-Using GridMap in code
----------------------
+Usar GridMap en código
+----------------------
 
-See :ref:`class_GridMap` for details on the node's methods and member variables.
+Consulta :ref:`class_GridMap` para conocer detalles sobre los métodos y variables miembro del nodo.

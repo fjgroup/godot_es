@@ -1,103 +1,101 @@
 .. _doc_spring_arm:
 
-Third-person camera with spring arm
-===================================
+Cámara en tercera persona con brazo de resorte
+==============================================
 
-Introduction
+Introducción
 ------------
 
-3D games will often have a third-person camera that follows and
-rotates around something such as a player character or a vehicle.
+Los juegos 3D a menudo cuentan con una cámara en tercera persona que sigue y rota alrededor de un elemento, como el personaje del jugador o un vehículo.
 
-In Godot, this can be done by setting a :ref:`Camera3D <class_Camera3D>` as a child of a node.
-However, if you try this without any extra steps, you'll notice that the camera clips through geometry and hides the scene.
+En Godot, esto se puede lograr configurando una :ref:`Camera3D <class_Camera3D>` como hija de un nodo. Sin embargo, si intentas esto sin pasos adicionales, notarás que la cámara atraviesa la geometría (*clipping*) y oculta la escena.
 
-This is where the :ref:`SpringArm3D <class_SpringArm3D>` node comes in.
+Aquí es donde entra en juego el nodo :ref:`SpringArm3D <class_SpringArm3D>`.
 
-What is a spring arm?
----------------------
+¿Qué es un brazo de resorte?
+----------------------------
 
-A spring arm has two main components that affect its behavior.
+Un brazo de resorte tiene dos componentes principales que afectan su comportamiento.
 
-The "length" of the spring arm is how far from its global position to check for collisions:
+La "longitud" (*length*) del brazo de resorte es la distancia desde su posición global en la que comprobará si hay colisiones:
 
 .. image:: img/spring_arm_position_length.webp
 
-The "shape" of the spring arm is what it uses to check for collisions. The spring arm will "sweep" this shape from its origin out towards its length.
+La "forma" (*shape*) del brazo de resorte es lo que utiliza para detectar colisiones. El brazo de resorte "barrerá" (*sweep*) esta forma desde su origen hacia afuera a lo largo de su longitud.
 
 .. image:: img/spring_arm_shape.webp
 
-The spring arm tries to keep all of its children at the end of its length. When the shape collides with something, the children are instead placed at or near that collision point:
+El brazo de resorte intenta mantener a todos sus hijos en el extremo de su longitud. Cuando la forma colisiona con algo, los hijos se colocan en su lugar en o cerca de ese punto de colisión:
 
 .. image:: img/spring_arm_children.webp
 
-Spring arm with a camera
-------------------------
+Brazo de resorte con una cámara
+-------------------------------
 
-When a camera is placed as a child of a spring arm, a pyramid representing the camera will be used as the shape.
+Cuando se coloca una cámara como hija de un brazo de resorte, se utilizará una pirámide que representa la cámara como forma de colisión.
 
-This pyramid represents the **near plane** of the camera:
+Esta pirámide representa el **plano cercano** (*near plane*) de la cámara:
 
 .. image:: img/spring_arm_camera_shape.webp
 
-.. note:: If the spring arm is given a specific shape, then that shape will **always** be used.
+.. note:: Si se le asigna una forma específica al brazo de resorte, entonces **siempre** se utilizará dicha forma.
 
-    The camera's shape is only used if the camera is a **direct child** of the spring arm.
+    La forma de la cámara solo se utiliza si la cámara es una **hija directa** del brazo de resorte.
 
-    If no shape is provided and the camera is not a direct child, the spring arm will fall back to using a ray cast which is inaccurate for camera collisions and not recommended.
+    Si no se proporciona ninguna forma y la cámara no es una hija directa, el brazo de resorte recurrirá a un *ray cast* (proyección de rayo), lo cual es impreciso para las colisiones de cámara y no se recomienda.
 
-Every physics process frame, the spring arm will perform a motion cast to check if anything is collided with:
+En cada fotograma del procesamiento de físicas (*physics process*), el brazo de resorte realizará una proyección de movimiento (*motion cast*) para verificar si colisiona con algo:
 
 .. image:: img/spring_arm_camera_motion_cast.webp
 
-When the shape hits something, the camera will be placed at or near the collision point:
+Cuando la forma golpea algo, la cámara se colocará en o cerca del punto de colisión:
 
 .. image:: img/spring_arm_camera_collision.webp
 
-Setting up the spring arm and camera
-------------------------------------
+Configuración del brazo de resorte y la cámara
+----------------------------------------------
 
-Let's add a spring arm camera setup to the platformer demo.
+Vamos a agregar una configuración de cámara con brazo de resorte a la demo de plataformas (*platformer demo*).
 
-.. note:: You can download the Platformer 3D demo on `GitHub <https://github.com/godotengine/godot-demo-projects/tree/master/3d/platformer>`_ or using the `Asset Library <https://godotengine.org/asset-library/asset/2748>`_.
+.. note:: Puedes descargar la demo de Plataformas 3D en `GitHub <https://github.com/godotengine/godot-demo-projects/tree/master/3d/platformer>`_ o mediante la `Asset Library <https://godotengine.org/asset-library/asset/2748>`_.
 
-In general, for a third-person camera setup, you will have three nodes as children of the node that you're following:
+En general, para una configuración de cámara en tercera persona, tendrás tres nodos como hijos del nodo que estás siguiendo:
 
-- ``Node3D`` (the "pivot point" for the camera)
+- ``Node3D`` (el "punto de pivote" para la cámara)
 
     - ``SpringArm3D``
 
         - ``Camera3D``
 
-Open the ``player/player.tscn`` scene. Set these up as children of our player and give them unique names so we can find them in our script. **Make sure to delete the existing camera node!**
+Abre la escena ``player/player.tscn``. Configura estos nodos como hijos de nuestro jugador y asígnales nombres únicos de escena (*Scene Unique Names*) para que podamos encontrarlos en nuestro script. **¡Asegúrate de eliminar el nodo de cámara existente!**
 
 .. image:: img/spring_arm_editor_setup.webp
 
-Let's move the pivot point up by ``2`` on the Y-axis so that it's not on the ground:
+Mueve el punto de pivote hacia arriba en ``2`` unidades en el eje Y para que no quede en el suelo:
 
 .. image:: img/spring_arm_pivot_setup.webp
 
 
-Give the spring arm a length of ``3`` so that it is placed behind the character:
+Dale al brazo de resorte una longitud de ``3`` para que se posicione detrás del personaje:
 
 .. image:: img/spring_arm_length_setup.webp
 
-.. note:: Leave the **Shape** of the spring arm as ``<empty>``. This way, it will use the camera's pyramid shape.
+.. note:: Deja la propiedad **Shape** del brazo de resorte como ``<empty>`` (vacía). De este modo, utilizará la forma piramidal de la cámara.
 
-    If you want, you can also try other shapes - a sphere is a common choice since it slides smoothly along edges.
+    Si lo deseas, también puedes probar con otras formas; una esfera es una opción común ya que se desliza suavemente a lo largo de los bordes.
 
-Update the top of ``player/player.gd`` to grab the camera and the pivot points by their unique names:
+Actualiza la parte superior de ``player/player.gd`` para obtener la cámara y el punto de pivote mediante sus nombres únicos:
 
 .. code-block:: gdscript
     :caption: player/player.gd
 
-    # Comment out this existing camera line.
+    # Comenta esta línea de cámara existente.
     # @onready var _camera := $Target/Camera3D as Camera3D
 
     @onready var _camera := %Camera3D as Camera3D
     @onready var _camera_pivot := %CameraPivot as Node3D
 
-Add an ``_unhandled_input`` function to check for camera movement and then rotate the pivot point accordingly:
+Agrega una función ``_unhandled_input`` para detectar el movimiento de la cámara y rotar el punto de pivote en consecuencia:
 
 .. code-block:: gdscript
     :caption: player/player.gd
@@ -107,18 +105,18 @@ Add an ``_unhandled_input`` function to check for camera movement and then rotat
 
 
     func _unhandled_input(event: InputEvent) -> void:
-        # Mouselook implemented using `screen_relative` for resolution-independent sensitivity.
+        # Control con ratón implementado usando `screen_relative` para una sensibilidad independiente de la resolución.
         if event is InputEventMouseMotion:
             _camera_pivot.rotation.x -= event.screen_relative.y * mouse_sensitivity
-            # Prevent the camera from rotating too far up or down.
+            # Evita que la cámara gire demasiado hacia arriba o hacia abajo.
             _camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x, -tilt_limit, tilt_limit)
             _camera_pivot.rotation.y += -event.screen_relative.x * mouse_sensitivity
 
-By rotating the pivot point, the spring arm will also be rotated and it will change where the camera is positioned.
-Run the game and notice that mouse movement now rotates the camera around the character. If the camera moves into a wall, it collides with it.
+Al rotar el punto de pivote, el brazo de resorte también rotará y cambiará la posición en la que se ubica la cámara.
+Ejecuta el juego y observa que el movimiento del ratón ahora rota la cámara alrededor del personaje. Si la cámara se mueve hacia una pared, colisiona con ella.
 
 .. video:: video/spring_arm_camera.webm
-   :alt: Camera attached to a spring arm colliding with walls
+   :alt: Cámara conectada a un brazo de resorte colisionando con paredes
    :autoplay:
    :loop:
    :muted:

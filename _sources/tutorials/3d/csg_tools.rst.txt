@@ -2,28 +2,19 @@
 
 .. _doc_csg_tools:
 
-Prototyping levels with CSG
-===========================
+Prototipando niveles con CSG
+============================
 
-CSG stands for **Constructive Solid Geometry**, and is a tool to combine basic
-shapes or custom meshes to create more complex shapes. In 3D modeling software,
-CSG is mostly known as "Boolean Operators".
+CSG son las siglas en inglés de **Geometría Sólida Constructiva** (*Constructive Solid Geometry*), y es una herramienta para combinar formas básicas o mallas personalizadas para crear formas más complejas. En el software de modelado 3D, CSG se conoce mayormente como "Operadores booleanos".
 
-Level prototyping is one of the main uses of CSG in Godot. This technique allows
-users to create the most common shapes by combining primitives.
-Interior environments can be created by using inverted primitives.
+El prototipado de niveles es uno de los usos principales de CSG en Godot. Esta técnica permite a los usuarios crear las formas más comunes combinando primitivas. Los entornos interiores se pueden crear utilizando primitivas invertidas.
 
-.. note:: The CSG nodes in Godot are mainly intended for prototyping. There is
-          no built-in support for UV mapping or editing 3D polygons (though
-          extruded 2D polygons can be used with the CSGPolygon3D node).
+.. note:: Los nodos CSG en Godot están destinados principalmente al prototipado. No hay soporte integrado para mapeo UV o edición de polígonos 3D (aunque se pueden utilizar polígonos 2D extruidos con el nodo CSGPolygon3D).
 
-          If you're looking for an easy to use level design tool for a project,
-          you may want to use `FuncGodot <https://github.com/func-godot/func_godot_plugin>`__
-          or `Cyclops Level Builder <https://github.com/blackears/cyclopsLevelBuilder>`__
-          instead.
+          Si buscas una herramienta de diseño de niveles fácil de usar para un proyecto, quizás prefieras utilizar `FuncGodot <https://github.com/func-godot/func_godot_plugin>`__ o `Cyclops Level Builder <https://github.com/blackears/cyclopsLevelBuilder>`__ en su lugar.
 
 .. video:: video/csg_tools.webm
-   :alt: CSG being used to subtract a torus shape from a box
+   :alt: CSG siendo utilizado para sustraer la forma de un toro de una caja
    :autoplay:
    :loop:
    :muted:
@@ -31,17 +22,16 @@ Interior environments can be created by using inverted primitives.
 
 .. seealso::
 
-    You can check how to use CSG nodes to build various shapes (such as stairs or roads) using the
-    `Constructive Solid Geometry demo project <https://github.com/godotengine/godot-demo-projects/tree/master/3d/csg>`__.
+    Puedes ver cómo utilizar los nodos CSG para construir varias formas (como escaleras o caminos) utilizando el
+    `proyecto demo de Geometría Sólida Constructiva <https://github.com/godotengine/godot-demo-projects/tree/master/3d/csg>`__.
 
-Introduction to CSG nodes
--------------------------
+Introducción a los nodos CSG
+----------------------------
 
-Like other features of Godot, CSG is supported in the form of nodes. These are
-the CSG nodes:
+Al igual que otras características de Godot, CSG se implementa en forma de nodos. Estos son los nodos CSG:
 
 - :ref:`CSGBox3D <class_CSGBox3D>`
-- :ref:`CSGCylinder3D <class_CSGCylinder3D>` (also supports cone)
+- :ref:`CSGCylinder3D <class_CSGCylinder3D>` (también admite conos)
 - :ref:`CSGSphere3D <class_CSGSphere3D>`
 - :ref:`CSGTorus3D <class_CSGTorus3D>`
 - :ref:`CSGPolygon3D <class_CSGPolygon3D>`
@@ -52,16 +42,14 @@ the CSG nodes:
 
 .. image:: img/csg_mesh.png
 
-CSG tools features
-~~~~~~~~~~~~~~~~~~
+Funcionalidades de las herramientas CSG
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every CSG node supports 3 kinds of boolean operations:
+Cada nodo CSG admite 3 tipos de operaciones booleanas:
 
-- **Union:** Geometry of both primitives is merged, intersecting geometry
-  is removed.
-- **Intersection:** Only intersecting geometry remains, the rest is removed.
-- **Subtraction:** The second shape is subtracted from the first, leaving a dent
-  with its shape.
+- **Unión:** La geometría de ambas primitivas se fusiona, y la geometría que se interseca se elimina.
+- **Intersección:** Solo permanece la geometría que se interseca, el resto se elimina.
+- **Sustracción:** La segunda forma se sustrae de la primera, dejando una hendidura con su forma.
 
 .. image:: img/csg_operation_menu.png
 
@@ -70,194 +58,146 @@ Every CSG node supports 3 kinds of boolean operations:
 CSGPolygon
 ~~~~~~~~~~
 
-The :ref:`CSGPolygon3D <class_CSGPolygon3D>` node extrude along a Polygon drawn in
-2D (in X, Y coordinates) in the following ways:
+El nodo :ref:`CSGPolygon3D <class_CSGPolygon3D>` extruye a lo largo de un polígono dibujado en 2D (en coordenadas X, Y) de las siguientes maneras:
 
-- **Depth:** Extruded back a given amount.
-- **Spin:** Extruded while spinning around its origin.
-- **Path:** Extruded along a Path node. This operation is commonly called
-  lofting.
+- **Depth:** Extruido hacia atrás una cantidad determinada.
+- **Spin:** Extruido mientras gira alrededor de su origen.
+- **Path:** Extruido a lo largo de un nodo Path. Esta operación se denomina comúnmente *lofting*.
 
 .. image:: img/csg_poly_mode.png
 
 .. image:: img/csg_poly.png
 
-.. note:: The **Path** mode must be provided with a :ref:`Path3D <class_Path3D>`
-          node to work. In the Path node, draw the path and the polygon in
-          CSGPolygon3D will extrude along the given path.
+.. note:: El modo **Path** debe proporcionarse con un nodo :ref:`Path3D <class_Path3D>` para funcionar. En el nodo Path, dibuja la ruta y el polígono en CSGPolygon3D se extruirá a lo largo de dicha ruta.
 
+Mallas personalizadas
+~~~~~~~~~~~~~~~~~~~~~
 
-Custom meshes
-~~~~~~~~~~~~~
+Se pueden utilizar mallas personalizadas para :ref:`CSGMesh3D <class_CSGMesh3D>` siempre que la malla sea *manifold*. La malla se puede modelar en otro software e importar a Godot. Se admiten múltiples materiales.
 
-Custom meshes can be used for :ref:`CSGMesh3D <class_CSGMesh3D>` as long as the
-mesh is *manifold*. The mesh can be modeled in other software and imported into
-Godot. Multiple materials are supported.
+Para que una malla pueda ser utilizada como malla CSG, es necesario que:
 
-For a mesh to be used as a CSG mesh, it is required to:
+- sea cerrada
+- cada arista se conecte a exactamente dos caras
+- tenga volumen
 
-- be closed
-- have each edge connect to only two faces
-- have volume
+Y se recomienda evitar:
 
-And it is recommended to avoid:
+- volumen negativo
+- autointersecciones
+- caras interiores
 
-- negative volume
-- self-intersection
-- interior faces
+Godot utiliza la biblioteca `manifold <https://github.com/elalish/manifold>`__ para implementar las mallas CSG. La definición técnica de "manifold" utilizada por Godot es la siguiente, adaptada de la `definición de "manifold" <https://github.com/elalish/manifold/wiki/Manifold-Library#manifoldness-definition>`__ de dicha biblioteca:
 
-Godot uses the `manifold <https://github.com/elalish/manifold>`__ library to
-implement CSG meshes. The technical definition of "manifold" used by Godot is
-the following, adapted from that library's `definition of "manifold"
-<https://github.com/elalish/manifold/wiki/Manifold-Library#manifoldness-definition>`__:
-
-  Every edge of every triangle must contain the same two vertices (by index) as
-  exactly one other triangle edge, and the start and end vertices must switch
-  places between these two edges. The triangle vertices must appear in clockwise
-  order when viewed from the outside of the Godot Engine manifold mesh.
+  Cada arista de cada triángulo debe contener los mismos dos vértices (por índice) que exactamente otra arista de triángulo, y los vértices inicial y final deben intercambiar lugares entre estas dos aristas. Los vértices del triángulo deben aparecer en sentido horario cuando se observan desde el exterior de la malla manifold en Godot Engine.
 
 .. image:: img/csg_custom_mesh.png
 
-Making an existing mesh manifold with Blender
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Hacer que una malla existente sea manifold con Blender
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. UPDATE: This relies on a specific Blender addon. If it becomes unsupported,
-.. we can remove this section.
+.. UPDATE: Esto depende de un addon específico de Blender. Si deja de tener soporte,
+.. podemos eliminar esta sección.
 
-If you have an existing mesh that is not already manifold, you can make it
-manifold using Blender.
+Si tienes una malla existente que aún no es manifold, puedes hacerla manifold usando Blender.
 
-In Blender, install and enable the
-`3D Print Toolbox <https://extensions.blender.org/add-ons/print3d-toolbox/>`_
-addon.
+En Blender, instala y activa el complemento `3D Print Toolbox <https://extensions.blender.org/add-ons/print3d-toolbox/>`_.
 
-Select the mesh you want to make manifold. Open the sidebar by clicking on the arrow:
+Selecciona la malla que deseas hacer manifold. Abre la barra lateral haciendo clic en la flecha:
 
 .. image:: img/csg_manifold_step_1.webp
 
-In the **3D Print** tab, under **Clean Up**, click the **Make Manifold** button:
+En la pestaña **3D Print**, bajo **Clean Up**, haz clic en el botón **Make Manifold**:
 
 .. image:: img/csg_manifold_step_2.webp
 
-The mesh should now be manifold, and can be used as a custom mesh.
+La malla ahora debería ser manifold y puede utilizarse como una malla personalizada.
 
 CSGCombiner3D
 ~~~~~~~~~~~~~
 
-The :ref:`CSGCombiner3D <class_CSGCombiner3D>` node is an empty shape used for
-organization. It will only combine children nodes.
+El nodo :ref:`CSGCombiner3D <class_CSGCombiner3D>` es una forma vacía utilizada para organización. Solo combinará nodos hijos.
 
-Processing order
-~~~~~~~~~~~~~~~~
+Orden de procesamiento
+~~~~~~~~~~~~~~~~~~~~~~
 
-Every CSG node will first process its children nodes and their operations:
-union, intersection, or subtraction, in tree order, and apply them to itself one
-after the other.
+Cada nodo CSG procesará primero sus nodos hijos y sus operaciones: unión, intersección o sustracción, en el orden del árbol de la escena, y las aplicará sobre sí mismo una tras otra.
 
-.. note:: In the interest of performance, make sure CSG geometry remains
-          relatively simple, as complex meshes can take a while to process.
-          If adding objects together (such as table and room objects), create
-          them as separate CSG trees. Forcing too many objects in a single tree
-          will eventually start affecting performance.
-          Only use binary operations where you actually need them.
+.. note:: En aras del rendimiento, asegúrate de que la geometría CSG se mantenga relativamente simple, ya que las mallas complejas pueden tardar un tiempo en procesarse. Si agregas objetos juntos (como objetos de mesa y de habitación), créalos como árboles CSG independientes. Forzar demasiados objetos en un solo árbol eventualmente comenzará a afectar el rendimiento. Utiliza operaciones binarias únicamente donde realmente las necesites.
 
-Prototyping a level
--------------------
+Prototipando un nivel
+---------------------
 
-We will prototype a room to practice the use of CSG tools.
+Haremos un prototipo de una habitación para practicar el uso de las herramientas CSG.
 
-.. tip:: Working in **Orthogonal** projection gives a better view when combining
-         the CSG shapes.
+.. tip:: Trabajar en proyección **Ortogonal** (*Orthogonal*) ofrece una mejor visualización al combinar las formas CSG.
 
-Our level will contain these objects:
+Nuestro nivel contendrá estos objetos:
 
-- a room,
-- a bed,
-- a lamp,
-- a desk,
-- a bookshelf.
+- una habitación,
+- una cama,
+- una lámpara,
+- un escritorio,
+- una estantería.
 
-Create a scene with a Node3D node as root node.
+Crea una escena con un nodo Node3D como nodo raíz.
 
-.. tip:: The default lighting of the environment doesn't provide clear shading
-         at some angles. Change the display mode using **Display Overdraw** in
-         the 3D viewport menu, or add a DirectionalLight node to help you see
-         clearly.
+.. tip:: La iluminación predeterminada del entorno no proporciona un sombreado claro en algunos ángulos. Cambia el modo de visualización usando **Display Overdraw** en el menú del visor 3D, o agrega un nodo DirectionalLight para ayudarte a ver con claridad.
 
 .. image:: img/csg_overdraw.png
 
-Create a CSGBox3D and name it ``room``, enable **Invert Faces** and change the
-dimensions of your room.
+Crea un CSGBox3D y nómbralo ``room``, activa **Invert Faces** y modifica las dimensiones de tu habitación.
 
 .. image:: img/csg_room.png
 
 .. image:: img/csg_room_invert.png
 
-Next, create a CSGCombiner3D and name it ``desk``.
+A continuación, crea un CSGCombiner3D y nómbralo ``desk``.
 
-A desk has one surface and 4 legs:
+Un escritorio consta de una superficie y 4 patas:
 
-- Create 1 CSGBox3D children node in **Union** mode for the surface
-  and adjust the dimensions.
-- Create 4 CSGBox3D children nodes in **Union** mode for the legs
-  and adjust the dimensions.
+- Crea 1 nodo hijo CSGBox3D en modo **Union** para la superficie y ajusta las dimensiones.
+- Crea 4 nodos hijos CSGBox3D en modo **Union** para las patas y ajusta las dimensiones.
 
-Adjust their placement to resemble a desk.
+Ajusta su posición para que se asemeje a un escritorio.
 
 .. image:: img/csg_desk.png
 
-.. note:: CSG nodes inside a CSGCombiner3D will only process their operation
-          within the combiner. Therefore, CSGCombiner3Ds are used to organize
-          CSG nodes.
+.. note:: Los nodos CSG dentro de un CSGCombiner3D solo procesarán su operación dentro del combiner. Por lo tanto, los nodos CSGCombiner3D se utilizan para organizar los nodos CSG.
 
-Create a CSGCombiner3D and name it ``bed``.
+Crea un CSGCombiner3D y nómbralo ``bed``.
 
-Our bed consists of 3 parts: the bed, the mattress and a pillow. Create a CSGBox3D
-and adjust its dimension for the bed. Create another CSGBox3D and adjust its
-dimension for the mattress.
+Nuestra cama consta de 3 partes: la estructura de la cama, el colchón y una almohada. Crea un CSGBox3D y ajusta sus dimensiones para la cama. Crea otro CSGBox3D y ajusta sus dimensiones para el colchón.
 
 .. image:: img/csg_bed_mat.png
 
-We will create another CSGCombiner3D named ``pillow`` as the child of  ``bed``.
-The scene tree should look like this:
+Crearemos otro CSGCombiner3D llamado ``pillow`` como hijo de ``bed``. El árbol de la escena debería verse así:
 
 .. image:: img/csg_bed_tree.png
 
-We will combine 3 CSGSphere3D nodes in **Union** mode to form a pillow. Scale the
-Y axis of the spheres and enable **Smooth Faces**.
+Combinaremos 3 nodos CSGSphere3D en modo **Union** para formar una almohada. Escala el eje Y de las esferas y activa **Smooth Faces**.
 
 .. image:: img/csg_pillow_smooth.png
 
-Select the ``pillow`` node and switch the mode to **Subtraction**; the combined
-spheres will cut a hole into the mattress.
+Selecciona el nodo ``pillow`` y cambia el modo a **Subtraction**; las esferas combinadas recortarán un hueco en el colchón.
 
 .. image:: img/csg_pillow_hole.png
 
-Try to re-parent the ``pillow`` node to the root ``Node3D`` node; the hole will
-disappear.
+Intenta reemparentar el nodo ``pillow`` al nodo raíz ``Node3D``; el hueco desaparecerá.
 
-.. note:: This is to illustrate the effect of CSG processing order.
-          Since the root node is not a CSG node, the CSGCombiner3D nodes are
-          the end of the operations; this shows the use of CSGCombiner3D to
-          organize the CSG scene.
+.. note:: Esto es para ilustrar el efecto del orden de procesamiento de CSG. Dado que el nodo raíz no es un nodo CSG, los nodos CSGCombiner3D marcan el final de las operaciones; esto demuestra el uso de CSGCombiner3D para organizar la escena CSG.
 
-Undo the re-parent after observing the effect. The bed you've built should look
-like this:
+Deshaz el reemparentado después de observar el efecto. La cama que has construido debería verse así:
 
 .. image:: img/csg_bed.png
 
-Create a CSGCombiner3D and name it ``lamp``.
+Crea un CSGCombiner3D y nómbralo ``lamp``.
 
-A lamp consists of 3 parts: the stand, the pole and the lampshade.
-Create a CSGCylinder3D, enable the **Cone** option and make it the stand. Create
-another CSGCylinder3D and adjust the dimensions to use it as a pole.
+Una lámpara consta de 3 partes: la base, el soporte y la pantalla. Crea un CSGCylinder3D, activa la opción **Cone** y úsalo como base. Crea otro CSGCylinder3D y ajusta sus dimensiones para usarlo como soporte.
 
 .. image:: img/csg_lamp_pole_stand.png
 
-We will use a CSGPolygon3D for the lampshade. Use the **Spin** mode for the
-CSGPolygon3D and draw a `trapezoid <https://en.wikipedia.org/wiki/Trapezoid>`_
-while in **Front View** (numeric keypad 1); this shape will extrude around the
-origin and form the lampshade.
+Usaremos un CSGPolygon3D para la pantalla de la lámpara. Usa el modo **Spin** para el CSGPolygon3D y dibuja un `trapezoide <https://es.wikipedia.org/wiki/Trapecio_(geometr%C3%ADa)>`_ mientras estás en la **Vista frontal** (teclado numérico 1); esta forma se extruirá alrededor del origen y formará la pantalla.
 
 .. image:: img/csg_lamp_spin.png
 
@@ -265,112 +205,73 @@ origin and form the lampshade.
 
 .. image:: img/csg_lamp_extrude.png
 
-Adjust the placement of the 3 parts to make it look like a lamp.
+Ajusta la posición de las 3 partes para que parezca una lámpara.
 
 .. image:: img/csg_lamp.png
 
-Create a CSGCombiner3D and name it ``bookshelf``.
+Crea un CSGCombiner3D y nómbralo ``bookshelf``.
 
-We will use 3 CSGBox3D nodes for the bookshelf. Create a CSGBox3D and adjust its
-dimensions; this will be the size of the bookshelf.
+Usaremos 3 nodos CSGBox3D para la estantería. Crea un CSGBox3D y ajusta sus dimensiones; este será el tamaño de la estantería.
 
 .. image:: img/csg_shelf_big.png
 
-Duplicate the CSGBox3D and shorten the dimensions of each axis and change the mode
-to **Subtraction**.
+Duplica el CSGBox3D, acorta las dimensiones de cada eje y cambia el modo a **Subtraction**.
 
 .. image:: img/csg_shelf_subtract.png
 
 .. image:: img/csg_shelf_subtract_menu.png
 
-You've almost built a shelf. Create one more CSGBox3D for dividing the shelf into
-two levels.
+Casi has terminado la estantería. Crea un CSGBox3D más para dividir la estantería en dos niveles.
 
 .. image:: img/csg_shelf.png
 
-Position your furniture in your room as you like and your scene should look
-this:
+Ubica los muebles en la habitación a tu gusto y tu escena debería verse así:
 
 .. image:: img/csg_room_result.png
 
-You've successfully prototyped a room level with the CSG tools in Godot.
-CSG tools can be used for designing all kinds of levels, such as a maze
-or a city; explore its limitations when designing your game.
+Has prototipado con éxito una habitación utilizando las herramientas CSG en Godot. Las herramientas CSG se pueden utilizar para diseñar todo tipo de niveles, como un laberinto o una ciudad; explora sus posibilidades y limitaciones al diseñar tu juego.
 
-Using prototype textures
-------------------------
+Uso de texturas prototipo
+-------------------------
 
-Godot's :ref:`doc_standard_material_3d` supports *triplanar mapping*, which can be
-used to automatically apply a texture to arbitrary objects without distortion.
-This is handy when using CSG as Godot doesn't support editing UV maps on CSG
-nodes yet. Triplanar mapping is relatively slow, which usually restricts its
-usage to organic surfaces like terrain. Still, when prototyping, it can be used
-to quickly apply textures to CSG-based levels.
+:ref:`doc_standard_material_3d` de Godot admite *mapeo triplanar*, que se puede utilizar para aplicar automáticamente una textura a objetos arbitrarios sin distorsión. Esto resulta muy práctico al usar CSG, ya que Godot aún no admite la edición de mapas UV en nodos CSG. El mapeo triplanar es relativamente lento, lo que normalmente restringe su uso a superficies orgánicas como el terreno. Aun así, durante el prototipado, se puede utilizar para aplicar rápidamente texturas a niveles basados en CSG.
 
-.. note:: If you need some textures for prototyping, Kenney made a
-          `set of CC0-licensed prototype textures <https://kenney.nl/assets/prototype-textures>`__.
+.. note:: Si necesitas algunas texturas para prototipar, Kenney creó un `conjunto de texturas de prototipo con licencia CC0 <https://kenney.nl/assets/prototype-textures>`__.
 
-There are two ways to apply a material to a CSG node:
+Hay dos formas de aplicar un material a un nodo CSG:
 
-- Applying it to a CSGCombiner3D node as a material override
-  (**Geometry > Material Override** in the Inspector). This will affect its
-  children automatically, but will make it impossible to change the material in
-  individual children.
-- Applying a material to individual nodes (**Material** in the Inspector). This
-  way, each CSG node can have its own appearance. Subtractive CSG nodes will
-  apply their material to the nodes they're "digging" into.
+- Aplicándolo a un nodo CSGCombiner3D como anulación de material (**Geometry > Material Override** en el Inspector). Esto afectará a sus hijos automáticamente, pero hará imposible cambiar el material en hijos individuales.
+- Aplicando un material a nodos individuales (**Material** en el Inspector). De esta manera, cada nodo CSG puede tener su propia apariencia. Los nodos CSG sustractivos aplicarán su material a los nodos en los que están "excavando".
 
-To apply triplanar mapping to a CSG node, select it, go to the Inspector, click
-the **[empty]** text next to **Material Override** (or **Material** for
-individual CSG nodes). Choose **New StandardMaterial3D**. Click the newly created
-material's icon to edit it. Unfold the **Albedo** section and load a texture
-into the **Texture** property. Now, unfold the **Uv1** section and check
-**Triplanar**. You can change the texture offset and scale on each axis by
-playing with the **Scale** and **Offset** properties just above. Higher values
-in the **Scale** property will cause the texture to repeat more often.
+Para aplicar mapeo triplanar a un nodo CSG, selecciónalo, ve al Inspector, haz clic en el texto **[empty]** junto a **Material Override** (o **Material** para nodos CSG individuales). Elige **New StandardMaterial3D**. Haz clic en el icono del material recién creado para editarlo. Despliega la sección **Albedo** y carga una textura en la propiedad **Texture**. Ahora, despliega la sección **Uv1** y marca **Triplanar**. Puedes cambiar el desplazamiento y la escala de la textura en cada eje jugando con las propiedades **Scale** y **Offset** que se encuentran justo arriba. Valores más altos en la propiedad **Scale** harán que la textura se repita más a menudo.
 
-.. tip:: You can copy a StandardMaterial3D to reuse it across CSG nodes. To do so,
-         click the dropdown arrow next to a material property in the Inspector
-         and choose **Copy**. To paste it, select the node you'd like to apply
-         the material onto, click the dropdown arrow next to its material
-         property then choose **Paste**.
+.. tip:: Puedes copiar un StandardMaterial3D para reutilizarlo en varios nodos CSG. Para hacerlo, haz clic en la flecha desplegable junto a una propiedad de material en el Inspector y elige **Copy**. Para pegarlo, selecciona el nodo al que deseas aplicar el material, haz clic en la flecha desplegable junto a su propiedad de material y luego elige **Paste**.
 
 .. _doc_csg_tools_converting_to_mesh_instance_3d:
 
-Converting to MeshInstance3D
-----------------------------
+Conversión a MeshInstance3D
+---------------------------
 
-Since Godot 4.4, you can convert a CSG node and its children to a :ref:`class_MeshInstance3D` node.
+Desde Godot 4.4, puedes convertir un nodo CSG y sus hijos en un nodo :ref:`class_MeshInstance3D`.
 
-This has several benefits:
+Esto tiene varios beneficios:
 
-- Bake lightmaps, since UV2 can be generated on a MeshInstance3D.
-- Bake occlusion culling, since the occlusion culling bake process only takes MeshInstance3D into account.
-- Faster loading times, since the CSG mesh no longer needs to be rebuilt when the scene loads.
-- Better performance when updating the node's transform if using the mesh within another CSG node.
+- Hornear lightmaps, ya que se puede generar UV2 en un MeshInstance3D.
+- Hornear oclusión de oclusión ambiental (*occlusion culling*), ya que el proceso de horneado de occlusion culling solo toma en cuenta MeshInstance3D.
+- Tiempos de carga más rápidos, ya que la malla CSG ya no necesita reconstruirse cuando se carga la escena.
+- Mejor rendimiento al actualizar la transformación del nodo si se usa la malla dentro de otro nodo CSG.
 
-To convert a CSG node to a MeshInstance3D node, select it, then choose
-**CSG > Bake Mesh Instance** in the toolbar. The MeshInstance3D node
-will be created as a sibling. Note that the CSG node that was used for baking is **not** hidden
-automatically, so remember to hide it to prevent its geometry from overlapping with the newly created
-MeshInstance3D.
+Para convertir un nodo CSG en un nodo MeshInstance3D, selecciónalo y luego elige **CSG > Bake Mesh Instance** en la barra de herramientas. El nodo MeshInstance3D se creará como un hermano. Ten en cuenta que el nodo CSG utilizado para el horneado **no** se oculta automáticamente, así que recuerda ocultarlo para evitar que su geometría se superponga con el MeshInstance3D recién creado.
 
-You can also create a trimesh collision shape using **CSG > Bake Collision Shape**.
-The generated :ref:`class_CollisionShape3D` node must be a child of a :ref:`class_StaticBody3D`
-or :ref:`class_AnimatableBody3D` node to be effective.
+También puedes crear una forma de colisión trimesh usando **CSG > Bake Collision Shape**. El nodo :ref:`class_CollisionShape3D` generado debe ser hijo de un nodo :ref:`class_StaticBody3D` o :ref:`class_AnimatableBody3D` para que sea efectivo.
 
 .. tip::
 
-    Remember to keep the original CSG node in the scene tree, so that you can
-    perform changes to the geometry later if needed. To make changes to the
-    geometry, remove the MeshInstance3D node and make the root CSG node visible
-    again.
+    Recuerda conservar el nodo CSG original en el árbol de la escena, para que puedas realizar cambios en la geometría más adelante si es necesario. Para hacer modificaciones en la geometría, elimina el nodo MeshInstance3D y haz visible nuevamente el nodo CSG raíz.
 
-Exporting as glTF
------------------
+Exportación como glTF
+---------------------
 
-It can be useful to block out a level using CSG, then export it as a 3d model, to
-import into 3D modeling software. You can do this by selecting **Scene > Export As... >
-glTF 2.0 Scene**.
+Puede ser útil hacer el bloqueo preliminar (*blockout*) de un nivel utilizando CSG y luego exportarlo como modelo 3D para importarlo en un software de modelado 3D. Puedes hacer esto seleccionando **Scene > Export As... > glTF 2.0 Scene**.
 
 .. image:: img/export_as_gltf.webp
