@@ -13044,10 +13044,7 @@
 <figure class="align-default">
 <img alt="Particle collisions" src="../../../_images/particle_collision.webp" />
 </figure>
-<p>Since GPU particles are processed entirely on the GPU, they don't have access to the game's physical
-world. If you need particles to collide with the environment, you have to set up particle collision nodes.
-There are four of them: <a class="reference internal" href="../../../classes/class_gpuparticlescollisionbox3d.html#class-gpuparticlescollisionbox3d"><span class="std std-ref">GPUParticlesCollisionBox3D</span></a>, <a class="reference internal" href="../../../classes/class_gpuparticlescollisionsphere3d.html#class-gpuparticlescollisionsphere3d"><span class="std std-ref">GPUParticlesCollisionSphere3D</span></a>,
-<a class="reference internal" href="../../../classes/class_gpuparticlescollisionsdf3d.html#class-gpuparticlescollisionsdf3d"><span class="std std-ref">GPUParticlesCollisionSDF3D</span></a>, and <a class="reference internal" href="../../../classes/class_gpuparticlescollisionheightfield3d.html#class-gpuparticlescollisionheightfield3d"><span class="std std-ref">GPUParticlesCollisionHeightField3D</span></a>.</p>
+<p>Dado que las partículas GPU se procesan íntegramente en la GPU, no tienen acceso directo al mundo de físicas del juego. Si necesitas que las partículas colisionen con el entorno, debes configurar nodos dedicados de colisión de partículas.</p>
 <section id="common-properties">
 <h2>Common properties<a class="headerlink" href="#common-properties" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id1">
@@ -13075,9 +13072,7 @@ collider's cull mask.</p>
 property. Box extents always measure half of the sides of its bounds, so a value of <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code>
 creates a box that is 2 meters wide on each side. Box collision nodes are useful for simulating floor
 and wall geometry that particles should collide against.</p>
-<p>To create a box collision node, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionBox3D</span></code>
-from the list of available nodes. You can animate the box position or attach it to a
-moving node for more dynamic effects.</p>
+<p>Para crear un nodo de colisión de caja, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionBox3D</span></code> de la lista de nodos disponibles.</p>
 <figure class="align-default" id="id3">
 <img alt="Box collision with particle systems" src="../../../_images/particle_collision_box.webp" />
 <figcaption>
@@ -13097,9 +13092,7 @@ moving node for more dynamic effects.</p>
 While box collision nodes don't have to be perfect cubes, sphere collision nodes will always be
 spheres. If you want to set width independently from height, you have to change the <code class="docutils literal notranslate"><span class="pre">Scale</span></code>
 property in the <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> section.</p>
-<p>To create a sphere collision node, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionSphere3D</span></code>
-from the list of available nodes. You can animate the sphere's position or attach it to a
-moving node for more dynamic effects.</p>
+<p>Para crear un nodo de colisión esférico, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionSphere3D</span></code> de la lista de nodos disponibles.</p>
 <figure class="align-default" id="id5">
 <img alt="Sphere collision with particle systems" src="../../../_images/particle_collision_sphere.webp" />
 <figcaption>
@@ -13115,11 +13108,7 @@ moving node for more dynamic effects.</p>
 <p><span class="caption-text">Height field collision in the node list</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Height field particle collision is very useful for large outdoor areas that need to collide with particles.
-At runtime, the node creates a height field from all the meshes within its bounds that match its cull mask.
-Particles collide against the mesh that this height field represents. Since the height field generation is
-done dynamically, it can follow the player camera around and react to changes in the level. Different
-settings for the height field density offer a wide range of performance adjustments.</p>
+<p>La colisión de partículas por campo de alturas (height field) es muy útil para grandes áreas exteriores que necesitan colisionar con terrenos extensos.</p>
 <p>To create a height field collision node, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionHeightField3D</span></code>
 from the list of available nodes.</p>
 <p>A height field collision node is shaped like a box. The <code class="docutils literal notranslate"><span class="pre">Extents</span></code> property controls its size. Extents
@@ -13152,8 +13141,7 @@ around the player while not wasting performance on regions that are out of sight
 <h2>SDF collision<a class="headerlink" href="#sdf-collision" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Particle SDF collision is only supported in the Forward+ and Mobile renderers,
-not Compatibility.</p>
+<p>La colisión de partículas por SDF solo es compatible con los renderizadores Forward+ y Mobile, no con Compatibility.</p>
 </div>
 <figure class="align-right" id="id8">
 <img alt="Particle collision SDF" src="../../../_images/particle_collision_sdf_entry.webp" />

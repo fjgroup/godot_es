@@ -13046,9 +13046,7 @@
 <p>Este tutorial presentará los fundamentos del uso de un <a class="reference internal" href="../../../classes/class_arraymesh.html#class-arraymesh"><span class="std std-ref">ArrayMesh</span></a>.</p>
 <p>Para ello, utilizaremos la función <a class="reference internal" href="../../../classes/class_arraymesh.html#class-arraymesh-method-add-surface-from-arrays"><span class="std std-ref">add_surface_from_arrays()</span></a>, que toma hasta cinco parámetros. Los dos primeros son obligatorios, mientras que los últimos tres son opcionales.</p>
 <p>El primer parámetro es el <code class="docutils literal notranslate"><span class="pre">PrimitiveType</span></code>, un concepto de OpenGL que instruye a la GPU cómo organizar el primitivo basado en los vértices proporcionados, es decir, si representan triángulos, líneas, puntos, etc. Véase <a class="reference internal" href="../../../classes/class_mesh.html#enum-mesh-primitivetype"><span class="std std-ref">Mesh.PrimitiveType</span></a> para ver las opciones disponibles.</p>
-<p>The second parameter, <code class="docutils literal notranslate"><span class="pre">arrays</span></code>, is the actual Array that stores the mesh information. The array is a normal Godot array that
-is constructed with empty brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code>. It stores a <code class="docutils literal notranslate"><span class="pre">Packed**Array</span></code> (e.g. PackedVector3Array,
-PackedInt32Array, etc.) for each type of information that will be used to build the surface.</p>
+<p>El segundo parámetro, <code class="docutils literal notranslate"><span class="pre">arrays</span></code>, es un arreglo de longitud fija que contiene todos los atributos de vértices (posiciones, normales, coordenadas UV, colores, etc.) organizados en arreglos tipados.</p>
 <p>Los posibles elementos de los <code class="docutils literal notranslate"><span class="pre">arrays</span></code> se enumeran a continuación, junto con la posición que deben tener dentro de <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Véase <a class="reference internal" href="../../../classes/class_mesh.html#enum-mesh-arraytype"><span class="std std-ref">Mesh.ArrayType</span></a> para obtener una lista completa.</p>
 <table class="wrap-normal docutils align-default" style="width: 100%">
 <thead>
@@ -13068,8 +13066,7 @@ PackedInt32Array, etc.) for each type of information that will be used to build 
 </tr>
 <tr class="row-even"><td><p>2</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ARRAY_TANGENT</span></code></p></td>
-<td><p><a class="reference internal" href="../../../classes/class_packedfloat32array.html#class-packedfloat32array"><span class="std std-ref">PackedFloat32Array</span></a> or <a class="reference internal" href="../../../classes/class_packedfloat64array.html#class-packedfloat64array"><span class="std std-ref">PackedFloat64Array</span></a> of groups of 4 floats. The first 3 floats determine the tangent, and the last float the binormal
-direction as -1 or 1.</p></td>
+<td><p>Arreglos de tipo <a class="reference internal" href="../../../classes/class_packedfloat32array.html#class-packedfloat32array"><span class="std std-ref">PackedFloat32Array</span></a> o <a class="reference internal" href="../../../classes/class_packedvector3array.html#class-packedvector3array"><span class="std std-ref">PackedVector3Array</span></a> que contienen las posiciones y atributos de los vértices.</p></td>
 </tr>
 <tr class="row-odd"><td><p>3</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ARRAY_COLOR</span></code></p></td>
@@ -13101,12 +13098,10 @@ direction as -1 or 1.</p></td>
 <p>All the other arrays carry information about the vertices. They are optional and will only be used if included. Some of these arrays (e.g. <code class="docutils literal notranslate"><span class="pre">ARRAY_COLOR</span></code>)
 use one entry per vertex to provide extra information about vertices. They must have the same size as the vertex array. Other arrays (e.g. <code class="docutils literal notranslate"><span class="pre">ARRAY_TANGENT</span></code>) use
 four entries to describe a single vertex. These must be exactly four times larger than the vertex array.</p>
-<p>For normal usage, the last three parameters in <a class="reference internal" href="../../../classes/class_arraymesh.html#class-arraymesh-method-add-surface-from-arrays"><span class="std std-ref">add_surface_from_arrays()</span></a> are typically left empty.</p>
+<p>Para un uso habitual, los últimos tres parámetros en <a class="reference internal" href="../../../classes/class_arraymesh.html#class-arraymesh-method-add-surface-from-arrays"><span class="std std-ref">add_surface_from_arrays()</span></a> pueden dejarse vacíos o en sus valores por defecto.</p>
 <section id="setting-up-the-arraymesh">
 <h2>Setting up the ArrayMesh<a class="headerlink" href="#setting-up-the-arraymesh" title="Link to this heading"></a></h2>
-<p>In the editor, create a <a class="reference internal" href="../../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> and add an <a class="reference internal" href="../../../classes/class_arraymesh.html#class-arraymesh"><span class="std std-ref">ArrayMesh</span></a> to it in the Inspector.
-Normally, adding an ArrayMesh in the editor is not useful, but in this case it allows us to access the ArrayMesh
-from code without creating one.</p>
+<p>En el editor, crea un nodo <a class="reference internal" href="../../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> y asígnale un nuevo ArrayMesh desde el inspector.</p>
 <p>Next, add a script to the MeshInstance3D.</p>
 <p>Dentro de <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>, crea un nuevo Array.</p>
 <div class="sphinx-tabs docutils container">
@@ -13236,8 +13231,7 @@ from code without creating one.</p>
 </pre></div>
 </div>
 </div></div>
-<p>The code that goes in the middle can be whatever you want. Below we will present some
-example code for generating shapes, starting with a rectangle.</p>
+<p>El código intermedio puede generar cualquier geometría que desees. A continuación presentamos un código de ejemplo para generar un prisma triangular simple.</p>
 </section>
 <section id="generating-a-rectangle">
 <h2>Generar un rectángulo<a class="headerlink" href="#generating-a-rectangle" title="Link to this heading"></a></h2>

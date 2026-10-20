@@ -13044,10 +13044,7 @@
 <p>Esta sección del tutorial cubre los sistemas de partículas acelerados por GPU (3D). La mayoría de los temas discutidos aquí también se aplican a las partículas por CPU.</p>
 <h2 class="rubric">Introducción</h2>
 <p>Puedes usar sistemas de partículas para simular efectos físicos complejos como fuego, chispas, humo, efectos mágicos y muchos más. Son muy adecuados para crear comportamientos dinámicos y orgánicos, y para añadir «vida» a tus escenas.</p>
-<p>The idea is that a particle is emitted at a fixed interval and with a fixed lifetime. During
-its lifetime, every particle will have the same base behavior. What makes each particle different
-from the others and creates the organic look is the randomness that you can add to most of its
-parameters and behaviors.</p>
+<p>La idea es que una partícula se emita a un intervalo fijo y con un tiempo de vida establecido. Durante su ciclo de vida, cada partícula tendrá las mismas propiedades base dictadas por su material de proceso, pero sus parámetros específicos (como posición, velocidad o escala) evolucionarán en función del tiempo.</p>
 <p>Cada sistema de partículas que creas en Godot consta de dos partes principales: partículas y emisores.</p>
 <h3 class="rubric">Partículas</h3>
 <p>Una partícula es la parte visible de un sistema de partículas. Es lo que se ve en la pantalla cuando un sistema de partículas está activo: las diminutas motas de polvo, las llamas de un incendio, los orbes brillantes de un efecto mágico. Se puede tener entre un par de cientos y decenas de miles de partículas en un solo sistema. Se puede aleatorizar el tamaño de una partícula, su velocidad y dirección de movimiento, y cambiar su color a lo largo de su vida. Cuando se piensa en un incendio, se puede pensar en todas las pequeñas brasas que salen volando de él como partículas individuales.</p>

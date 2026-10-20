@@ -13044,9 +13044,8 @@
 <span id="doc-viewport-and-canvas-transforms"></span><h1>Transformación de Viewport y Canvas<a class="headerlink" href="#viewport-and-canvas-transforms" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>This is an overview of the 2D transforms going on for nodes from the
-moment they draw their content locally to the time they are drawn onto
-the screen. This overview discusses very low-level details of the engine.</p>
+<p>Esta es una descripción general de las transformaciones 2D que experimentan los nodos desde el
+momento en que dibujan su contenido hasta que se muestran en la pantalla.</p>
 <p>El objetivo de este tutorial es enseñar una manera de enviar eventos de entrada al Input con una posición en el sistema de coordenadas correcto.</p>
 <p>Una descripción más extensa de todos los sistemas de coordenadas y transformaciones 2D está disponible en <a class="reference internal" href="../../engine_details/architecture/2d_coordinate_systems.html#doc-2d-coordinate-systems"><span class="std std-ref">2D coordinate systems and 2D transforms</span></a>.</p>
 </section>
@@ -13078,10 +13077,7 @@ function was added for convenience.</p>
 </section>
 <section id="transform-functions">
 <h2>Funciones de Transform<a class="headerlink" href="#transform-functions" title="Link to this heading"></a></h2>
-<p>The above graphic shows some available transform functions. All transforms are directed from right
-to left, this means multiplying a transform with a coordinate results in a coordinate system
-further to the left, multiplying the <a class="reference internal" href="../../classes/class_transform2d.html#class-transform2d-method-affine-inverse"><span class="std std-ref">affine inverse</span></a>
-of a transform results in a coordinate system further to the right:</p>
+<p>El gráfico anterior muestra algunas funciones de transformación disponibles. Todas las transformaciones se dirigen desde el objeto de entrada hacia el objeto de salida deseado.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-0-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-0-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># Called from a CanvasItem.</span>
 <span class="n">canvas_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_global_transform</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">local_pos</span>

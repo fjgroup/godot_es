@@ -13052,27 +13052,15 @@
 </section>
 <section id="color-banding">
 <span id="doc-3d-rendering-limitations-color-banding"></span><h2>Bandas de color<a class="headerlink" href="#color-banding" title="Link to this heading"></a></h2>
-<p>When using the Forward+ or Mobile rendering methods, Godot's 3D engine
-renders internally in HDR. However, the rendering output will typically be
-written to a lower precision buffer. This can result in
-visible banding, especially when using untextured materials. For performance
-reasons, color precision is also lower when using the Mobile rendering method
-compared to Forward+.</p>
-<p>When using the Compatibility rendering method, internal HDR rendering is not
-used and the color precision is the lowest of all rendering methods. This also applies to 2D
-rendering, where banding may be visible when using smooth gradient textures.</p>
+<p>Al utilizar los métodos de renderizado Forward+ o Mobile, el motor 3D de Godot renderiza internamente en HDR. Sin embargo, la pantalla del usuario final puede ser de rango dinámico estándar (SDR), por lo que se requiere un mapeo de tonos (tonemapping) para comprimir el rango lumínico.</p>
+<p>Al utilizar el método de renderizado Compatibility, no se utiliza el renderizado HDR interno y la precisión de color se limita a 8 bits por canal, lo que puede provocar bandas de color (banding) más evidentes en degradados suaves.</p>
 <p>Hay dos caminos principales para solucionar las bandas:</p>
 <ul class="simple">
 <li><p>If using the Forward+ or Forward Mobile rendering methods, enable
 <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-rendering-anti-aliasing-quality-use-debanding"><span class="std std-ref">Use Debanding</span></a>
 in <strong>Project Settings &gt; Rendering &gt; Anti Aliasing</strong>. This applies a fullscreen debanding
 shader as a post-processing effect and is very cheap.</p></li>
-<li><p>Alternatively, bake some noise into your textures. This is mainly effective in
-2D, e.g. for vignetting effects. In 3D, you can also use a <a class="reference external" href="https://github.com/fractilegames/godot-gles2-debanding-material">custom debanding
-shader</a> to
-be applied on your <em>materials</em>. This technique works even if your project is
-rendered with low color precision, which means it will work when using the
-Mobile and Compatibility rendering methods.</p></li>
+<li><p>Alternativamente, hornea algo de ruido o tramado (dithering) en tus texturas. Esto es principalmente efectivo en 2D, por ejemplo, para viñetas o cielos degradados.</p></li>
 </ul>
 <figure class="align-center" id="id1">
 <img alt="Comparación de bandas de color (contraste aumentado para mayor visibilidad)" src="../../_images/3d_rendering_limitations_banding.webp" />
@@ -13082,8 +13070,7 @@ Mobile and Compatibility rendering methods.</p></li>
 </figure>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>See <a class="reference external" href="https://loopit.dk/banding_in_games.pdf">Banding in Games: A Noisy Rant (PDF)</a>
-for more details about banding and ways to combat it.</p>
+<p>Consulta <a class="reference external" href="https://loopit.dk/banding_in_games.pdf">Banding in Games: A Look at Color Precision (PDF)</a> para un análisis técnico profundo sobre las bandas de color y técnicas para mitigarlas.</p>
 </div>
 </section>
 <section id="depth-buffer-precision">
@@ -13106,40 +13093,17 @@ or rotates.</p>
 </section>
 <section id="transparency-sorting">
 <span id="doc-3d-rendering-limitations-transparency-sorting"></span><h2>Orden de transparencia<a class="headerlink" href="#transparency-sorting" title="Link to this heading"></a></h2>
-<p>In Godot, transparent materials are drawn after opaque materials. Transparent
-objects are sorted back to front before being drawn based on the Node3D's
-position, not the vertex position in world space. Due to this, overlapping
-objects may often be sorted out of order. To fix improperly sorted objects,
-tweak the material's
-<a class="reference internal" href="../../classes/class_material.html#class-material-property-render-priority"><span class="std std-ref">Render Priority</span></a>
-property or the node's
-<a class="reference internal" href="../../classes/class_visualinstance3d.html#class-visualinstance3d-property-sorting-offset"><span class="std std-ref">Sorting Offset</span></a>.
-Render Priority will force specific materials to appear in front of or behind
-other transparent materials, while Sorting Offset will move the object
-forward or backward for the purpose of sorting. Even then, these may not
-always be sufficient.</p>
+<p>En Godot, los materiales transparentes se dibujan después de los materiales opacos. Los objetos transparentes se ordenan de atrás hacia adelante en función de la posición de su centro, lo que en geometrías complejas o cóncavas puede ocasionar problemas de orden de ordenamiento y superposición visual.</p>
 <p>Los objetos transparentes no se renderizan en el búfer de normal-rugosidad (normal-roughness buffer), ya que se dibujan después de la geometría opaca. Como resultado, las características que dependen de dicho búfer no afectarán a los materiales transparentes.</p>
 <p>Algunos motores de renderizado cuentan con técnicas de <em>transparencia independiente del orden</em> para aliviar esto, pero esto es costoso en la GPU. Godot actualmente no proporciona esta característica. Todavía hay varias maneras de evitar este problema:</p>
 <ul class="simple">
-<li><p>Only make materials transparent if you actually need it. If a material only
-has a small transparent part, consider splitting it into a separate material.
-This will allow the opaque part to cast shadows and will also improve performance.</p></li>
-<li><p>If your texture mostly has fully opaque and fully transparent areas, you can
-use alpha testing instead of alpha blending. This transparency mode is faster
-to render and doesn't suffer from transparency issues. Enable <strong>Transparency &gt;
-Transparency</strong> to <strong>Alpha Scissor</strong> in StandardMaterial3D, and adjust
-<strong>Transparency &gt; Alpha Scissor Threshold</strong> accordingly if needed. Note that
-MSAA will not antialias the texture's edges unless alpha antialiasing is
-enabled in the material's properties. However, FXAA, TAA and supersampling
-will be able to antialias the texture's edges regardless of whether alpha
-antialiasing is enabled on the material.</p></li>
+<li><p>Solo haz transparentes los materiales si realmente lo necesitas. Si un material solo tiene una pequeña sección transparente, considera dividir la geometría en superficies opacas y transparentes independientes.</p></li>
+<li><p>Si tu textura tiene principalmente áreas totalmente opacas y totalmente transparentes, puedes utilizar la prueba alfa (Alpha Scissor) en lugar de la transparencia alpha blend convencional. Esto permite que el objeto se dibuje en el paso opaco y proyecte sombras correctas.</p></li>
 <li><p>If you need to render semi-transparent areas of the texture, alpha scissor
 isn't suitable. Instead, setting the StandardMaterial3D's
 <strong>Transparency &gt; Transparency</strong> property to <strong>Depth Pre-Pass</strong> can sometimes
 work (at a performance cost). You can also try the <strong>Alpha Hash</strong> mode.</p></li>
-<li><p>If you want a material to fade with distance, use the StandardMaterial3D
-distance fade mode <strong>Pixel Dither</strong> or <strong>Object Dither</strong> instead of
-<strong>Pixel Alpha</strong>. This will make the material opaque, which also speeds up rendering.</p></li>
+<li><p>Si deseas que un material se desvanezca con la distancia, usa el modo de desvanecimiento por distancia de StandardMaterial3D <strong>Pixel Dither</strong> en lugar de <strong>Pixel Alpha</strong> para evitar que todo el objeto pase al paso de dibujado transparente.</p></li>
 </ul>
 <figure class="align-center" id="id3">
 <img alt="Comparación de clasificación de transparencia (materiales con mezcla alfa a la izquierda, materiales con tijera alfa a la derecha)" src="../../_images/3d_rendering_limitations_transparency_sorting.webp" />

@@ -13047,14 +13047,13 @@
 <p><span class="caption-text">Demo del juego de disparos en tercera persona (TPS) Godot, disponible en el <a class="reference external" href="https://github.com/godotengine/tps-demo">repositorio de Github</a> o en la <a class="reference internal" href="../editor/project_manager.html#doc-project-manager-downloading-demos"><span class="std std-ref">Librería de Assets</span></a>.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>In 3D, math is a little more complex than in 2D. For an introduction to the
-relevant math written for game developers, not mathemeticians or engineers,
-check out <a class="reference internal" href="../math/vector_math.html#doc-vector-math"><span class="std std-ref">Matemáticas vectoriales</span></a> and <a class="reference internal" href="using_transforms.html#doc-using-transforms"><span class="std std-ref">Usar transformaciones 3D</span></a>.</p>
+<p>En 3D, las matemáticas son un poco más complejas que en 2D. Para una introducción a las
+matemáticas relevantes escrita para desarrolladores de juegos, consulta
+<a class="reference internal" href="../math/vector_math.html#doc-vector-math"><span class="std std-ref">Matemáticas de vectores</span></a>.</p>
 <section id="d-workspace">
 <h2>Espacio de trabajo 3D<a class="headerlink" href="#d-workspace" title="Link to this heading"></a></h2>
-<p>Editing 3D scenes is done in the 3D workspace. This workspace can be selected
-manually, but it will be automatically selected when a Node3D node is
-selected.</p>
+<p>La edición de escenas 3D se realiza en el espacio de trabajo 3D. Este espacio de trabajo se puede seleccionar
+manualmente, pero se activará automáticamente al seleccionar un nodo 3D.</p>
 <img alt="../../_images/tuto_3d3.webp" src="../../_images/tuto_3d3.webp" />
 <p>Al igual que en 2D, las pestañas debajo del selector de viewport se utilizan para cambiar entre las escenas abiertas o crear una nueva con el botón más (+). Los botones izquierdo y derecho le resultarán familiares de la <a class="reference internal" href="../editor/index.html#doc-editor-introduction"><span class="std std-ref">introducción al editor</span></a>.</p>
 <p>Debajo del selector de escena, se ve la barra de herramientas principal y debajo de la barra de herramientas principal se encuentra el viewport 3D.</p>
@@ -13101,14 +13100,12 @@ global transform of its children.</p></li>
 </section>
 <section id="view-menu-of-viewport">
 <h3>View menu of viewport<a class="headerlink" href="#view-menu-of-viewport" title="Link to this heading"></a></h3>
-<p>Below the <em>Select</em> tool, in the 3D viewport, clicking on the three dots opens the
-<strong>View menu</strong> for the viewport.
-Hiding all shown gizmos in the editor's 3D view can also be performed through
-this menu:</p>
+<p>Debajo de la herramienta <em>Seleccionar</em>, en la vista 3D, hacer clic en los tres puntos abre el
+menú <strong>Opciones de Vista</strong>. Este menú ofrece varias opciones para alternar la visualización del
+gizmo del nodo seleccionado, mostrar/ocultar sombras o ajustar la cuadrícula.</p>
 <img alt="../../_images/tuto_3d6_1.webp" src="../../_images/tuto_3d6_1.webp" />
-<p>This menu also displays the current view type and enables quick adjustment of the
-viewport's viewing angle. Additionally, it offers options to modify the appearance of
-nodes within the viewport.</p>
+<p>Este menú también muestra el tipo de vista actual y permite ajustar rápidamente el tipo de proyección
+de la vista (por ejemplo, perspectiva u ortográfica).</p>
 </section>
 <section id="coordinate-system">
 <span id="doc-introduction-to-3d-coordinate-system"></span><h3>Sistema de Coordenadas<a class="headerlink" href="#coordinate-system" title="Link to this heading"></a></h3>
@@ -13130,12 +13127,8 @@ nodes within the viewport.</p>
 </section>
 <section id="space-and-manipulation-gizmos">
 <span id="doc-introduction-to-3d-space-and-manipulation"></span><h3>Gizmos de espacio y manipulación<a class="headerlink" href="#space-and-manipulation-gizmos" title="Link to this heading"></a></h3>
-<p>Moving, rotating, and scaling objects in the 3D view is done through the
-manipulator gizmos.
-Each axis is represented by a color: Red, Green, Blue represent X, Y, Z
-respectively. This convention applies to the grid and other gizmos too
-(and also to the shader language, ordering of components for
-Vector3, Color, etc.).</p>
+<p>Mover, rotar y escalar objetos en la vista 3D se realiza mediante los gizmos de manipulación.
+Cada eje está representado por un color: rojo para X, verde para Y y azul para Z.</p>
 <img alt="../../_images/tuto_3d5.webp" src="../../_images/tuto_3d5.webp" />
 <p>Algunos keybindings útiles:</p>
 <ul class="simple">
@@ -13158,10 +13151,8 @@ or rotating.</p></li>
 <p>Al hacer clic izquierdo en uno de los círculos de colores, la vista se establecerá en la dirección ortogonal elegida y el menú de vista de la ventana gráfica se actualizará en consecuencia.</p>
 <img alt="../../_images/tuto_3d_updated_view_menu.webp" src="../../_images/tuto_3d_updated_view_menu.webp" />
 <p>Si la vista <em>Perspectiva</em> está habilitada en la ventana gráfica (se puede ver en el menú Ver de la ventana gráfica, no en el de la barra de herramientas principal), al mantener presionado el botón derecho del mouse en la ventana gráfica o presionar <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F</kbd></kbd> Mayús + F, se cambia al modo de vista libre. En este modo, puede mover el mouse para observar, usar las teclas <kbd class="kbd docutils literal notranslate">W</kbd><kbd class="kbd docutils literal notranslate">A</kbd><kbd class="kbd docutils literal notranslate">S</kbd><kbd class="kbd docutils literal notranslate">D</kbd> W, A, S y D para desplazarse por la vista, <kbd class="kbd docutils literal notranslate">E</kbd> E para subir y <kbd class="kbd docutils literal notranslate">Q</kbd> Q para bajar. Para desactivar este modo, suelte el botón derecho del mouse o presione <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F</kbd></kbd> Mayús + F nuevamente.</p>
-<p>In the free-look mode, you can temporarily increase the flying
-speed using <kbd class="kbd docutils literal notranslate">Shift</kbd> or decrease it using <kbd class="kbd docutils literal notranslate">Alt</kbd>. To change and keep the
-speed modifier use <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">mouse</kbd> <kbd class="kbd docutils literal notranslate">wheel</kbd> <kbd class="kbd docutils literal notranslate">up</kbd></kbd> or <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">mouse</kbd> <kbd class="kbd docutils literal notranslate">wheel</kbd> <kbd class="kbd docutils literal notranslate">down</kbd></kbd>, to increase or
-decrease it, respectively.</p>
+<p>En el modo de vista libre, puedes aumentar temporalmente la velocidad de vuelo
+manteniendo presionado <kbd class="kbd docutils literal notranslate">Shift</kbd> (o disminuirla manteniendo presionado <kbd class="kbd docutils literal notranslate">Alt</kbd>).</p>
 <p>En el modo ortogonal, al mantener pulsado el botón derecho del ratón, se desplazará la vista. Utiliza <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Keypad</kbd> <kbd class="kbd docutils literal notranslate">5</kbd></kbd> para alternar entre la perspectiva y la vista ortogonal.</p>
 </section>
 <section id="using-blender-style-transform-shortcuts">

@@ -13114,9 +13114,7 @@ attractor's cull mask.</p>
 <p>Box attractors have a box-shaped influence region. You control their size with the <code class="docutils literal notranslate"><span class="pre">Extents</span></code>
 property. Box extents always measure half of the sides of its bounds, so a value of
 <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> creates a box with an influence region that is 2 meters wide on each side.</p>
-<p>To create a box attractor, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorBox3D</span></code>
-from the list of available nodes. You can animate the box position or attach it to a
-moving node for more dynamic effects.</p>
+<p>Para crear un atractor de caja, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorBox3D</span></code> de la lista de nodos disponibles. Puedes animar la posición de la caja o adjuntarla a un nodo en movimiento para lograr efectos más dinámicos.</p>
 <figure class="align-default" id="id5">
 <img alt="Box attractor parts particle field" src="../../../_images/particle_attractor_box.webp" />
 <figcaption>
@@ -13136,9 +13134,7 @@ moving node for more dynamic effects.</p>
 property. While box attractors don't have to be perfect cubes, sphere attractors will always be
 spheres: You can't set width independently from height. If you want to use a sphere attractor for
 elongated shapes, you have to change its <code class="docutils literal notranslate"><span class="pre">Scale</span></code> in the attractor's <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> section.</p>
-<p>To create a sphere attractor, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorSphere3D</span></code>
-from the list of available nodes. You can animate the sphere position or attach it to a
-moving node for more dynamic effects.</p>
+<p>Para crear un atractor esférico, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorSphere3D</span></code> de la lista de nodos disponibles. Puedes animar la posición de la esfera o adjuntarla a un nodo en movimiento.</p>
 <figure class="align-default" id="id7">
 <img alt="Sphere attractor parts particle field" src="../../../_images/particle_attractor_sphere.webp" />
 <figcaption>
@@ -13154,10 +13150,7 @@ moving node for more dynamic effects.</p>
 <p><span class="caption-text">Vector field attractor in the node list</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>A vector field is a 3D area that contains vectors positioned on a grid. The grid density controls
-how many vectors there are and how far they're spread apart. Each vector in a vector field points
-in a specific direction. This can be completely random or aligned in a way that forms distinct
-patterns and paths.</p>
+<p>Un campo vectorial es un área 3D que contiene vectores organizados sobre una cuadrícula tridimensional. Cada vector apunta en una dirección y magnitud específicas que guían el movimiento de las partículas a través del espacio.</p>
 <p>When particles interact with a vector field, their movement direction changes to match the nearest vector
 in the field. As a particle moves closer to the next vector in the field, it changes
 direction to match that vector's direction. The particle's speed depends on the vector's length.</p>
@@ -13183,9 +13176,7 @@ results in no movement at all.</p></li>
 <img alt="Mapping from texture to vector field" src="../../../_images/particle_attractor_vector_mapping.webp" />
 </figure>
 </div>
-<p>To create a vector field attractor, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorVectorField3D</span></code>
-from the list of available nodes. You can animate the attractor's position or attach it to a
-moving node for more dynamic effects.</p>
+<p>Para crear un atractor de campo vectorial, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorVectorField3D</span></code> de la lista de nodos disponibles.</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
 <p>If you don't have external tools to create vector field textures, you can use

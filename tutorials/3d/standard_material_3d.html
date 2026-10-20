@@ -13042,15 +13042,9 @@
 <span id="doc-standard-material-3d"></span><h1>Material estándar 3D y material ORM 3D<a class="headerlink" href="#standard-material-3d-and-orm-material-3d" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">StandardMaterial3D</span></code> and <code class="docutils literal notranslate"><span class="pre">ORMMaterial3D</span></code> (Occlusion, Roughness, Metallic)
-are default 3D materials that aim to provide most of the features artists look
-for in a material, without the need for writing shader code. However, they can
-be converted to shader code if additional functionality is needed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">StandardMaterial3D</span></code> y <code class="docutils literal notranslate"><span class="pre">ORMMaterial3D</span></code> son materiales 3D basados en física (PBR) prediseñados que ofrecen la mayoría de las características necesarias en gráficos 3D modernos sin requerir la escritura de shaders personalizados.</p>
 <p>Este tutorial explica los parámetros presentes en ambos materiales.</p>
-<p>There are 4 ways to add these materials to an object. A material can be added in
-the <em>Material</em> property of the mesh. It can be added in the <em>Material</em> property of
-the node using the mesh (such as a MeshInstance3D node), the <em>Material Override</em> property
-of the node using the mesh, and the <em>Material Overlay</em>.</p>
+<p>Hay 4 formas de añadir estos materiales a un objeto: en la propiedad <em>Material</em> de la superficie de la malla, en la ranura de <em>Material Override</em> del nodo MeshInstance3D, mediante <em>Material Overlay</em>, o asignándolos directamente en la configuración de importación del recurso.</p>
 <img alt="../../_images/add_material.webp" src="../../_images/add_material.webp" />
 <p>Si se añade un material a la propia malla, cada vez que se utilice esa malla tendrá ese material. Si añade un material al nodo usando la malla, el material sólo será usado por ese nodo, también anulará la propiedad de material de la malla. Si se añade un material en la propiedad <em>Material Override</em> del nodo, sólo será usado por ese nodo. También anulará la propiedad material regular del nodo y la propiedad material de la malla.</p>
 <p>La propiedad <em>Material Overlay</em> permite renderizar un material <strong>sobre</strong> el que actualmente se está utilizando en el malla. Por ejemplo, esto se puede utilizar para aplicar un efecto de escudo transparente en una malla.</p>
@@ -13121,16 +13115,7 @@ reflection probes).</p></li>
 <li><p><strong>Alpha Edge Blend:</strong> Da como resultado una transición suave entre áreas opacas y transparentes. También conocido como “alfa a cobertura”.</p></li>
 <li><p><strong>Alpha Edge Clip:</strong> Da como resultado una transición definida, pero aún con suavizado de bordes, entre áreas opacas y transparentes. También conocido como “alfa a cobertura + alfa a uno”.</p></li>
 </ul>
-<p>When the alpha antialiasing mode is set to <strong>Alpha Edge Blend</strong> or <strong>Alpha Edge
-Clip</strong>, a new <strong>Alpha Antialiasing Edge</strong> property becomes visible below in the
-inspector. This property controls the threshold below which pixels should be
-made transparent. While you've already defined an alpha scissor threshold (when
-using <strong>Alpha Scissor</strong> only), this additional threshold is used to smoothly
-transition between opaque and transparent pixels. <strong>Alpha Antialiasing Edge</strong>
-must <em>always</em> be set to a value that is strictly below the alpha scissor
-threshold. The default of <code class="docutils literal notranslate"><span class="pre">0.3</span></code> is a sensible value with an alpha scissor of
-threshold of <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, but remember to adjust this alpha antialiasing edge when
-modifying the alpha scissor threshold.</p>
+<p>Cuando el modo de antialiasing alfa está configurado en <strong>Alpha Edge Blend</strong> o <strong>Alpha Edge Centroid</strong>, los bordes recortados de los materiales con prueba alfa se suavizan mediante técnicas de antialiasing a nivel de subpíxel.</p>
 <p>Si notas que el efecto de suavizado de bordes por alfa no es lo suficientemente evidente, intenta aumentar <strong>Alpha Antialiasing Edge</strong>, asegurándote de que siga estando por debajo del <strong>Alpha Scissor Threshold</strong> (si el material utiliza Alpha Scissor). Por otro lado, si observas que la apariencia de la textura cambia visiblemente al acercar la cámara al material, prueba disminuyendo <strong>Alpha Antialiasing Edge</strong> While.</p>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>

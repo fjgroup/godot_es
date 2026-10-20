@@ -13046,24 +13046,23 @@
 </div>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>A tilemap is a grid of tiles used to create a game's layout. There are several
-benefits to using <a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> nodes to design your levels.
-First, they make it possible to draw the layout by &quot;painting&quot; the tiles onto a
-grid, which is much faster than placing individual <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a>
-nodes one by one. Second, they allow for much larger levels because they are
-optimized for drawing large numbers of tiles. Finally, you can add collision,
-occlusion, and navigation shapes to tiles, adding greater functionality to
-the TileMap.</p>
+<p>Un mapa de teselas (tilemap) es una cuadrícula de teselas utilizada para crear el diseño de un juego. Hay varias
+ventajas al usar nodos <a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> para diseñar tus niveles.
+Primero, hacen posible dibujar el diseño &quot;pintando&quot; las teselas sobre una
+cuadrícula, lo cual es mucho más rápido que colocar nodos individuales <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a>
+uno a uno. Segundo, permiten niveles mucho más grandes porque están
+optimizados para dibujar una gran cantidad de teselas. Finalmente, puedes agregar formas de colisión,
+oclusión y navegación a las teselas, añadiendo mayor funcionalidad al TileMap.</p>
 </section>
 <section id="specifying-the-tileset-in-the-tilemaplayer">
-<h2>Specifying the TileSet in the TileMapLayer<a class="headerlink" href="#specifying-the-tileset-in-the-tilemaplayer" title="Link to this heading"></a></h2>
-<p>If you've followed the previous page on <a class="reference internal" href="using_tilesets.html#doc-using-tilesets"><span class="std std-ref">Usar TileSets</span></a>, you should
-have a TileSet resource that is built into the TileMapLayer node. This is good for
-prototyping, but in a real world project, you will generally have multiple
-levels reusing the same tileset.</p>
-<p>The recommended way to reuse the same TileSet in several TileMapLayer nodes is to save
-the TileSet to an external resource. To do so, click the dropdown next to the TileSet
-resource and choose <strong>Save</strong>:</p>
+<h2>Especificar el TileSet en el TileMapLayer<a class="headerlink" href="#specifying-the-tileset-in-the-tilemaplayer" title="Link to this heading"></a></h2>
+<p>Si has seguido la página anterior sobre <a class="reference internal" href="using_tilesets.html#doc-using-tilesets"><span class="std std-ref">Usar TileSets</span></a>, deberías
+tener un recurso TileSet integrado dentro del nodo TileMapLayer. Esto es bueno para
+prototipos, pero en un proyecto real generalmente tendrás múltiples
+niveles que reutilicen el mismo tileset.</p>
+<p>La forma recomendada de reutilizar el mismo TileSet en varios nodos TileMapLayer es guardar
+el TileSet en un recurso externo. Para hacerlo, haz clic en el menú desplegable junto al recurso
+TileSet y elige <strong>Guardar</strong>:</p>
 <figure class="align-center" id="id1">
 <img alt="Guardar el recurso TileSet integrado en un archivo de recursos externo" src="../../_images/using_tilemaps_save_tileset_to_resource.webp" />
 <figcaption>
@@ -13073,11 +13072,11 @@ resource and choose <strong>Save</strong>:</p>
 </section>
 <section id="multiple-tilemaplayers-and-settings">
 <h2>Multiple TileMapLayers and settings<a class="headerlink" href="#multiple-tilemaplayers-and-settings" title="Link to this heading"></a></h2>
-<p>When working with tilemaps it's generally advised that you use multiple TileMapLayer
-nodes when appropriate. Using multiple layers can be advantageous, for example,
-this allows you to distinguish foreground tiles from background tiles for better
-organization. You can place one tile per layer at a given location, which allows you
-to overlap several tiles together if you have more than one layer.</p>
+<p>Al trabajar con tilemaps generalmente se aconseja utilizar múltiples nodos TileMapLayer
+cuando sea adecuado. Utilizar varias capas puede ser muy ventajoso; por ejemplo,
+esto permite distinguir las teselas de primer plano de las de fondo para una mejor
+organización. Puedes colocar una tesela por capa en una ubicación determinada, lo que te permite
+superponer varias teselas entre sí si tienes más de una capa.</p>
 <p>Each TileMapLayer node has several properties you can adjust:</p>
 <ul class="simple">
 <li><p><strong>Enabled:</strong> Si es <code class="docutils literal notranslate"><span class="pre">true</span></code>, la capa es visible en el editor cuando ejecutas el proyecto.</p></li>
@@ -13086,8 +13085,8 @@ to overlap several tiles together if you have more than one layer.</p>
 <section id="rendering">
 <h3>Renderizado<a class="headerlink" href="#rendering" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Y Sort Origin:</strong> The vertical offset to use for Y-sorting on each tile (in pixels).
-Only effective if <strong>Y Sort Enabled</strong> under CanvasItem settings is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>Origen de Ordenamiento Y (Y Sort Origin):</strong> El desfase vertical que se utilizará para el ordenamiento en Y en cada tesela (en píxeles).
+Solo es efectivo si <strong>Ordenamiento Y Habilitado (Y Sort Enabled)</strong> bajo la configuración de CanvasItem está en <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
 <li><p><strong>Orden Dibujo X Invertido</strong> Invierte el orden en que se dibujan los tiles en el eje X. Requiere que sea <code class="docutils literal notranslate"><span class="pre">true</span></code> la propiedad <strong>Ordenamiento Y Habilitado</strong> del CanvasItem.</p></li>
 <li><p><strong>Tamaño del Cuadrante de Renderizado</strong> Un cuadrante es un grupo de tiles dibujados juntos en un único CanvasItem para fines de optimización. Este ajuste define la longitud del lado de un cuadrado en el sistema de coordenadas del mapa. El tamaño del cuadrante no se aplica a un TileMapLayer ordenado en Y, ya que en ese caso los tiles se agrupan por posición Y.</p></li>
 </ul>
@@ -13127,12 +13126,12 @@ Only effective if <strong>Y Sort Enabled</strong> under CanvasItem settings is <
 </section>
 <section id="opening-the-tilemap-editor">
 <h2>Abrir el editor de TileMap<a class="headerlink" href="#opening-the-tilemap-editor" title="Link to this heading"></a></h2>
-<p>Select the TileMapLayer node, then open the TileMap panel at the bottom
-of the editor:</p>
+<p>Selecciona el nodo TileMapLayer y luego abre el panel TileMap en la parte inferior
+del editor:</p>
 <figure class="align-center" id="id2">
-<img alt="Opening the TileMap panel at the bottom of the editor. The TileMapLayer node must be selected first." src="../../_images/using_tilemaps_open_tilemap_editor.webp" />
+<img alt="Apertura del panel TileMap en la parte inferior del editor. Primero se debe seleccionar el nodo TileMapLayer." src="../../_images/using_tilemaps_open_tilemap_editor.webp" />
 <figcaption>
-<p><span class="caption-text">Opening the TileMap panel at the bottom of the editor. The TileMapLayer node must be selected first.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Apertura del panel TileMap en la parte inferior del editor. Primero se debe seleccionar el nodo TileMapLayer.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
@@ -13147,10 +13146,10 @@ of the editor:</p>
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>In the 2D editor, the layers you aren't currently editing from the same
-TileMapLayer node will appear grayed out while in the TileMap editor. You can
-disable this behavior by clicking the icon next to the layer selection menu
-(<strong>Highlight Selected TileMap Layer</strong> tooltip).</p>
+<p>En el editor 2D, las capas que no estés editando actualmente del mismo
+nodo TileMapLayer aparecerán atenuadas mientras estés en el editor de TileMap. Puedes
+desactivar este comportamiento haciendo clic en el icono junto al menú de selección de capas
+(información sobre herramientas <strong>Resaltar Capa de TileMap Seleccionada</strong>).</p>
 </div>
 <p>Puedes saltarte el paso de arriba si no has creado capas adicionales, pues la primera capa es seleccionada automáticamente cuando entras al editor de TileMap.</p>
 <p>Antes de que puedas poner tiles en el editor 2D, debes seleccionar un tile o más en el panel de TileMap localizado abajo en el editor. Para hacer esto, haz clic en un tile en el panel de TileMap, o sostiene el botón del ratón para seleccionar múltiples tiles:</p>
@@ -13164,10 +13163,10 @@ disable this behavior by clicking the icon next to the layer selection menu
 <p class="admonition-title">Truco</p>
 <p>Del mismo modo que en los editores 2D y de TileSet, puedes panoramizar el panel de TileMap usando el botón central o derecho del ratón y hacer zoom usando la rueda del ratón o los botones en la esquina superior derecha.</p>
 </div>
-<p>You can also hold down <kbd class="kbd docutils literal notranslate">Shift</kbd> to append to the current selection. When
-selecting more than one tile, multiple tiles will be placed every time you
-perform a painting operation. This can be used to paint structures composed of
-multiple tiles in a single click (such as large platforms or trees).</p>
+<p>También puedes mantener presionada la tecla <kbd class="kbd docutils literal notranslate">Shift</kbd> para añadir a la selección actual. Al
+seleccionar más de una tesela, se colocarán múltiples teselas cada vez que
+realices una operación de pintado. Esto se puede usar para pintar estructuras compuestas de
+varias teselas con un solo clic (como plataformas grandes o árboles).</p>
 <p>La selección final no tiene que ser contigua: si hay espacio vacío entre los tiles seleccionados, se dejará vacío en el patrón que será pintado en el editor 2D.</p>
 <figure class="align-center" id="id5">
 <img alt="Seleccionar varios tiles en el editor de TileMap sosteniendo el botón izquierdo del ratón" src="../../_images/using_tilemaps_select_multiple_tiles_from_tileset.webp" />
@@ -13203,11 +13202,11 @@ multiple tiles in a single click (such as large platforms or trees).</p>
 <p>Puedes alternar este modo temporalmente mientras está en el modo Pintar manteniendo presionada la tecla <kbd class="kbd docutils literal notranslate">Ctrl</kbd> y luego realizando una selección.</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>You can copy and paste tiles that were already placed by performing a
-selection, pressing <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">C</kbd></kbd> then pressing <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">V</kbd></kbd>.
-The selection will be pasted after left-clicking. You can press
-<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">V</kbd></kbd> another time to perform more pastes this way.
-Right-click or press <kbd class="kbd docutils literal notranslate">Escape</kbd> to cancel pasting.</p>
+<p>Puedes copiar y pegar teselas que ya hayan sido colocadas realizando una
+selección, presionando <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">C</kbd></kbd> y luego presionando <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">V</kbd></kbd>.
+La selección se pegará después de hacer clic izquierdo. Puedes presionar
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">V</kbd></kbd> otra vez para realizar más pegados de esta manera.
+Haz clic derecho o presiona <kbd class="kbd docutils literal notranslate">Escape</kbd> para cancelar el pegado.</p>
 </div>
 </section>
 <section id="paint">
@@ -13219,10 +13218,10 @@ Right-click or press <kbd class="kbd docutils literal notranslate">Escape</kbd> 
 <p class="admonition-title">Truco</p>
 <p>En el modo Pintar, puedes dibujar una línea manteniendo presionada la tecla <kbd class="kbd docutils literal notranslate">Mayús</kbd> <em>antes</em> de mantener presionado el botón izquierdo del ratón y luego arrastrándolo hasta el punto final de la línea. Es lo mismo a usar la herramienta Línea que se describe a continuación.</p>
 <p>También puedes dibujar un rectángulo manteniendo presionadas las teclas <kbd class="kbd docutils literal notranslate">Ctrl</kbd> y <kbd class="kbd docutils literal notranslate">Mayús</kbd> <em>antes</em> de mantener presionado el botón izquierdo del ratón y luego arrastrarlo hasta el punto final del rectángulo. Es lo mismo a usar la herramienta Rectángulo que se describe a continuación.</p>
-<p>Lastly, you can pick existing tiles in the 2D editor by holding <kbd class="kbd docutils literal notranslate">Ctrl</kbd>
-then clicking on a tile (or holding and dragging the mouse).
-This will switch the currently painted tile(s) to the tile(s) you've just clicked.
-This is identical to using the Picker tool described below.</p>
+<p>Por último, puedes tomar teselas existentes en el editor 2D manteniendo presionado <kbd class="kbd docutils literal notranslate">Ctrl</kbd>
+y haciendo clic en una tesela (o manteniendo presionado y arrastrando el ratón).
+Esto cambiará la(s) tesela(s) pintada(s) actualmente a la(s) tesela(s) en la(s) que acabas de hacer clic.
+Esto es idéntico al uso de la herramienta Selector descrita a continuación.</p>
 </div>
 </section>
 <section id="line">
@@ -13243,8 +13242,8 @@ This is identical to using the Picker tool described below.</p>
 <p>Después de seleccionar el modo de Pintar Rectángulo (Rectangle Paint), puedes dibujar en un rectángulo alineado al eje.</p>
 <p>Si hace clic derecho mientras está en el modo de Pintar Rectángulo (Rectangle Paint), borrará en un rectángulo alineado al eje.</p>
 <p>Si has seleccionado varios tiles en el TileMap, o usando la Herramienta de Selección, puedes ponerlos en un patrón de repetición dentro del rectángulo.</p>
-<p>You can toggle this mode temporarily while in Paint or Eraser mode by holding
-<kbd class="kbd docutils literal notranslate">Ctrl</kbd> and <kbd class="kbd docutils literal notranslate">Shift</kbd> then drawing.</p>
+<p>Puedes alternar este modo temporalmente mientras estás en modo Pintar o Borrador manteniendo presionadas las teclas
+<kbd class="kbd docutils literal notranslate">Ctrl</kbd> y <kbd class="kbd docutils literal notranslate">Shift</kbd> y dibujando a continuación.</p>
 </section>
 <section id="bucket-fill">
 <h3>Bote de Relleno<a class="headerlink" href="#bucket-fill" title="Link to this heading"></a></h3>
@@ -13314,9 +13313,9 @@ This is identical to using the Picker tool described below.</p>
 <p>Como las selecciones de múltiples tiles, los patrones se repetirán si son utilizados con los modos de pintado de Línea, Rectángulo o Bote de Relleno.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Despite being edited in the TileMap editor, patterns are stored in the
-TileSet resource. This allows reusing patterns in different TileMapLayer nodes
-after loading a TileSet resource saved to an external file.</p>
+<p>A pesar de ser editados en el editor de TileMap, los patrones se almacenan en el
+recurso TileSet. Esto permite reutilizar patrones en diferentes nodos TileMapLayer
+después de cargar un recurso TileSet guardado en un archivo externo.</p>
 </div>
 </section>
 <section id="handling-tile-connections-automatically-using-terrains">
@@ -13327,7 +13326,7 @@ terrain within this terrain set. See
 set for the TileSet yet.</p>
 <p>Hay 3 tipos de modos de pintura disponible para las conexiones del terreno:</p>
 <ul class="simple">
-<li><p><strong>Connect</strong>, where tiles are connected to surrounding tiles on the same
+<li><p><strong>Conectar</strong>, donde las teselas se conectan con las teselas circundantes en la misma
 TileMapLayer.</p></li>
 <li><p><strong>Ruta</strong>, en el cual los tiles están conectados con el resto de tiles pintados con el mismo trazo (hasta que se suelte el botón del ratón).</p></li>
 <li><p>A los tiles auxiliares específicos para resolver problemas o manejar ciertas situaciones no los cubre el sistema de terrenos.</p></li>
@@ -13366,8 +13365,8 @@ TileMapLayer.</p></li>
 <p>Esos placeholders <strong>no</strong> son visibles en tiempo de ejecución, pero los datos del tile se conservan en memoria. Esto te permite cerrar y reabrir escenas de forma segura. Una vez vuelvas a añadir un tile con su ID coincidente, los tiles aparecerán con la apariencia del nuevo tile.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Missing tile placeholders may not be visible until you select the TileMapLayer
-node and open the TileMap editor.</p>
+<p>Los marcadores de posición de teselas faltantes pueden no ser visibles hasta que selecciones el nodo TileMapLayer
+y abras el editor de TileMap.</p>
 </div>
 </section>
 </section>

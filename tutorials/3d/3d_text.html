@@ -13042,18 +13042,12 @@
 <span id="doc-3d-text"></span><h1>Texto 3D<a class="headerlink" href="#d-text" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>In a project, there may be times when text needs to be created as part of a 3D
-scene and not just in the HUD. Godot provides 2 methods to do this: the
-Label3D node and the TextMesh <em>resource</em> for a MeshInstance3D node.</p>
+<p>En un proyecto, puede haber momentos en que se necesite crear texto como parte de una escena 3D y no solo en una interfaz de usuario 2D sobrepuesta. Godot proporciona varias formas de lograr esto.</p>
 <p>Adicionalmente, Godot hace posible posicionar nodos de control de acuerdo con la posición de punto 3D en la cámara. Esto puede ser usado como una alternativa a texto 3D real en situaciones donde Label3D y TextMesh no son lo suficientemente flexibles.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>You can see 3D text in action using the
-<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/labels_and_texts">3D Labels and Texts demo project</a>.</p>
-<p>This page does <strong>not</strong> cover how to display a GUI scene within a 3D
-environment. For information on how to achieve that, see the
-<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/viewport/gui_in_3d">GUI in 3D</a>
-demo project.</p>
+<p>Consulta el <a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/labels_and_texts">proyecto de demostración de texto 3D en GitHub</a> para ver ejemplos listos para probar.</p>
+<p>Esta página <strong>no</strong> cubre cómo mostrar una escena de GUI interactiva dentro de un entorno 3D. Para obtener información sobre cómo proyectar controles de GUI interactivos en 3D, consulta <a class="reference internal" href="../viewports/using_subviewports.html#doc-using-subviewports"><span class="std std-ref">Uso de SubViewports</span></a>.</p>
 </div>
 </section>
 <section id="label3d">
@@ -13086,12 +13080,7 @@ rendering).</p>
 <section id="textmesh">
 <h2>TextMesh<a class="headerlink" href="#textmesh" title="Link to this heading"></a></h2>
 <img alt="../../_images/text_mesh.png" src="../../_images/text_mesh.png" />
-<p>The TextMesh resource has similarities to Label3D. They both display text in a
-3D scene, and will use the same font subresource. However, instead of generating
-transparent quads, TextMesh generates 3D geometry that represents the glyphs'
-contours and has the properties of a mesh. As a result, a TextMesh is shaded by
-default and automatically casts shadows onto the environment. A TextMesh can
-also have a material applied to it (including custom shaders).</p>
+<p>El recurso TextMesh tiene similitudes con Label3D. Ambos muestran texto en una escena 3D y utilizarán la misma configuración de fuentes tipográficas, pero TextMesh genera una geometría de malla 3D real con volumen y profundidad.</p>
 <p>Aquí hay un ejemplo de una textura y cómo se aplica a la malla. Puedes usar la textura de abajo como una referencia para el mapa de coordenadas UV generado:</p>
 <img alt="../../_images/text_mesh_texture.png" src="../../_images/text_mesh_texture.png" />
 <img alt="../../_images/text_mesh_textured.png" src="../../_images/text_mesh_textured.png" />
@@ -13118,8 +13107,7 @@ also have a material applied to it (including custom shaders).</p>
 <section id="projected-label-node-or-any-other-control">
 <h2>Nodo Label proyectado (o cualquier otro nodo Control)<a class="headerlink" href="#projected-label-node-or-any-other-control" title="Link to this heading"></a></h2>
 <p>Existe una última solución que es más compleja de configurar, pero que proporciona la mayor flexibilidad: proyectar un nodo 2D en un espacio 3D. Esto se puede lograr usando el valor de retorno del método <a class="reference internal" href="../../classes/class_camera3d.html#class-camera3d-method-unproject-position"><span class="std std-ref">unproject_position</span></a> en un nodo Camera3D en la función <code class="docutils literal notranslate"><span class="pre">_process()</span></code> de un script. Este valor de retorno debe usarse para establecer la propiedad <code class="docutils literal notranslate"><span class="pre">posición</span></code> de un nodo de Control.</p>
-<p>See the <a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/waypoints">3D waypoints</a>
-demo for an example of this.</p>
+<p>Consulta la demostración <a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/waypoints">Puntos de referencia 3D (waypoints)</a> para ver un ejemplo de esto.</p>
 <section id="id3">
 <h3>Ventajas<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">

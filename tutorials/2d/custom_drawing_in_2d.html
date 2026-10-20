@@ -13207,10 +13207,10 @@ derived node, like <a class="reference internal" href="../../classes/class_contr
 <section id="tools">
 <h2>Herramientas<a class="headerlink" href="#tools" title="Link to this heading"></a></h2>
 <p>Dibujar tus propios nodos también puede ser conveniente mientras los ejecutas en el editor. Esto puede usarse como una preview o visualización de alguna funcionalidad o comportamiento del mismo.</p>
-<p>To do this, you can use the <a class="reference internal" href="../scripting/gdscript/gdscript_basics.html#doc-gdscript-tool-mode"><span class="std std-ref">tool annotation</span></a>
-on both GDScript and C#. See
-<a class="reference internal" href="#doc-draw-show-drawing-while-editing-example"><span class="std std-ref">the example below</span></a> and
-<a class="reference internal" href="../plugins/running_code_in_the_editor.html#doc-running-code-in-the-editor"><span class="std std-ref">Ejecutar código en el editor</span></a> for more information.</p>
+<p>Para hacer esto, puedes usar la <a class="reference internal" href="../scripting/gdscript/gdscript_basics.html#doc-gdscript-tool-mode"><span class="std std-ref">anotación tool</span></a>
+tanto en GDScript como en C#. Consulta
+<a class="reference internal" href="#doc-draw-show-drawing-while-editing-example"><span class="std std-ref">el ejemplo a continuación</span></a> y
+<a class="reference internal" href="../plugins/running_code_in_the_editor.html#doc-running-code-in-the-editor"><span class="std std-ref">Ejecutar código en el editor</span></a> para más información.</p>
 </section>
 <section id="example-1-drawing-a-custom-shape">
 <span id="doc-draw-custom-example-1"></span><h2>Ejemplo 1: dibujando una figura personalizada<a class="headerlink" href="#example-1-drawing-a-custom-shape" title="Link to this heading"></a></h2>
@@ -13218,11 +13218,11 @@ on both GDScript and C#. See
 <p>Tendrá que programar una función para realizar esto y dibujarla Ud. mismo.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The following instructions use a fixed set of coordinates that could be too small
-for high resolution screens (larger than 1080p). If that is your case, and the
-drawing is too small consider increasing your window scale in the project setting
+<p>Las siguientes instrucciones utilizan un conjunto fijo de coordenadas que podría ser demasiado pequeño
+para pantallas de alta resolución (mayores a 1080p). Si ese es tu caso y el
+dibujo resulta muy pequeño, considera aumentar la escala de la ventana en el ajuste del proyecto
 <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-stretch-scale"><span class="std std-ref">Display &gt; Window &gt; Stretch &gt; Scale</span></a>
-to adjust the project to a higher resolution (a 2 or 4 scale tends to work well).</p>
+para ajustar el proyecto a una resolución más alta (una escala de 2 o 4 suele funcionar bien).</p>
 </div>
 <section id="drawing-a-custom-polygon-shape">
 <h3>Dibujando una forma de un polígono personalizada<a class="headerlink" href="#drawing-a-custom-polygon-shape" title="Link to this heading"></a></h3>
@@ -13404,10 +13404,10 @@ to adjust the project to a higher resolution (a 2 or 4 scale tends to work well)
 </div></div>
 <p>Deberías obtener la siguiente salida:</p>
 <img alt="../../_images/draw_godot_logo_polyline.webp" src="../../_images/draw_godot_logo_polyline.webp" />
-<p>Unlike <code class="docutils literal notranslate"><span class="pre">draw_polygon()</span></code>, polylines can only have a single unique color
-for all its points (the second argument). This method has 2 additional
-arguments: the width of the line (which is as small as possible by default)
-and enabling or disabling the antialiasing (it is disabled by default).</p>
+<p>A diferencia de <code class="docutils literal notranslate"><span class="pre">draw_polygon()</span></code>, las polilíneas solo pueden tener un único color
+para todos sus puntos (el segundo argumento). Este método cuenta con 2 argumentos
+adicionales: el ancho de la línea (que por defecto es lo más fino posible)
+y la habilitación o deshabilitación del antialiasing (está deshabilitado por defecto).</p>
 <p>El orden de las llamadas <code class="docutils literal notranslate"><span class="pre">_draw</span></code> es importante; al igual que con las posiciones de los Nodos en la jerarquía del árbol, las diferentes formas se dibujarán de arriba a abajo, lo que dará como resultado que las últimas formas oculten las anteriores si se superponen. En este caso queremos que la boca esté dibujada sobre la cabeza, así que la ponemos después.</p>
 <p>Observa cómo podemos definir los colores de diferentes formas, ya sea con un código hexadecimal o un nombre de color predefinido. Consulta la clase <a class="reference internal" href="../../classes/class_color.html#class-color"><span class="std std-ref">Color</span></a> para conocer otras constantes y formas de definir colores.</p>
 </section>
@@ -13500,10 +13500,10 @@ and enabling or disabling the antialiasing (it is disabled by default).</p>
 </section>
 <section id="drawing-text">
 <h3>Dibujando texto<a class="headerlink" href="#drawing-text" title="Link to this heading"></a></h3>
-<p>While using the <a class="reference internal" href="../../classes/class_label.html#class-label"><span class="std std-ref">Label</span></a> Node is the most common way to add
-text to your application, the low-level <cite>_draw</cite> function includes functionality
-to add text to your custom Node drawing. We will use it to add the name &quot;GODOT&quot;
-under the robot head.</p>
+<p>Aunque usar el nodo <a class="reference internal" href="../../classes/class_label.html#class-label"><span class="std std-ref">Label</span></a> es la forma más común de añadir
+texto a tu aplicación, la función de bajo nivel <cite>_draw</cite> incluye funcionalidad
+para añadir texto a tu dibujo personalizado de nodo. La utilizaremos para añadir el nombre &quot;GODOT&quot;
+debajo de la cabeza del robot.</p>
 <p>Usaremos el método <a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-method-draw-string"><span class="std std-ref">draw_string</span></a> para hacerlo, de este modo:</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-13-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-13-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-13-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-13-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">var</span><span class="w"> </span><span class="n">default_font</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">Font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ThemeDB</span><span class="o">.</span><span class="vi">fallback_font</span><span class="p">;</span>
@@ -13677,12 +13677,12 @@ under the robot head.</p>
 </div></div>
 <p>Debería verse similar a esto al ejecutarse:</p>
 <img alt="../../_images/draw_godot_mouth_animation.webp" src="../../_images/draw_godot_mouth_animation.webp" />
-<p>Please note that <code class="docutils literal notranslate"><span class="pre">_mouth_width</span></code> is a user defined property like any other
-and it or any other used as a drawing argument can be animated using more
-standard and high-level methods such as a <a class="reference internal" href="../../classes/class_tween.html#class-tween"><span class="std std-ref">Tween</span></a> or an
-<a class="reference internal" href="../../classes/class_animationplayer.html#class-animationplayer"><span class="std std-ref">AnimationPlayer</span></a> Node. The only difference is
-that a <code class="docutils literal notranslate"><span class="pre">queue_redraw()</span></code> call is needed to apply those changes so they get
-shown on screen.</p>
+<p>Ten en cuenta que <code class="docutils literal notranslate"><span class="pre">_mouth_width</span></code> es una propiedad definida por el usuario como cualquier otra
+y ella o cualquier otra utilizada como argumento de dibujo se puede animar mediante métodos más
+estándar y de alto nivel, como un nodo <a class="reference internal" href="../../classes/class_tween.html#class-tween"><span class="std std-ref">Tween</span></a> o un nodo
+<a class="reference internal" href="../../classes/class_animationplayer.html#class-animationplayer"><span class="std std-ref">AnimationPlayer</span></a>. La única diferencia es
+que se necesita una llamada a <code class="docutils literal notranslate"><span class="pre">queue_redraw()</span></code> para aplicar esos cambios y que se
+muestren en pantalla.</p>
 </section>
 </section>
 <section id="example-2-drawing-a-dynamic-line">

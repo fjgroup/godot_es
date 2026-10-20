@@ -13075,9 +13075,9 @@
 <p><a class="reference internal" href="../../classes/class_canvasmodulate.html#class-canvasmodulate"><span class="std std-ref">CanvasModulate</span></a> es utilizado para oscurecer la escena al especificar un color que actuará como el color &quot;ambiental&quot; base. Este es el color de iluminación final para áreas que <em>no</em> son alcanzadas por ninguna luz 2D. Sin un nodo CanvasModulate, la escena final luciría demasiado brillante, debido a que las luces 2D sólo abrillantarían la apariencia sin sombreado existente (que ya aparece completamente iluminada).</p>
 <p>Los <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2Ds</span></a> son usados para mostrar las texturas de los puntos de luz, el fondo y los generadores de sombra.</p>
 <p>Los <a class="reference internal" href="../../classes/class_pointlight2d.html#class-pointlight2d"><span class="std std-ref">PointLight2Ds</span></a> son usados para iluminar la escena. El modo en que una luz funciona es sumando la textura seleccionada al resto de la escena para simular la iluminación.</p>
-<p><a class="reference internal" href="../../classes/class_lightoccluder2d.html#class-lightoccluder2d"><span class="std std-ref">LightOccluder2Ds</span></a> are used to tell the shader
-which parts of the scene cast shadows. These occluders can be placed as
-independent nodes or can be part of a TileMapLayer node.</p>
+<p>Los <a class="reference internal" href="../../classes/class_lightoccluder2d.html#class-lightoccluder2d"><span class="std std-ref">LightOccluder2D</span></a> se utilizan para indicarle al shader
+qué partes de la escena proyectan sombras. Estos oclusores se pueden colocar como
+nodos independientes o pueden formar parte de un nodo TileMapLayer.</p>
 <p>La sombra aparece sólo en áreas cubiertas por el <a class="reference internal" href="../../classes/class_pointlight2d.html#class-pointlight2d"><span class="std std-ref">PointLight2D</span></a> y su dirección está basada en el centro del nodo <a class="reference internal" href="../../classes/class_pointlight2d.html#class-pointlight2d"><span class="std std-ref">Light</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -13106,9 +13106,8 @@ independent nodes or can be part of a TileMapLayer node.</p>
 </section>
 <section id="directional-light">
 <h2>Directional light (Luz direccional)<a class="headerlink" href="#directional-light" title="Link to this heading"></a></h2>
-<p>Directional lighting is used to represent sunlight or moonlight. Light rays are
-casted parallel to each other, as if the sun or moon was infinitely far away
-from the surface that is receiving the light.</p>
+<p>La iluminación direccional se utiliza para representar la luz solar o lunar. Los rayos de luz se
+proyectan paralelos entre sí, como si la fuente de luz estuviera infinitamente lejos de la escena.</p>
 <p>DirectionalLight2D tiene las siguientes propiedades:</p>
 <ul class="simple">
 <li><p><strong>Height:</strong> La altura virtual de una luz con respecto al mapeo normal (<code class="docutils literal notranslate"><span class="pre">0.0</span></code> = paralelo a las superficies, <code class="docutils literal notranslate"><span class="pre">1.0</span></code> = perpendicular a las superficies). Por defecto, la luz se encuentra completamente paralela con las superficies que reciben luces. Esto hará que la iluminación sea difícilmente visible si se está utilizando mapeo normal, así que considere incrementar este valor. Ajustar la altura de una luz solo provoca una diferencia visible en superficies que utilizan mapeo normal. <strong>Height</strong> no afecta la apariencia de las sombras.</p></li>
@@ -13182,7 +13181,7 @@ from the surface that is receiving the light.</p>
 </pre></div>
 </div>
 <p>Esto funciona dividiendo la posición por <code class="docutils literal notranslate"><span class="pre">pixel_size</span></code> para convertirla al espacio de la cuadrícula, utilizando <code class="docutils literal notranslate"><span class="pre">floor()</span></code> para redondear hacia abajo hasta el punto de cuadrícula más cercano y luego multiplicando nuevamente para volver al espacio de pantalla. El resultado obliga al motor a muestrear la iluminación desde posiciones discretas de la cuadrícula, lo que crea el efecto pixelado.</p>
-<p>For more information on canvas item shaders, see <a class="reference internal" href="../shaders/shader_reference/canvas_item_shader.html#doc-canvas-item-shader"><span class="std std-ref">CanvasItem shaders</span></a>.</p>
+<p>Para obtener más información sobre los shaders de canvas item, consulta <a class="reference internal" href="../shaders/your_first_shader/your_first_2d_shader.html#doc-your-first-2d-shader"><span class="std std-ref">Tu primer shader 2D</span></a> y la documentación de referencia de <a class="reference internal" href="../shaders/shader_reference/canvas_item_shader.html#doc-canvas-item-shader"><span class="std std-ref">Shaders de CanvasItem</span></a>.</p>
 </div>
 <figure class="align-center" id="id5">
 <img alt="Sombras duras" src="../../_images/2d_lights_and_shadows_hard_shadow.webp" />
@@ -13207,9 +13206,9 @@ from the surface that is receiving the light.</p>
 <section id="normal-and-specular-maps">
 <h2>Mapas normales y especulares<a class="headerlink" href="#normal-and-specular-maps" title="Link to this heading"></a></h2>
 <p>Los mapas de normales y especulares pueden aumentar la sensación de profundidad en tu iluminación 2D. Simimlar a como esos funcionan en el renderizado 3D, los mapas de normales pueden ayudar a hacer que la iluminación se vea menos plana y que varíe la intencidad dependiendo de la dirección en que la superficie recibe luz (trabajando por pixel). Mapas especulares mejoran aún más el aspecto visual haciendo que algo de la luz se refleje al observador.</p>
-<p>Both PointLight2D and DirectionalLight2D support normal mapping and specular
-mapping. Normal and specular maps can be assigned to any 2D element,
-including nodes that inherit from Node2D or Control.</p>
+<p>Tanto PointLight2D como DirectionalLight2D admiten mapas de normales y mapas especulares.
+Los mapas de normales y especulares se pueden asignar a cualquier elemento 2D,
+incluyendo nodos que hereden de Node2D o Control.</p>
 <p>Un mapa de normales representa la dirección hacia la cual cada pixel &quot;apunta&quot;. Esta información es entonces utilizada por el motor para aplicar correctamente la iluminación en superficies 2D de un modo físicamente razonable. Los mapas de normales sos típicamente creados desde mapas de altura hechos a mano, pero también pueden ser generados desde otras texturas.</p>
 <p>Un mapa especular define cuánto de cada pixel deberá reflejar la luz (y de qué color, si el mapa especular contiene colores). Valores más brillantes resultarán en un reflejo brillante en un punto dado de la textura. Los mapas especulares son normalemente creados con edición manual utilizando la textura difusa como base.</p>
 <div class="admonition tip">

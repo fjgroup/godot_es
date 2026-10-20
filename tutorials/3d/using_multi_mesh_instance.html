@@ -13042,14 +13042,7 @@
 <span id="doc-using-multi-mesh-instance"></span><h1>Using MultiMeshInstance3D<a class="headerlink" href="#using-multimeshinstance3d" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>In a normal scenario, you would use a <a class="reference internal" href="../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a>
-node to display a 3D mesh like a human model for the main character, but in some
-cases, you would like to create multiple instances of the same mesh in a scene.
-You <em>could</em> duplicate the same node multiple times and adjust the transforms
-manually. This may be a tedious process and the result may look mechanical.
-Also, this method is not conducive to rapid iterations.
-<a class="reference internal" href="../../classes/class_multimeshinstance3d.html#class-multimeshinstance3d"><span class="std std-ref">MultiMeshInstance3D</span></a> is one of the possible
-solutions to this problem.</p>
+<p>En un escenario normal, usarías un nodo <a class="reference internal" href="../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> para mostrar una malla 3D. Sin embargo, si necesitas dibujar miles de instancias de la misma malla (como hierba o árboles), MultiMeshInstance3D permite hacerlo en una única llamada de dibujado.</p>
 <p>MultiMeshInstance3D, as the name suggests, creates multiple copies of a
 MeshInstance over a surface of a specific mesh. An example would be having a
 tree mesh populate a landscape mesh with trees of random scales and orientations.</p>
@@ -13058,20 +13051,15 @@ tree mesh populate a landscape mesh with trees of random scales and orientations
 <h2>Configurar los nodos<a class="headerlink" href="#setting-up-the-nodes" title="Link to this heading"></a></h2>
 <p>The basic setup requires three nodes: the MultiMeshInstance3D node
 and two MeshInstance3D nodes.</p>
-<p>One node is used as the target, the surface mesh that you want to place multiple meshes
-on. In the tree example, this would be the landscape.</p>
+<p>Se utiliza un nodo como objetivo: la malla de superficie sobre la cual deseas colocar múltiples mallas. En el árbol de escenas, este suele ser el terreno o suelo del nivel.</p>
 <p>El otro nodo se usa como la fuente, la malla que quieres que se duplique. En el caso del árbol, este sería el árbol mismo.</p>
-<p>In our example, we would use a <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> node as the root node of
-the scene. Your scene tree would look like this:</p>
+<p>En nuestro ejemplo, usaríamos un nodo <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> como contenedor padre para organizar tanto la superficie como el nodo MultiMeshInstance3D.</p>
 <img alt="../../_images/multimesh_scene_tree.png" src="../../_images/multimesh_scene_tree.png" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Para simplificar, este tutorial utiliza primitivas integradas.</p>
 </div>
-<p>Now you have everything ready. Select the MultiMeshInstance3D node and look at the
-toolbar, you should see an extra button called <code class="docutils literal notranslate"><span class="pre">MultiMesh</span></code> next to <code class="docutils literal notranslate"><span class="pre">View</span></code>.
-Click it and select <em>Populate surface</em> in the dropdown menu. A new window titled
-<em>Populate MultiMesh</em> will pop up.</p>
+<p>Ahora tienes todo listo. Selecciona el nodo MultiMeshInstance3D y observa la barra de herramientas superior; deberías ver el menú contextual de MultiMesh listo para poblar las instancias sobre la superficie.</p>
 <img alt="../../_images/multimesh_toolbar.png" src="../../_images/multimesh_toolbar.png" />
 <img alt="../../_images/multimesh_settings.png" src="../../_images/multimesh_settings.png" />
 </section>

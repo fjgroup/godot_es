@@ -13069,17 +13069,9 @@
 <li><p><strong>Modo de Rotación</strong> (<kbd class="kbd docutils literal notranslate">E</kbd>): Habilita el modo de rotación para los nodos seleccionados. Véase <a class="reference internal" href="#doc-introduction-to-2d-the-viewport"><span class="std std-ref">Viewport 2D</span></a> para más detalles.</p></li>
 <li><p><strong>Modo de Escala</strong> (<kbd class="kbd docutils literal notranslate">S</kbd>): Habilita el escalado y muestra los dispositivos de escalado en ambos ejes para los nodos seleccionados. Véase <a class="reference internal" href="#doc-introduction-to-2d-the-viewport"><span class="std std-ref">Viewport 2D</span></a> para más detalles.</p></li>
 <li><p><strong>Mostrar lista de nodos seleccionables en la posición en la que se hizo clic</strong>: Como se sugiere la descripción, esto proporciona una lista de nodos seleccionables en la posición en la que se hizo clic como un menú contextual, si hay más de un nodo en el área en la que se hizo clic.</p></li>
-<li><p><strong>Rotation pivot</strong>: Sets the rotation pivot to rotate node(s) around.
-An added node has its rotation pivot at <code class="docutils literal notranslate"><span class="pre">x:</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">y:</span> <span class="pre">0</span></code>, by default, with
-exceptions. For example, the default pivot for a <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> is its
-center if the <code class="docutils literal notranslate"><span class="pre">centered</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. If you would like to change the
-rotation pivot of a node, click this button and choose a new location by left clicking.
-The node rotates considering this point. If you have multiple nodes selected, this icon
-will add a temporary pivot to be used commonly by all selected nodes. Pressing <kbd class="kbd docutils literal notranslate">Shift</kbd>
-and clicking this button will create the pivot at the center of selected nodes. If any of
-the snap options are enabled, the pivot will also snap to them when dragged.</p></li>
-<li><p><strong>Pan Mode</strong> (<kbd class="kbd docutils literal notranslate">G</kbd>): Allows you to navigate in the viewport without accidentally selecting any nodes.
-In other modes, you can also hold <kbd class="kbd docutils literal notranslate">Space</kbd> and drag with the left mouse button to do the same.</p></li>
+<li><p><strong>Pivote de rotación</strong>: Establece el pivote de rotación alrededor del cual rotar los nodo(s).
+Una característica adicional es que este pivote se puede utilizar como un punto de ajuste magnético (snapping).</p></li>
+<li><p><strong>Modo Panorámica</strong> (<kbd class="kbd docutils literal notranslate">G</kbd>): Permite desplazarse por la vista 2D manteniendo presionado el botón izquierdo del ratón y arrastrando.</p></li>
 <li><p><strong>Modo de Regla</strong>: Una vez habilitado, haz clic en el área de trabajo (viewport) para visualizar las coordenadas globales actuales en los ejes x e y. Al arrastrar desde una posición hacia otra, se mide la distancia en píxeles. Si arrastra en diagonal, se dibujará un triángulo que mostrará las distancias por separado en los ejes x, y, y la distancia total hasta el punto de destino, incluyendo los ángulos con respecto a los ejes en grados. La tecla <kbd class="kbd docutils literal notranslate">R</kbd> activa el modo regla. Si el ajuste de cuadrícula (snapping) está habilitado, también se mostrarán las medidas en cantidad de unidades de la cuadrícula:</p></li>
 </ul>
 <figure class="align-default" id="id2">
@@ -13175,8 +13167,7 @@ In other modes, you can also hold <kbd class="kbd docutils literal notranslate">
 <li><p><strong>Gizmos</strong>: Alterna la visibilidad de los indicadores <cite>Posición</cite> (mostrado con un icono de cruz), <cite>Bloquear</cite> (mostrado con un candado), <cite>Grupo</cite> (mostrado con dos cuadrados) y <cite>Transformación</cite> (mostrado con líneas verdes y rojas).</p></li>
 <li><p><strong>Centrar Selección</strong>: Igual que el botón <strong>Centrar Vista</strong> dentro del viewport. Centra el o los nodos seleccionados en la vista. La tecla <kbd class="kbd docutils literal notranslate">F</kbd> es el acceso rápido predeterminado.</p></li>
 <li><p><strong>Marco a Selección</strong>: similar a <cite>Centrar Selección</cite>, pero también cambia el factor de zoom para ajustar el contenido a la pantalla. El acceso rápido predeterminado es <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Mayús</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F</kbd></kbd>.</p></li>
-<li><p><strong>Clear Guides</strong>: Deletes all guides from the screen. You will need to recreate them if
-you plan to use them later.</p></li>
+<li><p><strong>Limpiar Guías</strong>: Elimina todas las guías de la pantalla. Tendrás que volver a crearlas si las necesitas de nuevo.</p></li>
 <li><p><strong>Previsualizar Escala de Canvas</strong>: Activa o desactiva la vista previa del lienzo en el editor al cambiar el zoom o la vista del viewport. Útil para ver cómo se verán los controles después de escalarlos y moverlos, sin necesidad de ejecutar el juego.</p></li>
 <li><p><strong>Vista Previa del Tema</strong>: Permite elegir entre los temas disponibles para cambiar la apariencia de los elementos de control en el editor, sin necesidad de ejecutar el juego.</p></li>
 </ul>
@@ -13184,13 +13175,13 @@ you plan to use them later.</p></li>
 </section>
 <section id="node2d-and-control-node">
 <h2>Node2D and Control node<a class="headerlink" href="#node2d-and-control-node" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem"><span class="std std-ref">CanvasItem</span></a> is the base node for 2D. <a class="reference internal" href="../../classes/class_node2d.html#class-node2d"><span class="std std-ref">Node2D</span></a> is the base node
-for 2D game objects, and <a class="reference internal" href="../../classes/class_control.html#class-control"><span class="std std-ref">Control</span></a> is the base node
-for everything GUI. For 3D, Godot uses the <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> node.</p>
+<p><a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem"><span class="std std-ref">CanvasItem</span></a> es el nodo base para 2D. <a class="reference internal" href="../../classes/class_node2d.html#class-node2d"><span class="std std-ref">Node2D</span></a> es el nodo base
+para objetos de juego 2D, y <a class="reference internal" href="../../classes/class_control.html#class-control"><span class="std std-ref">Control</span></a> es el nodo base
+para todo lo relacionado con la GUI. Para 3D, Godot utiliza el nodo <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a>.</p>
 </section>
 <section id="displaying-3d-nodes-in-2d">
 <h2>Displaying 3D nodes in 2D<a class="headerlink" href="#displaying-3d-nodes-in-2d" title="Link to this heading"></a></h2>
-<p>It is possible to display 3D nodes in a 2D scene by using a <a class="reference internal" href="../../classes/class_subviewport.html#class-subviewport"><span class="std std-ref">SubViewport</span></a>. You can see this in the demo <a class="reference external" href="https://godotengine.org/asset-library/asset/2804">3D in 2D Viewport</a>.</p>
+<p>Es posible mostrar nodos 3D en una escena 2D utilizando un <a class="reference internal" href="../../classes/class_subviewport.html#class-subviewport"><span class="std std-ref">SubViewport</span></a>. Puedes ver esto en la demostración <a class="reference external" href="https://godotengine.org/asset-library/asset/2804">3D in 2D Viewport</a>.</p>
 <img alt="../../_images/3d_in_2d_demo_editor.webp" src="../../_images/3d_in_2d_demo_editor.webp" />
 </section>
 </section>

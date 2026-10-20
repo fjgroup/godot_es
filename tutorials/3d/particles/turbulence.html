@@ -13044,21 +13044,14 @@
 <figure class="align-default">
 <img alt="Particle turbulence" src="../../../_images/particle_turbulence.webp" />
 </figure>
-<p>Turbulence uses a noise texture to add variation and interesting patterns to particle movement.
-It can be combined with <a class="reference internal" href="attractors.html#doc-3d-particles-attractors"><span class="std std-ref">particle attractors</span></a> and
-<a class="reference internal" href="collision.html#doc-3d-particles-collision"><span class="std std-ref">collision</span></a> nodes to create even more complex looking behavior.</p>
+<p>La turbulencia utiliza una textura de ruido para añadir variación y patrones dinámicos al movimiento de las partículas. Puede simular ráfagas de viento, remolinos de humo o fluidos en movimiento.</p>
 <figure class="align-right" id="id1">
 <img alt="Turbulence properties" src="../../../_images/particle_turbulence_properties.webp" />
 <figcaption>
 <p><span class="caption-text">Propiedades de turbulencia de partículas</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>There are two things you have to do before turbulence has any effect on a particle system. First you must
-add movement to the particle system. Turbulence modifies a particle's movement
-direction and speed, but it doesn't create any. It is enough to give the particle system some
-gravity, but you can just as well create a number of attractors if you want the particles
-to follow a more complex movement path. Second, you need to <a class="reference internal" href="process_material_properties.html#doc-process-material-properties-turbulence"><span class="std std-ref">enable turbulence in the particle process material</span></a>.
-Once enabled, you have access to all the turbulence properties.</p>
+<p>Hay dos cosas que debes hacer antes de que la turbulencia tenga efecto en un sistema de partículas: primero debes habilitar la casilla <strong>Turbulence Enabled</strong> en el material de proceso y segundo asegurarte de que las partículas tengan una velocidad inicial o aceleración sobre la cual actuar.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Turbulence makes use of 3D noise, which has a high performance cost on the GPU.
@@ -13067,12 +13060,8 @@ Using turbulence is not recommended when targeting mobile/web platforms.</p>
 </div>
 <section id="noise-properties">
 <h2>Noise properties<a class="headerlink" href="#noise-properties" title="Link to this heading"></a></h2>
-<p>The basis for particle turbulence is a noise pattern. There are several
-properties that allow you to manipulate different attributes of this pattern.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Strength</span></code> property controls the pattern's contrast, which affects the overall turbulence
-sharpness. A lower value creates a softer pattern where individual movement paths are
-not as sharply separated from another. Set this to a higher number to make the pattern more
-distinct.</p>
+<p>La base de la turbulencia de partículas es un patrón de ruido. Hay varias propiedades que te permiten ajustar la frecuencia, el contraste y la escala de este ruido.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Strength</span></code> controla el contraste y la fuerza del patrón de ruido.</p>
 <figure class="align-default" id="id2">
 <img alt="Turbulence noise strength" src="../../../_images/particle_turbulence_strength.webp" />
 <figcaption>
@@ -13089,9 +13078,7 @@ starts to become an issue.</p>
 <p><span class="caption-text">Turbulence noise scale produces finer details at a value of 1.5 (left) than at 6 (right)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span></code> property takes a vector and controls the noise panning speed and direction.
-This allows you to move the noise pattern over time, which adds another layer of movement
-variation to the particle system.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span></code> determina qué tan rápido evoluciona o se desplaza el patrón de ruido con el tiempo.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Don't mix up particle movement speed and noise panning speed! They are two different things.
@@ -13114,12 +13101,7 @@ noticeable faster.</p>
 </section>
 <section id="influence-properties">
 <h2>Influence properties<a class="headerlink" href="#influence-properties" title="Link to this heading"></a></h2>
-<p>The influence properties determine how much each particle is affected by turbulence. Use
-<code class="docutils literal notranslate"><span class="pre">Influence</span> <span class="pre">Min</span></code> to set a minimum value and <code class="docutils literal notranslate"><span class="pre">Influence</span> <span class="pre">Max</span></code> to set a maximum value. When a
-particle spawns, the influence is randomly chosen from within this range. You can
-also set up a curve with the <code class="docutils literal notranslate"><span class="pre">Influence</span> <span class="pre">Over</span> <span class="pre">Life</span></code> property that modifies that value
-over each particle's lifetime. These three properties together control the strength of
-the turbulence's effect on the particle system <a class="reference internal" href="process_material_properties.html#doc-process-material-properties"><span class="std std-ref">as described before</span></a>.</p>
+<p>Las propiedades de influencia determinan qué tanto se ve afectada cada partícula por la turbulencia a lo largo de su ciclo de vida mediante curvas de influencia.</p>
 <p>Since these properties affect the overall influence of the turbulence over a particle system,
 both movement direction and speed change as you set different values. A stronger influence causes
 a particle to move faster and all particles to follow along narrower paths as a result of that.</p>
@@ -13136,9 +13118,7 @@ a particle to move faster and all particles to follow along narrower paths as a 
 lower limit and <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Displacement</span> <span class="pre">Max</span></code> to set an upper limit. When a particle spawns, the
 amount of displacement is randomly chosen from within this range and multiplied by a random
 direction.</p>
-<p>Displacement is very useful to break up regular shapes or to create complex shapes from simpler
-ones. The only difference between the particle systems in the screenshot below is the value
-given to the displacement properties.</p>
+<p>El desplazamiento es muy útil para romper formas geométricas regulares o para generar formas complejas a partir de emisores sencillos.</p>
 <figure class="align-default" id="id6">
 <img alt="Turbulence displacement" src="../../../_images/particle_turbulence_displacement.webp" />
 <figcaption>

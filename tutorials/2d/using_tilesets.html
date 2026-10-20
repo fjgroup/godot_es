@@ -13042,16 +13042,16 @@
 <span id="doc-using-tilesets"></span><h1>Usar TileSets<a class="headerlink" href="#using-tilesets" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>A tilemap is a grid of tiles used to create a game's layout. There are several
-benefits to using <a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> nodes to design your
-levels. First, they let you draw a layout by &quot;painting&quot; tiles onto a grid,
-which is much faster than placing individual <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> nodes one by one. Second, they allow for larger levels
-because they are optimized for drawing large numbers of tiles.
-Finally, they allow you to add greater functionality to your tiles with
-collision, occlusion, and navigation shapes.</p>
-<p>To use TileMapLayer nodes, you will need to create a TileSet first. A TileSet is a
-collection of tiles that can be placed in a TileMapLayer node. After creating a
-TileSet, you will be able to place them <a class="reference internal" href="using_tilemaps.html#doc-using-tilemaps"><span class="std std-ref">using the TileMap editor</span></a>.</p>
+<p>Un mapa de teselas (tilemap) es una cuadrícula de teselas utilizada para crear el diseño de un juego. Hay varias
+ventajas al usar nodos <a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> para diseñar tus
+niveles. Primero, te permiten dibujar un diseño &quot;pintando&quot; teselas sobre una cuadrícula,
+lo cual es mucho más rápido que colocar nodos individuales <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> uno a uno. Segundo, permiten niveles más grandes
+porque están optimizados para dibujar una gran cantidad de teselas.
+Finalmente, te permiten añadir mayor funcionalidad a tus teselas con
+formas de colisión, oclusión y navegación.</p>
+<p>Para utilizar nodos TileMapLayer, primero deberás crear un TileSet. Un TileSet es una
+colección de teselas que se pueden colocar en un nodo TileMapLayer. Después de crear un
+TileSet, podrás colocarlas <a class="reference internal" href="using_tilemaps.html#doc-using-tilemaps"><span class="std std-ref">utilizando el editor de TileMap</span></a>.</p>
 <p>Para seguir esta guía, necesitará una imagen que contenga sus tiles donde cada tile tenga el mismo tamaño (los objetos grandes se pueden dividir en varios tiles). Esta imagen se llama <em>hoja de tiles</em>. Los tiles no tienen por qué ser cuadrados: pueden ser rectangulares, hexagonales o isométricos (perspectiva pseudo-3D).</p>
 </section>
 <section id="creating-a-new-tileset">
@@ -13080,10 +13080,10 @@ TileSet, you will be able to place them <a class="reference internal" href="usin
 <p><span class="caption-text">Establecer el tamaño del tile en 64×64 para que coincida con la hoja de tile del ejemplo</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>If relying on automatic tiles creation (like we're about to do here), you must
-set the tile size <strong>before</strong> creating the <em>atlas</em>. The atlas will
-determine which tiles from the tilesheet can be added to a TileMapLayer node
-(as not every part of the image may be a valid tile).</p>
+<p>Si confías en la creación automática de teselas (como haremos aquí), debes
+establecer el tamaño de la tesela <strong>antes</strong> de crear el <em>atlas</em>. El atlas
+determinará qué teselas de la hoja de teselas se pueden añadir a un nodo TileMapLayer
+(ya que no todas las partes de la imagen pueden ser una tesela válida).</p>
 <p>Abre el panel <strong>TileSet</strong> en la parte inferior del editor, luego haz clic y arrastre la imagen del tilesheet en el panel. Te preguntará si quieres crear tiles automáticamente. Responde <strong>Sí</strong>:</p>
 <figure class="align-center" id="id4">
 <img alt="Creación automática de tiles basados en el contenido de la imagen de la hoja de tiles" src="../../_images/using_tilesets_create_tiles_automatically.webp" />
@@ -13122,9 +13122,9 @@ determine which tiles from the tilesheet can be added to a TileMapLayer node
 <li><p><strong>Nombre:</strong> El nombre humanamente legible del atlas. Utiliza aquí un nombre descriptivo con fines organizativos (como &quot;terreno&quot;, &quot;decoración&quot;, etc.).</p></li>
 <li><p><strong>Márgenes:</strong> Los márgenes en los bordes de la imagen que no deben poder seleccionarse como tiles (en píxeles). Aumentar esto puede resultar útil si descarga una imagen de hoja de mosaico que tiene márgenes en los bordes (por ejemplo, para atribución).</p></li>
 <li><p><strong>Separación:</strong> La separación entre cada tile en el atlas en píxeles. Aumentar esto puede ser útil si la imagen de la hoja de tiles que estás usando contiene guías (como contornos entre cada tile).</p></li>
-<li><p><strong>Texture Region Size:</strong> The size of each tile on the atlas in pixels. In most
-cases, this should match the tile size defined in the TileMapLayer property
-(although this is not strictly necessary).</p></li>
+<li><p><strong>Tamaño de Región de Textura:</strong> El tamaño de cada tesela en el atlas en píxeles. En la mayoría
+de los casos, esto debería coincidir con el tamaño de tesela definido en la propiedad de TileMapLayer
+(aunque no es estrictamente necesario).</p></li>
 <li><p><strong>Usar Padding de Textura:</strong> Si está marcado, agrega un borde transparente de 1 píxel alrededor de cada tile para evitar que la textura se desvanezca cuando está habilitado un filtro. Se recomienda dejar esto habilitado a menos que tenga problemas de renderizado debido al padding de textura.</p></li>
 </ul>
 <p>Ten en cuenta que cambiar el margen de la textura, la separación y el tamaño de la región puede provocar la pérdida de tiles (ya que algunos de ellos estarían ubicados fuera de las coordenadas de la imagen del atlas). Para regenerar tiles automáticamente desde la hoja de tiles, usa el botón de menú de tres puntos verticales en la parte superior del editor TileSet y elige <strong>Crear tiles en regiones de textura no transparentes</strong>:</p>
@@ -13137,11 +13137,11 @@ cases, this should match the tile size defined in the TileMapLayer property
 </section>
 <section id="using-a-collection-of-scenes">
 <h3>Usar una colección de escenas<a class="headerlink" href="#using-a-collection-of-scenes" title="Link to this heading"></a></h3>
-<p>You can also place actual <em>scenes</em> as tiles. This allows you to use
-any collection of nodes as a tile. For example, you could use scene tiles to
-place gameplay elements, such as shops the player may be able to interact with.
-You could also use scene tiles to place AudioStreamPlayer2Ds (for ambient
-sounds), particle effects, and more.</p>
+<p>También puedes colocar <em>escenas</em> reales como teselas. Esto te permite usar
+cualquier colección de nodos como tesela. Por ejemplo, podrías usar teselas de escena para
+colocar elementos de juego, como tiendas con las que el jugador pueda interactuar.
+También podrías usar teselas de escena para colocar AudioStreamPlayer2D (para sonidos
+ambientales), efectos de partículas y mucho más.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Los tiles de escena tienen una mayor sobrecarga de rendimiento en comparación con los atlas, ya que cada escena se crea individualmente para cada tile colocado.</p>
@@ -13149,10 +13149,10 @@ sounds), particle effects, and more.</p>
 tile without any kind of advanced manipulation,
 <a class="reference internal" href="#doc-creating-tilesets-using-tilesheet"><span class="std std-ref">use atlases instead</span></a>.</p>
 </div>
-<p>For this example, we'll create a scene containing a CPUParticles2D root node.
-Save this scene to a scene file (separate from the scene containing the
-TileMapLayer), then switch to the scene containing the TileMapLayer node. Open the TileSet
-editor, and create a new <strong>Scenes Collection</strong> in the left column:</p>
+<p>Para este ejemplo, crearemos una escena que contenga un nodo raíz CPUParticles2D.
+Guarda esta escena en un archivo de escena (separado de la escena que contiene el
+TileMapLayer) y luego cambia a la escena que contiene el nodo TileMapLayer. Abre el editor
+de TileSet y crea una nueva <strong>Colección de Escenas</strong> en la columna izquierda:</p>
 <figure class="align-center" id="id8">
 <img alt="Crear colecciones de escenas en el editor de TileSet" src="../../_images/using_tilesets_creating_scene_collection.webp" />
 <figcaption>
@@ -13203,17 +13203,17 @@ editor, and create a new <strong>Scenes Collection</strong> in the left column:<
 </section>
 <section id="adding-collision-navigation-and-occlusion-to-the-tileset">
 <h2>Añadir colisión, navegación y oclusión al TileSet<a class="headerlink" href="#adding-collision-navigation-and-occlusion-to-the-tileset" title="Link to this heading"></a></h2>
-<p>We've now successfully created a basic TileSet. We could start using it in the
-TileMapLayer node now, but it currently lacks any form of collision detection.
-This means the player and other objects could walk straight through the floor or
-walls.</p>
+<p>Ahora hemos creado con éxito un TileSet básico. Ya podríamos comenzar a usarlo en el
+nodo TileMapLayer, pero actualmente carece de cualquier forma de detección de colisiones.
+Esto significa que el jugador y otros objetos podrían atravesar directamente el suelo o
+las paredes.</p>
 <p>Si usa <a class="reference internal" href="../navigation/navigation_introduction_2d.html#doc-navigation-overview-2d"><span class="std std-ref">Navegación 2D</span></a>, también necesitará definir polígonos de navegación para los tiles para generar una malla de navegación que los agentes puedan usar para encontrar el camino.</p>
 <p>Por último, si utiliza <a class="reference internal" href="2d_lights_and_shadows.html#doc-2d-lights-and-shadows"><span class="std std-ref">Luces 2D y sombras</span></a> o GPUParticles2D, es posible que también desees que tu TileSet pueda proyectar sombras y colisionar con partículas. Esto requiere definir polígonos oclusores para los tiles &quot;sólidos&quot; en el TileSet.</p>
-<p>To be able to define collision, navigation and occlusion shapes for each tile,
-you will need to create a physics, navigation or occlusion layer for the TileSet
-resource first. To do so, select the TileMapLayer node, click the TileSet property
-value in the inspector to edit it then unfold <strong>Physics Layers</strong> and choose
-<strong>Add Element</strong>:</p>
+<p>Para poder definir formas de colisión, navegación y oclusión para cada tesela,
+primero deberás crear una capa de física, navegación u oclusión para el recurso TileSet.
+Para hacerlo, selecciona el nodo TileMapLayer, haz clic en el valor de la propiedad TileSet
+en el inspector para editarlo, luego despliega <strong>Capas de Física</strong> y elige
+<strong>Añadir Elemento</strong>:</p>
 <figure class="align-center" id="id13">
 <img alt="Creating a physics layer in the TileSet resource inspector (within the TileMapLayer node)" src="../../_images/using_tilesets_create_physics_layer.webp" />
 <figcaption>
@@ -13229,9 +13229,9 @@ value in the inspector to edit it then unfold <strong>Physics Layers</strong> an
 </figure>
 <p>Si necesitas soporte para oclusión de polígonos de luz, ahora es un buen momento para crear una capa de oclusión:</p>
 <figure class="align-center" id="id15">
-<img alt="Creating an occlusion layer in the TileSet resource inspector (within the TileMapLayer node)" src="../../_images/using_tilesets_create_occlusion_layer.webp" />
+<img alt="Creación de una capa de oclusión en el inspector del recurso TileSet (dentro del nodo TileMapLayer)" src="../../_images/using_tilesets_create_occlusion_layer.webp" />
 <figcaption>
-<p><span class="caption-text">Creating an occlusion layer in the TileSet resource inspector (within the TileMapLayer node)</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+<p><span class="caption-text">Creación de una capa de oclusión en el inspector del recurso TileSet (dentro del nodo TileMapLayer)</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -13276,12 +13276,12 @@ value in the inspector to edit it then unfold <strong>Physics Layers</strong> an
 </figure>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>If you have a large tileset, specifying the collision for each tile
-individually could take a lot of time. This is especially true as TileMaps
-tend to have many tiles with common collision patterns (such as solid blocks
-or 45-degree slopes). To apply a similar collision shape to several tiles
-quickly, use functionality to
-<a class="reference internal" href="#doc-using-tilemaps-assigning-properties-to-multiple-tiles"><span class="std std-ref">assign properties to multiple tiles at once</span></a>.</p>
+<p>Si tienes un conjunto de teselas grande, especificar la colisión para cada tesela
+individualmente podría tomar mucho tiempo. Esto es especialmente cierto ya que los TileMaps
+suelen tener muchas teselas con patrones de colisión comunes (como bloques sólidos
+o pendientes de 45 grados). Para aplicar una forma de colisión similar a varias teselas
+rápidamente, usa la funcionalidad para
+<a class="reference internal" href="#doc-using-tilemaps-assigning-properties-to-multiple-tiles"><span class="std std-ref">asignar propiedades a varias teselas a la vez</span></a>.</p>
 </div>
 </section>
 <section id="assigning-custom-metadata-to-the-tileset-s-tiles">
@@ -13301,9 +13301,9 @@ quickly, use functionality to
 </figcaption>
 </figure>
 <p>Puedes reordenar datos personalizados sin romper los metadatos existentes: el editor TileSet se actualizará automáticamente después de reordenar las propiedades de datos personalizados.</p>
-<p>With the custom data layers example shown above, we're assigning a tile to have the
-<code class="docutils literal notranslate"><span class="pre">damage_per_second</span></code> metadata set to <code class="docutils literal notranslate"><span class="pre">25</span></code> and the <code class="docutils literal notranslate"><span class="pre">destructible</span></code> metadata
-to <code class="docutils literal notranslate"><span class="pre">false</span></code>:</p>
+<p>Con el ejemplo de capas de datos personalizadas mostrado anteriormente, estamos asignando a una tesela el metadato
+<code class="docutils literal notranslate"><span class="pre">damage_per_second</span></code> establecido en <code class="docutils literal notranslate"><span class="pre">25</span></code> y el metadato <code class="docutils literal notranslate"><span class="pre">destructible</span></code>
+en <code class="docutils literal notranslate"><span class="pre">false</span></code>:</p>
 <figure class="align-center" id="id22">
 <img alt="Edición de datos personalizados en el editor TileSet mientras está en modo Seleccionar" src="../../_images/using_tilesets_edit_custom_data.webp" />
 <figcaption>
@@ -13326,8 +13326,8 @@ to <code class="docutils literal notranslate"><span class="pre">false</span></co
 <p>Antes, los autotiles eran un tipo específico de tile, ahora los terrenos son solo un conjunto de propiedades asignadas a los tiles del atlas. Estas propiedades son luego utilizadas por un modo de pintura dedicado en el TileMap que selecciona tiles que presentan datos de terreno de una manera inteligente. Esto significa que cualquier tile de terreno puede pintarse como terreno o como un tile único (como cualquier tile normal).</p>
 </div>
 <p>Un tileset &quot;pulido&quot; generalmente presenta variaciones que debes usar en las esquinas o bordes de plataformas, pisos, etc. Si bien se pueden colocar manualmente, rápidamente esto se vuelve tedioso. Manejar esta situación con niveles generados por procedimientos también puede ser difícil y requerir una gran cantidad de código.</p>
-<p>Godot offers <em>terrains</em> to perform this kind of tile connection automatically.
-This allows you to have the &quot;correct&quot; tile variants automatically used.</p>
+<p>Godot ofrece <em>terrenos</em> para realizar este tipo de conexión de teselas automáticamente.
+Esto permite que se utilicen de forma automática las variantes de tesela &quot;correctas&quot;.</p>
 <p>Los terrenos se agrupan en conjuntos de terrenos. A cada conjunto de terrenos se le asigna un modo, que puede ser <strong>Coincidir Esquinas y Lados</strong>, <strong>Coincidir Esquinas</strong> y <strong>Coincidir Lados</strong> (Match Corners and Sides, Match Corners y Match Sides). Estos modos definen cómo se combinan los terrenos entre sí en un conjunto de terrenos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -13385,8 +13385,8 @@ This allows you to have the &quot;correct&quot; tile variants automatically used
 <p>Hay dos formas de asignar propiedades a varios tiles a la vez. Dependiendo de sus casos de uso, un método puede ser más rápido que el otro:</p>
 <section id="using-multiple-tile-selection">
 <h3>Usar la selección de múltiples tiles<a class="headerlink" href="#using-multiple-tile-selection" title="Link to this heading"></a></h3>
-<p>If you wish to configure various properties on several tiles at once,
-choose the <strong>Select</strong> mode at the top of the TileSet editor:</p>
+<p>Si deseas configurar varias propiedades en múltiples teselas a la vez,
+elige el modo <strong>Seleccionar</strong> en la parte superior del editor de TileSet:</p>
 <p>Después de hacer esto, puedes seleccionar varios tiles en la columna derecha manteniendo presionada la tecla <kbd class="kbd docutils literal notranslate">Mayús</kbd> y haciendo clic en los tiles. También puedes realizar una selección rectangular manteniendo presionado el botón izquierdo del ratón y luego arrastrándolo. Por último, puedes anular la selección de tiles que ya estaban seleccionados (sin afectar el resto de la selección) manteniendo presionada la tecla <kbd class="kbd docutils literal notranslate">Mayús</kbd> y haciendo clic en un tile seleccionado.</p>
 <p>Luego, puedes asignar propiedades mediante el inspector en la columna central del editor TileSet. Solo las propiedades que cambie aquí se aplicarán a todos los tiles seleccionados. Al igual que en el inspector del editor, las propiedades que difieren en los tiles seleccionados seguirán siendo diferentes hasta que las edite.</p>
 <p>Al editar propiedades numéricas o de color, se mostrará una vista previa del valor de la propiedad en todos los tiles del atlas:</p>

@@ -1,0 +1,768 @@
+=== FILE: tutorials/3d/csg_tools.html (33 blocks) ===
+[p]
+CSG stands for <strong>Constructive Solid Geometry</strong>, and is a tool to combine basic
+shapes or custom meshes to create more complex shapes. In 3D modeling software,
+CSG is mostly known as &quot;Boolean Operators&quot;.
+---
+[p]
+Level prototyping is one of the main uses of CSG in Godot. This technique allows
+users to create the most common shapes by combining primitives.
+Interior environments can be created by using inverted primitives.
+---
+[p]
+The CSG nodes in Godot are mainly intended for prototyping. There is
+no built-in support for UV mapping or editing 3D polygons (though
+extruded 2D polygons can be used with the CSGPolygon3D node).
+---
+[p]
+If you're looking for an easy to use level design tool for a project,
+you may want to use <a class="reference external" href="https://github.com/func-godot/func_godot_plugin">FuncGodot</a>
+or <a class="reference external" href="https://github.com/blackears/cyclopsLevelBuilder">Cyclops Level Builder</a>
+instead.
+---
+[p]
+You can check how to use CSG nodes to build various shapes (such as stairs or roads) using the
+<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/csg">Constructive Solid Geometry demo project</a>.
+---
+[p]
+The <strong>Path</strong> mode must be provided with a <a class="reference internal" href="../../classes/class_path3d.html#class-path3d"><span class="std std-ref">Path3D</span></a>
+node to work. In the Path node, draw the path and the polygon in
+CSGPolygon3D will extrude along the given path.
+---
+[p]
+For a mesh to be used as a CSG mesh, it is required to:
+---
+[p]
+And it is recommended to avoid:
+---
+[p]
+Godot uses the <a class="reference external" href="https://github.com/elalish/manifold">manifold</a> library to
+implement CSG meshes. The technical definition of &quot;manifold&quot; used by Godot is
+the following, adapted from that library's <a class="reference external" href="https://github.com/elalish/manifold/wiki/Manifold-Library#manifoldness-definition">definition of &quot;manifold&quot;</a>:
+---
+[p]
+If you have an existing mesh that is not already manifold, you can make it
+manifold using Blender.
+---
+[p]
+In Blender, install and enable the
+<a class="reference external" href="https://extensions.blender.org/add-ons/print3d-toolbox/">3D Print Toolbox</a>
+addon.
+---
+[p]
+Select the mesh you want to make manifold. Open the sidebar by clicking on the arrow:
+---
+[p]
+The mesh should now be manifold, and can be used as a custom mesh.
+---
+[p]
+The <a class="reference internal" href="../../classes/class_csgcombiner3d.html#class-csgcombiner3d"><span class="std std-ref">CSGCombiner3D</span></a> node is an empty shape used for
+organization. It will only combine children nodes.
+---
+[p]
+Create a CSGBox3D and name it <code class="docutils literal notranslate"><span class="pre">room</span></code>, enable <strong>Invert Faces</strong> and change the
+dimensions of your room.
+---
+[p]
+Create 1 CSGBox3D children node in <strong>Union</strong> mode for the surface
+and adjust the dimensions.
+---
+[p]
+Create 4 CSGBox3D children nodes in <strong>Union</strong> mode for the legs
+and adjust the dimensions.
+---
+[p]
+Our bed consists of 3 parts: the bed, the mattress and a pillow. Create a CSGBox3D
+and adjust its dimension for the bed. Create another CSGBox3D and adjust its
+dimension for the mattress.
+---
+[p]
+We will create another CSGCombiner3D named <code class="docutils literal notranslate"><span class="pre">pillow</span></code> as the child of  <code class="docutils literal notranslate"><span class="pre">bed</span></code>.
+The scene tree should look like this:
+---
+[p]
+We will combine 3 CSGSphere3D nodes in <strong>Union</strong> mode to form a pillow. Scale the
+Y axis of the spheres and enable <strong>Smooth Faces</strong>.
+---
+[p]
+Try to re-parent the <code class="docutils literal notranslate"><span class="pre">pillow</span></code> node to the root <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> node; the hole will
+disappear.
+---
+[p]
+This is to illustrate the effect of CSG processing order.
+Since the root node is not a CSG node, the CSGCombiner3D nodes are
+the end of the operations; this shows the use of CSGCombiner3D to
+organize the CSG scene.
+---
+[p]
+A lamp consists of 3 parts: the stand, the pole and the lampshade.
+Create a CSGCylinder3D, enable the <strong>Cone</strong> option and make it the stand. Create
+another CSGCylinder3D and adjust the dimensions to use it as a pole.
+---
+[p]
+We will use a CSGPolygon3D for the lampshade. Use the <strong>Spin</strong> mode for the
+CSGPolygon3D and draw a <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoid">trapezoid</a>
+while in <strong>Front View</strong> (numeric keypad 1); this shape will extrude around the
+origin and form the lampshade.
+---
+[p]
+We will use 3 CSGBox3D nodes for the bookshelf. Create a CSGBox3D and adjust its
+dimensions; this will be the size of the bookshelf.
+---
+[p]
+Duplicate the CSGBox3D and shorten the dimensions of each axis and change the mode
+to <strong>Subtraction</strong>.
+---
+[p]
+Applying it to a CSGCombiner3D node as a material override
+(<strong>Geometry &gt; Material Override</strong> in the Inspector). This will affect its
+children automatically, but will make it impossible to change the material in
+individual children.
+---
+[p]
+To apply triplanar mapping to a CSG node, select it, go to the Inspector, click
+the <strong>[empty]</strong> text next to <strong>Material Override</strong> (or <strong>Material</strong> for
+individual CSG nodes). Choose <strong>New StandardMaterial3D</strong>. Click the newly created
+material's icon to edit it. Unfold the <strong>Albedo</strong> section and load a texture
+into the <strong>Texture</strong> property. Now, unfold the <strong>Uv1</strong> section and check
+<strong>Triplanar</strong>. You can change the texture offset and scale on each axis by
+playing with the <strong>Scale</strong> and <strong>Offset</strong> properties just above. Higher values
+in the <strong>Scale</strong> property will cause the texture to repeat more often.
+---
+[p]
+You can copy a StandardMaterial3D to reuse it across CSG nodes. To do so,
+click the dropdown arrow next to a material property in the Inspector
+and choose <strong>Copy</strong>. To paste it, select the node you'd like to apply
+the material onto, click the dropdown arrow next to its material
+property then choose <strong>Paste</strong>.
+---
+[p]
+Faster loading times, since the CSG mesh no longer needs to be rebuilt when the scene loads.
+---
+[p]
+To convert a CSG node to a MeshInstance3D node, select it, then choose
+<strong>CSG &gt; Bake Mesh Instance</strong> in the toolbar. The MeshInstance3D node
+will be created as a sibling. Note that the CSG node that was used for baking is <strong>not</strong> hidden
+automatically, so remember to hide it to prevent its geometry from overlapping with the newly created
+MeshInstance3D.
+---
+[p]
+Remember to keep the original CSG node in the scene tree, so that you can
+perform changes to the geometry later if needed. To make changes to the
+geometry, remove the MeshInstance3D node and make the root CSG node visible
+again.
+---
+[p]
+It can be useful to block out a level using CSG, then export it as a 3d model, to
+import into 3D modeling software. You can do this by selecting <strong>Scene &gt; Export As... &gt;
+glTF 2.0 Scene</strong>.
+---
+=== FILE: tutorials/3d/resolution_scaling.html (21 blocks) ===
+[p]
+Resolution scaling is one of the most direct ways to influence the GPU
+requirements of a scene. In scenes that are bottlenecked by the GPU (rather than
+by the CPU), decreasing the resolution scale can improve performance
+significantly. Resolution scaling is particularly important on mobile GPUs where
+performance and power budgets are limited.
+---
+[p]
+While resolution scaling is an important tool to have, remember that resolution
+scaling is not intended to be a replacement for decreasing graphics settings on
+lower-end hardware. Consider exposing both resolution scale and graphics
+settings in your in-game menus.
+---
+[p]
+You can compare resolution scaling modes and factors in action using the
+<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/antialiasing">3D Antialiasing demo project</a>.
+---
+[p]
+Resolution scaling is currently not available for 2D rendering, but it can be
+simulated using the <code class="docutils literal notranslate"><span class="pre">viewport</span></code> stretch mode. See <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">Múltiples resoluciones</span></a>
+for more information.
+---
+[p]
+<strong>Bilinear:</strong> Standard bilinear filtering (default). This is used as a fallback
+when the current renderer doesn't support FSR 1.0 or FSR 2.2. <em>Available in
+all renderers.</em>
+---
+[p]
+FSR1 upscaling works best when coupled with another form of antialiasing.
+Temporal antialiasing (TAA) or multisample antialiasing (MSAA) should preferably
+be used in this case, as FXAA does not add temporal information and introduces
+more blurring to the image.
+---
+[p]
+Here's the same comparison, but with 4× MSAA enabled on all images:
+---
+[p]
+The rendering scale can be adjusted at runtime by changing the <code class="docutils literal notranslate"><span class="pre">scaling_3d_scale</span></code>
+property on a <a class="reference internal" href="../../classes/class_viewport.html#class-viewport"><span class="std std-ref">Viewport</span></a> node.
+---
+[p]
+Resolution scales <em>above</em> <code class="docutils literal notranslate"><span class="pre">1.0</span></code> can be used for supersample antialiasing
+(SSAA). This will provide antialiasing at a <em>very</em> high performance cost, and is
+<strong>not recommended</strong> for most use cases. See <a class="reference internal" href="3d_antialiasing.html#doc-3d-antialiasing"><span class="std std-ref">3D antialiasing</span></a> for more
+information.
+---
+[p]
+The tables below list common screen resolutions, the resulting 3D rendering
+resolution and the number of megapixels that need to be rendered each frame
+depending on the rendering scale option. Rows are sorted from fastest to slowest
+in each table.
+---
+[p]
+The resolution scale is defined on a <strong>per-axis</strong> basis. For example, this
+means that halving the resolution scale factor will reduce the number of
+rendered megapixels per frame by a factor of 4, not 2. Therefore, very low
+or very high resolution scale factors can have a greater performance impact
+than expected.
+---
+[p]
+When using the FSR1 or FSR2 scaling modes, the sharpness can be controlled using the
+<strong>Rendering &gt; Scaling 3D &gt; FSR Sharpness</strong> advanced project setting.
+---
+[p]
+The intensity is inverted compared to most other sharpness sliders: <em>lower</em>
+values will result in a sharper final image, while <em>higher</em> values will <em>reduce</em>
+the impact of the sharpening filter. <code class="docutils literal notranslate"><span class="pre">0.0</span></code> is the sharpest, while <code class="docutils literal notranslate"><span class="pre">2.0</span></code> is
+the least sharp. The default value of <code class="docutils literal notranslate"><span class="pre">0.2</span></code> provides a balance between
+preserving the original image's sharpness and avoiding additional aliasing due
+to oversharpening.
+---
+[p]
+Alternatively, you can set the scaling mode to <strong>FSR 2.2</strong> with the 3D
+rendering scale set to <code class="docutils literal notranslate"><span class="pre">1.0</span></code> if you have enough GPU headroom. This also
+provides high-quality temporal antialiasing. The <strong>FSR Sharpness</strong> setting
+remains functional in this case.
+---
+[p]
+The texture LOD bias currently affects both 2D and 3D rendering in the same way.
+However, keep in mind it only has an effect on textures with mipmaps enabled.
+Textures used in 2D don't have mipmaps enabled by default, which means only 3D
+rendering is affected unless you enabled mipmaps on 2D textures in the Import
+dock.
+---
+[p]
+To counteract the blurriness added by some antialiasing methods, Godot also adds
+a <code class="docutils literal notranslate"><span class="pre">-0.25</span></code> offset when FXAA is enabled, and a <code class="docutils literal notranslate"><span class="pre">-0.5</span></code> offset when TAA is
+enabled. If both are enabled at the same time, a <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> offset is used. This
+mipmap bias offset is applied <em>before</em> the resolution scaling offset, so it does
+not change depending on resolution scale.
+---
+[p]
+Adjusting the mipmap LOD bias manually can be useful in certain scenarios,
+but this should be done carefully to prevent the final image from looking
+grainy in motion.
+---
+[p]
+<em>Positive</em> mipmap LOD bias will make mipmapped textures appear blurrier than
+intended. This may improve performance slightly, but is otherwise not
+recommended as the loss in visual quality is usually not worth the
+performance gain.
+---
+[p]
+The example below shows an extreme case, with a mipmap LOD bias of <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> and
+anisotropic filtering disabled to make the difference more noticeable:
+---
+[p]
+If performance doesn't increase much when decreasing resolution scale to a value
+like <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, it likely means the performance bottleneck is elsewhere in your
+scene. For example, your scene could have too many draw calls, causing a CPU
+bottleneck to occur. Likewise, you may have too many graphics effects enabled
+for your GPU to handle (such as SDFGI, SSAO or SSR).
+---
+[p]
+See the <a class="reference internal" href="../performance/index.html#doc-performance"><span class="std std-ref">Rendimiento</span></a> tutorials for more information.
+---
+=== FILE: tutorials/3d/variable_rate_shading.html (19 blocks) ===
+[p]
+VRS allows specifying the shading quality in a local manner, which makes it
+possible to have certain parts of the viewport receive more detailed shading
+than others. This is particularly useful in virtual reality (VR) to achieve
+<em>foveated rendering</em>, where the center of the viewport is more detailed than the
+edges.
+---
+[p]
+When used in scenes with low-frequency detail (such as scenes with a
+stylized/low-poly aesthetic), it's possible to achieve similar performance gains,
+but with less reduction in visual quality:
+---
+[p]
+As of January 2023, Apple and Raspberry Pi GPUs do not support variable rate shading.
+---
+[p]
+The Compatibility renderer does <strong>not</strong> support variable rate shading.
+For XR, you can use <a class="reference internal" href="../xr/openxr_settings.html#doc-openxr-settings-foveation-level"><span class="std std-ref">foveation level</span></a>
+as an alternative.
+---
+[p]
+In the advanced Project Settings, the <strong>Rendering &gt; VRS</strong> section offers settings
+to control variable rate shading on the root viewport:
+---
+[p]
+<strong>Texture:</strong> The texture to use to control shading density on the root
+viewport. Only used if <strong>Mode</strong> is <strong>Texture</strong>.
+---
+[p]
+For custom viewports, the VRS mode and texture must be set manually to the
+<a class="reference internal" href="../../classes/class_viewport.html#class-viewport"><span class="std std-ref">Viewport</span></a> node.
+---
+[p]
+On unsupported hardware, there is no visual difference when variable rate
+shading is enabled. You can check whether hardware supports variable rate
+shading by running the editor or project with the <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>
+<a class="reference internal" href="../editor/command_line_tutorial.html#doc-command-line-tutorial"><span class="std std-ref">command line argument</span></a>.
+---
+[p]
+If using the <strong>Texture</strong> VRS mode, you <em>must</em> set a texture to be used as a
+density map. Otherwise, no effect will be visible.
+---
+[p]
+You can create your own VRS density map manually using an image editor, or
+generate it using another method (e.g. on the CPU using the Image class, or on
+the GPU using a shader). However, beware of performance implications when
+generating a VRS image dynamically. If opting for dynamic generation, make sure
+the VRS image generation process is fast enough to avoid outweighing the
+performance gains from VRS.
+---
+[p]
+Not supported on most hardware.
+---
+[p]
+Not supported on most hardware.
+---
+[p]
+Not supported on most hardware.
+---
+[p]
+For example, this VRS density texture provides the highest shading density in
+the center of the viewport, and the lowest shading density in the corners:
+---
+[p]
+There are no size or aspect ratio requirements for the VRS density texture.
+However, there is no benefit to using a VRS density map that is larger than the
+viewport resolution divided by the GPU's <em>tile size</em>. The tile size is what
+determines the smallest area of pixels where the shading density can be changed
+separately from other tiles. On most GPUs, this tile size is 8×8 pixels. You can
+view the tile size by running Godot with the <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> command line
+argument, as it's printed in the VRS debugging information.
+---
+[p]
+Therefore, sticking to a relatively low resolution such as 256×256 (square) or
+480×270 (16:9) is recommended. Depending on your use cases, a square texture may
+be more suited compared to a texture that matches the most common viewport
+aspect ratio in your project (such as 16:9).
+---
+[p]
+Note that the texture LOD bias is set globally, so this will also affect
+areas of the viewport with full shading rate. Don't use values that are too
+low, or textures will appear grainy.
+---
+[p]
+To give an idea of how much VRS can improve performance in theory, here's a
+performance comparison with the textured example scene shown at the top of this
+page. The VRS density map example present on this page is used.
+---
+[p]
+For non-VR games, you will probably have to use a less aggressive VRS texture
+than what was used in this example. As a result, the effective performance
+gains will be lower.
+---
+=== FILE: tutorials/3d/visibility_ranges.html (37 blocks) ===
+[p]
+What visibility ranges can do and which scenarios they are useful in.
+---
+[p]
+How to tune visibility ranges for best performance and quality.
+---
+[p]
+Note that automatic mesh LOD and visibility ranges can be used at the same
+time, even on the same mesh.
+---
+[p]
+Visibility ranges can be used with any node that inherits from GeometryInstance3D.
+This means they can be used not only with MeshInstance3D and MultiMeshInstance3D
+for artist-controlled <abbr title="Hierarchical Level of Detail">HLOD</abbr>, but also
+GPUParticles3D, CPUParticles3D, Label3D, Sprite3D, AnimatedSprite3D and CSGShape3D.
+---
+[p]
+Since visibility ranges are configured on a per-node basis, this makes it possible
+to use different node types as part of a <abbr title="Level of Detail">LOD</abbr> system.
+For example, you could display a MeshInstance3D representing a tree when up close,
+and replace it with a Sprite3D impostor in the distance to improve performance.
+---
+[p]
+Lastly, visibility ranges can also be used to fade certain objects entirely when
+the camera gets too close or too far. This can be used for gameplay purposes,
+but also to reduce visual clutter. For example, Label3D nodes can be faded using
+visibility ranges when they're too far away to be readable or relevant to the
+player.
+---
+[p]
+This is a quick-start guide for configuring a basic LOD system. After following
+this guide, this LOD system will display a SphereMesh when up close and a
+BoxMesh when the camera is far away enough. A small hysteresis margin is also
+configured via the <strong>Begin Margin</strong> and <strong>End Margin</strong> properties. This prevents
+LODs from popping back and forth too quickly when the camera is moving at the
+&quot;edge&quot; of the LOD transition.
+---
+[p]
+The visibility range properties can be found in the <strong>Visibility Range</strong> section
+of the GeometryInstance3D inspector after selecting the MeshInstance3D Node.
+---
+[p]
+Add a Node3D node that will be used to group the two MeshInstance3D nodes
+together.
+---
+[p]
+Set the first MeshInstance3D's visibility range <strong>End</strong> to <code class="docutils literal notranslate"><span class="pre">10.0</span></code> and <strong>End
+Margin</strong> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.
+---
+[p]
+Set the second MeshInstance3D's visibility range <strong>Begin</strong> to <code class="docutils literal notranslate"><span class="pre">10.0</span></code> and
+<strong>Begin Margin</strong> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.
+---
+[p]
+Move the camera away and back towards the object. Notice how the object will
+transition from a sphere to a box as the camera moves away.
+---
+[p]
+In the inspector of any node that inherits from GeometryInstance3D, you can adjust
+the following properties in the GeometryInstance3D's <strong>Visibility Range</strong> section:
+---
+[p]
+<strong>Begin:</strong> The instance will be hidden when the camera is closer to the
+<em>center of the instance's AABB</em> (axis-aligned bounding box) than this value (in 3D units).
+---
+[p]
+<strong>Begin Margin:</strong> The hysteresis or alpha fade transition distance to use for
+the close-up transition (in 3D units). The behavior of this property depends
+on <strong>Fade Mode</strong>.
+---
+[p]
+<strong>End:</strong> The instance will be hidden when the camera is further away from the
+<em>center of the instance's AABB</em> than this value (in 3D units).
+---
+[p]
+<strong>End Margin:</strong> The hysteresis or alpha fade transition distance to use for
+the far-away transition (in 3D units). The behavior of this property depends
+on <strong>Fade Mode</strong>.
+---
+[p]
+In the inspector's <strong>Visibility Range</strong> section, there are 3 fade modes to
+choose from:
+---
+[p]
+The target of <strong>Visibility Parent</strong> <em>must</em> inherit from
+<a class="reference internal" href="../../classes/class_geometryinstance3d.html#class-geometryinstance3d"><span class="std std-ref">GeometryInstance3D</span></a>.
+---
+[p]
+Despite its name, the <strong>Visibility Parent</strong> property <em>can</em> point to a node
+that is not a parent of the node in the scene tree. However, it is
+impossible to point <strong>Visibility Parent</strong> towards a child node, as this
+creates a dependency cycle which is not supported. You will get an error
+message in the Output panel if a dependency cycle occurs.
+---
+[p]
+In this example, <em>BatchOfHouses</em> is a large mesh designed to represent all child
+nodes when viewed at a distance. <em>House1</em> to <em>House4</em> are smaller
+MeshInstance3Ds representing individual houses. To configure HLOD in this
+example, we only need to configure two things:
+---
+[p]
+Set <strong>Visibility Range Begin</strong> to a number greater than <cite>0.0</cite> so that
+<em>BatchOfHouses</em> only appears when far away enough from the camera. Below this
+distance, we want <em>House1</em> to <em>House4</em> to be displayed instead.
+---
+[p]
+On <em>House1</em> to <em>House4</em>, assign the <strong>Visibility Parent</strong> property to <em>BatchOfHouses</em>.
+---
+[p]
+This makes it easier to perform further adjustments, as you don't need to adjust
+the <strong>Visibility Range Begin</strong> of <em>BatchOfHouses</em> and <strong>Visibility Range End</strong>
+of <em>House1</em> to <em>House4</em>.
+---
+[p]
+Fade mode is automatically handled by the <strong>Visibility Parent</strong> property, so
+that the child nodes only become hidden once the parent node is fully faded out.
+This is done to minimize visible pop-in. Depending on your <abbr title="Hierarchical Level of Detail">HLOD</abbr> setup, you may want to try both the <strong>Self</strong> and
+<strong>Dependencies</strong> <a class="reference internal" href="#doc-visibility-ranges-fade-mode"><span class="std std-ref">fade modes</span></a>.
+---
+[p]
+Nodes hidden via the <strong>Visible</strong> property are essentially removed from the
+visibility dependency tree, so dependent instances will not take the hidden
+node or its ancestors into account.
+---
+[p]
+In practice, this means that if the target of the <strong>Visibility Parent</strong> node
+is hidden by setting its <strong>Visible</strong> property to <code class="docutils literal notranslate"><span class="pre">false</span></code>, the node will
+not be hidden according to the <strong>Visibility Range Begin</strong> value specified in
+the visibility parent.
+---
+[p]
+One way to further improve performance is to use simpler materials for distant
+LOD meshes. While using LOD meshes will reduce the number of vertices that need
+to be rendered, the per-pixel shading load for materials remains identical.
+However, per-pixel shading load is regularly a bottleneck on the GPU in complex
+3D scenes. One way to reduce this shading load on the GPU is to use simpler
+materials when they don't make much of a visual difference.
+---
+[p]
+For example, on the materials used by distant LOD meshes, you can disable
+expensive material features such as:
+---
+[p]
+There are two advantages to using dithering over alpha blending for LOD transitions:
+---
+[p]
+Higher performance, as dithering transparency is faster to render compared to
+alpha blending.
+---
+[p]
+The downside of dithering is that a &quot;noisy&quot; pattern is visible during LOD fade
+transitions. This may not be as noticeable at higher viewport resolutions or
+when temporal antialiasing is enabled.
+---
+[p]
+Also, as distance fade in BaseMaterial3D only supports fading up close <em>or</em>
+fading when far away, this setup is best used with only two LODs as part of the
+setup.
+---
+[p]
+Ensure <strong>Begin Margin</strong> and <strong>End Margin</strong> is set to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> on both
+MeshInstance3D nodes, as hysteresis or alpha fade are not desired here.
+---
+[p]
+On both MeshInstance3D nodes, <em>decrease</em> <strong>Begin</strong> by the desired fade transition
+distance and <em>increase</em> <strong>End</strong> by the same distance. This is required for the
+dithering transition to actually be visible.
+---
+[p]
+On the MeshInstance3D that is displayed up close, edit its material in the inspector.
+Set its <strong>Distance Fade</strong> mode to <strong>Object Dither</strong>. Set <strong>Min Distance</strong> to
+the same value as the visibility range <strong>End</strong>. Set <strong>Max Distance</strong> to the
+same value <em>minus</em> the fade transition distance.
+---
+[p]
+On the MeshInstance3D that is displayed far away, edit its material in the inspector.
+Set its <strong>Distance Fade</strong> mode to <strong>Object Dither</strong>. Set <strong>Min Distance</strong> to
+the same value as the visibility range <strong>Begin</strong>. Set <strong>Max Distance</strong> to the
+same value <em>plus</em> the fade transition distance.
+---
+=== FILE: tutorials/3d/volumetric_fog.html (43 blocks) ===
+[p]
+Volumetric fog is only supported in the Forward+ renderer, not the Mobile or
+Compatibility renderers.
+---
+[p]
+Volumetric fog can be used at the same time as non-volumetric fog if desired.
+---
+[p]
+Here is a comparison between traditional fog (which does not interact with lighting)
+and volumetric fog, which is able to interact with lighting:
+---
+[p]
+After enabling volumetric fog in the WorldEnvironment node's Environment
+resource, you can edit the following properties:
+---
+[p]
+<strong>Density:</strong> The base <em>exponential</em> density of the volumetric fog. Set this to
+the lowest density you want to have globally. FogVolumes can be used to add to
+or subtract from this density in specific areas. A value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> disables
+global volumetric fog while allowing FogVolumes to display volumetric fog in
+specific areas. Fog rendering is exponential as in real life.
+---
+[p]
+<strong>Albedo:</strong> The Color of the volumetric fog when interacting with lights. Mist
+and fog have an albedo close to white (<code class="docutils literal notranslate"><span class="pre">Color(1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code>) while smoke
+has a darker albedo.
+---
+[p]
+<strong>Emission:</strong> The emitted light from the volumetric fog. Even with emission,
+volumetric fog will not cast light onto other surfaces. Emission is useful to
+establish an ambient color. As the volumetric fog effect uses
+single-scattering only, fog tends to need a little bit of emission to soften
+the harsh shadows.
+---
+[p]
+<strong>Emission Energy:</strong> The brightness of the emitted light from the volumetric
+fog.
+---
+[p]
+<strong>GI Inject:</strong> Scales the strength of Global Illumination used in the
+volumetric fog's albedo color. A value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> means that Global
+Illumination will not impact the volumetric fog. This has a small performance
+cost when set above <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.
+---
+[p]
+<strong>Length:</strong> The distance over which the volumetric fog is computed. Increase
+to compute fog over a greater range, decrease to add more detail when a long
+range is not needed. For best quality fog, keep this as low as possible.
+---
+[p]
+<strong>Detail Spread:</strong> The distribution of size down the length of the froxel
+buffer. A higher value compresses the froxels closer to the camera and places
+more detail closer to the camera.
+---
+[p]
+<strong>Ambient Inject:</strong> Scales the strength of ambient light used in the
+volumetric fog. A value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> means that ambient light will not impact
+the volumetric fog. This has a small performance cost when set above <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.
+---
+[p]
+Two additional properties are offered in the <strong>Temporal Reprojection</strong> section:
+---
+[p]
+If you wish to hide distant areas from the player, it's recommended to
+enable both non-volumetric fog and volumetric fog at the same time, and
+adjust their density accordingly.
+---
+[p]
+If fog light interaction is not desired for artistic reasons, this can be
+globally disabled by setting <strong>Volumetric Fog &gt; Albedo</strong> to a pure black color
+in the Environment resource. Fog light interaction can also be disabled for
+specific lights by setting its <strong>Volumetric Fog Energy</strong> to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Doing so will
+also improve performance slightly by excluding the light from volumetric fog
+computations.
+---
+[p]
+While not physically accurate, it is possible to tune volumetric fog's settings
+to work as volumetric <em>lighting</em> solution. This means that unlit parts of the
+environment will not be darkened anymore by fog, but light will still be able to
+make fog brighter in specific areas.
+---
+[p]
+This can be done by setting volumetric fog density to the lowest permitted value
+<em>greater than zero</em> (<code class="docutils literal notranslate"><span class="pre">0.0001</span></code>), then increasing the <strong>Volumetric Fog Energy</strong>
+property on lights to much higher values than the default to compensate. Values
+between <code class="docutils literal notranslate"><span class="pre">200.0</span></code> and <code class="docutils literal notranslate"><span class="pre">5000.0</span></code> usually work well for this.
+---
+[p]
+There are a few project settings available to adjust volumetric fog performance
+and quality:
+---
+[p]
+Sometimes, you want fog to be constrained to specific areas. Conversely, you may
+want to have global volumetric fog, but fog should be excluded from certain
+areas. Both approaches can be followed using FogVolume nodes.
+---
+[p]
+Make sure <strong>Volumetric Fog</strong> is enabled in the Environment properties. If
+global volumetric fog is undesired, set its <strong>Density</strong> to <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.
+---
+[p]
+In the FogMaterial, set <strong>Density</strong> to a positive value to increase density
+within the FogVolume, or a negative value to subtract the density from global
+volumetric fog.
+---
+[p]
+Configure the FogVolume's extents and shape as needed.
+---
+[p]
+Thin fog volumes may appear to flicker when the camera moves or rotates.
+This can be alleviated by increasing the
+<strong>Rendering &gt; Environment &gt; Volumetric Fog &gt; Volume Depth</strong> project setting
+(at a performance cost) or by decreasing <strong>Length</strong> in the Environment
+volumetric fog properties (at no performance cost, but at the cost of lower
+fog range). Alternatively, the FogVolume can be made thicker and use a lower
+density in the <strong>Material</strong>.
+---
+[p]
+<strong>Extents:</strong> The size of the FogVolume when <strong>Shape</strong> is <strong>Ellipsoid</strong>,
+<strong>Cone</strong>, <strong>Cylinder</strong> or <strong>Box</strong>. If <strong>Shape</strong> is <strong>Cone</strong> or <strong>Cylinder</strong>,
+the cone/cylinder will be adjusted to fit within the extents. Non-uniform
+scaling of cone/cylinder shapes via the <strong>Extents</strong> property is not supported,
+but you can scale the FogVolume node instead.
+---
+[p]
+<strong>Shape:</strong> The shape of the FogVolume. This can be set to <strong>Ellipsoid</strong>,
+<strong>Cone</strong>, <strong>Cylinder</strong>, <strong>Box</strong> or <strong>World</strong> (acts as global volumetric fog).
+---
+[p]
+<strong>Material:</strong> The material used by the FogVolume. Can be either a
+built-in FogMaterial or a custom ShaderMaterial (<a class="reference internal" href="../shaders/shader_reference/fog_shader.html#doc-fog-shader"><span class="std std-ref">Fog shaders</span></a>).
+---
+[p]
+After choosing <strong>New FogMaterial</strong> in the <strong>Material</strong> property, you can adjust
+the following properties in FogMaterial:
+---
+[p]
+<strong>Density:</strong> The density of the FogVolume. Denser objects are more opaque, but
+may suffer from under-sampling artifacts that look like stripes. Negative
+values can be used to subtract fog from other FogVolumes or global volumetric
+fog.
+---
+[p]
+<strong>Emission:</strong> The Color of the light emitted by the FogVolume. Emitted light
+will not cast light or shadows on other objects, but can be useful for
+modulating the Color of the FogVolume independently from light sources.
+---
+[p]
+<strong>Height Falloff:</strong> The rate by which the height-based fog decreases in
+density as height increases in world space. A high falloff will result in a
+sharp transition, while a low falloff will result in a smoother transition.
+A value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> results in uniform-density fog. The height threshold is
+determined by the height of the associated FogVolume.
+---
+[p]
+<strong>Edge Fade:</strong> The hardness of the edges of the FogVolume. A higher value will
+result in softer edges, while a lower value will result in harder edges.
+---
+[p]
+<strong>Density Texture:</strong> The 3D texture that is used to scale the member density
+of the FogVolume. This can be used to vary fog density within the FogVolume
+with any kind of static pattern. For animated effects, consider using a custom
+<a class="reference internal" href="../shaders/shader_reference/fog_shader.html#doc-fog-shader"><span class="std std-ref">fog shader</span></a>.
+You can import any image as a 3D texture by
+<a class="reference internal" href="../assets_pipeline/importing_images.html#doc-importing-images-changing-import-type"><span class="std std-ref">changing its import type in the Import dock</span></a>.
+---
+[p]
+Since Godot 4.1, there is a NoiseTexture3D resource that can be used to
+procedurally generate 3D noise. This is well-suited to FogMaterial density
+textures, which can result in more detailed fog effects:
+---
+[p]
+<span class="caption-text">Screenshot taken with <strong>Volume Size</strong> project setting set to 192 to make
+high-frequency detail more visible in the fog.</span><a class="headerlink" href="#id1" title="Link to this image"></a>
+---
+[p]
+To improve performance, it's recommended to use low texture sizes (64×64×64 or lower),
+as high-frequency detail is difficult to notice in a FogVolume. If you wish to represent
+more detailed density variations, you will need to increase
+<strong>Rendering &gt; Environment &gt; Volumetric Fog &gt; Volume Size</strong> in the project settings,
+which has a performance cost.
+---
+[p]
+However, using a color ramp will <em>not</em> tint the fog volume according to the
+texture. You would need to use a custom shader that reads a Texture3D to
+achieve this.
+---
+[p]
+In some cases, it may be better to use specially configured QuadMeshes as an
+alternative to volumetric fog:
+---
+[p]
+The fog effect has less realistic falloff, especially if the camera enters the fog.
+---
+[p]
+Performance will not necessarily be better than volumetric fog if there are
+lots of sprites close to the camera.
+---
+[p]
+Set the <strong>Albedo &gt; Texture</strong> to the texture below (right-click and choose <strong>Save as…</strong>):
+---
+[p]
+<em>After</em> setting the albedo texture, go to the Import dock, select the texture
+and change its compression mode to <strong>Lossless</strong> to improve quality.
+---
+[p]
+The fog's color is set using the <strong>Albedo &gt; Color</strong> property; its density is set
+using the color's alpha channel. For best results, you will have to adjust
+<strong>Proximity Fade &gt; Distance</strong> and <strong>Distance Fade &gt; Max Distance</strong> depending on
+the size of your QuadMesh.
+---
+[p]
+Optionally, billboarding may be left disabled if you place the quad in a way
+where all of its corners are in solid geometry. This can be useful for fogging
+large planes that the camera cannot enter, such as bottomless pits.
+---

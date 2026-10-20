@@ -13043,8 +13043,7 @@
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>Los juegos 3D a menudo tendrán una cámara en tercera persona que sigue y rota al rededor de algo como un jugador o un vehículo.</p>
-<p>In Godot, this can be done by setting a <a class="reference internal" href="../../classes/class_camera3d.html#class-camera3d"><span class="std std-ref">Camera3D</span></a> as a child of a node.
-However, if you try this without any extra steps, you'll notice that the camera clips through geometry and hides the scene.</p>
+<p>En Godot, esto se puede realizar estableciendo un nodo <a class="reference internal" href="../../classes/class_camera3d.html#class-camera3d"><span class="std std-ref">Camera3D</span></a> como hijo de un nodo <a class="reference internal" href="../../classes/class_springarm3d.html#class-springarm3d"><span class="std std-ref">SpringArm3D</span></a>. El SpringArm3D proyectará un rayo o forma para evitar que la cámara atraviese las paredes u obstáculos del entorno.</p>
 <p>Aquí es donde entra el nodo <a class="reference internal" href="../../classes/class_springarm3d.html#class-springarm3d"><span class="std std-ref">SpringArm3D</span></a>.</p>
 </section>
 <section id="what-is-a-spring-arm">
@@ -13060,7 +13059,7 @@ However, if you try this without any extra steps, you'll notice that the camera 
 <section id="spring-arm-with-a-camera">
 <h2>Brazo de resorte con una cámara<a class="headerlink" href="#spring-arm-with-a-camera" title="Link to this heading"></a></h2>
 <p>Cuando la cámara se coloca como hija de un brazo de resorte, se usará una pirámide que representa a la cámara como su forma.</p>
-<p>This pyramid represents the <strong>near plane</strong> of the camera:</p>
+<p>Esta pirámide representa el <strong>plano cercano (near plane)</strong> de la cámara: los objetos más cercanos que esta distancia serán recortados por la cámara y no se renderizarán.</p>
 <img alt="../../_images/spring_arm_camera_shape.webp" src="../../_images/spring_arm_camera_shape.webp" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -13068,7 +13067,7 @@ However, if you try this without any extra steps, you'll notice that the camera 
 <p>La forma de la cámara solo se usa si la cámara es <strong>hija directa</strong> del brazo de resorte.</p>
 <p>Si no se proporciona ninguna forma y la cámara no es una hija directa, el brazo de resorte recurrirá a utilizar <em>ray cast</em>, lo que es impreciso para colisiones de cámara y no se recomienda.</p>
 </div>
-<p>Every physics process frame, the spring arm will perform a motion cast to check if anything is collided with:</p>
+<p>En cada cuadro de proceso de física, el brazo de resorte (spring arm) realizará un lanzamiento de movimiento para comprobar si algún cuerpo sólido colisiona con la línea de visión de la cámara hacia el objetivo.</p>
 <img alt="../../_images/spring_arm_camera_motion_cast.webp" src="../../_images/spring_arm_camera_motion_cast.webp" />
 <p>When the shape hits something, the camera will be placed at or near the collision point:</p>
 <img alt="../../_images/spring_arm_camera_collision.webp" src="../../_images/spring_arm_camera_collision.webp" />

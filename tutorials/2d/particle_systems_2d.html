@@ -13048,13 +13048,10 @@
 <h3>Nodos de partículas<a class="headerlink" href="#particle-nodes" title="Link to this heading"></a></h3>
 <p>Godot provee dos tipos de nodos distintos para partículas 2D, <a class="reference internal" href="../../classes/class_gpuparticles2d.html#class-gpuparticles2d"><span class="std std-ref">GPUParticles2D</span></a> y <a class="reference internal" href="../../classes/class_cpuparticles2d.html#class-cpuparticles2d"><span class="std std-ref">CPUParticles2D</span></a>. GPUParticles2D es más avanzado y utiliza la GPU para procesar los efectos de partículas. CPUParticles2D es una opción manejada por CPU que está cercana en características a lo ofrecido por GPUParticles2D, pero con menor prestaciones. Por otro lado, CPUParticles2D puede funcionar mejor en sistemas de bajos recursos o en situaciones de cuellos de botella en GPU.</p>
 <p>Mientras que GPUParticles2D se configura a través de <a class="reference internal" href="../../classes/class_particleprocessmaterial.html#class-particleprocessmaterial"><span class="std std-ref">ParticleProcessMaterial</span></a> (y opcionalmente con un shader), las opciones coincidentes se proporcionan a través de las propiedades del nodo en CPUParticles2D (con la excepción de la configuración de trail).</p>
-<p>Going forward there are no plans to add new features to CPUParticles2D, though
-pull requests to add features already in GPUParticles2D will be accepted. For
-that reason we recommend using GPUParticles2D unless you have an explicit reason
-not to.</p>
-<p>You can convert a CPUParticles2D node into a GPUParticles2D node by clicking on
-the node in the scene tree, selecting the 2D workspace, and selecting
-<strong>CPUParticles2D &gt; Convert to GPUParticles2D</strong> in the toolbar.</p>
+<p>En adelante no hay planes de añadir nuevas características a CPUParticles2D, aunque
+se aceptan solicitudes de extracción (pull requests) para corrección de errores.</p>
+<p>Puedes convertir un nodo CPUParticles2D en un nodo GPUParticles2D haciendo clic en
+el nodo en el árbol de escenas, abriendo el menú contextual <span class="role-menu role-ui">CPUParticles2D</span> en la parte superior del editor 2D y eligiendo <strong>Convertir a GPUParticles2D</strong>.</p>
 <img alt="../../_images/particles_convert.webp" src="../../_images/particles_convert.webp" />
 <p>También es posible convertir un nodo GPUParticles2D en un nodo CPUParticles2D, sin embargo puede haber problemas si usa funciones solo de GPU.</p>
 <p>El resto de este tutorial va a utilizar el nodo GPUParticles2D. Primero, añade un nodo GPUParticles2D a tu escena. Después de crear este nodo notarás que sólo se ha creado un punto blanco, y que hay un icono de advertencia junto a tu nodo GPUParticles2D en el inspector. Esto se debe a que el nodo necesita un ParticlesProcessMaterial para funcionar.</p>
@@ -13173,12 +13170,10 @@ the node in the scene tree, selecting the 2D workspace, and selecting
 </section>
 <section id="local-coords">
 <h3>Coordenadas Locales<a class="headerlink" href="#local-coords" title="Link to this heading"></a></h3>
-<p>By default, this option is off. It means that the space that particles are
-emitted to is global, and <strong>not</strong> relative to the node. If the node is moved,
-existing particles are not moved with it:</p>
+<p>Por defecto, esta opción está desactivada. Esto significa que el espacio en el que se emiten las partículas es relativo al nodo del sistema de partículas. Mover el nodo moverá todas las partículas ya emitidas junto con él.</p>
 <img alt="../../_images/paranim21.gif" src="../../_images/paranim21.gif" />
-<p>If enabled, particles will emit to local space, meaning that if the
-node is moved, already emitted particles are also affected:</p>
+<p>Si está habilitado, las partículas se emitirán en el espacio local, lo que significa que si el
+nodo se mueve, las partículas ya emitidas también se verán afectadas:</p>
 <img alt="../../_images/paranim20.gif" src="../../_images/paranim20.gif" />
 </section>
 <section id="draw-order">

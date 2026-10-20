@@ -13043,18 +13043,11 @@
   
   <section id="using-immediatemesh">
 <span id="doc-immediatemesh"></span><h1>Usar ImmediateMesh<a class="headerlink" href="#using-immediatemesh" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../../classes/class_immediatemesh.html#class-immediatemesh"><span class="std std-ref">ImmediateMesh</span></a> is a convenient tool to create
-dynamic geometry using an OpenGL 1.x-style API. Which makes it both approachable
-to use and efficient for meshes which need to be updated every frame.</p>
-<p>Generating complex geometry (several thousand vertices) with this tool is inefficient, even if it's
-done only once. Instead, it is designed to generate simple geometry that changes every frame.</p>
+<p><a class="reference internal" href="../../../classes/class_immediatemesh.html#class-immediatemesh"><span class="std std-ref">ImmediateMesh</span></a> es la forma más fácil de dibujar geometría 3D simple utilizando una API inspirada en el modo inmediato de OpenGL clásico.</p>
+<p>Generar geometría compleja (varios miles de vértices) con esta herramienta resulta ineficiente, incluso si solo se realiza una vez. En su lugar, está pensada para generar geometría simple que cambie dinámicamente en cada cuadro.</p>
 <p>Primero, necesitas crear una <a class="reference internal" href="../../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> y añadirle una <a class="reference internal" href="../../../classes/class_immediatemesh.html#class-immediatemesh"><span class="std std-ref">ImmediateMesh</span></a> en el inspector.</p>
 <p>A continuación, agrega un script al MeshInstance3D. El código para el ImmediateMesh debería ir en la función <code class="docutils literal notranslate"><span class="pre">_process()</span></code> si deseas actualizar cada cuadro, o en la función <code class="docutils literal notranslate"><span class="pre">_ready()</span></code> si deseas crear el Mesh una vez y no actualizarlo. Si quieres generar solo una vez una superficie, el ImmediateMesh is tan eficiente como cualquier otro tipo de mesh, ya que el Mesh generado se almacena en caché y se reutiliza.</p>
-<p>To begin generating geometry you must call <code class="docutils literal notranslate"><span class="pre">surface_begin()</span></code>.
-<code class="docutils literal notranslate"><span class="pre">surface_begin()</span></code> takes a <code class="docutils literal notranslate"><span class="pre">PrimitiveType</span></code> as an argument. <code class="docutils literal notranslate"><span class="pre">PrimitiveType</span></code>
-instructs the GPU how to arrange the primitive based on the vertices given
-whether it is triangles, lines, points, etc. A complete list can be found under
-the <a class="reference internal" href="../../../classes/class_mesh.html#class-mesh"><span class="std std-ref">Mesh</span></a> class reference page.</p>
+<p>Para comenzar a generar geometría debes llamar a <code class="docutils literal notranslate"><span class="pre">surface_begin()</span></code>. Este método toma un modo de primitivas (por ejemplo, triángulos o líneas) y un material opcional para la superficie.</p>
 <p>Once you have called <code class="docutils literal notranslate"><span class="pre">surface_begin()</span></code> you are ready to start adding vertices.
 You add vertices one at a time. First you add vertex specific attributes such as
 normals or UVs using <code class="docutils literal notranslate"><span class="pre">surface_set_****()</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">surface_set_normal()</span></code>).
@@ -13068,12 +13061,8 @@ For example:</p>
 </pre></div>
 </div>
 </div></div>
-<p>Only attributes added before the call to <code class="docutils literal notranslate"><span class="pre">surface_add_vertex()</span></code> will be
-included in that vertex. If you add an attribute twice before calling
-<code class="docutils literal notranslate"><span class="pre">surface_add_vertex()</span></code>, only the second call will be used.</p>
-<p>Finally, once you have added all your vertices call <code class="docutils literal notranslate"><span class="pre">surface_end()</span></code> to signal
-that you have finished generating the surface. You can call <code class="docutils literal notranslate"><span class="pre">surface_begin()</span></code>
-and <code class="docutils literal notranslate"><span class="pre">surface_end()</span></code> multiple times to generate multiple surfaces for the mesh.</p>
+<p>Solo los atributos agregados antes de la llamada a <code class="docutils literal notranslate"><span class="pre">surface_add_vertex()</span></code> se incluirán en ese vértice específico.</p>
+<p>Finalmente, una vez que hayas agregado todos tus vértices, llama a <code class="docutils literal notranslate"><span class="pre">surface_end()</span></code> para finalizar la superficie y permitir que se dibuje.</p>
 <p>El código de ejemplo a continuación dibuja un solo triángulo en la función <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button></div><div aria-labelledby="tab-1-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">extends</span><span class="w"> </span><span class="nb">MeshInstance3D</span>

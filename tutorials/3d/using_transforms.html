@@ -13084,7 +13084,7 @@
 </section>
 <section id="say-no-to-euler-angles">
 <h3>Di no a los ángulos de Euler<a class="headerlink" href="#say-no-to-euler-angles" title="Link to this heading"></a></h3>
-<p>The result of all this is that you should <strong>not use</strong> the <code class="docutils literal notranslate"><span class="pre">rotation</span></code> property of <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> nodes in Godot for games. It's there to be used mainly in the editor, for coherence with the 2D engine, and for simple rotations (generally just one axis, or even two in limited cases). As much as you may be tempted, don't use it.</p>
+<p>El resultado de todo esto es que <strong>no debes utilizar</strong> la propiedad <code class="docutils literal notranslate"><span class="pre">rotation</span></code> para aplicar rotaciones compuestas directas cuadro a cuadro. En su lugar, usa métodos de transformación o cuaterniones.</p>
 <p>En cambio, hay una mejor manera de resolver estos problemas de rotación.</p>
 </section>
 </section>
@@ -13212,7 +13212,7 @@
 <section id="obtaining-information">
 <h3>Obtener información<a class="headerlink" href="#obtaining-information" title="Link to this heading"></a></h3>
 <p>Podrías estar pensando en este momento: <strong>&quot;Bueno, ¿pero cómo obtengo los ángulos de una transformación?&quot;</strong> La respuesta de nuevo es: no se puede. Debes hacer todo lo posible para dejar de pensar en ángulos.</p>
-<p>Imagine you need to shoot a bullet in the direction your player is facing. Just use the forward axis.</p>
+<p>Imagina que necesitas disparar una bala en la dirección hacia la que mira tu jugador. Simplemente utiliza el eje hacia adelante de la transformación del jugador (<code class="docutils literal notranslate"><span class="pre">-transform.basis.z</span></code> en Godot).</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-6-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-6-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-6-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-6-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># On RigidBody3D.</span>
 
@@ -13297,7 +13297,7 @@
 <section id="setting-information">
 <h3>Asignar valores<a class="headerlink" href="#setting-information" title="Link to this heading"></a></h3>
 <p>Hay, por supuesto, casos en los que se desea establecer la información como una transformación. Imagina un controlador de primera persona o una cámara en órbita. Estos se hacen definitivamente usando ángulos, porque <em>quieres</em> que las transformaciones ocurran en un orden específico.</p>
-<p>For such cases, keep the angles and rotations <em>outside</em> the transform and set them every frame. Don't try to retrieve and reuse them because the transform is not meant to be used this way.</p>
+<p>Para tales casos, mantén los ángulos y rotaciones <em>fuera</em> de la transformación y establécelos en cada cuadro a partir de variables de estado (como ángulos de Euler acumulados para la vista en primera persona).</p>
 <p>Un ejemplo de cómo mirar alrededor, al estilo FPS:</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-10-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-10-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-10-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-10-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="c1"># accumulators</span>

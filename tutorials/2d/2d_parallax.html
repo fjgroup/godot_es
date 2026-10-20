@@ -13045,9 +13045,9 @@
 <p>Parallax es un efecto que se utiliza para simular profundidad haciendo que las texturas se muevan a distintas velocidades en relación con la cámara. Godot proporciona el nodo <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a> para lograr este efecto. Sin embargo, puede ser fácil equivocarse, por lo que esta página proporciona descripciones detalladas de algunas propiedades y cómo solucionar algunos errores comunes.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>This page covers how to use <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>, which is
-recommended to use over the <a class="reference internal" href="../../classes/class_parallaxlayer.html#class-parallaxlayer"><span class="std std-ref">ParallaxLayer</span></a> and
-<a class="reference internal" href="../../classes/class_parallaxbackground.html#class-parallaxbackground"><span class="std std-ref">ParallaxBackground</span></a> nodes.</p>
+<p>Esta página explica cómo utilizar <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>, cuyo uso es
+recomendado por encima de los nodos <a class="reference internal" href="../../classes/class_parallaxlayer.html#class-parallaxlayer"><span class="std std-ref">ParallaxLayer</span></a> y
+<a class="reference internal" href="../../classes/class_parallaxbackground.html#class-parallaxbackground"><span class="std std-ref">ParallaxBackground</span></a>.</p>
 </div>
 </section>
 <section id="getting-started">
@@ -13082,26 +13082,26 @@ recommended to use over the <a class="reference internal" href="../../classes/cl
 <p>Podemos ver que el tamaño de la ventana gráfica es 500x300 pero la textura es 288x208. Si configuramos <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">repeat_size</span></a> al tamaño de nuestra imagen, el efecto de repetición infinita no se desplaza correctamente porque la textura original no cubre la ventana gráfica. Si configuramos <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">repeat_size</span></a> según tamaño de la ventana gráfica, tenemos un hueco grande. ¿Qué podemos hacer?</p>
 <section id="make-the-viewport-smaller">
 <h4>Hacer la ventana gráfica más pequeña<a class="headerlink" href="#make-the-viewport-smaller" title="Link to this heading"></a></h4>
-<p>The simplest answer is to make the viewport the same size or smaller than your textures.
-In <strong>Project Settings &gt; Display &gt; Window</strong>, change the
+<p>La solución más sencilla es hacer que el viewport tenga el mismo tamaño o sea menor que tus texturas.
+En <strong>Configuración del Proyecto &gt; Display &gt; Window</strong>, cambia los ajustes de
 <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-viewport-width"><span class="std std-ref">Viewport Width</span></a>
-and <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-viewport-height"><span class="std std-ref">Viewport Height</span></a>
-settings to match your background.</p>
+y <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-viewport-height"><span class="std std-ref">Viewport Height</span></a>
+para que coincidan con tu fondo.</p>
 <img alt="../../_images/2d_parallax_size_viewport.webp" src="../../_images/2d_parallax_size_viewport.webp" />
 </section>
 <section id="scale-the-parallax2d">
 <h4>Nivela el Parallax2D<a class="headerlink" href="#scale-the-parallax2d" title="Link to this heading"></a></h4>
-<p>If you're not aiming for a pixel-perfect style, or don't mind a little blurriness, you may opt to scale the textures
-larger to fit your screen. Set the <a class="reference internal" href="../../classes/class_node2d.html#class-node2d-property-scale"><span class="std std-ref">scale</span></a> of the <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>,
-and all child textures scale with it.</p>
+<p>Si no buscas un estilo pixel-perfect o no te importa una ligera borrosidad, puedes optar por escalar las texturas
+a un tamaño mayor para que se ajusten a tu pantalla. Establece el valor de <a class="reference internal" href="../../classes/class_node2d.html#class-node2d-property-scale"><span class="std std-ref">scale</span></a> del <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>
+y todas las texturas hijas se escalarán junto con él.</p>
 </section>
 <section id="scale-the-child-nodes">
 <h4>Escala los modos hijo<a class="headerlink" href="#scale-the-child-nodes" title="Link to this heading"></a></h4>
-<p>Similar to scaling the <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>, you can scale your <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> nodes to
-be large enough to cover the screen. Keep in mind that some settings like
-<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">Parallax2D.repeat_size</span></a> and
-<a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d-property-region-rect"><span class="std std-ref">Sprite2D.region_rect</span></a> do not take scaling into account, so it's necessary to
-adjust these values based on the scale.</p>
+<p>De forma similar a escalar el <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a>, puedes escalar tus nodos <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> para
+que sean lo suficientemente grandes como para cubrir la pantalla. Ten en cuenta que algunos ajustes como
+<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">Parallax2D.repeat_size</span></a> y
+<a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d-property-region-rect"><span class="std std-ref">Sprite2D.region_rect</span></a> no tienen en cuenta la escala, por lo que es necesario
+ajustar estos valores según la escala aplicada.</p>
 <img alt="../../_images/2d_parallax_size_scale.webp" src="../../_images/2d_parallax_size_scale.webp" />
 </section>
 <section id="repeat-the-textures">
@@ -13125,13 +13125,13 @@ adjust these values based on the scale.</p>
 <p>Si las texturas están centradas en <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code>, cruzando el &quot;canvas de repetición infinita&quot; se cubre paracialmente, por lo que solo se repite parcialmente.</p>
 <section id="would-increasing-repeat-times-fix-this">
 <h4>¿Incrementar <code class="docutils literal notranslate"><span class="pre">repeat_times</span></code> arreglaría esto?<a class="headerlink" href="#would-increasing-repeat-times-fix-this" title="Link to this heading"></a></h4>
-<p>Increasing <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-times"><span class="std std-ref">repeat_times</span></a> technically <em>would</em> work in some scenarios, but
-is a brute force solution and not the problem it is designed to solve (we'll go over this in a bit). A better fix is to
-understand how the repeat effect works and set up the parallax textures appropriately to begin with.</p>
-<p>First, check to see if any textures are spilling over onto the negative parts of the canvas. Make sure the textures
-used in the parallax nodes fit inside the &quot;infinite repeat canvas&quot; starting at <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code>. That way, if
-<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">Parallax2D.repeat_size</span></a> is set correctly, it should look something like
-this, with one single loop of the image the same size or larger than the viewport:</p>
+<p>Aumentar <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-times"><span class="std std-ref">repeat_times</span></a> técnicamente <em>funcionaría</em> en algunos escenarios, pero
+es una solución de fuerza bruta y no aborda el problema para el que fue diseñado (lo explicaremos en un momento). Una mejor solución es
+comprender cómo funciona el efecto de repetición y configurar las texturas de parallax de forma adecuada desde el principio.</p>
+<p>Primero, comprueba si alguna textura se está desbordando hacia las zonas negativas del lienzo. Asegúrate de que las texturas
+utilizadas en los nodos de parallax encajen dentro del &quot;lienzo de repetición infinita&quot; que comienza en <code class="docutils literal notranslate"><span class="pre">(0,0)</span></code>. De esa forma, si
+<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">Parallax2D.repeat_size</span></a> está configurado correctamente, debería verse algo parecido
+a esto, con un único bucle de la imagen del mismo tamaño o mayor que el viewport:</p>
 <img alt="../../_images/2d_parallax_repeat_good_norect.webp" src="../../_images/2d_parallax_repeat_good_norect.webp" />
 <p>Si piensas en cómo la imagen se desplaza a través de la pantalla, empieza mostrando lo que hay dentro del rectángulo rojo (determinado por la <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-size"><span class="std std-ref">repeat_size</span></a>) y cuando alcanza lo que hay dentro del rectángulo amarillo comprime la imagen delantera para dar la ilusión de un desplazarse eternamente.</p>
 <img alt="../../_images/2d_parallax_repeat_good.webp" src="../../_images/2d_parallax_repeat_good.webp" />
@@ -13142,17 +13142,17 @@ this, with one single loop of the image the same size or larger than the viewpor
 </section>
 <section id="scroll-offset">
 <h2>Desplazar offset<a class="headerlink" href="#scroll-offset" title="Link to this heading"></a></h2>
-<p>If your parallax textures are already working correctly, but you prefer it to start at a different point,
-<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a> comes with a <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-scroll-offset"><span class="std std-ref">scroll_offset</span></a> property
-used to offset where the infinite repeat canvas starts. As an example, if your image is 288x208, setting
-the <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-scroll-offset"><span class="std std-ref">scroll_offset</span></a> to <code class="docutils literal notranslate"><span class="pre">(-144,0)</span></code> or <code class="docutils literal notranslate"><span class="pre">(144,0)</span></code> allows it to begin
-halfway across the image.</p>
+<p>Si tus texturas de parallax ya funcionan correctamente pero prefieres que comiencen en un punto diferente,
+<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d"><span class="std std-ref">Parallax2D</span></a> cuenta con una propiedad <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-scroll-offset"><span class="std std-ref">scroll_offset</span></a>
+utilizada para desfasar el punto de inicio del lienzo de repetición infinita. Por ejemplo, si tu imagen mide 288x208, establecer
+<a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-scroll-offset"><span class="std std-ref">scroll_offset</span></a> en <code class="docutils literal notranslate"><span class="pre">(-144,0)</span></code> o <code class="docutils literal notranslate"><span class="pre">(144,0)</span></code> permite que comience
+a mitad de la imagen.</p>
 </section>
 <section id="repeat-times">
 <h2>Repetir tiempos<a class="headerlink" href="#repeat-times" title="Link to this heading"></a></h2>
-<p>Ideally, following this guide, your parallax textures are large enough to cover the screen even when zoomed out.
-Until now, we have had a perfectly fitting 288x208 texture inside of a 288x208 viewport. However, problems
-occur when we zoom out by setting the <a class="reference internal" href="../../classes/class_camera2d.html#class-camera2d-property-zoom"><span class="std std-ref">Camera2D.zoom</span></a> to <code class="docutils literal notranslate"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></code>:</p>
+<p>Idealmente, siguiendo esta guía, tus texturas de parallax son lo suficientemente grandes como para cubrir la pantalla incluso al alejar el zoom.
+Hasta ahora, teníamos una textura de 288x208 perfectamente ajustada dentro de un viewport de 288x208. Sin embargo, surgen
+inconvenientes cuando nos alejamos estableciendo <a class="reference internal" href="../../classes/class_camera2d.html#class-camera2d-property-zoom"><span class="std std-ref">Camera2D.zoom</span></a> en <code class="docutils literal notranslate"><span class="pre">(0.5,</span> <span class="pre">0.5)</span></code>:</p>
 <img alt="../../_images/2d_parallax_zoom_single.webp" src="../../_images/2d_parallax_zoom_single.webp" />
 <p>Aunque todo está configurado correctamente para la ventana gráfica en el nivel de zoom predeterminado, al alejar la imagen, esta se hace más pequeña que la ventana gráfica, lo que rompe el efecto de repetición infinita. Aquí es donde <a class="reference internal" href="../../classes/class_parallax2d.html#class-parallax2d-property-repeat-times"><span class="std std-ref">repeat_times</span></a> puede ayudar. Al configurar un valor de <code class="docutils literal notranslate"><span class="pre">3</span></code> (una repetición adicional por delante y por detrás), ahora es lo suficientemente grande como para acomodar el efecto de repetición infinita.</p>
 <img alt="../../_images/2d_parallax_zoom_repeat_times.webp" src="../../_images/2d_parallax_zoom_repeat_times.webp" />
@@ -13163,15 +13163,15 @@ occur when we zoom out by setting the <a class="reference internal" href="../../
 <h2>Dividir la pantalla<a class="headerlink" href="#split-screen" title="Link to this heading"></a></h2>
 <p>La mayoría de los tutoriales para crear un juego de pantalla dividida en Godot comienzan escribiendo un pequeño script para asignar el <a class="reference internal" href="../../classes/class_viewport.html#class-viewport-property-world-2d"><span class="std std-ref">Viewport.world_2d</span></a> del primer SubViewport al segundo, de modo que compartan una pantalla. A menudo surgen preguntas sobre cómo compartir un efecto de paralaje entre ambas pantallas.</p>
 <p>El efecto parallax (paralaje) simula una perspectiva moviendo las posiciones de diferentes textura en relación a la cámara. Esto es problemático si tienes múltiples cámaras, porque nuestras texturas ¡no pueden estar en dos lugares al mismo tiempo!</p>
-<p>This is still achievable by cloning the parallax nodes into the second (or third or fourth)
-<a class="reference internal" href="../../classes/class_subviewport.html#class-subviewport"><span class="std std-ref">SubViewport</span></a>. Here's how a setup looks for a two player game:</p>
+<p>Esto todavía se puede lograr clonando los nodos de parallax en el segundo (o tercer o cuarto)
+<a class="reference internal" href="../../classes/class_subviewport.html#class-subviewport"><span class="std std-ref">SubViewport</span></a>. Así es cómo se ve la configuración para un juego de dos jugadores:</p>
 <img alt="../../_images/2d_parallax_splitscreen.webp" src="../../_images/2d_parallax_splitscreen.webp" />
 <p>Por supuesto, ahora ambos fondos se muestran en ambos SubViewports. Lo que queremos es que cada paralaje se muestre solo en su viewport correspondiente. Podemos lograrlo haciendo lo siguiente:</p>
 <ul class="simple">
 <li><p>Leave all parallax nodes at their default <a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-property-visibility-layer"><span class="std std-ref">visibility_layer</span></a> of 1.</p></li>
 <li><p>Set the first SubViewport's <a class="reference internal" href="../../classes/class_viewport.html#class-viewport-property-canvas-cull-mask"><span class="std std-ref">canvas_cull_mask</span></a> to only layers 1 and 2.</p></li>
 <li><p>Haz lo mismo para el segundo SubViewport pero utiliza las capas 1 y 3.</p></li>
-<li><p>Give your parallax nodes in the first SubViewport a common parent and set its <a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-property-visibility-layer"><span class="std std-ref">visibility_layer</span></a> to 2.</p></li>
+<li><p>Asigna a tus nodos de parallax en el primer SubViewport un padre común y establece su <a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-property-visibility-layer"><span class="std std-ref">visibility_layer</span></a> en 2.</p></li>
 <li><p>Haz lo mismo para los nodos de paralaje del segundo SubViewport, pero utiliza una capa de 3.</p></li>
 </ul>
 <p>¿Cómo funciona esto? Si un elemento del lienzo tiene una capa de visibilidad (<a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-property-visibility-layer"><span class="std std-ref">visibility_layer</span></a>) que no coincide con la máscara de lienzo (<a class="reference internal" href="../../classes/class_viewport.html#class-viewport-property-canvas-cull-mask"><span class="std std-ref">canvas_cull_mask</span></a>) del SubViewport, se ocultarán todos los elementos secundarios, incluso si coinciden. Esto nos beneficia, permitiendo que las subvistas bloqueen la representación de los nodos de paralaje cuyo elemento principal no tenga una capa de visibilidad (<a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-property-visibility-layer"><span class="std std-ref">visibility_layer</span></a>) compatible.</p>
