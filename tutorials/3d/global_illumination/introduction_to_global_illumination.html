@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -13043,69 +13043,30 @@
 <span id="doc-introduction-to-global-illumination"></span><h1>Introducción a la iluminación global<a class="headerlink" href="#introduction-to-global-illumination" title="Link to this heading"></a></h1>
 <section id="what-is-global-illumination">
 <h2>¿Qué es la iluminación global?<a class="headerlink" href="#what-is-global-illumination" title="Link to this heading"></a></h2>
-<p><em>Global illumination</em> is a catch-all term used to describe a system of lighting
-that uses both direct light (light that comes directly from a light source) and
-indirect light (light that bounces from a surface). In a 3D rendering engine,
-global illumination is one of the most important elements to achieving
-realistic lighting. Global illumination aims to mimic how light behaves
-in real life, such as light bouncing on surfaces and light being emitted
-from emissive materials.</p>
-<p>In the example below, the entire scene is illuminated by an emissive material
-(the white square at the top). The white wall and ceiling on the back is tinted
-red and green close to the walls, as the light bouncing on the colored walls is
-being reflected back onto the rest of the scene.</p>
+<p><em>Iluminación global</em> (Global illumination o GI) es un término general utilizado para describir un sistema de iluminación que utiliza tanto luz directa (luz que proviene directamente de una fuente de luz) como luz indirecta (luz que rebota en una superficie). En un motor de renderizado 3D, la iluminación global es uno de los elementos más importantes para lograr una iluminación realista. Su objetivo es imitar cómo se comporta la luz en la vida real, como los rebotes de luz en las superficies y la luz emitida por materiales emisivos.</p>
+<p>En el ejemplo a continuación, toda la escena está iluminada por un material emisivo (el cuadrado blanco en la parte superior). La pared blanca y el techo al fondo se tiñen de rojo y verde cerca de las paredes, ya que la luz que rebota en las paredes coloreadas se refleja de nuevo sobre el resto de la escena.</p>
 <img alt="../../../_images/global_illumination_example.webp" src="../../../_images/global_illumination_example.webp" />
-<p>Global illumination is composed of several key concepts:</p>
+<p>La iluminación global se compone de varios conceptos clave:</p>
 <section id="indirect-diffuse-lighting">
-<h3>Indirect diffuse lighting<a class="headerlink" href="#indirect-diffuse-lighting" title="Link to this heading"></a></h3>
-<p>This is the lighting that does not change depending on the camera's angle.
-There are two main sources of indirect diffuse lighting:</p>
+<h3>Iluminación difusa indirecta (Indirect diffuse lighting)<a class="headerlink" href="#indirect-diffuse-lighting" title="Link to this heading"></a></h3>
+<p>Esta es la iluminación que no cambia según el ángulo de la cámara. Existen dos fuentes principales de iluminación difusa indirecta:</p>
 <ul class="simple">
-<li><p>Light <em>bouncing</em> on surfaces. This bounced lighting is multiplied with the
-material's albedo color. The bounced lighting can then be reflected by other
-surfaces, with decreasing impact due to light attenuation. In real life,
-light bounces an infinite number of times. However, for performance
-reasons, this can't be simulated in a game engine. Instead, the number of
-bounces is typically limited to 1 or 2 (or up to 16 when baking lightmaps). A
-greater number of bounces will lead to more realistic light falloff in shaded
-areas, at the cost of lower performance or greater bake times.</p></li>
-<li><p>Emissive materials can also emit light that can be bounced on surfaces.
-This acts as a form of <em>area lighting</em>. Instead of having an infinitely
-small point emit light using an OmniLight3D or SpotLight3D node,
-an area of a determined size will emit light using its own surface.</p></li>
+<li><p>Luz que <em>rebota</em> en las superficies. Esta iluminación rebotada se multiplica por el color de albedo del material. La luz rebotada puede luego reflejarse en otras superficies, con un impacto decreciente debido a la atenuación de la luz. En la vida real, la luz rebota un número infinito de veces. Sin embargo, por razones de rendimiento, esto no se puede simular en un motor de juegos. En su lugar, el número de rebotes normalmente se limita a 1 o 2 (o hasta 16 al hornear lightmaps). Un mayor número de rebotes conducirá a una atenuación de luz más realista en áreas sombreadas, a costa de un menor rendimiento o mayores tiempos de horneado.</p></li>
+<li><p>Los materiales emisivos también pueden emitir luz que puede rebotar en las superficies. Esto actúa como una forma de <em>iluminación de área</em>. En lugar de tener un punto infinitamente pequeño emitiendo luz utilizando un nodo OmniLight3D o SpotLight3D, un área de un tamaño determinado emitirá luz utilizando su propia superficie.</p></li>
 </ul>
-<p>Direct diffuse lighting is already handled by the light nodes themselves, which
-means that global illumination algorithms only try to represent indirect
-lighting.</p>
-<p>Different global illumination techniques offer varying levels of accuracy
-to represent indirect diffuse lighting. See the comparison table at the bottom
-of this page for more information.</p>
-<p>To provide more accurate ambient occlusion for small objects, screen-space ambient occlusion
-(SSAO) can be enabled in the <a class="reference internal" href="../environment_and_post_processing.html#doc-environment-and-post-processing"><span class="std std-ref">environment</span></a>
-settings. SSAO has a significant performance cost, so make sure to disable
-it when targeting low-end hardware.</p>
+<p>La iluminación difusa directa ya es gestionada por los propios nodos de luz, lo que significa que los algoritmos de iluminación global solo intentan representar la iluminación indirecta.</p>
+<p>Diferentes técnicas de iluminación global ofrecen distintos niveles de precisión para representar la iluminación difusa indirecta. Consulta la tabla comparativa al final de esta página para obtener más información.</p>
+<p>Para proporcionar una oclusión ambiental más precisa en objetos pequeños, se puede habilitar la oclusión ambiental en espacio de pantalla (SSAO) en la configuración de <a class="reference internal" href="../environment_and_post_processing.html#doc-environment-and-post-processing"><span class="std std-ref">Environment</span></a>. SSAO tiene un costo de rendimiento significativo, así que asegúrate de desactivarlo cuando apuntes a hardware de gama baja.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Indirect diffuse lighting may be a source of color banding in scenes with no
-detailed textures. This results in light gradients not being smooth, but
-having a visible &quot;stepping&quot; effect instead. See the
-<a class="reference internal" href="../3d_rendering_limitations.html#doc-3d-rendering-limitations-color-banding"><span class="std std-ref">Bandas de color</span></a> section in the 3D rendering
-limitations documentation for ways to reduce this effect.</p>
+<p>La iluminación difusa indirecta puede ser una fuente de bandas de color en escenas sin texturas detalladas. Esto hace que los gradientes de luz no sean suaves, sino que tengan un efecto visible de &quot;escalonamiento&quot;. Consulta la sección <a class="reference internal" href="../3d_rendering_limitations.html#doc-3d-rendering-limitations-color-banding"><span class="std std-ref">Bandas de color</span></a> en la documentación de limitaciones de renderizado 3D para conocer formas de reducir este efecto.</p>
 </div>
 </section>
 <section id="specular-lighting">
-<h3>Iluminación especular<a class="headerlink" href="#specular-lighting" title="Link to this heading"></a></h3>
-<p>Specular lighting is also referred to as <em>reflections</em>.
-This is the lighting that changes in intensity depending on the camera's angle.
-This specular lighting can be <em>direct</em> or <em>indirect</em>.</p>
-<p>Most global illumination techniques offer a way to render specular lighting.
-However, the degree of accuracy at which specular lighting is rendered varies
-greatly from technique to technique. See the comparison table at the bottom
-of this page for more information.</p>
-<p>To provide more accurate reflections for small objects, screen-space reflections (SSR)
-can be enabled in the <a class="reference internal" href="../environment_and_post_processing.html#doc-environment-and-post-processing"><span class="std std-ref">environment</span></a> settings.
-SSR has a significant performance cost (even more so than SSAO), so make sure to disable
-it when targeting low-end hardware.</p>
+<h3>Iluminación especular (Specular lighting)<a class="headerlink" href="#specular-lighting" title="Link to this heading"></a></h3>
+<p>La iluminación especular también se conoce como <em>reflejos</em>. Esta es la iluminación que cambia de intensidad según el ángulo de la cámara. Esta iluminación especular puede ser <em>directa</em> o <em>indirecta</em>.</p>
+<p>La mayoría de las técnicas de iluminación global ofrecen una forma de renderizar iluminación especular. Sin embargo, el grado de precisión con el que se renderiza la iluminación especular varía enormemente de una técnica a otra. Consulta la tabla comparativa al final de esta página para obtener más información.</p>
+<p>Para proporcionar reflejos más precisos en objetos pequeños, se pueden habilitar los reflejos en espacio de pantalla (SSR) en la configuración de <a class="reference internal" href="../environment_and_post_processing.html#doc-environment-and-post-processing"><span class="std std-ref">Environment</span></a>. SSR tiene un costo de rendimiento considerable (incluso mayor que SSAO), por lo que debes asegurarte de desactivarlo cuando apuntes a hardware de gama baja.</p>
 </section>
 </section>
 <section id="which-global-illumination-technique-should-i-use">
@@ -13114,18 +13075,8 @@ it when targeting low-end hardware.</p>
 <ul class="simple">
 <li><p><strong>Rendimiento:</strong> Las técnicas de GI en tiempo real suelen ser más costosas comparadas con las técnicas horneadas o semitemporales. Ten en cuenta que la mayor parte del coste computacional de GI recae sobre la GPU y no sobre la CPU.</p></li>
 <li><p><strong>Aspecto visual:</strong> Además de consumir más recursos, las técnicas de GI en tiempo real no siempre ofrecen la mayor fidelidad estética en escenas estáticas. Si maximizar la calidad visual y evitar fugas de luz es tu meta, las técnicas horneadas como LightmapGI a menudo ofrecen resultados superiores.</p></li>
-<li><p><strong>Real-time ability.</strong> Some GI techniques are fully real-time,
-whereas others are only semi-real-time or aren't real-time at all.
-Semi-real-time techniques have restrictions that fully real-time techniques don't.
-For instance, dynamic objects may not contribute emissive lighting to the scene.
-Non-real-time techniques do not support <em>any</em> form of dynamic GI,
-so it must be faked using other techniques if needed (such as placing positional lights
-near emissive surfaces).
-Real-time ability also affects the GI technique's viability in procedurally
-generated levels.</p></li>
-<li><p><strong>User work needed.</strong> Some GI techniques are fully automatic, whereas others
-require careful planning and manual work on the user's side. Depending on your
-time budget, some GI techniques may be preferable to others.</p></li>
+<li><p><strong>Capacidad en tiempo real:</strong> Algunas técnicas de GI son totalmente en tiempo real, mientras que otras son solo semirreales o no son en tiempo real en absoluto. Las técnicas semirreales tienen restricciones que las técnicas completamente en tiempo real no tienen. Por ejemplo, los objetos dinámicos no pueden aportar iluminación emisiva a la escena. Las técnicas que no son en tiempo real no admiten <em>ninguna</em> forma de GI dinámica, por lo que debe simularse mediante otras técnicas si es necesario (como colocar luces posicionales cerca de superficies emisivas). La capacidad en tiempo real también influye en la viabilidad de la técnica GI en niveles generados procedimentalmente.</p></li>
+<li><p><strong>Trabajo del usuario requerido:</strong> Algunas técnicas de GI son totalmente automáticas, mientras que otras requieren una planificación cuidadosa y trabajo manual por parte del usuario. Según tu presupuesto de tiempo, algunas técnicas pueden ser preferibles a otras.</p></li>
 </ul>
 <p>A continuación se presenta una comparación de todas las técnicas de iluminación global disponibles en Godot:</p>
 <section id="performance">
@@ -13139,14 +13090,7 @@ time budget, some GI techniques may be preferable to others.</p></li>
 </li>
 <li><p><strong>LightmapGI:</strong></p>
 <ul>
-<li><p>Lights can be baked with indirect lighting only, or fully baked on a
-per-light basis to further improve performance. Hybrid setups can be used
-(such as having a real-time directional light and fully baked positional lights).
-Directional information can be enabled before baking to improve visuals at
-a small performance cost (and at the cost of larger file sizes).
-Suited for integrated graphics.
-<em>Available in all renderers. However, baking lightmaps requires hardware
-with RenderingDevice support.</em></p></li>
+<li><p>Las luces se pueden hornear con solo iluminación indirecta, o hornearse por completo de forma individual por luz para mejorar aún más el rendimiento. Se pueden usar configuraciones híbridas (como tener una luz direccional en tiempo real y luces posicionales totalmente horneadas). La información direccional se puede habilitar antes de hornear para mejorar el aspecto visual con un pequeño impacto en el rendimiento (y a costa de un mayor tamaño de archivo). Adecuado para gráficos integrados. <em>Disponible en todos los renderizadores. Sin embargo, hornear mapas de luz requiere hardware con compatibilidad para RenderingDevice.</em></p></li>
 </ul>
 </li>
 <li><p><strong>VoxelGI:</strong></p>
@@ -13156,96 +13100,85 @@ with RenderingDevice support.</em></p></li>
 </li>
 <li><p><strong>Screen-space indirect lighting (SSIL):</strong></p>
 <ul>
-<li><p>The SSIL quality and number of blur passes can be adjusted in the Project Settings.
-By default, SSIL rendering is performed at half resolution (and then linearly scaled)
-to ensure a reasonable performance level.
-<strong>Not available</strong> <em>when using the Mobile or Compatibility renderers.</em></p></li>
+<li><p>La calidad de SSIL y el número de pasadas de desenfoque se pueden ajustar en la Configuración del Proyecto. Por defecto, el renderizado de SSIL se realiza a media resolución (y luego se escala linealmente) para garantizar un nivel de rendimiento razonable. <strong>No disponible</strong> <em>al utilizar los renderizadores Mobile o Compatibility.</em></p></li>
 </ul>
 </li>
 <li><p><strong>SDFGI:</strong></p>
 <ul>
-<li><p>The number of cascades can be adjusted to balance performance and quality.
-The number of rays thrown per frame can be adjusted in the Project Settings.
-The rendering can optionally be performed at half resolution
-(and then linearly scaled) to improve performance significantly.
-<strong>Not available</strong> <em>when using the Mobile or Compatibility renderers.</em></p></li>
+<li><p>El número de cascadas se puede ajustar para equilibrar rendimiento y calidad. El número de rayos lanzados por fotograma se puede ajustar en la Configuración del Proyecto. Opcionalmente, el renderizado se puede realizar a media resolución (y luego escalarse linealmente) para mejorar el rendimiento de forma notable. <strong>No disponible</strong> <em>al utilizar los renderizadores Mobile o Compatibility.</em></p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="visuals">
 <h3>Visuales<a class="headerlink" href="#visuals" title="Link to this heading"></a></h3>
-<p>For comparison, here's a 3D scene with no global illumination options used:</p>
+<p>Para comparar, aquí hay una escena 3D sin opciones de iluminación global utilizadas:</p>
 <figure class="align-default" id="id1">
-<img alt="A 3D scene without any form of global illumination (only constant environment lighting). The box and sphere near the camera are both dynamic objects." src="../../../_images/gi_none.webp" />
+<img alt="Una escena 3D sin ninguna forma de iluminación global (solo iluminación ambiental constante). La caja y la esfera cerca de la cámara son ambas objetos dinámicos." src="../../../_images/gi_none.webp" />
 <figcaption>
-<p><span class="caption-text">A 3D scene without any form of global illumination (only constant environment lighting). The box and sphere near the camera are both dynamic objects.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Una escena 3D sin ninguna forma de iluminación global (solo iluminación ambiental constante). La caja y la esfera cerca de la cámara son ambas objetos dinámicos.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Here's how Godot's various global illumination techniques compare:</p>
+<p>Así es cómo se comparan las diversas técnicas de iluminación global de Godot:</p>
 <ul>
-<li><p><strong>VoxelGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Good reflections and indirect lighting, but beware of leaks.</p>
+<li><p><strong>VoxelGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Buenos reflejos e iluminación indirecta, pero ten cuidado con las fugas.</p>
 <ul>
 <li><p>Debido a su naturaleza basada en vóxeles, VoxelGI puede presentar fugas de luz si las paredes y suelos son demasiado delgados. Se recomienda asegurarse de que todas las superficies sólidas tengan al menos el grosor de un vóxel.</p>
-<p>Streaking artifacts may also be visible on sloped surfaces. In this case,
-tweaking the bias properties or rotating the VoxelGI node can help combat
-this.</p>
+<p>También pueden verse artefactos en forma de rayas en superficies inclinadas. En este caso, ajustar las propiedades de bias o rotar el nodo VoxelGI puede ayudar a combatir esto.</p>
 <figure class="align-default" id="id2">
-<img alt="VoxelGI in action." src="../../../_images/gi_voxel_gi.webp" />
+<img alt="VoxelGI en acción." src="../../../_images/gi_voxel_gi.webp" />
 <figcaption>
-<p><span class="caption-text">VoxelGI in action.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">VoxelGI en acción.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </li>
 </ul>
 </li>
-<li><p><strong>SDFGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Good reflections and indirect lighting, but beware of leaks and visible cascade shifts.</p>
+<li><p><strong>SDFGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Buenos reflejos e iluminación indirecta, pero cuidado con las fugas y los cambios visibles de cascada.</p>
 <ul>
-<li><p>GI level of detail varies depending on the distance
-between the camera and surface.</p>
+<li><p>El nivel de detalle de GI varía según la distancia entre la cámara y la superficie.</p>
 <p>Las fugas de luz se pueden reducir significativamente habilitando la propiedad <strong>Use Occlusion</strong>. Esto tiene un leve impacto en el rendimiento, pero suele dar menos fugas en comparación con VoxelGI.</p>
-<p>Cascade shifts may be visible when the camera moves fast. This can be made
-less noticeable by adjusting the cascade sizes or using fog.</p>
+<p>Los cambios de cascada pueden ser visibles cuando la cámara se mueve rápido. Esto puede hacerse menos perceptible ajustando los tamaños de cascada o utilizando niebla.</p>
 <figure class="align-default" id="id3">
-<img alt="SDFGI in action." src="../../../_images/gi_sdfgi.webp" />
+<img alt="SDFGI en acción." src="../../../_images/gi_sdfgi.webp" />
 <figcaption>
-<p><span class="caption-text">SDFGI in action.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">SDFGI en acción.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </li>
 </ul>
 </li>
-<li><p><strong>Screen-space indirect lighting (SSIL):</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Good <em>secondary</em> source of indirect lighting, but no reflections.</p>
+<li><p><strong>Iluminación indirecta en espacio de pantalla (SSIL):</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Buena fuente <em>secundaria</em> de iluminación indirecta, pero sin reflejos.</p>
 <ul>
 <li><p>SSIL está diseñado para usarse como complemento a otra técnica GI como VoxelGI, SDFGI o LightmapGI. SSIL funciona mejor para detalles a pequeña escala, ya que no puede proporcionar iluminación indirecta precisa para estructuras grandes por sí solo. SSIL puede proporcionar iluminación indirecta en tiempo real en situaciones en las que otras técnicas GI no logran capturar detalles a pequeña escala u objetos dinámicos. Su naturaleza de espacio-pantalla dará como resultado algunos artefactos, especialmente cuando los objetos entran y salen de la pantalla. SSIL funciona utilizando el color del último frame (antes del posprocesamiento), lo que significa que se incluyen decals emisivas y shaders personalizados (siempre que estén presentes en la pantalla).</p>
 <figure class="align-default" id="id4">
-<img alt="SSIL in action (without any other GI technique). Notice the emissive lighting around the yellow box." src="../../../_images/gi_ssil_only.webp" />
+<img alt="SSIL en acción (sin ninguna otra técnica de GI). Observa la iluminación emisiva alrededor de la caja amarilla." src="../../../_images/gi_ssil_only.webp" />
 <figcaption>
-<p><span class="caption-text">SSIL in action (without any other GI technique). Notice the emissive lighting around the yellow box.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">SSIL en acción (sin ninguna otra técnica de GI). Observa la iluminación emisiva alrededor de la caja amarilla.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </li>
 </ul>
 </li>
-<li><p><strong>LightmapGI:</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Excellent indirect lighting, decent reflections (optional).</p>
+<li><p><strong>LightmapGI:</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Excelente iluminación indirecta, reflejos decentes (opcional).</p>
 <ul>
 <li><p>Esta es la única técnica donde el número de rebotes de luz puede elevarse por encima de 2 (hasta 16 rebotes con LightmapGI).</p>
 <figure class="align-default" id="id5">
-<img alt="LightmapGI in action. Only indirect lighting is baked here, but direct light can also be baked." src="../../../_images/gi_lightmap_gi_indirect_only.webp" />
+<img alt="LightmapGI en acción. Solo se hornea iluminación indirecta aquí, pero la luz directa también puede hornearse." src="../../../_images/gi_lightmap_gi_indirect_only.webp" />
 <figcaption>
-<p><span class="caption-text">LightmapGI in action. Only indirect lighting is baked here, but direct light can also be baked.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">LightmapGI en acción. Solo se hornea iluminación indirecta aquí, pero la luz directa también puede hornearse.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </li>
 </ul>
 </li>
-<li><p><strong>ReflectionProbe:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Good reflections, but poor indirect lighting.</p>
+<li><p><strong>ReflectionProbe:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Buenos reflejos, pero pobre iluminación indirecta.</p>
 <ul>
 <li><p>La iluminación indirecta se puede desactivar, establecer en un color constante en toda la sonda o leerse automáticamente del entorno.</p>
 <figure class="align-default" id="id6">
-<img alt="ReflectionProbe in action (without any other GI technique). Notice the reflective sphere." src="../../../_images/gi_none_reflection_probe.webp" />
+<img alt="ReflectionProbe en acción (sin ninguna otra técnica de GI). Observa la esfera reflectante." src="../../../_images/gi_none_reflection_probe.webp" />
 <figcaption>
-<p><span class="caption-text">ReflectionProbe in action (without any other GI technique). Notice the reflective sphere.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">ReflectionProbe en acción (sin ninguna otra técnica de GI). Observa la esfera reflectante.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </li>
@@ -13256,133 +13189,96 @@ less noticeable by adjusting the cascade sizes or using fog.</p>
 <section id="real-time-ability">
 <h3>Capacidad en tiempo real<a class="headerlink" href="#real-time-ability" title="Link to this heading"></a></h3>
 <ul>
-<li><p><strong>VoxelGI:</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Fully real-time.</p>
+<li><p><strong>VoxelGI:</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Totalmente en tiempo real.</p>
 <ul>
 <li><p>La iluminación indirecta y los reflejos son completamente en tiempo real. Los objetos dinámicos pueden recibir GI <em>y</em> contribuir a ella con sus superficies emisivas.</p>
 <p>Viable para niveles generados procedimentalmente <em>si se generan con anticipación</em> (y no durante la partida).</p>
 </li>
 </ul>
 </li>
-<li><p><strong>SDFGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Semi-real-time.</p>
+<li><p><strong>SDFGI:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Semi en tiempo real.</p>
 <ul>
-<li><p>Cascades are generated in real-time, making SDFGI
-viable for procedurally generated levels (including when structures are generated
-during gameplay).</p>
+<li><p>Las cascadas se generan en tiempo real, lo que hace viable a SDFGI para niveles generados procedimentalmente (incluso cuando se generan estructuras durante el gameplay).</p>
 <p>Los objetos dinámicos pueden <em>recibir</em> GI, pero no <em>contribuir</em> a ella en SDFGI.</p>
 </li>
 </ul>
 </li>
-<li><p><strong>Screen-space indirect lighting (SSIL):</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Fully real-time.</p>
+<li><p><strong>Iluminación indirecta en espacio de pantalla (SSIL):</strong> <img alt="bien" src="../../../_images/score_good.webp" /> Totalmente en tiempo real.</p>
 <ul class="simple">
-<li><p>SSIL works with both static and dynamic lights. It also works with both
-static and dynamic occluders (including emissive materials).</p></li>
+<li><p>SSIL funciona tanto con luces estáticas como dinámicas. También funciona con oclusores tanto estáticos como dinámicos (incluyendo materiales emisivos).</p></li>
 </ul>
 </li>
-<li><p><strong>LightmapGI:</strong> <img alt="mal" src="../../../_images/score_bad.webp" /> Baked, and therefore not real-time.</p>
+<li><p><strong>LightmapGI:</strong> <img alt="mal" src="../../../_images/score_bad.webp" /> Horneado, y por lo tanto no es en tiempo real.</p>
 <ul class="simple">
 <li><p>Tanto la iluminación indirecta como los reflejos SH se hornean y no se pueden cambiar en tiempo de ejecución en LightmapGI.</p></li>
 </ul>
 </li>
-<li><p><strong>ReflectionProbe:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Optionally real-time.</p>
+<li><p><strong>ReflectionProbe:</strong> <img alt="promedio" src="../../../_images/score_average.webp" /> Opcionalmente en tiempo real.</p>
 <ul class="simple">
-<li><p>By default, reflections update when the probe is moved.
-They update as often as possible if the update mode
-is set to <strong>Always</strong> (which is expensive).</p></li>
-<li><p>Indirect lighting must be configured manually by the user, but can be changed
-at runtime without causing an expensive computation to happen behind the scenes.
-This makes ReflectionProbes viable for procedurally generated levels.</p></li>
+<li><p>Por defecto, los reflejos se actualizan cuando se mueve la sonda. Se actualizan con tanta frecuencia como sea posible si el modo de actualización está configurado en <strong>Always</strong> (lo cual es costoso).</p></li>
+<li><p>La iluminación indirecta debe configurarse manualmente por el usuario, pero se puede modificar en tiempo de ejecución sin provocar un cálculo costoso en segundo plano. Esto hace que ReflectionProbes sea viable para niveles generados procedimentalmente.</p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="user-work-needed">
-<h3>User work needed<a class="headerlink" href="#user-work-needed" title="Link to this heading"></a></h3>
+<h3>Trabajo del usuario requerido<a class="headerlink" href="#user-work-needed" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>VoxelGI:</strong> One or more VoxelGI nodes need to be created and baked.</p>
+<li><p><strong>VoxelGI:</strong> Es necesario crear y hornear uno o más nodos VoxelGI.</p>
 <ul>
-<li><p>Adjusting extents correctly is required to get good results. Additionally
-rotating the node and baking again can help combat leaks or streaking
-artifacts in certain situations. Bake times are fast – usually below
-10 seconds for a scene of medium complexity.</p></li>
+<li><p>Ajustar las dimensiones (extents) correctamente es necesario para obtener buenos resultados. Además, rotar el nodo y volver a hornear puede ayudar a combatir fugas o artefactos de rayas en ciertas situaciones. Los tiempos de horneado son rápidos: generalmente menos de 10 segundos para una escena de complejidad media.</p></li>
 </ul>
 </li>
-<li><p><strong>SDFGI:</strong> Very little.</p>
+<li><p><strong>SDFGI:</strong> Muy poco.</p>
 <ul>
 <li><p>SDFGI es completamente automático; solo necesita habilitarse en el recurso Environment. No se requiere crear ningún nodo especial ni hornear de antemano.</p></li>
 </ul>
 </li>
-<li><p><strong>Screen-space indirect lighting (SSIL):</strong> Very little.</p>
+<li><p><strong>Iluminación indirecta en espacio de pantalla (SSIL):</strong> Muy poco.</p>
 <ul>
 <li><p>SSIL (iluminación indirecta de espacio en pantalla) es completamente automático; solo necesita habilitarse en el recurso Environment.</p></li>
 </ul>
 </li>
-<li><p><strong>LightmapGI:</strong> Requires UV2 setup and baking.</p>
+<li><p><strong>LightmapGI:</strong> Requiere configuración de UV2 y horneado.</p>
 <ul>
-<li><p>Static meshes must be reimported with UV2 and lightmap generation enabled.
-On a dedicated GPU, bake times are relatively fast thanks to the GPU-based
-lightmap baking – usually below 1 minute for a scene of medium complexity.</p></li>
+<li><p>Las mallas estáticas deben reimportarse con UV2 y la generación de lightmaps habilitada. En una GPU dedicada, los tiempos de horneado son relativamente rápidos gracias al horneado de lightmaps basado en GPU: normalmente menos de 1 minuto para una escena de complejidad media.</p></li>
 </ul>
 </li>
-<li><p><strong>ReflectionProbe:</strong> Placed manually by the user.</p></li>
+<li><p><strong>ReflectionProbe:</strong> Colocado manualmente por el usuario.</p></li>
 </ul>
 </section>
 <section id="summary">
 <h3>Resumen<a class="headerlink" href="#summary" title="Link to this heading"></a></h3>
-<p>If you are unsure about which GI technique to use:</p>
+<p>Si no estás seguro de qué técnica de GI utilizar:</p>
 <ul class="simple">
-<li><p>For desktop games, it's a good idea to start with <a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a>
-first as it requires the least amount of setup. Move to other GI techniques
-later if needed. To improve performance on low-end GPUs and integrated
-graphics, consider adding an option to disable SDFGI or <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> in your game's settings. SDFGI can be disabled in the
-Environment resource, and VoxelGI can be disabled by hiding the VoxelGI
-node(s). To further improve visuals on high-end setups, add an option to
-enable SSIL in your game's settings.</p></li>
-<li><p>For mobile games, <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">LightmapGI</span></a> and
-<a class="reference internal" href="reflection_probes.html#doc-reflection-probes"><span class="std std-ref">ReflectionProbes</span></a> are the only supported options.
-See also <a class="reference internal" href="#doc-introduction-to-global-illumination-alternatives"><span class="std std-ref">Aternativas a técnicas Gl</span></a>.</p></li>
+<li><p>Para juegos de escritorio, es buena idea comenzar primero con <a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a>, ya que requiere la menor cantidad de configuración. Cambia a otras técnicas de GI más adelante si es necesario. Para mejorar el rendimiento en GPUs de gama baja y gráficos integrados, considera agregar una opción para deshabilitar SDFGI o <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> en los ajustes de tu juego. SDFGI se puede deshabilitar en el recurso Environment, y VoxelGI se puede deshabilitar ocultando el/los nodo(s) VoxelGI. Para mejorar aún más la calidad visual en equipos de gama alta, añade una opción para habilitar SSIL en los ajustes de tu juego.</p></li>
+<li><p>Para juegos móviles, <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">LightmapGI</span></a> y <a class="reference internal" href="reflection_probes.html#doc-reflection-probes"><span class="std std-ref">ReflectionProbes</span></a> son las únicas opciones compatibles. Consulta también <a class="reference internal" href="#doc-introduction-to-global-illumination-alternatives"><span class="std std-ref">Alternativas a técnicas GI</span></a>.</p></li>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>You can compare global illumination techniques in action using the
-<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/global_illumination">Global Illumination demo project</a>.</p>
+<p>Puedes comparar las técnicas de iluminación global en acción utilizando el <a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/global_illumination">proyecto de demostración de Iluminación Global</a>.</p>
 </div>
 </section>
 <section id="which-global-illumination-mode-should-i-use-on-meshes-and-lights">
-<span id="doc-introduction-to-global-illumination-gi-mode-recommendations"></span><h3>Which global illumination mode should I use on meshes and lights?<a class="headerlink" href="#which-global-illumination-mode-should-i-use-on-meshes-and-lights" title="Link to this heading"></a></h3>
-<p>Regardless of which global illumination technique you use, there is no
-universally &quot;better&quot; global illumination mode. Still, here are some
-recommendations for meshes:</p>
+<span id="doc-introduction-to-global-illumination-gi-mode-recommendations"></span><h3>¿Qué modo de iluminación global debo usar en mallas y luces?<a class="headerlink" href="#which-global-illumination-mode-should-i-use-on-meshes-and-lights" title="Link to this heading"></a></h3>
+<p>Independientemente de la técnica de iluminación global que utilices, no existe un modo de iluminación global universalmente &quot;mejor&quot;. Aun así, aquí hay algunas recomendaciones para mallas:</p>
 <ul class="simple">
-<li><p>For static level geometry, use the <strong>Static</strong> global illumination mode <em>(default)</em>.</p></li>
+<li><p>Para geometría de nivel estática, utiliza el modo de iluminación global <strong>Static</strong> <em>(por defecto)</em>.</p></li>
 <li><p>Para geometría dinámica pequeña y jugadores/enemigos, utiliza el modo de iluminación global <strong>Deshabilitado (Disabled)</strong>.</p></li>
 <li><p>Para geometría de nivel dinámica <em>grande</em> (como un tren en movimiento), utiliza el modo de iluminación global <strong>Dinámico (Dynamic)</strong> (aplica con VoxelGI).</p></li>
 </ul>
-<p>Here are some recommendations for light bake modes:</p>
+<p>Aquí hay algunas recomendaciones para los modos de horneado de luz:</p>
 <ul class="simple">
-<li><p>For static level lighting, use the <strong>Static</strong> bake mode.
-The <strong>Static</strong> mode is also suitable for dynamic lights that don't change
-much during gameplay, such as a flickering torch.</p></li>
-<li><p>For short-lived dynamic effects (such as a weapon), use the <strong>Disabled</strong>
-bake mode to improve performance.</p></li>
-<li><p>For long-lived dynamic effects (such as a rotating alarm light), use the
-<strong>Dynamic</strong> bake mode to improve quality <em>(default)</em>. Note that this only has
-an effect with VoxelGI and SDFGI, as LightmapGI does not support global
-illumination with dynamic lights.</p></li>
+<li><p>Para iluminación de nivel estática, utiliza el modo de horneado <strong>Static</strong>. El modo <strong>Static</strong> también es adecuado para luces dinámicas que no cambian mucho durante el juego, como una antorcha parpadeante.</p></li>
+<li><p>Para efectos dinámicos de corta duración (como un arma), utiliza el modo de horneado <strong>Disabled</strong> para mejorar el rendimiento.</p></li>
+<li><p>Para efectos dinámicos de larga duración (como una luz de alarma giratoria), utiliza el modo de horneado <strong>Dynamic</strong> para mejorar la calidad <em>(por defecto)</em>. Ten en cuenta que esto solo tiene efecto con VoxelGI y SDFGI, ya que LightmapGI no admite iluminación global con luces dinámicas.</p></li>
 </ul>
 </section>
 </section>
 <section id="alternatives-to-gi-techniques">
-<span id="doc-introduction-to-global-illumination-alternatives"></span><h2>Aternativas a técnicas Gl<a class="headerlink" href="#alternatives-to-gi-techniques" title="Link to this heading"></a></h2>
-<p>If none of the GI techniques mentioned above fits, it's still possible to
-<a class="reference internal" href="faking_global_illumination.html#doc-faking-global-illumination"><span class="std std-ref">simulate GI by placing additional lights manually</span></a>.
-This requires more manual work, but it can offer good performance <em>and</em> good
-visuals if done right. This approach is still used in many modern games to this
-day.</p>
-<p>When targeting low-end hardware in situations where using LightmapGI is not
-viable (such as procedurally generated levels), relying on environment lighting
-alone or a constant ambient light factor may be a necessity. This may result in
-flatter visuals, but adjusting the ambient light color and sky contribution
-still makes it possible to achieve acceptable results in most cases.</p>
+<span id="doc-introduction-to-global-illumination-alternatives"></span><h2>Alternativas a técnicas GI<a class="headerlink" href="#alternatives-to-gi-techniques" title="Link to this heading"></a></h2>
+<p>Si ninguna de las técnicas de GI mencionadas anteriormente se ajusta, aún es posible <a class="reference internal" href="faking_global_illumination.html#doc-faking-global-illumination"><span class="std std-ref">simular GI colocando luces adicionales manualmente</span></a>. Esto requiere más trabajo manual, pero puede ofrecer un buen rendimiento <em>y</em> buenos efectos visuales si se hace correctamente. Este enfoque todavía se utiliza en muchos juegos modernos hoy en día.</p>
+<p>Al apuntar a hardware de gama baja en situaciones donde el uso de LightmapGI no es viable (como niveles generados procedimentalmente), confiar solo en la iluminación ambiental o en un factor de luz ambiental constante puede ser una necesidad. Esto puede dar lugar a visuales más planos, pero ajustar el color de la luz ambiental y la contribución del cielo aún permite lograr resultados aceptables en la mayoría de los casos.</p>
 </section>
 </section>
 
@@ -13392,7 +13288,7 @@ still makes it possible to achieve acceptable results in most cases.</p>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="index.html" class="btn btn-neutral float-left" title="Iluminación global" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="using_voxel_gi.html" class="btn btn-neutral float-right" title="Using Voxel global illumination" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="using_voxel_gi.html" class="btn btn-neutral float-right" title="Uso de iluminación global por vóxeles (VoxelGI)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -12980,7 +12980,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">3D</a></li>
           <li class="breadcrumb-item"><a href="index.html">Iluminación global</a></li>
-      <li class="breadcrumb-item active">Signed distance field global illumination (SDFGI)</li>
+      <li class="breadcrumb-item active">Iluminación global por campos de distancia con signo (SDFGI)</li>
 	</ul>
 </li>
 
@@ -13040,27 +13040,17 @@
 
   
   <section id="signed-distance-field-global-illumination-sdfgi">
-<span id="doc-using-sdfgi"></span><h1>Signed distance field global illumination (SDFGI)<a class="headerlink" href="#signed-distance-field-global-illumination-sdfgi" title="Link to this heading"></a></h1>
-<p>Signed distance field global illumination (SDFGI) is a novel technique available
-in Godot. It provides semi-real-time global illumination that scales to any
-world size and works with procedurally generated levels.</p>
-<p>SDFGI supports dynamic lights, but <em>not</em> dynamic occluders or dynamic emissive surfaces.
-Therefore, SDFGI provides better real-time ability than
-<a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">baked lightmaps</span></a>, but worse real-time ability than
-<a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a>.</p>
-<p>From a performance standpoint, SDFGI is one of the most demanding global illumination
-techniques in Godot. Like with VoxelGI, there are still many settings available to tweak
-its performance requirements at the cost of quality.</p>
+<span id="doc-using-sdfgi"></span><h1>Iluminación global por campos de distancia con signo (SDFGI)<a class="headerlink" href="#signed-distance-field-global-illumination-sdfgi" title="Link to this heading"></a></h1>
+<p>La iluminación global por campos de distancia con signo (SDFGI) es una novedosa técnica disponible en Godot. Proporciona iluminación global semitemporal en tiempo real que se escala a cualquier tamaño de mundo y funciona con niveles generados procedimentalmente.</p>
+<p>SDFGI admite luces dinámicas, pero <em>no</em> oclusores dinámicos ni superficies emisivas dinámicas. Por lo tanto, SDFGI proporciona mejor capacidad en tiempo real que los <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">lightmaps horneados</span></a>, pero menor capacidad en tiempo real que <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a>.</p>
+<p>Desde el punto de vista del rendimiento, SDFGI es una de las técnicas de iluminación global más exigentes en Godot. Al igual que con VoxelGI, existen muchos ajustes disponibles para adaptar sus requerimientos de rendimiento a costa de la calidad.</p>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
-<p>SDFGI is only supported when using the Forward+ renderer, not the Mobile or
-Compatibility renderers.</p>
+<p>SDFGI solo es compatible cuando se utiliza el renderizador Forward+, no con los renderizadores Mobile o Compatibility.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>Not sure if SDFGI is suited to your needs?
-See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a>
-for a comparison of GI techniques available in Godot 4.</p>
+<p>¿No estás seguro de si SDFGI se adapta a tus necesidades? Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> para una comparación de las técnicas de GI disponibles en Godot 4.</p>
 </div>
 <section id="visual-comparison">
 <h2>Comparaciones visuales<a class="headerlink" href="#visual-comparison" title="Link to this heading"></a></h2>
@@ -13071,190 +13061,94 @@ for a comparison of GI techniques available in Godot 4.</p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id2">
-<img alt="SDFGI enabled." src="../../../_images/gi_sdfgi.webp" />
+<img alt="SDFGI habilitado." src="../../../_images/gi_sdfgi.webp" />
 <figcaption>
-<p><span class="caption-text">SDFGI enabled.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">SDFGI habilitado.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="setting-up-sdfgi">
 <h2>Configurar SDFGI<a class="headerlink" href="#setting-up-sdfgi" title="Link to this heading"></a></h2>
-<p>In Godot, SDFGI is the global illumination technique with the fewest required
-steps to enable:</p>
+<p>En Godot, SDFGI es la técnica de iluminación global con la menor cantidad de pasos necesarios para habilitarse:</p>
 <ol class="arabic simple">
-<li><p>Make sure your MeshInstance nodes have their <strong>Global Illumination &gt; Mode</strong>
-property set to <strong>Static</strong> in the inspector.</p></li>
+<li><p>Asegúrate de que tus nodos MeshInstance tengan su propiedad <strong>Global Illumination &gt; Mode</strong> configurada en <strong>Static</strong> en el inspector.</p></li>
 </ol>
 <blockquote>
 <div><ul class="simple">
-<li><p>For imported 3D scenes, the bake mode can be configured in the Import dock
-after selecting the 3D scene file in the FileSystem dock.</p></li>
+<li><p>Para escenas 3D importadas, el modo de horneado se puede configurar en el panel de Importación tras seleccionar el archivo de la escena 3D en el panel FileSystem.</p></li>
 </ul>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p>Add a WorldEnvironment node and create an Environment resource for it.</p></li>
-<li><p>Edit the Environment resource, scroll down to the <strong>SDFGI</strong> section and unfold it.</p></li>
-<li><p>Enable <strong>SDFGI &gt; Enabled</strong>. SDFGI will automatically follow the camera when it
-moves, so you do not need to configure extents (unlike VoxelGI).</p></li>
+<li><p>Agrega un nodo WorldEnvironment y crea un recurso Environment para él.</p></li>
+<li><p>Edita el recurso Environment, desplázate hacia abajo hasta la sección <strong>SDFGI</strong> y despliégala.</p></li>
+<li><p>Activa <strong>SDFGI &gt; Enabled</strong>. SDFGI seguirá automáticamente a la cámara cuando se mueva, por lo que no necesitas configurar límites o extents (a diferencia de VoxelGI).</p></li>
 </ol>
 </section>
 <section id="environment-sdfgi-properties">
-<h2>Environment SDFGI properties<a class="headerlink" href="#environment-sdfgi-properties" title="Link to this heading"></a></h2>
-<p>In the Environment resource, there are several properties available to adjust
-SDFGI appearance and quality:</p>
+<h2>Propiedades de SDFGI en Environment<a class="headerlink" href="#environment-sdfgi-properties" title="Link to this heading"></a></h2>
+<p>En el recurso Environment, hay varias propiedades disponibles para ajustar la apariencia y calidad de SDFGI:</p>
 <ul class="simple">
-<li><p><strong>Use Occlusion:</strong> If enabled, SDFGI will throw additional rays to find and
-reduce light leaks. This has a performance cost, so only enable this property
-if you actually need it.</p></li>
-<li><p><strong>Read Sky Light:</strong> If enabled, the environment lighting is represented in the
-global illumination. This should be enabled in outdoor scenes and disabled in
-fully indoor scenes.</p></li>
-<li><p><strong>Retroalimentación de Rebote:</strong> Por defecto, la iluminación indirecta rebota solo una vez cuando se utiliza SDFGI. Establecer este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> hará que SDFGI rebote más de una vez, lo que proporciona una iluminación indirecta más realista a un pequeño costo de rendimiento. Los valores razonables suelen estar entre <code class="docutils literal notranslate"><span class="pre">0.3</span></code> y <code class="docutils literal notranslate"><span class="pre">1.0</span></code> dependiendo de la escena. Ten en cuenta que en algunas escenas, los valores superiores a <code class="docutils literal notranslate"><span class="pre">0.5</span></code> pueden provocar bucles de retroalimentación infinitos, haciendo que la escena se vuelva extremadamente brillante en pocos segundos. Si su iluminación indirecta parece &quot;manchada&quot;, considera aumentar este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> para obtener una iluminación de aspecto más uniforme. Si la iluminación final resulta demasiado brillante, reduzca <strong>Energía</strong> para compensar.</p></li>
-<li><p><strong>Cascades:</strong> Higher values result in more detailed GI information
-(and/or greater maximum distance), but are significantly more expensive on the
-CPU and GPU. The performance cost of having more cascades especially increases
-when the camera moves fast, so consider decreasing this to <code class="docutils literal notranslate"><span class="pre">4</span></code> or lower
-if your camera moves fast.</p></li>
-<li><p><strong>Min Cell Size:</strong> The minimum SDFGI cell size to use for the nearest, most detailed
-cascade. Lower values result in more accurate indirect lighting and reflection
-at the cost of lower performance.
-Adjusting this setting also affects <strong>Cascade 0 Distance</strong> and <strong>Max Distance</strong> automatically.</p></li>
-<li><p><strong>Cascade 0 Distance:</strong> The distance at which the nearest, most detailed
-cascade ends. Greater values make the nearest cascade transition less noticeable,
-at the cost of reducing the level of detail in the nearest cascade.
-Adjusting this setting also affects <strong>Min Cell Size</strong> and <strong>Max Distance</strong> automatically.</p></li>
-<li><p><strong>Max Distance:</strong> Controls how far away the signed distance field will be computed
-(for the least detailed cascade). SDFGI will not have any effect past this distance.
-This value should always be set below the Camera's Far value, as there is no benefit
-in computing SDFGI past the viewing distance.
-Adjusting this setting also affects <strong>Min Cell Size</strong> and <strong>Cascade 0 Distance</strong> automatically.</p></li>
-<li><p><strong>Y Scale:</strong> Controls how far apart SDFGI probes are spread <em>vertically</em>.
-By default, vertical spread is the same as horizontal. However, since most
-game scenes aren't highly vertical, setting the Y Scale to
-<code class="docutils literal notranslate"><span class="pre">75%</span></code> or even <code class="docutils literal notranslate"><span class="pre">50%</span></code> can provide better quality and reduce light leaks
-without impacting performance.</p></li>
-<li><p><strong>Energy:</strong> The brightness multiplier for SDFGI's indirect lighting.</p></li>
-<li><p><strong>Normal Bias:</strong> The normal bias to use for SDFGI's probe ray bounces.
-Unlike <strong>Probe Bias</strong>, this only increases the value in relation to the
-mesh's normals. This makes the bias adjustment more nuanced and avoids
-increasing the bias too much for no reason. Increase this
-value if you notice striping artifacts in indirect lighting or reflections.</p></li>
-<li><p><strong>Probe Bias:</strong> The bias to use for SDFGI's probe ray bounces. Increase this
-value if you notice striping artifacts in indirect lighting or reflections.</p></li>
+<li><p><strong>Use Occlusion:</strong> Si está habilitado, SDFGI lanzará rayos adicionales para encontrar y reducir las fugas de luz. Esto tiene un costo de rendimiento, así que habilita esta propiedad únicamente si realmente la necesitas.</p></li>
+<li><p><strong>Read Sky Light:</strong> Si está habilitado, la iluminación del entorno se representará en la iluminación global. Esto debe habilitarse en escenas al aire libre y deshabilitarse en escenas completamente interiores.</p></li>
+<li><p><strong>Bounce Feedback:</strong> Por defecto, la iluminación indirecta rebota solo una vez cuando se utiliza SDFGI. Establecer este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> hará que SDFGI rebote más de una vez, lo que proporciona una iluminación indirecta más realista a un pequeño costo de rendimiento. Los valores razonables suelen estar entre <code class="docutils literal notranslate"><span class="pre">0.3</span></code> y <code class="docutils literal notranslate"><span class="pre">1.0</span></code> dependiendo de la escena. Ten en cuenta que en algunas escenas, los valores superiores a <code class="docutils literal notranslate"><span class="pre">0.5</span></code> pueden provocar bucles de retroalimentación infinitos, haciendo que la escena se vuelva extremadamente brillante en pocos segundos. Si su iluminación indirecta parece manchada, considera aumentar este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> para obtener una iluminación de aspecto más uniforme. Si la iluminación final resulta demasiado brillante, reduce <strong>Energy</strong> para compensar.</p></li>
+<li><p><strong>Cascades:</strong> Valores más altos dan como resultado información de GI más detallada (y/o una mayor distancia máxima), pero son significativamente más costosos en la CPU y GPU. El costo de rendimiento de tener más cascadas aumenta especialmente cuando la cámara se mueve rápido, así que considera reducir esto a <code class="docutils literal notranslate"><span class="pre">4</span></code> o menos si la cámara se mueve rápidamente.</p></li>
+<li><p><strong>Min Cell Size:</strong> El tamaño mínimo de celda SDFGI a utilizar para la cascada más cercana y detallada. Valores más bajos producen una iluminación indirecta y reflejos más precisos a costa de un menor rendimiento. Ajustar este ajuste también afecta a <strong>Cascade 0 Distance</strong> y <strong>Max Distance</strong> automáticamente.</p></li>
+<li><p><strong>Cascade 0 Distance:</strong> La distancia a la cual termina la cascada más cercana y detallada. Valores mayores hacen que la transición de la cascada más cercana sea menos perceptible, a costa de reducir el nivel de detalle en dicha cascada. Ajustar este ajuste también afecta a <strong>Min Cell Size</strong> y <strong>Max Distance</strong> automáticamente.</p></li>
+<li><p><strong>Max Distance:</strong> Controla a qué distancia máxima se calculará el campo de distancia con signo (para la cascada menos detallada). SDFGI no tendrá ningún efecto más allá de esta distancia. Este valor siempre debe configurarse por debajo del valor Far de la Cámara, ya que no tiene beneficio calcular SDFGI más allá de la distancia de visión. Ajustar este parámetro también afecta a <strong>Min Cell Size</strong> y <strong>Cascade 0 Distance</strong> automáticamente.</p></li>
+<li><p><strong>Y Scale:</strong> Controla la dispersión <em>vertical</em> de las sondas SDFGI. Por defecto, la dispersión vertical es la misma que la horizontal. Sin embargo, dado que la mayoría de escenas de juegos no tienen una verticalidad excesiva, establecer Y Scale al <code class="docutils literal notranslate"><span class="pre">75%</span></code> o incluso al <code class="docutils literal notranslate"><span class="pre">50%</span></code> puede proporcionar mejor calidad y reducir fugas de luz sin perjudicar el rendimiento.</p></li>
+<li><p><strong>Energy:</strong> El multiplicador de brillo para la iluminación indirecta de SDFGI.</p></li>
+<li><p><strong>Normal Bias:</strong> El sesgo normal a utilizar para los rebotes de rayos de sondas en SDFGI. A diferencia de <strong>Probe Bias</strong>, esto solo aumenta el valor en relación con las normales de la malla. Esto hace que el ajuste del sesgo sea más matizado y evita aumentar el sesgo innecesariamente. Incrementa este valor si notas artefactos de rayas en la iluminación indirecta o en los reflejos.</p></li>
+<li><p><strong>Probe Bias:</strong> El sesgo a utilizar para los rebotes de rayos de sondas de SDFGI. Aumenta este valor si notas artefactos de rayas en la iluminación indirecta o en los reflejos.</p></li>
 </ul>
 </section>
 <section id="sdfgi-interaction-with-lights-and-objects">
-<h2>SDFGI interaction with lights and objects<a class="headerlink" href="#sdfgi-interaction-with-lights-and-objects" title="Link to this heading"></a></h2>
-<p>The amount of indirect energy emitted by a light is governed by its color,
-energy <em>and</em> indirect energy properties. To make a specific light emit more
-or less indirect energy without affecting the amount of direct light emitted
-by the light, adjust the <strong>Indirect Energy</strong> property in the Light3D inspector.</p>
-<p>To ensure correct visuals when using SDFGI, you must configure your meshes
-and lights' global illumination properties according to their <em>purpose</em> in the
-scene (static or dynamic).</p>
-<p>There are 3 global illumination modes available for meshes:</p>
+<h2>Interacción de SDFGI con luces y objetos<a class="headerlink" href="#sdfgi-interaction-with-lights-and-objects" title="Link to this heading"></a></h2>
+<p>La cantidad de energía indirecta emitida por una luz se rige por sus propiedades de color, energía <em>y</em> energía indirecta. Para hacer que una luz específica emita más o menos energía indirecta sin afectar la cantidad de luz directa emitida por la misma, ajusta la propiedad <strong>Indirect Energy</strong> en el inspector de Light3D.</p>
+<p>Para asegurar visuales correctos al usar SDFGI, debes configurar las propiedades de iluminación global de tus mallas y luces de acuerdo con su <em>propósito</em> en la escena (estático o dinámico).</p>
+<p>Hay 3 modos de iluminación global disponibles para mallas:</p>
 <ul class="simple">
-<li><p><strong>Disabled:</strong> The mesh won't be taken into account in SDFGI generation.
-The mesh will receive indirect lighting from the scene, but it will not
-contribute indirect lighting to the scene.</p></li>
-<li><p><strong>Static (default):</strong> The mesh will be taken into account in SDFGI generation.
-The mesh will both receive <em>and</em> contribute indirect lighting to the scene. If
-the mesh is changed in any way after SDFGI is generated, the camera must move
-away from the object then move back close to it for SDFGI to regenerate.
-Alternatively, SDFGI can be toggled off and back on. If neither is done,
-indirect lighting will look incorrect.</p></li>
-<li><p><strong>Dynamic (not supported with SDFGI):</strong> The mesh won't be taken into account in SDFGI generation.
-The mesh will receive indirect lighting from the scene, but it will not
-contribute indirect lighting to the scene.
-<em>This acts identical to the **Disabled*</em> bake mode when using SDFGI.*</p></li>
+<li><p><strong>Disabled:</strong> La malla no será tomada en cuenta en la generación de SDFGI. La malla recibirá iluminación indirecta de la escena, pero no contribuirá con iluminación indirecta a la escena.</p></li>
+<li><p><strong>Static (por defecto):</strong> La malla será tomada en cuenta en la generación de SDFGI. La malla tanto recibirá <em>como</em> contribuirá con iluminación indirecta a la escena. Si la malla se modifica de alguna manera después de generar SDFGI, la cámara debe alejarse del objeto y luego volver a acercarse para que SDFGI se regenere. Alternativamente, SDFGI se puede desactivar y volver a activar. Si no se hace ninguna de las dos cosas, la iluminación indirecta se verá incorrecta.</p></li>
+<li><p><strong>Dynamic (no compatible con SDFGI):</strong> La malla no será tomada en cuenta en la generación de SDFGI. La malla recibirá iluminación indirecta de la escena, pero no contribuirá con iluminación indirecta a la escena. <em>Esto actúa de forma idéntica al modo de horneado **Disabled** cuando se utiliza SDFGI.</em></p></li>
 </ul>
-<p>Additionally, there are 3 bake modes available for lights
-(DirectionalLight3D, OmniLight3D and SpotLight3D):</p>
+<p>Además, hay 3 modos de horneado disponibles para luces (DirectionalLight3D, OmniLight3D y SpotLight3D):</p>
 <ul class="simple">
-<li><p><strong>Disabled:</strong> The light won't be taken into account for SDFGI baking.
-The light won't contribute indirect lighting to the scene.</p></li>
-<li><p><strong>Static:</strong> The light will be taken into account for SDFGI baking. The light
-will contribute indirect lighting to the scene. If the light is changed in any
-way after baking, indirect lighting will look incorrect until the camera moves
-away from the light and back (which causes SDFGI to be baked again). will look
-incorrect. If in doubt, use this mode for level lighting.</p></li>
-<li><p><strong>Dynamic (default):</strong> The light won't be taken into account for SDFGI baking,
-but it will still contribute indirect lighting to the scene in real-time.
-This option is slower compared to <strong>Static</strong>. Only use the <strong>Dynamic</strong> global
-illumination mode on lights that will change significantly during gameplay.</p></li>
+<li><p><strong>Disabled:</strong> La luz no será tomada en cuenta para el horneado de SDFGI. La luz no contribuirá con iluminación indirecta a la escena.</p></li>
+<li><p><strong>Static:</strong> La luz será tomada en cuenta para el horneado de SDFGI. La luz contribuirá con iluminación indirecta a la escena. Si la luz se cambia de alguna manera después del horneado, la iluminación indirecta se verá incorrecta hasta que la cámara se aleje de la luz y regrese (lo que hace que SDFGI se vuelva a hornear). En caso de duda, utiliza este modo para la iluminación del nivel.</p></li>
+<li><p><strong>Dynamic (por defecto):</strong> La luz no será tomada en cuenta para el horneado de SDFGI, pero seguirá contribuyendo con iluminación indirecta a la escena en tiempo real. Esta opción es más lenta en comparación con <strong>Static</strong>. Solo utiliza el modo de iluminación global <strong>Dynamic</strong> en luces que cambien significativamente durante el gameplay.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The amount of indirect energy emitted by a light depends on its color,
-energy <em>and</em> indirect energy properties. To make a specific light emit more
-or less indirect energy without affecting the amount of direct light emitted
-by the light, adjust the <strong>Indirect Energy</strong> property in the Light3D inspector.</p>
+<p>La cantidad de energía indirecta emitida por una luz depende de sus propiedades de color, energía <em>y</em> energía indirecta. Para hacer que una luz específica emita más o menos energía indirecta sin afectar la cantidad de luz directa emitida por la luz, ajusta la propiedad <strong>Indirect Energy</strong> en el inspector de Light3D.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-gi-mode-recommendations"><span class="std std-ref">Which global illumination mode should I use on meshes and lights?</span></a>
-for general usage recommendations.</p>
+<p>Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-gi-mode-recommendations"><span class="std std-ref">¿Qué modo de iluminación global debo usar en mallas y luces?</span></a> para recomendaciones de uso general.</p>
 </div>
 </section>
 <section id="adjusting-sdfgi-performance-and-quality">
-<h2>Adjusting SDFGI performance and quality<a class="headerlink" href="#adjusting-sdfgi-performance-and-quality" title="Link to this heading"></a></h2>
-<p>Since SDFGI is relatively demanding, it will perform best on systems with recent
-dedicated GPUs. On older dedicated GPUs and integrated graphics,
-tweaking the settings is necessary to achieve reasonable performance.</p>
-<p>In the Project Settings' <strong>Rendering &gt; Global Illumination</strong> section,
-SDFGI quality can also be adjusted in several ways:</p>
+<h2>Ajustar el rendimiento y la calidad de SDFGI<a class="headerlink" href="#adjusting-sdfgi-performance-and-quality" title="Link to this heading"></a></h2>
+<p>Dado que SDFGI es relativamente exigente, tendrá un mejor rendimiento en sistemas con GPUs dedicadas recientes. En GPUs dedicadas más antiguas y gráficos integrados, es necesario ajustar la configuración para lograr un rendimiento razonable.</p>
+<p>En la sección <strong>Rendering &gt; Global Illumination</strong> de la Configuración del Proyecto, la calidad de SDFGI también se puede ajustar de varias formas:</p>
 <ul class="simple">
-<li><p><strong>Sdfgi &gt; Probe Ray Count:</strong> Higher values result in better quality,
-at the cost of higher GPU usage. If this value is set too low,
-this can cause surfaces to have visible &quot;splotches&quot; of indirect lighting on
-them due to the number of rays thrown being very low.</p></li>
-<li><p><strong>Sdfgi &gt; Frames To Converge:</strong> Higher values result in better quality, but GI will take
-more time to fully converge. The effect of this setting is especially noticeable when first
-loading a scene, or when lights with a bake mode other than <strong>Disabled</strong> are moving fast.
-If this value is set too low, this can cause surfaces to have visible &quot;splotches&quot;
-of indirect lighting on them due to the number of rays thrown being very low.
-If your scene's lighting doesn't have fast-moving lights that contribute to GI,
-consider setting this to <code class="docutils literal notranslate"><span class="pre">30</span></code> to improve quality without impacting performance.</p></li>
-<li><p><strong>Sdfgi &gt; Frames To Update Light:</strong> Lower values result in moving lights being
-reflected faster, at the cost of higher GPU usage. If your scene's lighting
-doesn't have fast-moving lights that contribute to GI, consider setting this
-to <code class="docutils literal notranslate"><span class="pre">16</span></code> to improve performance.</p></li>
-<li><p><strong>Gi &gt; Use Half Resolution:</strong> If enabled, both SDFGI and VoxelGI will have
-their GI buffer rendering at halved resolution. For instance, when rendering
-in 3840×2160, the GI buffer will be computed at a 1920×1080 resolution.
-Enabling this option saves a lot of GPU time, but it can introduce visible
-aliasing around thin details.</p></li>
+<li><p><strong>Sdfgi &gt; Probe Ray Count:</strong> Valores más altos resultan en una mejor calidad, a costa de un mayor uso de GPU. Si este valor se establece demasiado bajo, puede provocar que las superficies tengan manchas visibles de iluminación indirecta debido a que la cantidad de rayos lanzados es muy reducida.</p></li>
+<li><p><strong>Sdfgi &gt; Frames To Converge:</strong> Valores más altos resultan en mejor calidad, pero la GI tardará más tiempo en converger por completo. El efecto de este ajuste es especialmente notable al cargar una escena por primera vez, o cuando las luces con un modo de horneado distinto de <strong>Disabled</strong> se mueven rápido. Si este valor se establece demasiado bajo, puede provocar que las superficies tengan manchas visibles de iluminación indirecta debido al bajo número de rayos. Si la iluminación de tu escena no cuenta con luces que se muevan rápidamente contribuyendo a la GI, considera establecer esto en <code class="docutils literal notranslate"><span class="pre">30</span></code> para mejorar la calidad sin perjudicar el rendimiento.</p></li>
+<li><p><strong>Sdfgi &gt; Frames To Update Light:</strong> Valores más bajos hacen que las luces en movimiento se reflejen con mayor rapidez, a costa de un mayor uso de GPU. Si la iluminación de tu escena no tiene luces en rápido movimiento que aporten a la GI, considera establecer esto en <code class="docutils literal notranslate"><span class="pre">16</span></code> para mejorar el rendimiento.</p></li>
+<li><p><strong>Gi &gt; Use Half Resolution:</strong> Si está habilitado, tanto SDFGI como VoxelGI renderizarán su búfer de GI a la mitad de resolución. Por ejemplo, al renderizar a 3840×2160, el búfer de GI se calculará a una resolución de 1920×1080. Habilitar esta opción ahorra mucho tiempo de GPU, pero puede introducir aliasing visible alrededor de detalles delgados.</p></li>
 </ul>
-<p>SDFGI rendering performance also depends on the number of cascades and
-the cell size chosen in the Environment resource (see above).</p>
+<p>El rendimiento de renderizado de SDFGI también depende de la cantidad de cascadas y del tamaño de celda elegido en el recurso Environment (ver arriba).</p>
 </section>
 <section id="sdfgi-caveats">
-<h2>SDFGI caveats<a class="headerlink" href="#sdfgi-caveats" title="Link to this heading"></a></h2>
-<p>SDFGI has some downsides due to its cascaded nature. When the camera moves,
-cascade shifts may be visible in indirect lighting. This can be alleviated
-by adjusting the cascade size, but also by adding fog (which will make distant
-cascade shifts less noticeable).</p>
-<p>Additionally, performance will suffer if the camera moves too fast.
-This can be fixed in two ways:</p>
+<h2>Advertencias y limitaciones de SDFGI<a class="headerlink" href="#sdfgi-caveats" title="Link to this heading"></a></h2>
+<p>SDFGI tiene algunas desventajas debido a su naturaleza en cascadas. Cuando la cámara se mueve, pueden verse cambios de cascada en la iluminación indirecta. Esto se puede aliviar ajustando el tamaño de las cascadas, y también añadiendo niebla (lo que hace que los cambios de cascada lejanos sean menos perceptibles).</p>
+<p>Además, el rendimiento se verá afectado si la cámara se mueve demasiado rápido. Esto se puede solucionar de dos formas:</p>
 <ul class="simple">
-<li><p>Ensuring the camera doesn't move too fast in any given situation.</p></li>
-<li><p>Temporarily disabling SDFGI in the Environment resource if the camera needs
-to be moved at a high speed, then enabling SDFGI once the camera speed slows down.</p></li>
+<li><p>Asegurándose de que la cámara no se mueva demasiado rápido en ninguna situación dada.</p></li>
+<li><p>Deshabilitando temporalmente SDFGI en el recurso Environment si la cámara necesita moverse a gran velocidad, y habilitando nuevamente SDFGI cuando la velocidad de la cámara disminuya.</p></li>
 </ul>
-<p>When SDFGI is enabled, it will also take some time for global illumination
-to be fully converged (25 frames by default). This can create a noticeable transition
-effect while GI is still converging. To hide this, you can use a ColorRect node
-that spans the whole viewport and fade it out when switching scenes using an
-AnimationPlayer node.</p>
-<p>The signed distance field is only updated when the camera moves in and out of a
-cascade. This means that if geometry is modified in the distance, the global
-illumination appearance will be correct once the camera gets closer. However, if
-a nearby object with a bake mode set to <strong>Static</strong> or <strong>Dynamic</strong> is moved (such
-as a door), the global illumination will appear incorrect until the camera moves
-away from the object.</p>
-<p>SDFGI's sharp reflections are only visible on opaque materials. Transparent
-materials will only use rough reflections, even if the material's roughness is
-lower than 0.2.</p>
+<p>Cuando SDFGI está habilitado, también tomará algún tiempo para que la iluminación global converja completamente (25 frames por defecto). Esto puede crear un efecto de transición visible mientras la GI aún está convergiendo. Para ocultar esto, puedes usar un nodo ColorRect que cubra todo el viewport y desvanecerlo al cambiar de escena usando un nodo AnimationPlayer.</p>
+<p>El campo de distancia con signo solo se actualiza cuando la cámara entra y sale de una cascada. Esto significa que si se modifica geometría en la distancia, la apariencia de la iluminación global será correcta una vez que la cámara se acerque. Sin embargo, si se mueve un objeto cercano con un modo de horneado configurado en <strong>Static</strong> o <strong>Dynamic</strong> (como una puerta), la iluminación global se verá incorrecta hasta que la cámara se aleje del objeto.</p>
+<p>Los reflejos nítidos de SDFGI solo son visibles en materiales opacos. Los materiales transparentes solo usarán reflejos rugosos, incluso si la rugosidad del material es menor que 0.2.</p>
 </section>
 </section>
 
@@ -13263,8 +13157,8 @@ lower than 0.2.</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="using_voxel_gi.html" class="btn btn-neutral float-left" title="Using Voxel global illumination" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="using_lightmap_gi.html" class="btn btn-neutral float-right" title="Using Lightmap global illumination" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="using_voxel_gi.html" class="btn btn-neutral float-left" title="Uso de iluminación global por vóxeles (VoxelGI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="using_lightmap_gi.html" class="btn btn-neutral float-right" title="Uso de iluminación global por mapas de luz (LightmapGI)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

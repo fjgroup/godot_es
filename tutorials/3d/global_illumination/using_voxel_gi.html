@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Using Voxel global illumination" />
+<meta property="og:title" content="Uso de iluminación global por vóxeles (VoxelGI)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/global_illumination/using_voxel_gi.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
 <meta property="og:description" content="VoxelGI is a form of fully real-time global illumination, intended to be used for small/medium-scale 3D scenes. VoxelGI is fairly demanding on the GPU, so it&#x27;s best used when targeting dedicat..." />
 <meta name="description" content="VoxelGI is a form of fully real-time global illumination, intended to be used for small/medium-scale 3D scenes. VoxelGI is fairly demanding on the GPU, so it&#x27;s best used when targeting dedicat..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Using Voxel global illumination &mdash; Documentación de Godot Engine (4.x) en español</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Uso de iluminación global por vóxeles (VoxelGI) &mdash; Documentación de Godot Engine (4.x) en español</title>
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -12980,7 +12980,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">3D</a></li>
           <li class="breadcrumb-item"><a href="index.html">Iluminación global</a></li>
-      <li class="breadcrumb-item active">Using Voxel global illumination</li>
+      <li class="breadcrumb-item active">Uso de iluminación global por vóxeles (VoxelGI)</li>
 	</ul>
 </li>
 
@@ -13040,118 +13040,76 @@
 
   
   <section id="using-voxel-global-illumination">
-<span id="doc-using-voxel-gi"></span><h1>Using Voxel global illumination<a class="headerlink" href="#using-voxel-global-illumination" title="Link to this heading"></a></h1>
-<p>VoxelGI is a form of fully real-time global illumination, intended to be used
-for small/medium-scale 3D scenes. VoxelGI is fairly demanding on the GPU, so
-it's best used when targeting dedicated graphics cards.</p>
+<span id="doc-using-voxel-gi"></span><h1>Uso de iluminación global por vóxeles (VoxelGI)<a class="headerlink" href="#using-voxel-global-illumination" title="Link to this heading"></a></h1>
+<p>VoxelGI es una forma de iluminación global completamente en tiempo real, pensada para usarse en escenas 3D de escala pequeña o mediana. VoxelGI es bastante exigente con la GPU, por lo que es mejor usarlo cuando el objetivo son tarjetas gráficas dedicadas.</p>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
-<p>VoxelGI is only supported when using the Forward+ renderer, not the Mobile or
-Compatibility renderers.</p>
+<p>VoxelGI solo es compatible cuando se utiliza el renderizador Forward+, no con los renderizadores Mobile o Compatibility.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>Not sure if VoxelGI is suited to your needs?
-See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a>
-for a comparison of GI techniques available in Godot 4.</p>
+<p>¿No estás seguro de si VoxelGI se adapta a tus necesidades? Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> para obtener una comparación de las técnicas de GI disponibles en Godot 4.</p>
 </div>
 <section id="visual-comparison">
 <h2>Comparaciones visuales<a class="headerlink" href="#visual-comparison" title="Link to this heading"></a></h2>
 <figure class="align-default" id="id1">
 <img alt="VoxelGI disabled." src="../../../_images/gi_none.webp" />
 <figcaption>
-<p><span class="caption-text">VoxelGI disabled.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">VoxelGI desactivado.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id2">
 <img alt="VoxelGI enabled." src="../../../_images/gi_voxel_gi.webp" />
 <figcaption>
-<p><span class="caption-text">VoxelGI enabled.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">VoxelGI activado.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="setting-up-voxelgi">
-<h2>Configurar VoxelGl<a class="headerlink" href="#setting-up-voxelgi" title="Link to this heading"></a></h2>
+<h2>Configurar VoxelGI<a class="headerlink" href="#setting-up-voxelgi" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p>Make sure your static level geometry is imported with the Light Baking option
-set to <strong>Static</strong> or <strong>Static Lightmaps</strong> in the Import dock.
-For manually added MeshInstance3D nodes, make sure the <strong>Global Illumination &gt; Mode</strong>
-property is set to <strong>Static</strong> in the inspector.</p></li>
-<li><p>Create a VoxelGI node in the Scene tree dock.</p></li>
-<li><p>Mueve el nodo VoxelGl al centro del área que quieras cubrir arrastrando el gizmo de manipulación en el viewport 3D. Entonces, ajusta los límites VoxelGl arrastrando los puntos rojos en el viewport 3D (o ajustando los valores en el inspector). Asegúrate de que los límites VoxelGl no son innecesariamente grandes, o la calidad sufrirá.</p></li>
-<li><p>Selecciona el nodo VoxelGl y haz clic en el botón <strong>Bake</strong>, encima del viewport 3D del editor. Esto requerirá al menos un par de segundos (dependiendo en el número de subdivisiones VoxelGl y la complejidad de la escena).</p></li>
+<li><p>Asegúrate de que la geometría estática del nivel se importe con la opción Light Baking configurada en <strong>Static</strong> o <strong>Static Lightmaps</strong> en el panel de Importación. Para los nodos MeshInstance3D agregados manualmente, asegúrate de que la propiedad <strong>Global Illumination &gt; Mode</strong> esté configurada en <strong>Static</strong> en el inspector.</p></li>
+<li><p>Crea un nodo VoxelGI en el panel del árbol de Escena.</p></li>
+<li><p>Mueve el nodo VoxelGI al centro del área que quieras cubrir arrastrando el gizmo de manipulación en el viewport 3D. Luego, ajusta los límites (extents) de VoxelGI arrastrando los puntos rojos en el viewport 3D (o ajustando los valores en el inspector). Asegúrate de que los límites de VoxelGI no sean innecesariamente grandes, o la calidad se verá afectada.</p></li>
+<li><p>Selecciona el nodo VoxelGI y haz clic en el botón <strong>Bake</strong>, encima del viewport 3D del editor. Esto tomará desde un par de segundos (dependiendo del número de subdivisiones de VoxelGI y la complejidad de la escena).</p></li>
 </ol>
-<p>Si al menos una malla contenida dentro de los límites VoxelGl tiene su modo de iluminación global configurado como <strong>Estático</strong>, deberías ver iluminación indirecta aparecer en la escena.</p>
+<p>Si al menos una malla contenida dentro de los límites de VoxelGI tiene su modo de iluminación global configurado como <strong>Static</strong>, deberías ver aparecer la iluminación indirecta en la escena.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Para evitar sobrecargar los ficheros basados en texto de una escena con grandes cantidades de datos binarios, asegúrate de <em>siempre</em> guardar el recurso VoxelGlData a un fichero binario externo. Exte archivo debe ser guardado con extensión <code class="docutils literal notranslate"><span class="pre">.res</span></code> (Recurso binario) y NO con una extensión <code class="docutils literal notranslate"><span class="pre">.tres</span></code> (Recurso basado en texto). Usar un recurso binario externo para recursos VoxelGlData mantendrá tu escena basada en texto pequeña mientras asegura que es guardada y cargada rápidamente.</p>
+<p>Para evitar sobrecargar los archivos de escena basados en texto con grandes cantidades de datos binarios, asegúrate de <em>siempre</em> guardar el recurso VoxelGIData en un archivo binario externo. Este archivo debe guardarse con extensión <code class="docutils literal notranslate"><span class="pre">.res</span></code> (recurso binario) y NO con extensión <code class="docutils literal notranslate"><span class="pre">.tres</span></code> (recurso basado en texto). Usar un recurso binario externo para los recursos VoxelGIData mantendrá pequeña tu escena basada en texto, al tiempo que garantiza que se guarde y cargue rápidamente.</p>
 </div>
 </section>
 <section id="voxelgi-node-properties">
 <h2>Propiedades del nodo VoxelGI<a class="headerlink" href="#voxelgi-node-properties" title="Link to this heading"></a></h2>
-<p>The following properties can be adjusted in the VoxelGI node inspector before
-baking:</p>
+<p>Las siguientes propiedades se pueden ajustar en el inspector del nodo VoxelGI antes de hornear:</p>
 <ul class="simple">
-<li><p><strong>Subdiv:</strong> Valores más altos resultarán en iluminación indirecta más precisa, al coste de un peor rendimiento, tiempos de bakeado más largos, y mayor coste de almacenamiento.</p></li>
-<li><p><strong>Extents:</strong> Representa el tamaño de la caja dentro de la que bakear iluminación indirecta. Estos límites están centrados en torno al nodo de origen VoxelGl.</p></li>
+<li><p><strong>Subdiv:</strong> Valores más altos resultarán en iluminación indirecta más precisa, a costa de un menor rendimiento, tiempos de horneado más largos y mayor uso de memoria.</p></li>
+<li><p><strong>Extents:</strong> Representa el tamaño de la caja dentro de la cual se hornea la iluminación indirecta. Estos límites están centrados alrededor del origen del nodo VoxelGI.</p></li>
 </ul>
-<p>Las propiedades siguientes pueden ser ajustadas en el <em>recurso</em> VoxelGlData que es contenido dentro de un nodo VoxelGl después de que haya sido bakeado:</p>
+<p>Las siguientes propiedades se pueden ajustar en el <em>recurso</em> VoxelGIData que está contenido dentro de un nodo VoxelGI después de que se haya horneado:</p>
 <ul class="simple">
-<li><p><strong>Dynamic Range:</strong> The maximum brightness that can be represented in indirect lighting.
-Higher values make it possible to represent brighter indirect light,
-at the cost of lower precision (which can result in visible banding).
-If in doubt, leave this unchanged.</p></li>
-<li><p><strong>Energy:</strong> The indirect lighting's overall energy. This also effects the energy
-of direct lighting emitted by meshes with emissive materials.</p></li>
-<li><p><strong>Bias:</strong> Optional bias added to lookups into the voxel buffer at runtime.
-This helps avoid self-occlusion artifacts.</p></li>
-<li><p><strong>Normal Bias:</strong> Similar to <strong>Bias</strong>, but offsets the lookup into the voxel buffer
-by the surface normal. This also helps avoid self-occlusion artifacts. Higher
-values reduce self-reflections visible in non-rough materials, at the cost of
-more visible light leaking and flatter-looking indirect lighting. To
-prioritize hiding self-reflections over lighting quality, set <strong>Bias</strong> to
-<code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <strong>Normal Bias</strong> to a value between <code class="docutils literal notranslate"><span class="pre">1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">2.0</span></code>.</p></li>
-<li><p><strong>Propagation:</strong> The energy factor to use for bounced indirect lighting.
-Higher values will result in brighter, more diffuse lighting
-(which may end up looking too flat). When <strong>Use Two Bounces</strong> is enabled,
-you may want to decrease <strong>Propagation</strong> to compensate for the overall brighter
-indirect lighting.</p></li>
-<li><p><strong>Use Two Bounces:</strong> If enabled, lighting will bounce twice instead of just once.
-This results in more realistic-looking indirect lighting, and makes indirect lighting
-visible in reflections as well. Enabling this generally has no noticeable performance cost.</p></li>
-<li><p><strong>Interior:</strong> If enabled, environment sky lighting will not be taken into account by VoxelGI.
-This should be enabled in indoor scenes to avoid light leaking from the environment.</p></li>
+<li><p><strong>Dynamic Range:</strong> El brillo máximo que se puede representar en la iluminación indirecta. Valores más altos permiten representar luz indirecta más brillante, a costa de una menor precisión (lo que puede provocar bandas visibles). En caso de duda, déjalo sin cambios.</p></li>
+<li><p><strong>Energy:</strong> La energía general de la iluminación indirecta. Esto también afecta a la energía de la iluminación directa emitida por mallas con materiales emisivos.</p></li>
+<li><p><strong>Bias:</strong> Desplazamiento opcional (bias) añadido a las consultas en el búfer de vóxeles en tiempo de ejecución. Esto ayuda a evitar artefactos de autooclusión.</p></li>
+<li><p><strong>Normal Bias:</strong> Similar a <strong>Bias</strong>, pero desplaza la consulta en el búfer de vóxeles en la dirección de la normal de la superficie. Esto también ayuda a evitar artefactos de autooclusión. Valores más altos reducen los autorreflejos visibles en materiales no rugosos, a costa de fugas de luz más visibles y una iluminación indirecta de apariencia más plana. Para priorizar la ocultación de autorreflejos sobre la calidad de la iluminación, establece <strong>Bias</strong> en <code class="docutils literal notranslate"><span class="pre">0.0</span></code> y <strong>Normal Bias</strong> en un valor entre <code class="docutils literal notranslate"><span class="pre">1.0</span></code> y <code class="docutils literal notranslate"><span class="pre">2.0</span></code>.</p></li>
+<li><p><strong>Propagation:</strong> El factor de energía a utilizar para la iluminación indirecta rebotada. Valores más altos producirán una iluminación más brillante y difusa (que puede terminar viéndose demasiado plana). Cuando <strong>Use Two Bounces</strong> está habilitado, es posible que desees reducir <strong>Propagation</strong> para compensar la iluminación indirecta más brillante en general.</p></li>
+<li><p><strong>Use Two Bounces:</strong> Si está habilitado, la luz rebotará dos veces en lugar de solo una. Esto produce una iluminación indirecta de aspecto más realista y hace que la iluminación indirecta también sea visible en los reflejos. Habilitar esto generalmente no tiene un costo de rendimiento perceptible.</p></li>
+<li><p><strong>Interior:</strong> Si está habilitado, la iluminación ambiental del cielo no será tomada en cuenta por VoxelGI. Esto debe habilitarse en escenas de interiores para evitar fugas de luz provenientes del entorno exterior.</p></li>
 </ul>
 </section>
 <section id="voxelgi-interaction-with-lights-and-objects">
 <h2>Interacción de VoxelGI con luces y objetos<a class="headerlink" href="#voxelgi-interaction-with-lights-and-objects" title="Link to this heading"></a></h2>
-<p>To ensure correct visuals when using VoxelGI, you must configure your meshes
-and lights' global illumination properties according to their <em>purpose</em> in the
-scene (static or dynamic).</p>
-<p>There are 3 global illumination modes available for meshes:</p>
+<p>Para asegurar visuales correctos al usar VoxelGI, debes configurar las propiedades de iluminación global de tus mallas y luces de acuerdo con su <em>propósito</em> en la escena (estático o dinámico).</p>
+<p>Hay 3 modos de iluminación global disponibles para mallas:</p>
 <ul class="simple">
-<li><p><strong>Disabled:</strong> The mesh won't be taken into account for VoxelGI baking.
-The mesh will <em>receive</em> indirect lighting from the scene, but it will not
-<em>contribute</em> indirect lighting to the scene.</p></li>
-<li><p><strong>Static (default):</strong> The mesh will be taken into account for VoxelGI baking. The mesh will
-both receive <em>and</em> contribute indirect lighting to the scene. If the mesh
-is changed in any way after baking, the VoxelGI node must be baked again.
-Otherwise, indirect lighting will look incorrect.</p></li>
-<li><p><strong>Dynamic:</strong> The mesh won't be taken into account for VoxelGI baking, but it will
-still receive <em>and</em> contribute indirect lighting to the scene in real-time.
-This option is much slower compared to <strong>Static</strong>. Only use the <strong>Dynamic</strong>
-global illumination mode on large meshes that will change significantly during gameplay.</p></li>
+<li><p><strong>Disabled:</strong> La malla no será tomada en cuenta para el horneado de VoxelGI. La malla <em>recibirá</em> iluminación indirecta de la escena, pero no <em>contribuirá</em> con iluminación indirecta a la escena.</p></li>
+<li><p><strong>Static (por defecto):</strong> La malla será tomada en cuenta para el horneado de VoxelGI. La malla tanto recibirá <em>como</em> contribuirá con iluminación indirecta a la escena. Si la malla se modifica de alguna manera después de hornear, el nodo VoxelGI debe hornearse nuevamente; de lo contrario, la iluminación indirecta se verá incorrecta.</p></li>
+<li><p><strong>Dynamic:</strong> La malla no será tomada en cuenta para el horneado de VoxelGI, pero aún recibirá <em>y</em> contribuirá con iluminación indirecta a la escena en tiempo real. Esta opción es mucho más lenta en comparación con <strong>Static</strong>. Usa únicamente el modo de iluminación global <strong>Dynamic</strong> en mallas grandes que cambien significativamente durante el juego.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>For meshes with the <strong>Static</strong> bake mode, the VoxelGI baking system is not able
-to make use of custom shaders (<a class="reference internal" href="../../../classes/class_shadermaterial.html#class-shadermaterial"><span class="std std-ref">ShaderMaterial</span></a>). These meshes will be
-considered to be pure black, only acting as light blockers. You can make
-VoxelGI take custom shaders into account by using the <strong>Dynamic</strong> bake mode
-for these objects, but this has a performance cost.</p>
-<p>For <a class="reference internal" href="../../../classes/class_basematerial3d.html#class-basematerial3d"><span class="std std-ref">BaseMaterial3D</span></a>, some properties are currently ignored during baking.
-This can impact visuals if the material's albedo or emission texture was designed
-around using certain UV mappings:</p>
+<p>Para mallas con el modo de horneado <strong>Static</strong>, el sistema de horneado de VoxelGI no puede hacer uso de shaders personalizados (<a class="reference internal" href="../../../classes/class_shadermaterial.html#class-shadermaterial"><span class="std std-ref">ShaderMaterial</span></a>). Estas mallas se considerarán de color negro puro, actuando únicamente como bloqueadores de luz. Puedes hacer que VoxelGI tome en cuenta los shaders personalizados utilizando el modo de horneado <strong>Dynamic</strong> para estos objetos, pero esto conlleva un costo de rendimiento.</p>
+<p>Para <a class="reference internal" href="../../../classes/class_basematerial3d.html#class-basematerial3d"><span class="std std-ref">BaseMaterial3D</span></a>, algunas propiedades se ignoran actualmente durante el horneado. Esto puede afectar la apariencia visual si la textura de albedo o de emisión del material se diseñó utilizando ciertas asignaciones UV:</p>
 <ul class="simple">
 <li><p><strong>UV1 &gt; Offset</strong></p></li>
 <li><p><strong>UV1 &gt; Scale</strong></p></li>
@@ -13159,85 +13117,43 @@ around using certain UV mappings:</p>
 <li><p><strong>Emission &gt; On UV2</strong></p></li>
 </ul>
 </div>
-<p>Additionally, there are 3 bake modes available for lights
-(DirectionalLight3D, OmniLight3D and SpotLight3D):</p>
+<p>Además, hay 3 modos de horneado disponibles para luces (DirectionalLight3D, OmniLight3D y SpotLight3D):</p>
 <ul class="simple">
-<li><p><strong>Disabled:</strong> The light won't be taken into account for VoxelGI baking.
-The light won't contribute indirect lighting to the scene.</p></li>
-<li><p><strong>Static:</strong> The light will be taken into account for VoxelGI baking.
-The light will contribute indirect lighting to the scene. If the light
-is changed in any way after baking, the VoxelGI node must be baked again or
-indirect lighting will look incorrect. If in doubt, use this mode for level lighting.</p></li>
-<li><p><strong>Dynamic (default):</strong> The light won't be taken into account for VoxelGI baking,
-but it will still contribute indirect lighting to the scene in real-time.
-This option is slower compared to <strong>Static</strong>. Only use the <strong>Dynamic</strong> global
-illumination mode on lights that will change significantly during gameplay.</p></li>
+<li><p><strong>Disabled:</strong> La luz no se tomará en cuenta para el horneado de VoxelGI. La luz no contribuirá con iluminación indirecta a la escena.</p></li>
+<li><p><strong>Static:</strong> La luz se tomará en cuenta para el horneado de VoxelGI. La luz contribuirá con iluminación indirecta a la escena. Si la luz se modifica de alguna manera después de hornear, el nodo VoxelGI debe hornearse de nuevo o la iluminación indirecta se verá incorrecta. En caso de duda, utiliza este modo para la iluminación del nivel.</p></li>
+<li><p><strong>Dynamic (por defecto):</strong> La luz no se tomará en cuenta para el horneado de VoxelGI, pero seguirá contribuyendo con iluminación indirecta a la escena en tiempo real. Esta opción es más lenta en comparación con <strong>Static</strong>. Usa únicamente el modo de iluminación global <strong>Dynamic</strong> en luces que cambien significativamente durante el juego.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The amount of indirect energy emitted by a light depends on its color,
-energy <em>and</em> indirect energy properties. To make a specific light emit more
-or less indirect energy without affecting the amount of direct light emitted
-by the light, adjust the <strong>Indirect Energy</strong> property in the Light3D inspector.</p>
+<p>La cantidad de energía indirecta emitida por una luz depende de sus propiedades de color, energía <em>y</em> energía indirecta. Para hacer que una luz específica emita más o menos energía indirecta sin afectar la cantidad de luz directa emitida por la misma, ajusta la propiedad <strong>Indirect Energy</strong> en el inspector de Light3D.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-gi-mode-recommendations"><span class="std std-ref">Which global illumination mode should I use on meshes and lights?</span></a>
-for general usage recommendations.</p>
+<p>Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-gi-mode-recommendations"><span class="std std-ref">¿Qué modo de iluminación global debo usar en mallas y luces?</span></a> para recomendaciones de uso general.</p>
 </div>
 </section>
 <section id="adjusting-voxelgi-performance-and-quality">
-<h2>Adjusting VoxelGI performance and quality<a class="headerlink" href="#adjusting-voxelgi-performance-and-quality" title="Link to this heading"></a></h2>
-<p>Since VoxelGI is relatively demanding, it will perform best on systems with recent
-dedicated GPUs. On older dedicated GPUs and integrated graphics,
-tweaking the settings is necessary to achieve reasonable performance.</p>
-<p>In the Project Settings' <strong>Rendering &gt; Global Illumination</strong> section,
-VoxelGI quality can also be adjusted in two ways:</p>
+<h2>Ajustar el rendimiento y la calidad de VoxelGI<a class="headerlink" href="#adjusting-voxelgi-performance-and-quality" title="Link to this heading"></a></h2>
+<p>Dado que VoxelGI es relativamente exigente, funcionará mejor en sistemas con GPUs dedicadas recientes. En GPUs dedicadas más antiguas y gráficos integrados, es necesario ajustar la configuración para lograr un rendimiento razonable.</p>
+<p>En la sección <strong>Rendering &gt; Global Illumination</strong> de la Configuración del Proyecto, la calidad de VoxelGI también se puede ajustar de dos formas:</p>
 <ul class="simple">
-<li><p><strong>Voxel Gi &gt; Quality:</strong> If set to <strong>Low</strong>
-instead of <strong>High</strong>, voxel cone tracing will only use 4 taps instead of 6.
-This speeds up rendering at the cost of less pronounced ambient occlusion.</p></li>
-<li><p><strong>Gi &gt; Use Half Resolution:</strong> If enabled, both VoxelGI and SDFGI will have
-their GI buffer rendering at halved resolution. For instance, when rendering
-in 3840×2160, the GI buffer will be computed at a 1920×1080 resolution.
-Enabling this option saves a lot of GPU time, but it can introduce visible
-aliasing around thin details.</p></li>
+<li><p><strong>Voxel Gi &gt; Quality:</strong> Si se establece en <strong>Low</strong> en lugar de <strong>High</strong>, el trazado de conos de vóxeles (voxel cone tracing) solo utilizará 4 muestras en lugar de 6. Esto acelera el renderizado a costa de una oclusión ambiental menos pronunciada.</p></li>
+<li><p><strong>Gi &gt; Use Half Resolution:</strong> Si está habilitado, tanto VoxelGI como SDFGI renderizarán su búfer de GI a la mitad de resolución. Por ejemplo, al renderizar a 3840×2160, el búfer de GI se calculará a una resolución de 1920×1080. Habilitar esta opción ahorra mucho tiempo de GPU, pero puede introducir aliasing visible alrededor de detalles delgados.</p></li>
 </ul>
-<p>Note that the <strong>Advanced</strong> toggle must be enabled in the project settings dialog
-for the above settings to be visible.</p>
-<p>Additionally, VoxelGI can be disabled entirely by hiding the VoxelGI node.
-This can be used for comparison purposes or to improve performance on low-end systems.</p>
+<p>Ten en cuenta que el interruptor <strong>Advanced</strong> debe estar habilitado en el diálogo de Configuración del Proyecto para que los ajustes anteriores sean visibles.</p>
+<p>Además, VoxelGI se puede deshabilitar por completo ocultando el nodo VoxelGI. Esto se puede utilizar con fines de comparación o para mejorar el rendimiento en sistemas de gama baja.</p>
 </section>
 <section id="reducing-voxelgi-light-leaks-and-artifacts">
-<h2>Reducing VoxelGI light leaks and artifacts<a class="headerlink" href="#reducing-voxelgi-light-leaks-and-artifacts" title="Link to this heading"></a></h2>
-<p>After baking VoxelGI, you may notice indirect light is leaking at some spots
-in your level geometry. This can be remedied in several ways:</p>
+<h2>Reducir fugas de luz y artefactos de VoxelGI<a class="headerlink" href="#reducing-voxelgi-light-leaks-and-artifacts" title="Link to this heading"></a></h2>
+<p>Después de hornear VoxelGI, es posible que notes que la luz indirecta se filtra en algunos puntos de la geometría de tu nivel. Esto se puede solucionar de varias maneras:</p>
 <ul class="simple">
-<li><p>For both light leaking and artifacts, try moving or rotating the VoxelGI node
-then bake it again.</p></li>
-<li><p>To combat light leaking in general, ensure your level geometry is fully sealed.
-This is best done in the 3D modeling software used to design the level,
-but primitive MeshInstance3D nodes with their global illumination mode set to
-<strong>Static</strong> can also be used.</p></li>
-<li><p>To combat light leaking with thin geometry, it's recommended to make the geometry
-in question thicker. If this is not possible, then add a primitive MeshInstance3D
-node with its global illumination mode set to <strong>Static</strong>. Bake VoxelGI again,
-then hide the primitive MeshInstance3D node (it will still be taken into account by VoxelGI).
-For optimal results, the MeshInstance3D should have a material whose color
-matches the original thin geometry.</p></li>
-<li><p>To combat artifacts that can appear on reflective surfaces, try increasing
-<strong>Bias</strong> and/or <strong>Normal Bias</strong> in the VoxelGIData resource as described above.
-Do not increase these values too high, or light leaking will become more pronounced.</p></li>
+<li><p>Tanto para fugas de luz como para artefactos, intenta mover o rotar el nodo VoxelGI y luego hornéalo nuevamente.</p></li>
+<li><p>Para combatir las fugas de luz en general, asegúrate de que la geometría del nivel esté completamente sellada. Esto se hace mejor en el software de modelado 3D utilizado para diseñar el nivel, pero también se pueden usar nodos MeshInstance3D primitivos con su modo de iluminación global configurado en <strong>Static</strong>.</p></li>
+<li><p>Para combatir fugas de luz con geometría delgada, se recomienda hacer más gruesa la geometría en cuestión. Si esto no es posible, agrega un nodo MeshInstance3D primitivo con su modo de iluminación global establecido en <strong>Static</strong>. Hornea VoxelGI nuevamente y luego oculta el nodo MeshInstance3D primitivo (VoxelGI aún lo tomará en cuenta). Para obtener resultados óptimos, el MeshInstance3D debe tener un material cuyo color coincida con la geometría delgada original.</p></li>
+<li><p>Para combatir los artefactos que pueden aparecer en superficies reflectantes, intenta aumentar <strong>Bias</strong> y/o <strong>Normal Bias</strong> en el recurso VoxelGIData como se describió anteriormente. No aumentes demasiado estos valores, o las fugas de luz se volverán más pronunciadas.</p></li>
 </ul>
-<p>If you notice VoxelGI nodes popping in and out of existence as the camera moves,
-this is most likely because the engine is rendering too many VoxelGI instances
-at once. Godot is limited to rendering 8 VoxelGI nodes at once, which means up
-to 8 instances can be in the camera view before some of them will start
-flickering.</p>
-<p>Additionally, for performance reasons, Godot can only blend between 2 VoxelGI
-nodes at a given pixel on the screen. If you have more than 2 VoxelGI nodes
-overlapping, global illumination may appear to flicker as the camera moves or
-rotates.</p>
+<p>Si notas que los nodos VoxelGI aparecen y desaparecen a medida que se mueve la cámara, lo más probable es que el motor esté renderizando demasiadas instancias de VoxelGI a la vez. Godot está limitado a renderizar 8 nodos VoxelGI simultáneamente, lo que significa que pueden haber hasta 8 instancias en la vista de la cámara antes de que algunas comiencen a parpadear.</p>
+<p>Además, por razones de rendimiento, Godot solo puede mezclar entre 2 nodos VoxelGI en un píxel determinado de la pantalla. Si tienes más de 2 nodos VoxelGI superpuestos, la iluminación global puede parecer parpadear a medida que la cámara se mueve o rota.</p>
 </section>
 </section>
 
@@ -13247,7 +13163,7 @@ rotates.</p>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="introduction_to_global_illumination.html" class="btn btn-neutral float-left" title="Introducción a la iluminación global" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="using_sdfgi.html" class="btn btn-neutral float-right" title="Signed distance field global illumination (SDFGI)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="using_sdfgi.html" class="btn btn-neutral float-right" title="Iluminación global por campos de distancia con signo (SDFGI)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

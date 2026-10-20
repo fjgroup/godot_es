@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Faking global illumination" />
+<meta property="og:title" content="Simulación de iluminación global" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/global_illumination/faking_global_illumination.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
-<meta property="og:description" content="Why fake global illumination?: Godot provides several global illumination (GI) techniques, all with their advantages and drawbacks. Nonetheless, it remains possible to avoid using any GI technique ..." />
-<meta name="description" content="Why fake global illumination?: Godot provides several global illumination (GI) techniques, all with their advantages and drawbacks. Nonetheless, it remains possible to avoid using any GI technique ..." />
+<meta property="og:description" content="¿Por qué simular la iluminación global?: Godot ofrece varias técnicas de iluminación global (GI), todas con sus ventajas y desventajas. No obstante, sigue siendo posible evitar el uso de cualquier técnica de GI y utilizar en su lugar un enfoque artesanal..." />
+<meta name="description" content="¿Por qué simular la iluminación global?: Godot ofrece varias técnicas de iluminación global (GI), todas con sus ventajas y desventajas. No obstante, sigue siendo posible evitar el uso de cualquier técnica de GI y utilizar en su lugar un enfoque artesanal..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Faking global illumination &mdash; Documentación de Godot Engine (4.x) en español</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Simulación de iluminación global &mdash; Documentación de Godot Engine (4.x) en español</title>
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
@@ -36,7 +36,7 @@
     <link rel="index" title="Índice" href="../../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../../search.html" />
     <link rel="next" title="Entorno y post proceso" href="../environment_and_post_processing.html" />
-    <link rel="prev" title="Reflection Probe" href="reflection_probes.html" />
+    <link rel="prev" title="Sondas de reflexión (ReflectionProbes)" href="reflection_probes.html" />
 <meta name="doc_version" content="4.x" />
 <meta name="doc_is_latest" content="True" />
 <meta name="doc_pagename" content="tutorials/3d/global_illumination/faking_global_illumination" />
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -12980,7 +12980,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">3D</a></li>
           <li class="breadcrumb-item"><a href="index.html">Iluminación global</a></li>
-      <li class="breadcrumb-item active">Faking global illumination</li>
+      <li class="breadcrumb-item active">Simulación de iluminación global</li>
 	</ul>
 </li>
 
@@ -13040,92 +13040,52 @@
 
   
   <section id="faking-global-illumination">
-<span id="doc-faking-global-illumination"></span><h1>Faking global illumination<a class="headerlink" href="#faking-global-illumination" title="Link to this heading"></a></h1>
+<span id="doc-faking-global-illumination"></span><h1>Simulación de iluminación global<a class="headerlink" href="#faking-global-illumination" title="Link to this heading"></a></h1>
 <section id="why-fake-global-illumination">
-<h2>Why fake global illumination?<a class="headerlink" href="#why-fake-global-illumination" title="Link to this heading"></a></h2>
-<p>Godot provides several global illumination (GI) techniques, all with their advantages
-and drawbacks. Nonetheless, it remains possible to avoid using any GI technique
-and use a handmade approach instead. There are a few reasons for using a
-&quot;handmade&quot; approach to global illumination instead of VoxelGI, SDFGI or
-baked lightmaps:</p>
+<h2>¿Por qué simular la iluminación global?<a class="headerlink" href="#why-fake-global-illumination" title="Link to this heading"></a></h2>
+<p>Godot ofrece varias técnicas de iluminación global (GI), todas con sus ventajas y desventajas. No obstante, sigue siendo posible evitar el uso de cualquier técnica de GI y utilizar en su lugar un enfoque artesanal. Hay algunas razones para usar un enfoque &quot;artesanal&quot; para la iluminación global en lugar de VoxelGI, SDFGI o mapas de luz horneados (lightmaps):</p>
 <ul class="simple">
-<li><p>You need to have good rendering performance, but can't afford going through
-a potentially cumbersome lightmap baking process.</p></li>
-<li><p>You need an approach to GI that is fully real-time <em>and</em> works in procedurally
-generated levels.</p></li>
-<li><p>You need an approach to GI that is fully real-time <em>and</em> does not suffer from
-significant light leaks.</p></li>
+<li><p>Necesitas tener un buen rendimiento de renderizado, pero no puedes permitirte pasar por un proceso de horneado de lightmaps potencialmente engorroso.</p></li>
+<li><p>Necesitas un enfoque de GI que sea completamente en tiempo real <em>y</em> que funcione en niveles generados procedimentalmente.</p></li>
+<li><p>Necesitas un enfoque de GI que sea completamente en tiempo real <em>y</em> que no sufra fugas de luz significativas.</p></li>
 </ul>
-<p>The approaches described below only cover indirect diffuse lighting, not
-specular lighting. For specular lighting, consider using ReflectionProbes which
-are usually cheap enough to be used in conjunction with this fake GI approach.</p>
+<p>Los enfoques descritos a continuación solo cubren la iluminación difusa indirecta, no la iluminación especular. Para la iluminación especular, considera utilizar ReflectionProbes, que generalmente son lo suficientemente económicos como para usarse junto con este enfoque de simulación de GI.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>Not sure if faking global illumination with lights is suited to your needs?
-See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> for a
-comparison of GI techniques available in Godot 4.</p>
+<p>¿No estás seguro de si simular la iluminación global con luces se adapta a tus necesidades?
+Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> para una comparación de las técnicas de GI disponibles en Godot 4.</p>
 </div>
 </section>
 <section id="faking-directionallight3d-global-illumination">
-<h2>Faking DirectionalLight3D global illumination<a class="headerlink" href="#faking-directionallight3d-global-illumination" title="Link to this heading"></a></h2>
-<p>While the sky provides its own directional lighting, the scene's main DirectionalLight3D
-node typically emits a large amount of light. When using a GI technique, this light
-would be reflected on solid surfaces and would bounce back on most outdoors shaded surfaces.</p>
-<p>We can fake this by adding a second DirectionalLight3D node with the following changes:</p>
+<h2>Simulación de iluminación global con DirectionalLight3D<a class="headerlink" href="#faking-directionallight3d-global-illumination" title="Link to this heading"></a></h2>
+<p>Si bien el cielo proporciona su propia iluminación direccional, el nodo DirectionalLight3D principal de la escena generalmente emite una gran cantidad de luz. Al utilizar una técnica de GI, esta luz se reflejaría en superficies sólidas y rebotaría en la mayoría de las superficies sombreadas en exteriores.</p>
+<p>Podemos simular esto añadiendo un segundo nodo DirectionalLight3D con los siguientes cambios:</p>
 <ul class="simple">
-<li><p>Rotate the light by 180 degrees. This allows it to represent lighting bounced
-by the main DirectionalLight3D node.</p></li>
-<li><p>Set <strong>Shadows</strong> to <strong>Off</strong>. This reduces the secondary light's performance burden
-while also allowing shaded areas to receive <em>some</em> lighting (which is what we want here).</p></li>
-<li><p>Set <strong>Energy</strong> to 10-40% of the original value. There is no &quot;perfect&quot; value,
-so experiment with various energy values depending on the light and your typical
-material colors.</p></li>
-<li><p>Set <strong>Specular</strong> to <code class="docutils literal notranslate"><span class="pre">0.0</span></code>. Indirect lighting shouldn't emit visible specular
-lobes, so we need to disable specular lighting entirely for the secondary light.</p></li>
+<li><p>Rota la luz 180 grados. Esto le permite representar la iluminación rebotada por el nodo DirectionalLight3D principal.</p></li>
+<li><p>Establece <strong>Shadows</strong> en <strong>Off</strong> (Desactivado). Esto reduce la carga de rendimiento de la luz secundaria al tiempo que permite que las áreas sombreadas reciban <em>algo</em> de iluminación (que es lo que buscamos aquí).</p></li>
+<li><p>Establece <strong>Energy</strong> entre el 10% y el 40% del valor original. No existe un valor &quot;perfecto&quot;, así que experimenta con varios valores de energía según la luz y los colores típicos de tus materiales.</p></li>
+<li><p>Establece <strong>Specular</strong> en <code class="docutils literal notranslate"><span class="pre">0.0</span></code>. La iluminación indirecta no debería emitir lóbulos especulares visibles, por lo que debemos deshabilitar la iluminación especular por completo en la luz secundaria.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>This approach works best in scenes that are mostly outdoors. When going indoors,
-the secondary DirectionalLight3D's light will still be visible as this light
-has shadows disabled.</p>
-<p>This can be worked around by smoothly decreasing the secondary DirectionalLight3D's
-energy when entering an indoor area (and doing the opposite when leaving the indoor area).
-For instance, this can be achieved using an Area3D node and AnimationPlayer.</p>
+<p>Este enfoque funciona mejor en escenas que son principalmente en exteriores. Al entrar a interiores, la luz del DirectionalLight3D secundario seguirá siendo visible, ya que esta luz tiene las sombras deshabilitadas.</p>
+<p>Esto se puede solucionar reduciendo suavemente la energía del DirectionalLight3D secundario al ingresar a un área interior (y haciendo lo contrario al salir del área interior). Por ejemplo, esto se puede lograr utilizando un nodo Area3D y un AnimationPlayer.</p>
 </div>
 </section>
 <section id="faking-positional-light-global-illumination">
-<h2>Faking positional light global illumination<a class="headerlink" href="#faking-positional-light-global-illumination" title="Link to this heading"></a></h2>
-<p>It's possible to follow the same approach as DirectionalLight3D for positional
-lights (OmniLight3D and SpotLight3D). However, this will require more manual
-work as this operation needs to be repeated for every positional light node in
-the scene to look good.</p>
-<p>In an ideal scenario, additional OmniLight3Ds should be added at every location
-where a significant amount of light hits a bright enough surface. However, due
-to time constraints, this isn't always easily feasible (especially when
-performing procedural level generation).</p>
-<p>If you're in a hurry, you can place a secondary OmniLight3D node at the same position
-as the main OmniLight3D node.
-You can add this node as a child of the main OmniLight3D node to make it easy to
-move and hide both nodes at the same time.</p>
-<p>In the secondary OmniLight3D node, perform the following changes:</p>
+<h2>Simulación de iluminación global con luces posicionales<a class="headerlink" href="#faking-positional-light-global-illumination" title="Link to this heading"></a></h2>
+<p>Es posible seguir el mismo enfoque que con DirectionalLight3D para las luces posicionales (OmniLight3D y SpotLight3D). Sin embargo, esto requerirá más trabajo manual, ya que esta operación debe repetirse para cada nodo de luz posicional en la escena para que se vea bien.</p>
+<p>En un escenario ideal, se deberían añadir OmniLight3D adicionales en cada ubicación donde una cantidad significativa de luz incida sobre una superficie lo suficientemente brillante. Sin embargo, debido a limitaciones de tiempo, esto no siempre es fácilmente factible (especialmente al realizar generación procedimental de niveles).</p>
+<p>Si tienes prisa, puedes colocar un nodo OmniLight3D secundario en la misma posición que el nodo OmniLight3D principal. Puedes añadir este nodo como hijo del nodo OmniLight3D principal para facilitar el movimiento y la ocultación de ambos nodos al mismo tiempo.</p>
+<p>En el nodo OmniLight3D secundario, realiza los siguientes cambios:</p>
 <ul class="simple">
-<li><p>Increase the light's <strong>Range</strong> by 25-50%. This allows the secondary light to lighten
-what was previously not lit by the original light.</p></li>
-<li><p>Set <strong>Shadows</strong> to <strong>Off</strong>. This reduces the secondary light's performance burden
-while also allowing shaded areas to receive <em>some</em> lighting (which is what we want here).</p></li>
-<li><p>Set <strong>Energy</strong> to 10-40% of the original value. There is no &quot;perfect&quot; value,
-so experiment with various energy values depending on the light and its surroundings.</p></li>
-<li><p>Set <strong>Specular</strong> to 0. Indirect lighting shouldn't emit visible specular lobes,
-so we need to disable specular lighting entirely for the secondary light.</p></li>
+<li><p>Aumenta el <strong>Range</strong> de la luz en un 25-50%. Esto permite que la luz secundaria ilumine lo que antes no estaba iluminado por la luz original.</p></li>
+<li><p>Establece <strong>Shadows</strong> en <strong>Off</strong> (Desactivado). Esto reduce la carga de rendimiento de la luz secundaria al tiempo que permite que las áreas sombreadas reciban <em>algo</em> de iluminación (que es lo que buscamos aquí).</p></li>
+<li><p>Establece <strong>Energy</strong> entre el 10% y el 40% del valor original. No existe un valor &quot;perfecto&quot;, así que experimenta con varios valores de energía según la luz y su entorno.</p></li>
+<li><p>Establece <strong>Specular</strong> en 0. La iluminación indirecta no debería emitir lóbulos especulares visibles, por lo que debemos desactivar la iluminación especular por completo en la luz secundaria.</p></li>
 </ul>
-<p>For SpotLight3D, the same trick can be used. In this case, the secondary OmniLight3D
-should be placed in a way that reflects where <em>most</em> light will be bounced.
-This is usually close to the SpotLight3D's primary impact location.</p>
-<p>In the example below, a SpotLight3D node is used to light up the room's floor.
-However, since there is no indirect lighting, the rest of the room remains
-entirely dark. In real life, the room's walls and ceiling would be lit up by
-light bouncing around. Using an OmniLight3D node positioned between the
-SpotLight3D's origin and the floor allows simulating this effect:</p>
+<p>Para SpotLight3D, se puede utilizar el mismo truco. En este caso, el OmniLight3D secundario debe colocarse de manera que refleje dónde rebotará la <em>mayor parte</em> de la luz. Esto suele estar cerca del lugar de impacto principal del SpotLight3D.</p>
+<p>En el siguiente ejemplo, se utiliza un nodo SpotLight3D para iluminar el suelo de la habitación. Sin embargo, dado que no hay iluminación indirecta, el resto de la habitación permanece completamente a oscuras. En la vida real, las paredes y el techo de la habitación se iluminarían con la luz que rebota. El uso de un nodo OmniLight3D posicionado entre el origen del SpotLight3D y el suelo permite simular este efecto:</p>
 <img alt="../../../_images/faking_global_illumination_comparison.webp" src="../../../_images/faking_global_illumination_comparison.webp" />
 </section>
 </section>
@@ -13135,7 +13095,7 @@ SpotLight3D's origin and the floor allows simulating this effect:</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="reflection_probes.html" class="btn btn-neutral float-left" title="Reflection Probe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="reflection_probes.html" class="btn btn-neutral float-left" title="Sondas de reflexión (ReflectionProbes)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
         <a href="../environment_and_post_processing.html" class="btn btn-neutral float-right" title="Entorno y post proceso" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

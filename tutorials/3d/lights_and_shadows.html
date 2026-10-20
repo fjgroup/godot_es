@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="global_illumination/index.html">Iluminación global</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="global_illumination/introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -13046,7 +13046,7 @@
 <ul class="simple">
 <li><p>Del propio material, en forma de color de emisión (aunque no afecta a los objetos cercanos a menos que se habilite la iluminación indirecta del espacio de la pantalla o horneada).</p></li>
 <li><p>Nodos de luz: DirectionalLight3D, OmniLight3D y SpotLight3D.</p></li>
-<li><p>Luz Ambiental en <a class="reference internal" href="../../classes/class_environment.html#class-environment"><span class="std std-ref">Environment</span></a> o <a class="reference internal" href="global_illumination/reflection_probes.html#doc-reflection-probes"><span class="std std-ref">Reflection Probe</span></a>.</p></li>
+<li><p>Luz Ambiental en <a class="reference internal" href="../../classes/class_environment.html#class-environment"><span class="std std-ref">Environment</span></a> o <a class="reference internal" href="global_illumination/reflection_probes.html#doc-reflection-probes"><span class="std std-ref">Sondas de reflexión (ReflectionProbes)</span></a>.</p></li>
 <li><p>Iluminación global (<a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">LightmapGI</span></a>, <a class="reference internal" href="global_illumination/using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> o <a class="reference internal" href="global_illumination/using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a>).</p></li>
 </ul>
 <p>El color de emisión es una propiedad del material. Puedes leer más sobre ello en el tutorial <a class="reference internal" href="standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a>.</p>
@@ -13064,11 +13064,11 @@
 <ul class="simple">
 <li><p><strong>Color</strong>: Color base para la luz emitida.</p></li>
 <li><p><strong>Energía</strong>: Multiplicador de energía. Resulta útil para saturar luces o para trabajar con <a class="reference internal" href="high_dynamic_range.html#doc-high-dynamic-range"><span class="std std-ref">Iluminación de alto rango dinámico</span></a>.</p></li>
-<li><p><strong>Energía indirecta:</strong> Multiplicador secundario utilizado con luz indirecta (rebote de luz). Funciona con <a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">Using Lightmap global illumination</span></a>, VoxelGI o SDFGI.</p></li>
+<li><p><strong>Energía indirecta:</strong> Multiplicador secundario utilizado con luz indirecta (rebote de luz). Funciona con <a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">Uso de iluminación global por mapas de luz (LightmapGI)</span></a>, VoxelGI o SDFGI.</p></li>
 <li><p><strong>Energía de niebla volumétrica:</strong> Multiplicador secundario utilizado con la niebla volumétrica. Esto solo tiene efecto cuando la niebla volumétrica está activada.</p></li>
 <li><p><strong>Negativa:</strong> La luz se vuelve sustractiva en lugar de aditiva. A veces resulta útil compensar manualmente algunas esquinas oscuras.</p></li>
 <li><p><strong>Especular:</strong> Afecta la intensidad de la mancha especular en los objetos afectados por esta luz. En cero, esta luz se convierte en una luz difusa pura.</p></li>
-<li><p><strong>Bake Mode:</strong> Establece el modo de &quot;bake&quot; para la luz. Véase <a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">Using Lightmap global illumination</span></a>.</p></li>
+<li><p><strong>Bake Mode:</strong> Establece el modo de &quot;bake&quot; para la luz. Véase <a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">Uso de iluminación global por mapas de luz (LightmapGI)</span></a>.</p></li>
 <li><p><strong>Cull Mask:</strong> Los objetos que se encuentren en las capas seleccionadas a continuación se verán afectados por esta luz.
 Ten en cuenta que los objetos desactivados mediante esta máscara de exclusión seguirán proyectando sombras.
 Si no deseas que los objetos desactivados proyecten sombras, ajusta la propiedad <strong>Cast Shadow</strong> en el GeometryInstance3D al valor deseado.</p></li>

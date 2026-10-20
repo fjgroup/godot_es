@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="global_illumination/index.html">Iluminación global</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="global_illumination/introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="global_illumination/faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="global_illumination/faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -13057,19 +13057,14 @@
 <h2>Las pantallas de los ordenadores<a class="headerlink" href="#computer-displays" title="Link to this heading"></a></h2>
 <p>Casi todas las pantallas requieren una codificación no lineal para los valores del código que se les envía. La pantalla, a su vez, utilizando su característica de transferencia única, &quot;decodifica&quot; el valor del código en ratios de luz lineal de salida, y proyecta los ratios de las luces de color único en cada sitio de emisión rojizo, verdoso y azulado.</p>
 <p>Para la mayoría de las pantallas de ordenador, las especificaciones de la pantalla se describen de acuerdo con la norma IEC 61966-2-1, también conocida como la especificación sRGB de 1996. Esta especificación describe cómo debe comportarse una pantalla sRGB, incluyendo el color de las luces de los píxeles LED, así como las características de transferencia de la entrada (OETF) y la salida (EOTF).</p>
-<p>Not all displays use the same OETF and EOTF as a computer display.
-For example, television broadcast displays use the BT.1886 EOTF.
-However, Godot only supports sRGB and HDR displays.</p>
+<p>No todas las pantallas utilizan las mismas OETF y EOTF que una pantalla de ordenador. Por ejemplo, las pantallas de difusión televisiva utilizan la EOTF BT.1886. Sin embargo, Godot solo admite pantallas sRGB y HDR.</p>
 <p>El estándar sRGB se basa en la relación no lineal entre la corriente y la salida de luz de las pantallas CRT comunes de los ordenadores de sobremesa.</p>
 <img alt="../../_images/hdr_gamma.png" src="../../_images/hdr_gamma.png" />
 <p>Las matemáticas de un modelo de referencia de la escena requieren que multipliquemos la escena por diferentes valores para ajustar las intensidades y la exposición a diferentes rangos de luz. La función de transferencia de la pantalla no puede representar adecuadamente el rango dinámico más amplio de la salida de la escena del motor del juego usando la simple función de transferencia de la pantalla. Se requiere un enfoque más complejo de la codificación.</p>
 </section>
 <section id="scene-linear-asset-pipelines">
 <h2>Escena lineal y producción de assets<a class="headerlink" href="#scene-linear-asset-pipelines" title="Link to this heading"></a></h2>
-<p>Working in scene-linear sRGB is more complex than pressing a single switch. First,
-imported image assets must be converted to linear light ratios on import. Even
-when linearized, those assets may not be perfectly well-suited for use
-as textures, depending on how they were generated.</p>
+<p>Trabajar en sRGB lineal respecto a la escena es más complejo que presionar un solo interruptor. Primero, los assets de imagen importados deben convertirse a proporciones de luz lineal durante la importación. Incluso cuando se linealizan, es posible que dichos assets no sean perfectamente adecuados para su uso como texturas, dependiendo de cómo fueron generados.</p>
 <p>Hay dos modos de hacerlo:</p>
 <section id="srgb-transfer-function-to-display-linear-ratios-on-image-import">
 <h3>Función de transferencia sRGB para mostrar las proporciones lineales en la importación de imágenes<a class="headerlink" href="#srgb-transfer-function-to-display-linear-ratios-on-image-import" title="Link to this heading"></a></h3>
@@ -13096,7 +13091,7 @@ as textures, depending on how they were generated.</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="particles/complex_shapes.html" class="btn btn-neutral float-left" title="Complex emission shapes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="particles/complex_shapes.html" class="btn btn-neutral float-left" title="Formas de emisión complejas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
         <a href="global_illumination/index.html" class="btn btn-neutral float-right" title="Iluminación global" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

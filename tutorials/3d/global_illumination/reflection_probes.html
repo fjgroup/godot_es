@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Using Lightmap global illumination</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_lightmap_gi.html">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -12980,7 +12980,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">3D</a></li>
           <li class="breadcrumb-item"><a href="index.html">Iluminación global</a></li>
-      <li class="breadcrumb-item active">Reflection Probe</li>
+      <li class="breadcrumb-item active">Sondas de reflexión (ReflectionProbes)</li>
 	</ul>
 </li>
 
@@ -13040,29 +13040,20 @@
 
   
   <section id="reflection-probes">
-<span id="doc-reflection-probes"></span><h1>Reflection Probe<a class="headerlink" href="#reflection-probes" title="Link to this heading"></a></h1>
-<p>As stated in the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a>, objects can show reflected and/or
-diffuse light. Reflection probes are used as a source of reflected <em>and</em> ambient
-light for objects inside their area of influence. They can be used to provide
-more accurate reflections than <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> and
-<a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a> while being fairly cheap on system resources.</p>
-<p>Since reflection probes can also store ambient light, they can be used as a
-low-end alternative to VoxelGI and SDFGI when <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">baked lightmaps</span></a> aren't viable (e.g. in procedurally generated levels).</p>
-<p>Reflection probes can also be used at the same time as screen-space reflections
-to provide reflections for off-screen objects. In this case, Godot will blend
-together the screen-space reflections and reflections from reflection probes.</p>
+<span id="doc-reflection-probes"></span><h1>Sondas de reflexión (ReflectionProbes)<a class="headerlink" href="#reflection-probes" title="Link to this heading"></a></h1>
+<p>Como se indica en <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a>, los objetos pueden mostrar luz reflejada y/o difusa. Las sondas de reflexión se utilizan como fuente de luz reflejada <em>y</em> ambiental para los objetos situados dentro de su área de influencia. Se pueden utilizar para proporcionar reflejos más precisos que <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> y <a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a>, consumiendo al mismo tiempo muy pocos recursos del sistema.</p>
+<p>Dado que las sondas de reflexión también pueden almacenar luz ambiental, se pueden usar como una alternativa de bajo costo a VoxelGI y SDFGI cuando los <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">lightmaps horneados</span></a> no son viables (por ejemplo, en niveles generados procedimentalmente).</p>
+<p>Las sondas de reflexión también se pueden utilizar al mismo tiempo que los reflejos en espacio de pantalla (SSR) para proporcionar reflejos para objetos fuera de la pantalla. En este caso, Godot combinará los reflejos en espacio de pantalla y los reflejos de las sondas de reflexión.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>Not sure if ReflectionProbe is suited to your needs?
-See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a>
-for a comparison of GI techniques available in Godot 4.</p>
+<p>¿No estás seguro de si ReflectionProbe se adapta a tus necesidades? Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> para una comparación de las técnicas de GI disponibles en Godot 4.</p>
 </div>
 <section id="visual-comparison">
 <h2>Comparaciones visuales<a class="headerlink" href="#visual-comparison" title="Link to this heading"></a></h2>
 <figure class="align-center" id="id1">
-<img alt="Reflection probe disabled. Environment sky is used as a fallback." src="../../../_images/gi_none.webp" />
+<img alt="Sonda de reflexión desactivada. El cielo del entorno se usa como respaldo." src="../../../_images/gi_none.webp" />
 <figcaption>
-<p><span class="caption-text">Reflection probe disabled. Environment sky is used as a fallback.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Sonda de reflexión desactivada. El cielo del entorno se usa como respaldo.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id2">
@@ -13072,154 +13063,76 @@ for a comparison of GI techniques available in Godot 4.</p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id3">
-<img alt="Sonda de reflexión habilitada." src="../../../_images/gi_lightmap_gi_indirect_only_reflection_probe.webp" />
+<img alt="Sonda de reflexión habilitada con LightmapGI." src="../../../_images/gi_lightmap_gi_indirect_only_reflection_probe.webp" />
 <figcaption>
-<p><span class="caption-text">Reflection probe enabled with LightmapGI used at the same time. The lightmap appears in the reflection.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Sonda de reflexión habilitada con LightmapGI utilizado al mismo tiempo. El mapa de luz aparece en el reflejo.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>By combining reflection probes with screen-space reflections, you can get the
-best of both worlds: high-quality reflections for general room structure (that
-remain present when off-screen), while also having real-time reflections for
-small details.</p>
+<p>Al combinar sondas de reflexión con reflejos en espacio de pantalla, puedes obtener lo mejor de ambos mundos: reflejos de alta calidad para la estructura general de la sala (que permanecen presentes cuando están fuera de la pantalla), al tiempo que dispones de reflejos en tiempo real para pequeños detalles.</p>
 <figure class="align-center" id="id4">
-<img alt="Reflections in a room using ReflectionProbe only." src="../../../_images/reflection_probes_reflection_probe.webp" />
+<img alt="Reflejos en una habitación usando solo ReflectionProbe." src="../../../_images/reflection_probes_reflection_probe.webp" />
 <figcaption>
-<p><span class="caption-text">Reflections in a room using ReflectionProbe only. Notice how small details
-don't have any reflections.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Reflejos en una habitación usando solo ReflectionProbe. Observa cómo los detalles pequeños no tienen ningún reflejo.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id5">
-<img alt="Reflections in a room using screen-space reflections only." src="../../../_images/reflection_probes_ssr.webp" />
+<img alt="Reflejos en una habitación usando solo reflejos en espacio de pantalla." src="../../../_images/reflection_probes_ssr.webp" />
 <figcaption>
-<p><span class="caption-text">Reflections in a room using screen-space reflections only. Notice how the
-reflection on the sides of the room's walls is partly missing due to being
-off-screen.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Reflejos en una habitación usando solo reflejos en espacio de pantalla. Observa cómo el reflejo en los laterales de las paredes de la habitación desaparece parcialmente al estar fuera de pantalla.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id6">
-<img alt="Reflections in a room using ReflectionProbe and screen-space reflections together." src="../../../_images/reflection_probes_reflection_probe_ssr.webp" />
+<img alt="Reflejos en una habitación usando ReflectionProbe y reflejos en espacio de pantalla juntos." src="../../../_images/reflection_probes_reflection_probe_ssr.webp" />
 <figcaption>
-<p><span class="caption-text">Reflections in a room using ReflectionProbe and screen-space reflections together.
-The screen-space reflections are blended with the reflection probe,
-acting as a fallback in situations where the reflection probe fails to display
-any reflection.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Reflejos en una habitación usando ReflectionProbe y reflejos en espacio de pantalla juntos. Los reflejos en espacio de pantalla se combinan con la sonda de reflexión, actuando como respaldo en situaciones donde la sonda no logra mostrar reflejos.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="setting-up-a-reflectionprobe">
-<h2>Setting up a ReflectionProbe<a class="headerlink" href="#setting-up-a-reflectionprobe" title="Link to this heading"></a></h2>
+<h2>Configurar un ReflectionProbe<a class="headerlink" href="#setting-up-a-reflectionprobe" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Add a <a class="reference internal" href="../../../classes/class_reflectionprobe.html#class-reflectionprobe"><span class="std std-ref">ReflectionProbe</span></a> node.</p></li>
-<li><p>Configure the ReflectionProbe's extents in the inspector to fit your scene. To
-get reasonably accurate reflections, you should generally have one
-ReflectionProbe node per room (sometimes more for large rooms).</p></li>
+<li><p>Añade un nodo <a class="reference internal" href="../../../classes/class_reflectionprobe.html#class-reflectionprobe"><span class="std std-ref">ReflectionProbe</span></a>.</p></li>
+<li><p>Configura las dimensiones (extents) del ReflectionProbe en el inspector para que se ajusten a tu escena. Para obtener reflejos razonablemente precisos, generalmente deberías tener un nodo ReflectionProbe por habitación (a veces más para habitaciones grandes).</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>Remember that ReflectionProbe extents don't have to be square, and you can
-even rotate the ReflectionProbe node to fit rooms that aren't aligned with
-the X/Z grid. Use this to your advantage to better cover rooms without
-having to place too many ReflectionProbe nodes.</p>
+<p>Recuerda que los límites del ReflectionProbe no tienen que ser cuadrados, e incluso puedes rotar el nodo ReflectionProbe para adaptarlo a salas que no estén alineadas con la cuadrícula X/Z. Usa esto a tu favor para cubrir mejor las salas sin tener que colocar demasiados nodos ReflectionProbe.</p>
 </div>
 </section>
 <section id="reflectionprobe-properties">
-<h2>ReflectionProbe properties<a class="headerlink" href="#reflectionprobe-properties" title="Link to this heading"></a></h2>
+<h2>Propiedades de ReflectionProbe<a class="headerlink" href="#reflectionprobe-properties" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><strong>Update Mode:</strong> Controls when the reflection probe updates.
-<strong>Once</strong> only renders the scene once every time the ReflectionProbe is moved.
-This makes it much faster to render compared to the <strong>Always</strong> update mode,
-which forces the probe to re-render everything around it every frame.
-Leave this property on <strong>Once</strong> (default) unless you need the reflection probe
-to update every frame.</p></li>
-<li><p><strong>Intensity:</strong> The brightness of the reflections and ambient lighting. This
-usually doesn't need to be changed from its default value of <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, but you
-can decrease it <code class="docutils literal notranslate"><span class="pre">1.0</span></code> if you find that reflections look too strong.</p></li>
-<li><p><strong>Max Distance:</strong> Controls the maximum distance used by the ReflectionProbe's
-internal camera. The distance is always at least equal to the <strong>Extents</strong>, but
-this can be increased to make objects located outside the extents visible in
-reflections. <em>This property does not affect the maximum distance at which the
-ReflectionProbe itself is visible.</em></p></li>
-<li><p><strong>Extents:</strong> The area that will be affected by the ReflectionProbe's lighting
-and reflections.</p></li>
-<li><p><strong>Origin Offset:</strong> The origin to use for the internal camera used for
-reflection probe rendering. This must always be constrained within the
-<strong>Extents</strong>. If needed, adjust this to prevent the reflection from being
-obstructed by a solid object located exactly at the center of the
-ReflectionProbe.</p></li>
-<li><p><strong>Box Projection:</strong> Controls whether parallax correction should be used when
-rendering the reflection probe. This adjusts the reflection's appearance
-depending on the camera's position (relative to the reflection probe). This
-has a small performance cost, but the quality increase is often worth it in
-box-shaped rooms. Note that this effect doesn't work quite as well in rooms
-with less regular shapes (such as ellipse-shaped rooms).</p></li>
-<li><p><strong>Interior:</strong> If enabled, ambient lighting will not be sourced from the
-environment sky, and the background sky won't be rendered onto the reflection
-probe.</p></li>
-<li><p><strong>Enable Shadows:</strong> Controls whether real-time light shadows should be
-rendered within the reflection probe. Enable this to improve reflection
-quality at the cost of performance. This should be left disabled for
-reflection probes with the <strong>Always</strong> mode, as it's very expensive to render
-reflections with shadows every frame. Fully <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">baked light</span></a>
-shadows are not affected by this setting and will be rendered in the
-reflection probe regardless.</p></li>
-<li><p><strong>Cull Mask:</strong> Controls which objects are visible in the reflection. This can
-be used to improve performance by excluding small objects from the reflection.
-This can also be used to prevent an object from having self-reflection
-artifacts in situations where <strong>Origin Offset</strong> can't be used.</p></li>
-<li><p><strong>Mesh LOD Threshold:</strong> The automatic level of detail threshold to use for
-rendering meshes within the reflection. This only affects meshes that have
-automatic LODs generated for them. Higher values can improve performance by
-using less detailed geometry, especially for objects that are far away from
-the reflection's origin. The visual difference of using less detailed objects
-is usually not very noticeable during gameplay, especially in rough
-reflections.</p></li>
+<li><p><strong>Update Mode:</strong> Controla cuándo se actualiza la sonda de reflexión. <strong>Once</strong> solo renderiza la escena una vez cada vez que se mueve el ReflectionProbe. Esto hace que sea mucho más rápido de renderizar en comparación con el modo de actualización <strong>Always</strong>, que fuerza a la sonda a volver a renderizar todo a su alrededor en cada frame. Deja esta propiedad en <strong>Once</strong> (por defecto) a menos que necesites que la sonda se actualice cada frame.</p></li>
+<li><p><strong>Intensity:</strong> El brillo de los reflejos y de la iluminación ambiental. Por lo general, esto no necesita cambiarse de su valor predeterminado de <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, pero puedes disminuirlo si encuentras que los reflejos se ven demasiado fuertes.</p></li>
+<li><p><strong>Max Distance:</strong> Controla la distancia máxima utilizada por la cámara interna del ReflectionProbe. La distancia siempre es al menos igual a <strong>Extents</strong>, pero se puede aumentar para hacer visibles en los reflejos objetos situados fuera de los límites. <em>Esta propiedad no afecta la distancia máxima a la que el ReflectionProbe en sí es visible.</em></p></li>
+<li><p><strong>Extents:</strong> El área que se verá afectada por la iluminación y los reflejos del ReflectionProbe.</p></li>
+<li><p><strong>Origin Offset:</strong> El origen que se utilizará para la cámara interna utilizada para el renderizado de la sonda de reflexión. Siempre debe estar contenido dentro de los <strong>Extents</strong>. Si es necesario, ajústalo para evitar que el reflejo quede obstruido por un objeto sólido ubicado exactamente en el centro del ReflectionProbe.</p></li>
+<li><p><strong>Box Projection:</strong> Controla si se debe utilizar corrección de paralaje al renderizar la sonda de reflexión. Esto ajusta la apariencia del reflejo según la posición de la cámara (en relación con la sonda de reflexión). Tiene un pequeño costo de rendimiento, pero el aumento de calidad a menudo vale la pena en habitaciones en forma de caja. Ten en cuenta que este efecto no funciona tan bien en habitaciones con formas menos regulares (como salas elípticas).</p></li>
+<li><p><strong>Interior:</strong> Si está habilitado, la iluminación ambiental no provendrá del cielo del entorno y el cielo de fondo no se renderizará en la sonda de reflexión.</p></li>
+<li><p><strong>Enable Shadows:</strong> Controla si las sombras de luz en tiempo real deben renderizarse dentro de la sonda de reflexión. Activa esto para mejorar la calidad de los reflejos a costa del rendimiento. Esto debe dejarse deshabilitado para sondas de reflexión con el modo <strong>Always</strong>, ya que es muy costoso renderizar reflejos con sombras en cada frame. Las sombras de luces totalmente <a class="reference internal" href="using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">horneadas</span></a> no se ven afectadas por este ajuste y se renderizarán en la sonda de reflexión independientemente.</p></li>
+<li><p><strong>Cull Mask:</strong> Controla qué objetos son visibles en el reflejo. Se puede utilizar para mejorar el rendimiento excluyendo objetos pequeños del reflejo. También se puede utilizar para evitar que un objeto tenga artefactos de autorreflexión en situaciones en las que no se pueda utilizar <strong>Origin Offset</strong>.</p></li>
+<li><p><strong>Mesh LOD Threshold:</strong> El umbral de nivel de detalle automático que se utilizará para renderizar mallas dentro del reflejo. Esto solo afecta a mallas que tengan LODs automáticos generados. Valores más altos pueden mejorar el rendimiento utilizando geometría menos detallada, especialmente para objetos alejados del origen del reflejo. La diferencia visual de utilizar objetos menos detallados generalmente no es muy perceptible durante el juego, especialmente en reflejos rugosos.</p></li>
 </ul>
-<p>The Ambient category features several properties to adjust ambient lighting
-rendered by the ReflectionProbe:</p>
+<p>La categoría Ambient cuenta con varias propiedades para ajustar la iluminación ambiental renderizada por el ReflectionProbe:</p>
 <ul class="simple">
-<li><p><strong>Mode:</strong> If set to <strong>Disabled</strong>, no ambient light is added by the probe. If
-set to <strong>Environment</strong>, the ambient light color is automatically sampled from
-the environment sky (if <strong>Interior</strong> is disabled) and the reflection's average
-color. If set to <strong>Constant Color</strong>, the color specified in the <strong>Color</strong>
-property is used instead. The <strong>Constant Color</strong> mode can be used as an
-approximation of area lighting.</p></li>
-<li><p><strong>Color:</strong> The color to use when the ambient light mode is set to <strong>Constant Mode</strong>.</p></li>
-<li><p><strong>Color Energy:</strong> The multiplier to use for the ambient light custom
-<strong>Color</strong>. This only has an effect when the ambient light mode is <strong>Custom
-Color</strong>.</p></li>
+<li><p><strong>Mode:</strong> Si se establece en <strong>Disabled</strong>, la sonda no añade luz ambiental. Si se establece en <strong>Environment</strong>, el color de la luz ambiental se toma automáticamente del cielo del entorno (si <strong>Interior</strong> está desactivado) y del color promedio del reflejo. Si se establece en <strong>Constant Color</strong>, se utiliza en su lugar el color especificado en la propiedad <strong>Color</strong>. El modo <strong>Constant Color</strong> se puede utilizar como una aproximación de iluminación de área.</p></li>
+<li><p><strong>Color:</strong> El color a utilizar cuando el modo de luz ambiental está configurado en <strong>Constant Color</strong>.</p></li>
+<li><p><strong>Color Energy:</strong> El multiplicador a utilizar para el color personalizado de la luz ambiental. Esto solo tiene efecto cuando el modo de luz ambiental es <strong>Custom Color</strong> (o Constant Color).</p></li>
 </ul>
 </section>
 <section id="reflectionprobe-blending">
-<h2>ReflectionProbe blending<a class="headerlink" href="#reflectionprobe-blending" title="Link to this heading"></a></h2>
-<p>To make transitions between reflection sources smoother, Godot supports automatic
-probe blending:</p>
+<h2>Mezcla de ReflectionProbes (Blending)<a class="headerlink" href="#reflectionprobe-blending" title="Link to this heading"></a></h2>
+<p>Para hacer más suaves las transiciones entre fuentes de reflexión, Godot admite la mezcla automática de sondas:</p>
 <ul class="simple">
-<li><p>Up to 4 ReflectionProbes can be blended together at a given location.
-A ReflectionProbe will also fade out smoothly back to environment lighting
-when it isn't touching any other ReflectionProbe node.</p></li>
-<li><p>SDFGI and VoxelGI will blend in smoothly with ReflectionProbes if used.
-This allows placing ReflectionProbes strategically to get more accurate (or fully real-time)
-reflections where needed, while still having rough reflections available in the
-VoxelGI or SDFGI's area of influence.</p></li>
+<li><p>Se pueden mezclar hasta 4 ReflectionProbes en una ubicación determinada. Un ReflectionProbe también se desvanecerá suavemente hacia la iluminación ambiental cuando no esté en contacto con ningún otro nodo ReflectionProbe.</p></li>
+<li><p>SDFGI y VoxelGI se mezclarán suavemente con los ReflectionProbes si se utilizan. Esto permite colocar ReflectionProbes estratégicamente para obtener reflejos más precisos (o completamente en tiempo real) donde sea necesario, manteniendo al mismo tiempo reflejos rugosos disponibles en el área de influencia de VoxelGI o SDFGI.</p></li>
 </ul>
-<p>To make several ReflectionProbes blend with each other, you need to have part of
-each ReflectionProbe overlap each other's area. The extents should only overlap
-as little possible with other reflection probes to improve rendering performance
-(typically a few units in 3D space).</p>
+<p>Para hacer que varios ReflectionProbes se mezclen entre sí, es necesario que parte de cada ReflectionProbe se superponga con el área del otro. Los límites solo deben superponerse lo mínimo posible con otras sondas de reflexión para mejorar el rendimiento de renderizado (normalmente unas pocas unidades en el espacio 3D).</p>
 </section>
 <section id="limitations">
 <h2>Limitaciones<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
-<p>When using the Forward+ renderer, Godot uses a <em>clustering</em> approach for
-reflection probe rendering. As many reflection probes as desired can be added (as long as
-performance allows). However, there's still a default limit of 512 <em>clustered
-elements</em> that can be present in the current camera view. A clustered element is
-an omni light, a spot light, a <a class="reference internal" href="../using_decals.html#doc-using-decals"><span class="std std-ref">decal</span></a> or a
-<a class="reference internal" href="#doc-reflection-probes"><span class="std std-ref">reflection probe</span></a>. This limit can be increased by adjusting
-<a class="reference internal" href="../../../classes/class_projectsettings.html#class-projectsettings-property-rendering-limits-cluster-builder-max-clustered-elements"><span class="std std-ref">Max Clustered Elements</span></a>
-in <strong>Project Settings &gt; Rendering &gt; Limits &gt; Cluster Builder</strong>.</p>
-<p>When using the Mobile renderer, only 8 reflection probes can be applied on each
-individual Mesh <em>resource</em>. If there are more reflection probes affecting a single mesh,
-not all of them will be rendered on the mesh.</p>
+<p>Al utilizar el renderizador Forward+, Godot utiliza un enfoque de <em>agrupamiento</em> (clustering) para el renderizado de sondas de reflexión. Se pueden agregar tantas sondas de reflexión como se desee (siempre que el rendimiento lo permita). Sin embargo, todavía hay un límite predeterminado de 512 <em>elementos agrupados</em> que pueden estar presentes en la vista actual de la cámara. Un elemento agrupado es una luz omni, una luz spot, una <a class="reference internal" href="../using_decals.html#doc-using-decals"><span class="std std-ref">decal</span></a> o una <a class="reference internal" href="#doc-reflection-probes"><span class="std std-ref">sonda de reflexión</span></a>. Este límite se puede aumentar ajustando <a class="reference internal" href="../../../classes/class_projectsettings.html#class-projectsettings-property-rendering-limits-cluster-builder-max-clustered-elements"><span class="std std-ref">Max Clustered Elements</span></a> en <strong>Configuración del Proyecto &gt; Rendering &gt; Limits &gt; Cluster Builder</strong>.</p>
+<p>Al utilizar el renderizador Mobile, solo se pueden aplicar 8 sondas de reflexión a cada <em>recurso</em> de Mesh individual. Si hay más sondas de reflexión que afecten a una sola malla, no todas se renderizarán en la malla.</p>
 <p>De igual forma, al usar el renderizador de compatibilidad, se pueden aplicar hasta dos sondas de reflexión por modelo. Si más de dos sondas de reflexión afectan a un mismo modelo, no se renderizarán sondas adicionales.</p>
 </section>
 </section>
@@ -13229,8 +13142,8 @@ not all of them will be rendered on the mesh.</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="using_lightmap_gi.html" class="btn btn-neutral float-left" title="Using Lightmap global illumination" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="faking_global_illumination.html" class="btn btn-neutral float-right" title="Faking global illumination" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="using_lightmap_gi.html" class="btn btn-neutral float-left" title="Uso de iluminación global por mapas de luz (LightmapGI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="faking_global_illumination.html" class="btn btn-neutral float-right" title="Simular iluminación global" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

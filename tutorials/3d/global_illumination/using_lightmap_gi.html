@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../../">
@@ -1233,11 +1233,11 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Iluminación global</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="introduction_to_global_illumination.html">Introducción a la iluminación global</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Using Voxel global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Signed distance field global illumination (SDFGI)</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Using Lightmap global illumination</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Reflection Probe</a></li>
-<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Faking global illumination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_voxel_gi.html">Uso de iluminación global por vóxeles (VoxelGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_sdfgi.html">Iluminación global por campos de distancia con signo (SDFGI)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Uso de iluminación global por mapas de luz (LightmapGI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="reflection_probes.html">Sondas de reflexión (ReflectionProbes)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faking_global_illumination.html">Simulación de iluminación global</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../environment_and_post_processing.html">Entorno y post proceso</a><ul>
@@ -12980,7 +12980,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">3D</a></li>
           <li class="breadcrumb-item"><a href="index.html">Iluminación global</a></li>
-      <li class="breadcrumb-item active">Using Lightmap global illumination</li>
+      <li class="breadcrumb-item active">Uso de iluminación global por mapas de luz (LightmapGI)</li>
 	</ul>
 </li>
 
@@ -13040,560 +13040,292 @@
 
   
   <section id="using-lightmap-global-illumination">
-<span id="doc-using-lightmap-gi"></span><h1>Using Lightmap global illumination<a class="headerlink" href="#using-lightmap-global-illumination" title="Link to this heading"></a></h1>
-<p>Baked lightmaps are a workflow for adding indirect (or fully baked)
-lighting to a scene. Unlike the <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> and
-<a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a> approaches, baked lightmaps work fine on low-end PCs
-and mobile devices, as they consume almost no resources at runtime. Also unlike
-VoxelGI and SDFGI, baked lightmaps can optionally be used to store direct
-lighting, which provides even further performance gains.</p>
-<p>Unlike VoxelGI and SDFGI, baked lightmaps are completely static. Once baked, they
-can't be modified at all. They also don't provide the scene with reflections, so
-using <a class="reference internal" href="reflection_probes.html#doc-reflection-probes"><span class="std std-ref">Reflection Probe</span></a> together with it on interiors (or using a Sky
-on exteriors) is a requirement to get good quality.</p>
-<p>As they are baked, they have fewer problems than VoxelGI and SDFGI regarding
-light bleeding, and indirect light will often look better. The downside is that
-baking lightmaps takes longer compared to baking VoxelGI. While baking VoxelGI
-can be done in a matter of seconds, baking lightmaps can take several minutes if
-not more. This can slow down iteration speed significantly, so it is recommended
-to bake lightmaps only when you actually need to see changes in lighting.
-Lightmaps are baked on the GPU, making light baking faster if you have a
-mid-range or high-end dedicated GPU.</p>
-<p>Baking lightmaps will also reserve baked materials' UV2 slot, which means you can
-no longer use it for other purposes in materials (either in the built-in
-<a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a> or in custom shaders).</p>
-<p>Despite their lack of flexibility, baked lightmaps typically offer both the best
-quality <em>and</em> performance at the same time in (mostly) static scenes. This makes
-lightmaps still popular in game development, despite lightmaps being the
-oldest technique for global illumination in video games.</p>
+<span id="doc-using-lightmap-gi"></span><h1>Uso de iluminación global por mapas de luz (LightmapGI)<a class="headerlink" href="#using-lightmap-global-illumination" title="Link to this heading"></a></h1>
+<p>Los mapas de luz horneados (baked lightmaps) son un flujo de trabajo para añadir iluminación indirecta (o totalmente horneada) a una escena. A diferencia de los enfoques <a class="reference internal" href="using_voxel_gi.html#doc-using-voxel-gi"><span class="std std-ref">VoxelGI</span></a> y <a class="reference internal" href="using_sdfgi.html#doc-using-sdfgi"><span class="std std-ref">SDFGI</span></a>, los lightmaps horneados funcionan perfectamente en PCs de gama baja y dispositivos móviles, ya que casi no consumen recursos en tiempo de ejecución. También a diferencia de VoxelGI y SDFGI, los mapas de luz horneados pueden utilizarse opcionalmente para almacenar iluminación directa, lo que proporciona ganancias de rendimiento aún mayores.</p>
+<p>A diferencia de VoxelGI y SDFGI, los mapas de luz horneados son completamente estáticos. Una vez horneados, no se pueden modificar en absoluto. Tampoco proporcionan reflejos a la escena, por lo que usar <a class="reference internal" href="reflection_probes.html#doc-reflection-probes"><span class="std std-ref">Sondas de reflexión (ReflectionProbes)</span></a> junto con ellos en interiores (o usar un Sky en exteriores) es un requisito indispensable para obtener buena calidad.</p>
+<p>Como están horneados, presentan menos problemas que VoxelGI y SDFGI con respecto a fugas de luz, y la luz indirecta a menudo se verá mejor. La desventaja es que hornear lightmaps toma más tiempo en comparación con VoxelGI. Mientras que hornear VoxelGI puede realizarse en cuestión de segundos, hornear mapas de luz puede tomar varios minutos o más. Esto puede ralentizar la velocidad de iteración considerablemente, por lo que se recomienda hornear mapas de luz solo cuando realmente necesites ver cambios en la iluminación. Los mapas de luz se hornean en la GPU, lo que acelera el horneado si cuentas con una GPU dedicada de gama media o alta.</p>
+<p>Hornear lightmaps también reservará el canal UV2 de los materiales horneados, lo que significa que ya no podrás usarlo para otros propósitos en los materiales (ni en el integrado <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a> ni en shaders personalizados).</p>
+<p>A pesar de su falta de flexibilidad, los lightmaps horneados ofrecen habitualmente tanto la mejor calidad <em>como</em> el mejor rendimiento al mismo tiempo en escenas (mayormente) estáticas. Esto hace que los mapas de luz sigan siendo muy populares en el desarrollo de videojuegos, a pesar de ser la técnica más antigua de iluminación global en videojuegos.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>Not sure if LightmapGI is suited to your needs?
-See <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a>
-for a comparison of GI techniques available in Godot 4.</p>
+<p>¿No estás seguro de si LightmapGI se adapta a tus necesidades? Consulta <a class="reference internal" href="introduction_to_global_illumination.html#doc-introduction-to-global-illumination-comparison"><span class="std std-ref">¿Qué técnica de iluminación global debo utilizar?</span></a> para una comparación de las técnicas de GI disponibles en Godot 4.</p>
 </div>
 <section id="visual-comparison">
 <h2>Comparaciones visuales<a class="headerlink" href="#visual-comparison" title="Link to this heading"></a></h2>
 <figure class="align-default" id="id1">
-<img alt="LightmapGI disabled." src="../../../_images/gi_none.webp" />
+<img alt="LightmapGI desactivado." src="../../../_images/gi_none.webp" />
 <figcaption>
-<p><span class="caption-text">LightmapGI disabled.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">LightmapGI desactivado.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id2">
-<img alt="LightmapGI enabled (with indirect light baked only)." src="../../../_images/gi_lightmap_gi_indirect_only.webp" />
+<img alt="LightmapGI habilitado (solo con luz indirecta horneada)." src="../../../_images/gi_lightmap_gi_indirect_only.webp" />
 <figcaption>
-<p><span class="caption-text">LightmapGI enabled (with indirect light baked only). Direct light is still
-real-time, allowing for subtle changes during gameplay.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">LightmapGI habilitado (solo con luz indirecta horneada). La luz directa sigue siendo en tiempo real, lo que permite cambios sutiles durante el juego.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id3">
-<img alt="LightmapGI enabled (with direct and indirect light baked)." src="../../../_images/gi_lightmap_gi_direct_and_indirect.webp" />
+<img alt="LightmapGI habilitado (con luz directa e indirecta horneadas)." src="../../../_images/gi_lightmap_gi_direct_and_indirect.webp" />
 <figcaption>
-<p><span class="caption-text">LightmapGI enabled (with direct and indirect light baked). Best performance,
-but lower quality visuals. Notice the blurrier sun shadow in the top-right
-corner.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">LightmapGI habilitado (con luz directa e indirecta horneadas). Mejor rendimiento, pero menor calidad visual. Observa la sombra del sol más borrosa en la esquina superior derecha.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Here are some comparisons of how LightmapGI vs. VoxelGI look. Notice that
-lightmaps are more accurate, but also suffer from the fact
-that lighting is on an unwrapped texture, so transitions and resolution may not
-be that good. VoxelGI looks less accurate (as it's an approximation), but
-smoother overall.</p>
+<p>Aquí hay algunas comparaciones del aspecto de LightmapGI frente a VoxelGI. Ten en cuenta que los mapas de luz son más precisos, pero sufren por el hecho de que la iluminación está en una textura desplegada (unwrapped), por lo que las transiciones y la resolución pueden no ser tan óptimas. VoxelGI parece menos preciso (al ser una aproximación), pero es más suave en general.</p>
 <img alt="../../../_images/lightmap_gi_comparison.png" src="../../../_images/lightmap_gi_comparison.png" />
-<p>SDFGI is also less accurate compared to LightmapGI. However, SDFGI can support
-large open worlds without any need for baking.</p>
+<p>SDFGI también es menos preciso en comparación con LightmapGI. Sin embargo, SDFGI puede admitir grandes mundos abiertos sin necesidad alguna de horneado.</p>
 </section>
 <section id="setting-up">
-<h2>Configurar<a class="headerlink" href="#setting-up" title="Link to this heading"></a></h2>
+<h2>Configuración<a class="headerlink" href="#setting-up" title="Link to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Baking lightmaps in the web editors is not supported due to
-graphics API limitations. On the web platform, only <em>rendering</em> lightmaps
-that were baked on a different platform is supported.</p>
+<p>Hornear mapas de luz en los editores web no es compatible debido a limitaciones de las API gráficas. En la plataforma web, solo se admite el <em>renderizado</em> de mapas de luz que hayan sido horneados en otra plataforma.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The LightmapGI node only bakes nodes that are on the same level as the
-LightmapGI node (siblings), or nodes that are children of the
-LightmapGI node. This allows you to use several LightmapGI nodes to bake
-different parts of the scene, independently from each other.</p>
+<p>El nodo LightmapGI solo hornea nodos que se encuentran en el mismo nivel que él (hermanos) o nodos que son hijos del nodo LightmapGI. Esto permite utilizar varios nodos LightmapGI para hornear diferentes partes de la escena de forma independiente entre sí.</p>
 </div>
-<p>First of all, before the lightmapper can do anything, the objects to be baked need
-a UV2 layer and a texture size. A UV2 layer is a set of secondary texture coordinates
-that ensures any face in the object has its own place in the UV map. Faces must
-not share pixels in the texture.</p>
+<p>En primer lugar, antes de que el lightmapper pueda hacer nada, los objetos que se van a hornear necesitan una capa UV2 y un tamaño de textura. Una capa UV2 es un conjunto de coordenadas de textura secundarias que garantiza que cada cara del objeto tenga su propio lugar en el mapa UV. Las caras no deben compartir píxeles en la textura.</p>
 <p>Hay algunas maneras de asegurar que tu objeto tiene una capa de UV2 y un tamaño de textura únicos:</p>
 <section id="unwrap-on-scene-import-recommended">
-<h3>Unwrap on scene import (recommended)<a class="headerlink" href="#unwrap-on-scene-import-recommended" title="Link to this heading"></a></h3>
-<p>In most scenarios, this is the best approach to use. The only downside is that,
-on large models, unwrapping can take a while on import. Nonetheless, Godot will
-cache the UV2 across reimports, so it will only be regenerated when needed.</p>
-<p>Selecciona la escena importada en el panel del sistema de archivos, luego vaya al panel <strong>Importar</strong>. Allí, se puede modificar la siguiente opción:</p>
+<h3>Desplegar al importar la escena (recomendado)<a class="headerlink" href="#unwrap-on-scene-import-recommended" title="Link to this heading"></a></h3>
+<p>En la mayoría de los casos, este es el mejor enfoque. El único inconveniente es que, en modelos grandes, el despliegue UV puede tardar un tiempo durante la importación. No obstante, Godot almacenará en caché el UV2 entre reimportaciones, por lo que solo se regenerará cuando sea necesario.</p>
+<p>Selecciona la escena importada en el panel del sistema de archivos, luego ve al panel <strong>Importar</strong>. Allí, se puede modificar la siguiente opción:</p>
 <img alt="../../../_images/lightmap_gi_import.webp" src="../../../_images/lightmap_gi_import.webp" />
-<p>The <strong>Meshes &gt; Light Baking</strong> option must be set to <strong>Static Lightmaps (VoxelGI/SDFGI/LightmapGI)</strong>:</p>
+<p>La opción <strong>Meshes &gt; Light Baking</strong> debe establecerse en <strong>Static Lightmaps (VoxelGI/SDFGI/LightmapGI)</strong>:</p>
 <img alt="../../../_images/lightmap_gi_mesh_import_meshes.webp" src="../../../_images/lightmap_gi_mesh_import_meshes.webp" />
-<p>When unwrapping on import, you can adjust the texture size using the <strong>Meshes &gt; Lightmap
-Texel Size</strong> option. <em>Lower</em> values will result in more detailed lightmaps,
-possibly resulting in higher visual quality at the cost of longer bake times and
-larger lightmap file sizes. The default value of <code class="docutils literal notranslate"><span class="pre">0.2</span></code> is suited for
-small/medium-sized scenes, but you may want to increase it to <code class="docutils literal notranslate"><span class="pre">0.5</span></code> or even
-more for larger scenes. This is especially the case if you're baking indirect
-lighting only, as indirect light is low-frequency data (which means it doesn't
-need high-resolution textures to be accurately represented).</p>
+<p>Al desplegar en la importación, puedes ajustar el tamaño de la textura usando la opción <strong>Meshes &gt; Lightmap Texel Size</strong>. Valores <em>más bajos</em> resultarán en mapas de luz más detallados, lo que posiblemente proporcionará mayor calidad visual a costa de tiempos de horneado más largos y archivos de mapas de luz más pesados. El valor por defecto de <code class="docutils literal notranslate"><span class="pre">0.2</span></code> es adecuado para escenas pequeñas o medianas, pero quizás quieras aumentarlo a <code class="docutils literal notranslate"><span class="pre">0.5</span></code> o más para escenas grandes. Esto ocurre especialmente si solo estás horneando iluminación indirecta, ya que la luz indirecta contiene datos de baja frecuencia (lo que significa que no necesita texturas de alta resolución para representarse con precisión).</p>
 <p>El efecto de establecer esta opción es que todas las mallas dentro de la escena tendrán sus mapas de UV2 correctamente generados.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>When reusing a mesh within a scene, keep in mind that UVs will be generated
-for the first instance found. If the mesh is re-used with different scales
-(and the scales are wildly different, more than half or twice), this will
-result in inefficient lightmaps. To avoid this, adjust the <strong>Lightmap
-Scale</strong> property in the GeometryInstance3D section of a MeshInstance3D node.
-This lets you <em>increase</em> the level of lightmap detail for specific
-MeshInstance3D nodes (but not decrease it).</p>
+<p>Al reutilizar una malla dentro de una escena, ten en cuenta que los UV se generarán para la primera instancia encontrada. Si la malla se reutiliza con escalas muy diferentes (más del doble o la mitad), esto provocará mapas de luz ineficientes. Para evitarlo, ajusta la propiedad <strong>Lightmap Scale</strong> en la sección GeometryInstance3D de un nodo MeshInstance3D. Esto te permite <em>aumentar</em> el nivel de detalle del lightmap para nodos MeshInstance3D específicos (pero no reducirlo).</p>
 <p>Además, los archivos <code class="docutils literal notranslate"><span class="pre">*.unwrap_cache</span></code> <em>no</em> deben ignorarse en el control de versiones, ya que estos archivos garantizan que las reimportaciones de UV2 sean consistentes en todas las plataformas y versiones del motor.</p>
 </div>
 </section>
 <section id="unwrap-from-within-godot">
-<h3>Desplegar desde Godot<a class="headerlink" href="#unwrap-from-within-godot" title="Link to this heading"></a></h3>
+<h3>Desplegar desde dentro de Godot<a class="headerlink" href="#unwrap-from-within-godot" title="Link to this heading"></a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>If this Mesh menu operation is used on an imported 3D scene, the generated
-UV2 will be lost when the scene is reloaded.</p>
+<p>Si esta operación del menú Malla se utiliza en una escena 3D importada, el UV2 generado se perderá cuando la escena se vuelva a cargar.</p>
 </div>
-<p>Godot has an option to unwrap meshes and visualize the UV channels. After
-selecting a MeshInstance3D node, it can be found in the <strong>Mesh</strong> menu at the top
-of the 3D editor viewport:</p>
+<p>Godot tiene una opción para desplegar mallas y visualizar los canales UV. Después de seleccionar un nodo MeshInstance3D, se puede encontrar en el menú <strong>Mesh</strong> en la parte superior del viewport del editor 3D:</p>
 <img alt="../../../_images/lightmap_gi_mesh_menu.webp" src="../../../_images/lightmap_gi_mesh_menu.webp" />
-<p>This will generate a second set of UV2 coordinates which can be used for baking.
-It will also set the texture size automatically.</p>
+<p>Esto generará un segundo conjunto de coordenadas UV2 que se pueden usar para hornear. También establecerá el tamaño de la textura automáticamente.</p>
 </section>
 <section id="unwrap-from-your-3d-modeling-software">
-<h3>Unwrap from your 3D modeling software<a class="headerlink" href="#unwrap-from-your-3d-modeling-software" title="Link to this heading"></a></h3>
-<p>The last option is to do it from your favorite 3D app. This approach is
-generally <strong>not recommended</strong>, but it's explained so that you know it exists.
-The main advantage is that, on complex objects that you may want to re-import a
-lot, the texture generation process can be quite costly within Godot, so having
-it unwrapped before import can be faster.</p>
-<p>Simplemente despliegue la segunda capa UV2.</p>
+<h3>Desplegar desde tu software de modelado 3D<a class="headerlink" href="#unwrap-from-your-3d-modeling-software" title="Link to this heading"></a></h3>
+<p>La última opción es hacerlo desde tu aplicación 3D favorita. Este enfoque por lo general <strong>no se recomienda</strong>, pero se explica para que sepas que existe. La principal ventaja es que, en objetos complejos que quizás desees reimportar muchas veces, el proceso de generación de texturas puede resultar pesado dentro de Godot, por lo que tenerlo desplegado antes de la importación puede ser más rápido.</p>
+<p>Simplemente despliega la segunda capa UV2.</p>
 <img alt="../../../_images/lightmap_gi_blender.webp" src="../../../_images/lightmap_gi_blender.webp" />
-<p>Luego importe la escena 3D normalmente. Recuerde que necesitará establecer el tamaño de la textura en la malla después de la importación.</p>
+<p>Luego importa la escena 3D normalmente. Recuerda que necesitarás establecer el tamaño de la textura en la malla después de la importación.</p>
 <img alt="../../../_images/lightmap_gi_lmsize.webp" src="../../../_images/lightmap_gi_lmsize.webp" />
-<p>If you use external meshes on import, the size will be kept. Be wary that most
-unwrappers in 3D modeling software are not quality-oriented, as they are meant
-to work quickly. You will mostly need to use seams or other techniques to create
-better unwrapping.</p>
+<p>Si utilizas mallas externas en la importación, el tamaño se mantendrá. Ten en cuenta que la mayoría de algoritmos de unwrap en softwares de modelado 3D no están orientados a la máxima calidad, ya que están pensados para funcionar rápido. En su mayor parte necesitarás usar costuras (seams) u otras técnicas para lograr un mejor despliegue.</p>
 </section>
 <section id="generating-uv2-for-primitive-meshes">
-<h3>Generating UV2 for primitive meshes<a class="headerlink" href="#generating-uv2-for-primitive-meshes" title="Link to this heading"></a></h3>
+<h3>Generar UV2 para mallas primitivas<a class="headerlink" href="#generating-uv2-for-primitive-meshes" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>This option is only available for primitive meshes such as <a class="reference internal" href="../../../classes/class_boxmesh.html#class-boxmesh"><span class="std std-ref">BoxMesh</span></a>,
-<a class="reference internal" href="../../../classes/class_cylindermesh.html#class-cylindermesh"><span class="std std-ref">CylinderMesh</span></a>, <a class="reference internal" href="../../../classes/class_planemesh.html#class-planemesh"><span class="std std-ref">PlaneMesh</span></a>, etc.</p>
+<p>Esta opción solo está disponible para mallas primitivas como <a class="reference internal" href="../../../classes/class_boxmesh.html#class-boxmesh"><span class="std std-ref">BoxMesh</span></a>, <a class="reference internal" href="../../../classes/class_cylindermesh.html#class-cylindermesh"><span class="std std-ref">CylinderMesh</span></a>, <a class="reference internal" href="../../../classes/class_planemesh.html#class-planemesh"><span class="std std-ref">PlaneMesh</span></a>, etc.</p>
 </div>
-<p>Enabling UV2 on primitive meshes allows you to make them receive and contribute
-to baked lighting. This can be used in certain lighting setups. For instance,
-you could hide a torus that has an emissive material after baking lightmaps to
-create an area light that follows the shape of a torus.</p>
-<p>By default, primitive meshes do not have UV2 generated to save resources (as
-these meshes may be created during gameplay). You can edit a primitive mesh in
-the inspector and enable <strong>Add UV2</strong> to make the engine procedurally generate
-UV2 for a primitive mesh. The default <strong>UV2 Padding</strong> value is tuned to avoid
-most lightmap bleeding, without wasting too much space on the edges. If you
-notice lightmap bleeding on a specific primitive mesh only, you may have to
-increase <strong>UV2 Padding</strong>.</p>
-<p><strong>Lightmap Size Hint</strong> represents the size taken by a single mesh on the
-lightmap texture, which varies depending on the mesh's size properties and the
-<strong>UV2 Padding</strong> value. <strong>Lightmap Size Hint</strong> should not be manually changed, as
-any modifications will be lost when the scene is reloaded.</p>
+<p>Habilitar UV2 en mallas primitivas permite que reciban y contribuyan a la iluminación horneada. Esto se puede utilizar en ciertas configuraciones de iluminación. Por ejemplo, podrías ocultar un toroide que tenga un material emisivo después de hornear lightmaps para crear una luz de área que siga la forma del toroide.</p>
+<p>Por defecto, las mallas primitivas no tienen UV2 generado para ahorrar recursos (ya que estas mallas pueden crearse durante el juego). Puedes editar una malla primitiva en el inspector y habilitar <strong>Add UV2</strong> para que el motor genere procedimentalmente el UV2 para ella. El valor predeterminado de <strong>UV2 Padding</strong> está ajustado para evitar la mayoría de las fugas de lightmaps sin desperdiciar demasiado espacio en los bordes. Si notas fugas de lightmaps solo en una malla primitiva específica, es posible que tengas que aumentar <strong>UV2 Padding</strong>.</p>
+<p><strong>Lightmap Size Hint</strong> representa el tamaño ocupado por una sola malla en la textura del mapa de luz, el cual varía según las propiedades de tamaño de la malla y el valor de <strong>UV2 Padding</strong>. <strong>Lightmap Size Hint</strong> no debe cambiarse manualmente, ya que cualquier modificación se perderá cuando se recargue la escena.</p>
 </section>
 <section id="generating-uv2-for-csg-nodes">
-<h3>Generating UV2 for CSG nodes<a class="headerlink" href="#generating-uv2-for-csg-nodes" title="Link to this heading"></a></h3>
-<p>Since Godot 4.4, you can
-<a class="reference internal" href="../csg_tools.html#doc-csg-tools-converting-to-mesh-instance-3d"><span class="std std-ref">convert a CSG node and its children to a MeshInstance3D</span></a>.
-This can be used to bake lightmaps on a CSG node by following these steps:</p>
+<h3>Generar UV2 para nodos CSG<a class="headerlink" href="#generating-uv2-for-csg-nodes" title="Link to this heading"></a></h3>
+<p>Desde Godot 4.4, puedes <a class="reference internal" href="../csg_tools.html#doc-csg-tools-converting-to-mesh-instance-3d"><span class="std std-ref">convertir un nodo CSG y sus hijos en un MeshInstance3D</span></a>. Esto se puede utilizar para hornear mapas de luz en un nodo CSG siguiendo estos pasos:</p>
 <ul class="simple">
-<li><p>Select the root CSG node and choose <strong>CSG &gt; Bake Mesh Instance</strong> at the top of the 3D editor viewport.</p></li>
-<li><p>Hide the root CSG node that was just baked (it is not hidden automatically).</p></li>
-<li><p>Select the newly created MeshInstance3D node and choose <strong>Mesh &gt; Unwrap UV2 for Lightmap/AO</strong>.</p></li>
-<li><p>Procesar lightmaps.</p></li>
+<li><p>Selecciona el nodo raíz CSG y elige <strong>CSG &gt; Bake Mesh Instance</strong> en la parte superior del viewport del editor 3D.</p></li>
+<li><p>Oculta el nodo CSG raíz que acaba de ser horneado (no se oculta automáticamente).</p></li>
+<li><p>Selecciona el nodo MeshInstance3D recién creado y elige <strong>Mesh &gt; Unwrap UV2 for Lightmap/AO</strong>.</p></li>
+<li><p>Hornea los lightmaps.</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>Remember to keep the original CSG node in the scene tree, so that you can
-perform changes to the geometry later if needed. To make changes to the
-geometry, remove the MeshInstance3D node and make the root CSG node visible
-again.</p>
+<p>Recuerda conservar el nodo CSG original en el árbol de escena, para que puedas realizar cambios en la geometría más adelante si es necesario. Para hacer cambios en la geometría, elimina el nodo MeshInstance3D y haz visible nuevamente el nodo raíz CSG.</p>
 </div>
 </section>
 <section id="checking-uv2">
 <h3>Comprobar el UV2<a class="headerlink" href="#checking-uv2" title="Link to this heading"></a></h3>
-<p>In the <strong>Mesh</strong> menu mentioned before, the UV2 texture coordinates can be visualized.
-If something is failing, double-check that the meshes have these UV2 coordinates:</p>
+<p>En el menú <strong>Mesh</strong> mencionado anteriormente, se pueden visualizar las coordenadas de textura UV2. Si algo está fallando, verifica dos veces que las mallas tengan estas coordenadas UV2:</p>
 <img alt="../../../_images/lightmap_gi_uvchannel.webp" src="../../../_images/lightmap_gi_uvchannel.webp" />
 </section>
 </section>
 <section id="setting-up-the-scene">
 <h2>Configurar la escena<a class="headerlink" href="#setting-up-the-scene" title="Link to this heading"></a></h2>
-<p>Before anything is done, a <strong>LightmapGI</strong> node needs to be added to a scene.
-This will enable light baking on all nodes (and sub-nodes) in that scene, even
-on instanced scenes.</p>
+<p>Antes de hacer cualquier cosa, es necesario añadir un nodo <strong>LightmapGI</strong> a la escena. Esto habilitará el horneado de luz en todos los nodos (y subnodos) de esa escena, incluso en escenas instanciadas.</p>
 <img alt="../../../_images/lightmap_gi_scene.webp" src="../../../_images/lightmap_gi_scene.webp" />
-<p>Se puede instanciar una sub-escena varias veces, ya que esto es apoyado por el baker. A cada Instancia se le asignará un mapa de luz propio. Para evitar problemas de inconsistencia con el escalado de texels, asegúrate de respetar la regla de escalado mencionada anteriormente.</p>
+<p>Se puede instanciar una subescena varias veces, ya que esto es soportado por el horneador. A cada instancia se le asignará un mapa de luz propio. Para evitar problemas de inconsistencia con el escalado de texels, asegúrate de respetar la regla de escalado mencionada anteriormente.</p>
 <section id="setting-up-meshes">
 <h3>Configurar mallas<a class="headerlink" href="#setting-up-meshes" title="Link to this heading"></a></h3>
-<p>For a <strong>MeshInstance3D</strong> node to take part in the baking process, it needs to have
-its bake mode set to <strong>Static</strong>. Meshes that have their bake mode set to <strong>Disabled</strong>
-or <strong>Dynamic</strong> will be ignored by the lightmapper.</p>
+<p>Para que un nodo <strong>MeshInstance3D</strong> participe en el proceso de horneado, necesita tener su modo de horneado establecido en <strong>Static</strong>. Las mallas que tengan su modo de horneado en <strong>Disabled</strong> o <strong>Dynamic</strong> serán ignoradas por el lightmapper.</p>
 <img alt="../../../_images/lightmap_gi_use.webp" src="../../../_images/lightmap_gi_use.webp" />
 <p>Cuando se generan automáticamente mapas de luz en la importación de escenas, esto se activa automáticamente.</p>
 </section>
 <section id="setting-up-lights">
 <h3>Configurar luces<a class="headerlink" href="#setting-up-lights" title="Link to this heading"></a></h3>
-<p>Lights are baked with indirect light only by default. This means that shadowmapping
-and lighting are still dynamic and affect moving objects, but light bounces from
-that light will be baked.</p>
-<p>Las luces pueden ser desactivadas (sin bake) o totalmente baked (directas e indirectas). Esto se puede controlar desde el menú <strong>Bake Mode</strong> en las luces:</p>
+<p>Las luces se hornean únicamente con luz indirecta por defecto. Esto significa que el mapeo de sombras y la iluminación siguen siendo dinámicos y afectan a los objetos en movimiento, pero los rebotes de luz de esa fuente serán horneados.</p>
+<p>Las luces pueden ser desactivadas (sin hornear) o totalmente horneadas (directas e indirectas). Esto se puede controlar desde el menú <strong>Bake Mode</strong> en las luces:</p>
 <img alt="../../../_images/lightmap_gi_bake_mode.webp" src="../../../_images/lightmap_gi_bake_mode.webp" />
 <p>Los modos son:</p>
 </section>
 <section id="disabled">
-<h3>Deshabilitado<a class="headerlink" href="#disabled" title="Link to this heading"></a></h3>
-<p>The light is ignored when baking lightmaps. This is the mode to use for dynamic
-lighting effects such as explosions and weapon effects.</p>
+<h3>Disabled (Deshabilitado)<a class="headerlink" href="#disabled" title="Link to this heading"></a></h3>
+<p>La luz se ignora al hornear lightmaps. Este es el modo a utilizar para efectos de iluminación dinámica como explosiones y efectos de armas.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Hiding a light has no effect on the resulting lightmap bake. This means
-you must use the Disabled bake mode instead of hiding the Light node by
-disabling its <strong>Visible</strong> property.</p>
+<p>Ocultar una luz no tiene ningún efecto en el horneado resultante del lightmap. Esto significa que debes utilizar el modo de horneado Disabled en lugar de ocultar el nodo Light desactivando su propiedad <strong>Visible</strong>.</p>
 </div>
 </section>
 <section id="dynamic">
-<h3>Dinámico<a class="headerlink" href="#dynamic" title="Link to this heading"></a></h3>
-<p>This is the default mode, and is a compromise between performance and real-time
-friendliness. Only indirect lighting will be baked. Direct light and shadows are
-still real-time, as they would be without LightmapGI.</p>
+<h3>Dynamic (Dinámico)<a class="headerlink" href="#dynamic" title="Link to this heading"></a></h3>
+<p>Este es el modo por defecto, y es un equilibrio entre rendimiento y compatibilidad en tiempo real. Solo se horneará la iluminación indirecta. La luz directa y las sombras seguirán siendo en tiempo real, tal como lo serían sin LightmapGI.</p>
 <p>Este modo permite realizar cambios <em>sutiles</em> en el color, la energía y la posición de una luz sin dejar de parecer aproximadamente correcta. Por ejemplo, puedes usar esto para crear antorchas estáticas parpadeantes que tienen su luz indirecta horneada.</p>
-<p>Depending on the value of <strong>Shadowmask Mode</strong>, it is possible to still get
-distant baked shadows for DirectionalLight3D. This allows shadows up close to be
-real-time and show dynamic objects, while allowing static objects in the
-distance to still cast shadows.</p>
+<p>Según el valor de <strong>Shadowmask Mode</strong>, aún es posible obtener sombras horneadas distantes para DirectionalLight3D. Esto permite que las sombras cercanas sean en tiempo real y muestren objetos dinámicos, mientras que los objetos estáticos en la distancia continúan proyectando sombras.</p>
 </section>
 <section id="static">
-<h3>Estático<a class="headerlink" href="#static" title="Link to this heading"></a></h3>
-<p>Both indirect and direct lighting will be baked. Since static surfaces can skip
-lighting and shadow computations entirely, this mode provides the best
-performance along with smooth shadows that never fade based on distance. The
-real-time light will not affect baked surfaces anymore, but it will still affect
-dynamic objects. When using the <strong>All</strong> bake mode on a light, dynamic objects
-will not cast real-time shadows onto baked surfaces, so you need to use a
-different approach such as blob shadows instead. Blob shadows can be implemented
-with a Decal node.</p>
-<p>The light will not be adjustable at all during gameplay. Moving the light or
-changing its color (or energy) will not have any effect on static surfaces.</p>
-<p>Since bake modes can be adjusted on a per-light basis, it is possible to create
-hybrid baked light setups. One popular option is to use a real-time
-DirectionalLight with its bake mode set to <strong>Dynamic</strong>, and use the <strong>Static</strong>
-bake mode for OmniLights and SpotLights. This provides good performance while
-still allowing dynamic objects to cast real-time shadows in outdoor areas.</p>
-<p>Fully baked lights can also make use of light nodes' <strong>Size</strong> (omni/spot) or
-<strong>Angular Distance</strong> (directional) properties. This allows for shadows with
-realistic penumbra that increases in size as the distance between the caster and
-the shadow increases. This also has a lower performance cost compared to
-real-time PCSS shadows, as only dynamic objects have real-time shadows rendered
-on them.</p>
+<h3>Static (Estático)<a class="headerlink" href="#static" title="Link to this heading"></a></h3>
+<p>Tanto la iluminación directa como la indirecta serán horneadas. Dado que las superficies estáticas pueden omitir por completo los cálculos de iluminación y sombra, este modo proporciona el mejor rendimiento junto con sombras suaves que nunca se desvanecen con la distancia. La luz en tiempo real ya no afectará a las superficies horneadas, pero seguirá afectando a los objetos dinámicos. Al usar el modo de horneado <strong>All</strong> (Static) en una luz, los objetos dinámicos no proyectarán sombras en tiempo real sobre las superficies horneadas, por lo que necesitarás utilizar un enfoque diferente, como sombras proyectadas simples (blob shadows). Las blob shadows se pueden implementar con un nodo Decal.</p>
+<p>La luz no se podrá ajustar en absoluto durante el juego. Mover la luz o cambiar su color (o energía) no tendrá ningún efecto sobre las superficies estáticas.</p>
+<p>Dado que los modos de horneado se pueden ajustar por cada luz individual, es posible crear configuraciones de luz horneada híbridas. Una opción popular es usar una DirectionalLight en tiempo real con su modo de horneado en <strong>Dynamic</strong>, y usar el modo de horneado <strong>Static</strong> para OmniLights y SpotLights. Esto proporciona un buen rendimiento al tiempo que permite que los objetos dinámicos proyecten sombras en tiempo real en áreas exteriores.</p>
+<p>Las luces totalmente horneadas también pueden aprovechar las propiedades <strong>Size</strong> (omni/spot) o <strong>Angular Distance</strong> (direccional) de los nodos de luz. Esto permite sombras con penumbras realistas que aumentan de tamaño conforme aumenta la distancia entre el objeto que proyecta y la sombra. Esto también tiene un costo de rendimiento menor en comparación con sombras PCSS en tiempo real, ya que solo los objetos dinámicos tienen sombras renderizadas en tiempo real sobre ellos.</p>
 <img alt="../../../_images/lightmap_gi_omnilight_size.png" src="../../../_images/lightmap_gi_omnilight_size.png" />
 </section>
 </section>
 <section id="baking">
-<h2>Bakeo<a class="headerlink" href="#baking" title="Link to this heading"></a></h2>
-<p>To begin the bake process, click the <strong>Bake Lightmaps</strong> button at the top of the
-3D editor viewport when selecting the LightmapGI node:</p>
+<h2>Horneado (Baking)<a class="headerlink" href="#baking" title="Link to this heading"></a></h2>
+<p>Para comenzar el proceso de horneado, haz clic en el botón <strong>Bake Lightmaps</strong> en la parte superior del viewport del editor 3D cuando tengas seleccionado el nodo LightmapGI:</p>
 <img alt="../../../_images/lightmap_gi_bake.webp" src="../../../_images/lightmap_gi_bake.webp" />
-<p>Esto puede llevar de segundos a minutos (u horas) dependiendo del tamaño de la escena, el método de bake y la calidad seleccionada.</p>
+<p>Esto puede llevar de segundos a minutos (u horas) dependiendo del tamaño de la escena, el método de horneado y la calidad seleccionada.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Baking lightmaps is a process that can require a lot of video memory,
-especially if the resulting texture is large. Due to internal limitations,
-the engine may also crash if the generated texture size is too large (even
-on systems with a lot of video memory).</p>
-<p>To avoid crashes, make sure the lightmap texel size in the Import dock is
-set to a high enough value.</p>
+<p>Hornear mapas de luz es un proceso que puede requerir mucha memoria de video, especialmente si la textura resultante es grande. Debido a limitaciones internas, el motor también podría cerrarse inesperadamente si el tamaño de textura generado es demasiado grande (incluso en sistemas con mucha memoria de video).</p>
+<p>Para evitar fallos, asegúrate de que el tamaño de texel de lightmap en el panel de Importación esté configurado en un valor suficientemente alto.</p>
 </div>
 <section id="tweaks">
-<h3>Tweaks (ajustes)<a class="headerlink" href="#tweaks" title="Link to this heading"></a></h3>
+<h3>Ajustes (Tweaks)<a class="headerlink" href="#tweaks" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Quality:</strong> Four bake quality modes are provided: Low, Medium, High, and
-Ultra. Higher quality takes more time, but result in a better-looking lightmap
-with less noise. The difference is especially noticeable with emissive
-materials or areas that get little to no direct lighting. Each bake quality
-mode can be further adjusted in the Project Settings.</p></li>
-<li><p><strong>Supersampling:</strong> This creates the lightmap at a higher resolution and then
-downsamples it. This reduces noise and light leaking, and produces better
-shadows with small scale details. However, using it will increase bake times and
-memory usage during lightmap baking. The <strong>Supersampling Factor</strong> changes the size
-the lightmap is rendered at before downsampling.</p></li>
-<li><p><strong>Bounces:</strong> The number of bounces to use for indirect lighting. The default
-value (<code class="docutils literal notranslate"><span class="pre">3</span></code>) is a good compromise between bake times and quality. Higher
-values will make light bounce around more times before it stops, which makes
-indirect lighting look smoother (but also possibly brighter depending on
-materials and geometry).</p></li>
-<li><p><strong>Bounce Indirect Energy:</strong> The global multiplier to use when baking lights'
-indirect energy. This multiplies each light's own <strong>Indirect Energy</strong> value.
-Values different from <code class="docutils literal notranslate"><span class="pre">1.0</span></code> are not physically accurate, but can be used for
-artistic effect.</p></li>
-<li><p><strong>Directional:</strong> If enabled, stores directional information for lightmaps.
-This improves normal mapped materials' appearance for baked surfaces,
-especially with fully baked lights (since they also have direct light baked).
-The downside is that directional lightmaps are slightly more expensive to render.
-They also require more time to bake and result in larger file sizes.</p></li>
-<li><p><strong>Shadowmask Mode:</strong> If set to a mode other than <strong>None</strong>, the first DirectionalLight3D
-in the scene with the <strong>Dynamic</strong> global illumination mode will have its static shadows
-baked to a separate texture called a <em>shadowmask</em>. This can be used to allow distant
-static objects to cast shadows onto other static objects regardless of the distance
-from the camera. See the <a class="reference internal" href="#doc-using-lightmap-gi-shadowmask"><span class="std std-ref">section on shadowmasking</span></a>
-for further details.</p></li>
-<li><p><strong>Interior:</strong> If enabled, environment lighting will not be sourced. Use this
-for purely indoor scenes to avoid light leaks.</p></li>
-<li><p><strong>Use Texture for Bounces:</strong> If enabled, a texture with the lighting
-information will be generated to speed up the generation of indirect lighting
-at the cost of some accuracy. The geometry might exhibit extra light leak
-artifacts when using low resolution lightmaps or UVs that stretch the lightmap
-significantly across surfaces. Leave this enabled if unsure.</p></li>
-<li><p><strong>Use Denoiser:</strong> If enabled, uses a denoising algorithm to make the lightmap
-significantly less noisy. This increases bake times and can occasionally
-introduce artifacts, but the result is often worth it. See
-<a class="reference internal" href="#doc-using-lightmap-gi-denoising"><span class="std std-ref">Denoising</span></a> for more information.</p></li>
-<li><p><strong>Denoiser Strength:</strong> The strength of denoising step applied to the generated
-lightmaps. Higher values are more effective at removing noise, but can reduce
-shadow detail for static shadows. Only effective if denoising is enabled and
-the denoising method is <abbr title="Non-Local Means with Joint Filtering">JNLM</abbr>
-(<abbr title="Open Image Denoise">OIDN</abbr> does not have a denoiser strength setting).</p></li>
-<li><p><strong>Bias:</strong> The offset value to use for shadows in 3D units. You generally don't
-need to change this value, except if you run into issues with light bleeding or
-dark spots in your lightmap after baking. This setting does not affect real-time
-shadows casted on baked surfaces (for lights with <strong>Dynamic</strong> bake mode).</p></li>
-<li><p><strong>Max Texture Size:</strong> The maximum texture size for the generated texture
-atlas. Higher values will result in fewer slices being generated, but may not
-work on all hardware as a result of hardware limitations on texture sizes.
-Leave this at its default value of <code class="docutils literal notranslate"><span class="pre">16384</span></code> if unsure.</p></li>
-<li><p><strong>Environment &gt; Mode:</strong> Controls how environment lighting is sourced when
-baking lightmaps. The default value of <strong>Scene</strong> is suited for levels with
-visible exterior parts. For purely indoor scenes, set this to <strong>Disabled</strong> to
-avoid light leaks and speed up baking. This can also be set to <strong>Custom Sky</strong>
-or <strong>Custom Color</strong> to use environment lighting that differs from the actual
-scene's environment sky.</p></li>
-<li><p><strong>Gen Probes &gt; Subdiv:</strong> See <a class="reference internal" href="#doc-using-lightmap-gi-dynamic-objects"><span class="std std-ref">Objetos dinámicos</span></a>.</p></li>
-<li><p><strong>Data &gt; Light Data:</strong> See <a class="reference internal" href="#doc-using-lightmap-gi-data"><span class="std std-ref">Lightmap data</span></a>.</p></li>
+<li><p><strong>Quality:</strong> Se proporcionan cuatro modos de calidad de horneado: Low, Medium, High y Ultra. Mayor calidad toma más tiempo, pero produce un mapa de luz con mejor aspecto y menos ruido. La diferencia es especialmente notable con materiales emisivos o áreas que reciben poca o ninguna iluminación directa. Cada modo de calidad de horneado se puede ajustar adicionalmente en la Configuración del Proyecto.</p></li>
+<li><p><strong>Supersampling:</strong> Esto crea el mapa de luz a una resolución mayor y luego lo submuestrea. Esto reduce el ruido y las fugas de luz, y produce mejores sombras en detalles de pequeña escala. Sin embargo, su uso incrementará los tiempos de horneado y el uso de memoria durante el proceso. El <strong>Supersampling Factor</strong> cambia el tamaño al que se renderiza el lightmap antes del submuestreo.</p></li>
+<li><p><strong>Bounces:</strong> El número de rebotes a utilizar para la iluminación indirecta. El valor por defecto (<code class="docutils literal notranslate"><span class="pre">3</span></code>) es un buen equilibrio entre tiempos de horneado y calidad. Valores más altos harán que la luz rebote más veces antes de detenerse, lo que hace que la iluminación indirecta parezca más suave (pero posiblemente también más brillante dependiendo de los materiales y la geometría).</p></li>
+<li><p><strong>Bounce Indirect Energy:</strong> El multiplicador global a utilizar al hornear la energía indirecta de las luces. Esto multiplica el valor propio de <strong>Indirect Energy</strong> de cada luz. Valores diferentes de <code class="docutils literal notranslate"><span class="pre">1.0</span></code> no son físicamente precisos, pero pueden usarse con fines artísticos.</p></li>
+<li><p><strong>Directional:</strong> Si está habilitado, almacena información direccional para los mapas de luz. Esto mejora la apariencia de materiales con mapas de normales en superficies horneadas, especialmente con luces totalmente horneadas (ya que también tienen la luz directa horneada). La desventaja es que los mapas de luz direccionales son ligeramente más costosos de renderizar. También requieren más tiempo para hornearse y dan como resultado archivos de mayor tamaño.</p></li>
+<li><p><strong>Shadowmask Mode:</strong> Si se establece en un modo diferente de <strong>None</strong>, la primera DirectionalLight3D en la escena con el modo de iluminación global <strong>Dynamic</strong> tendrá sus sombras estáticas horneadas en una textura separada llamada <em>shadowmask</em>. Esto puede usarse para permitir que los objetos estáticos distantes proyecten sombras sobre otros objetos estáticos sin importar la distancia a la cámara. Consulta la <a class="reference internal" href="#doc-using-lightmap-gi-shadowmask"><span class="std std-ref">sección sobre shadowmasking</span></a> para más detalles.</p></li>
+<li><p><strong>Interior:</strong> Si está habilitado, la iluminación del entorno no se tomará en cuenta. Usa esto en escenas puramente interiores para evitar fugas de luz.</p></li>
+<li><p><strong>Use Texture for Bounces:</strong> Si está habilitado, se generará una textura con la información de iluminación para acelerar la generación de iluminación indirecta a costa de algo de precisión. La geometría podría presentar artefactos adicionales de fuga de luz cuando se usan lightmaps de baja resolución o UVs que estiren el lightmap significativamente sobre las superficies. Déjalo habilitado si no estás seguro.</p></li>
+<li><p><strong>Use Denoiser:</strong> Si está habilitado, utiliza un algoritmo de reducción de ruido para que el mapa de luz tenga notablemente menos ruido. Esto incrementa los tiempos de horneado y ocasionalmente puede introducir artefactos, pero el resultado a menudo vale la pena. Consulta <a class="reference internal" href="#doc-using-lightmap-gi-denoising"><span class="std std-ref">Reducción de ruido (Denoising)</span></a> para más información.</p></li>
+<li><p><strong>Denoiser Strength:</strong> La intensidad del paso de reducción de ruido aplicado a los mapas de luz generados. Valores más altos son más efectivos para eliminar ruido, pero pueden reducir el detalle de las sombras estáticas. Solo tiene efecto si el denoiser está habilitado y el método de reducción de ruido es <abbr title="Non-Local Means with Joint Filtering">JNLM</abbr> (<abbr title="Open Image Denoise">OIDN</abbr> no tiene un ajuste de fuerza de denoiser).</p></li>
+<li><p><strong>Bias:</strong> El valor de desplazamiento a utilizar para sombras en unidades 3D. Generalmente no necesitas modificar este valor, excepto si encuentras problemas con fugas de luz o manchas oscuras en tu lightmap después de hornear. Este ajuste no afecta a las sombras en tiempo real proyectadas sobre superficies horneadas (para luces con modo de horneado <strong>Dynamic</strong>).</p></li>
+<li><p><strong>Max Texture Size:</strong> El tamaño máximo de textura para el atlas de texturas generado. Valores más altos darán como resultado menos láminas generadas, pero pueden no funcionar en todo el hardware debido a restricciones en tamaños de textura. Déjalo en su valor por defecto de <code class="docutils literal notranslate"><span class="pre">16384</span></code> si no estás seguro.</p></li>
+<li><p><strong>Environment &gt; Mode:</strong> Controla cómo se obtiene la iluminación del entorno al hornear lightmaps. El valor por defecto de <strong>Scene</strong> es adecuado para niveles con partes exteriores visibles. Para escenas puramente interiores, establece esto en <strong>Disabled</strong> para evitar fugas de luz y acelerar el horneado. También se puede configurar en <strong>Custom Sky</strong> o <strong>Custom Color</strong> para usar una iluminación ambiental que difiera del cielo real de la escena.</p></li>
+<li><p><strong>Gen Probes &gt; Subdiv:</strong> Consulta <a class="reference internal" href="#doc-using-lightmap-gi-dynamic-objects"><span class="std std-ref">Objetos dinámicos</span></a>.</p></li>
+<li><p><strong>Data &gt; Light Data:</strong> Consulta <a class="reference internal" href="#doc-using-lightmap-gi-data"><span class="std std-ref">Datos del mapa de luz</span></a>.</p></li>
 </ul>
 </section>
 </section>
 <section id="using-shadowmasking-for-distant-directional-shadows">
-<span id="doc-using-lightmap-gi-shadowmask"></span><h2>Using shadowmasking for distant directional shadows<a class="headerlink" href="#using-shadowmasking-for-distant-directional-shadows" title="Link to this heading"></a></h2>
-<p>When using a DirectionalLight3D, the maximum distance at which it can draw
-real-time shadows is limited by its <strong>Shadow Max Distance</strong> property. This can
-be an issue in large scenes, as distant objects won't appear to have any shadows
-from the DirectionalLight3D. While this can be resolved by using the <strong>Static</strong>
-global illumination mode on the DirectionalLight3D, this has several downsides:</p>
+<span id="doc-using-lightmap-gi-shadowmask"></span><h2>Uso de shadowmasking para sombras direccionales distantes<a class="headerlink" href="#using-shadowmasking-for-distant-directional-shadows" title="Link to this heading"></a></h2>
+<p>Al utilizar un DirectionalLight3D, la distancia máxima a la que puede proyectar sombras en tiempo real está limitada por su propiedad <strong>Shadow Max Distance</strong>. Esto puede ser un problema en escenas grandes, ya que los objetos lejanos no parecerán tener ninguna sombra del DirectionalLight3D. Aunque esto se puede resolver utilizando el modo de iluminación global <strong>Static</strong> en el DirectionalLight3D, esto tiene varias desventajas:</p>
 <ul class="simple">
-<li><p>Since both direct and indirect light are baked, there is no way for dynamic
-objects to cast shadows onto static surfaces in a realistic manner. Godot skips
-shadow sampling entirely in this case to avoid &quot;double lighting&quot; artifacts.</p></li>
-<li><p>Static shadows up close lack in detail, as they only rely on the lightmap texture
-and not on real-time shadow cascades.</p></li>
+<li><p>Dado que tanto la luz directa como la indirecta están horneadas, no hay forma de que los objetos dinámicos proyecten sombras sobre superficies estáticas de manera realista. Godot omite el muestreo de sombras por completo en este caso para evitar artefactos de &quot;doble iluminación&quot;.</p></li>
+<li><p>Las sombras estáticas de cerca carecen de detalle, ya que solo dependen de la textura del mapa de luz y no de las cascadas de sombras en tiempo real.</p></li>
 </ul>
-<p>We can avoid these downsides while still benefiting from distant shadows by
-using <em>shadowmasking</em>. While dynamic objects won't receive shadows from the
-shadowmask, it still greatly improves visuals since most scenes are primarily
-comprised of static objects.</p>
-<p>Since the lightmap texture alone doesn't contain shadow information, we can bake
-this shadow information to a separate texture called a <em>shadowmask</em>.</p>
-<p>Shadowmasking only affects the first DirectionalLight3D in the scene (determined
-by tree order) that has the <strong>Dynamic</strong> global illumination mode. It is not
-possible to use shadowmasking with the <strong>Static</strong> global illumination mode, as
-this mode skips shadow sampling on static objects entirely. This is because the
-Static global illumination mode bakes both direct and indirect light.</p>
-<p>Three shadowmasking modes are available:</p>
+<p>Podemos evitar estos inconvenientes y al mismo tiempo beneficiarnos de las sombras distantes mediante el uso de <em>shadowmasking</em>. Aunque los objetos dinámicos no recibirán sombras del shadowmask, mejora enormemente los efectos visuales, ya que la mayoría de las escenas están compuestas principalmente por objetos estáticos.</p>
+<p>Dado que la textura del mapa de luz por sí sola no contiene información de sombras, podemos hornear esta información de sombras en una textura separada llamada <em>shadowmask</em>.</p>
+<p>El shadowmasking solo afecta al primer DirectionalLight3D en la escena (determinado por el orden del árbol) que tenga el modo de iluminación global <strong>Dynamic</strong>. No es posible usar shadowmasking con el modo de iluminación global <strong>Static</strong>, ya que este modo omite el muestreo de sombras en objetos estáticos por completo. Esto se debe a que el modo de iluminación global Static hornea tanto la luz directa como la indirecta.</p>
+<p>Hay tres modos de shadowmasking disponibles:</p>
 <ul class="simple">
-<li><p><strong>None (default):</strong> Don't bake a shadowmask texture. Directional shadows will
-not be visible outside the range specified by the DirectionalLight3D's
-<strong>Shadow Max Distance</strong> property.</p></li>
-<li><p><strong>Replace:</strong> Bakes a shadowmask texture, and uses it to draw directional
-shadows when outside the range specified by the DirectionalLight3D's <strong>Shadow
-Max Distance</strong> property. Shadows within this range remain fully real-time.
-This option generally makes the most sense for most scenes, as it can deal
-well with static objects that exhibit subtle motion (e.g. foliage shadows).</p></li>
-<li><p><strong>Overlay:</strong> Bakes a shadowmask texture, and uses it to draw directional
-shadows regardless of the distance from the camera. Shadows within the range
-of the DirectionalLight3D's <strong>Shadow Max Distance</strong> property will be overlaid
-with real-time shadows. This can make the transition between real-time and
-baked shadows less jarring, at the cost of a &quot;smearing&quot; effect present on
-static object shadows depending on lightmap texel density. Also, this mode
-can't deal as well with static objects that exhibit subtle motion (such as
-foliage), as the baked shadows can't be animated over time. Still, for scenes
-where the camera moves quickly, this may be a better choice than <strong>Replace</strong>.</p></li>
+<li><p><strong>None (por defecto):</strong> No hornea una textura de shadowmask. Las sombras direccionales no serán visibles fuera del rango especificado por la propiedad <strong>Shadow Max Distance</strong> del DirectionalLight3D.</p></li>
+<li><p><strong>Replace:</strong> Hornea una textura de shadowmask y la usa para proyectar sombras direccionales fuera del rango especificado por la propiedad <strong>Shadow Max Distance</strong> del DirectionalLight3D. Las sombras dentro de este rango siguen siendo completamente en tiempo real. Esta opción generalmente tiene más sentido para la mayoría de escenas, ya que puede manejar bien objetos estáticos con movimiento sutil (por ejemplo, sombras de follaje).</p></li>
+<li><p><strong>Overlay:</strong> Hornea una textura de shadowmask y la usa para dibujar sombras direccionales sin importar la distancia desde la cámara. Las sombras dentro del rango de la propiedad <strong>Shadow Max Distance</strong> del DirectionalLight3D se superpondrán con sombras en tiempo real. Esto puede hacer que la transición entre sombras en tiempo real y horneadas sea menos abrupta, a costa de un efecto de &quot;emborronado&quot; presente en las sombras de objetos estáticos dependiendo de la densidad de texels del lightmap. Además, este modo no maneja tan bien objetos estáticos que exhiben un movimiento sutil (como el follaje), ya que las sombras horneadas no se pueden animar con el tiempo. Aun así, para escenas donde la cámara se mueve rápidamente, puede ser una mejor opción que <strong>Replace</strong>.</p></li>
 </ul>
-<p>Here's a visual comparison of the shadowmask modes with a scene where the
-<strong>Shadow Max Distance</strong> was set very low for comparison purposes. The blue boxes
-are dynamic objects, while the rest of the scene is a static object. There is
-only a single DirectionalLight3D in the scene with the Dynamic global
-illumination mode:</p>
+<p>Aquí hay una comparación visual de los modos de shadowmask con una escena donde la propiedad <strong>Shadow Max Distance</strong> se configuró muy baja para propósitos de comparación. Las cajas azules son objetos dinámicos, mientras que el resto de la escena es un objeto estático. Solo hay un DirectionalLight3D en la escena con el modo de iluminación global Dynamic:</p>
 <figure class="align-center" id="id4">
-<img alt="Comparison between shadowmask modes" src="../../../_images/lightmap_gi_shadowmask.webp" />
+<img alt="Comparación entre modos de shadowmask" src="../../../_images/lightmap_gi_shadowmask.webp" />
 <figcaption>
-<p><span class="caption-text">Comparison between shadowmask modes</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Comparación entre modos de shadowmask</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>It is possible to switch between the <strong>Replace</strong> and <strong>Overlay</strong> shadowmask
-modes without having to bake lightmaps again.</p>
+<p>Es posible cambiar entre los modos de shadowmask <strong>Replace</strong> y <strong>Overlay</strong> sin tener que volver a hornear los mapas de luz.</p>
 </div>
 </section>
 <section id="balancing-bake-times-with-quality">
 <h2>Equilibrar los tiempos de procesado con la calidad<a class="headerlink" href="#balancing-bake-times-with-quality" title="Link to this heading"></a></h2>
-<p>Since high-quality bakes can take very long (up to dozens of minutes for large
-complex scenes), it is recommended to use lower quality settings at first. Then,
-once you are confident with your scene's lighting setup, raise the quality
-settings and perform a &quot;final&quot; bake before exporting your project.</p>
-<p>Reducing the lightmap resolution by increasing <strong>Lightmap Texel Size</strong> on the
-imported 3D scenes will also speed up baking significantly. However, this will
-require you to reimport all lightmapped 3D scenes before you can bake lightmaps
-again.</p>
+<p>Dado que los horneados de alta calidad pueden demorar mucho tiempo (hasta decenas de minutos en escenas grandes y complejas), se recomienda utilizar primero ajustes de menor calidad. Luego, una vez que estés satisfecho con la configuración de iluminación de tu escena, aumenta los ajustes de calidad y realiza un horneado &quot;final&quot; antes de exportar tu proyecto.</p>
+<p>Reducir la resolución del mapa de luz aumentando <strong>Lightmap Texel Size</strong> en las escenas 3D importadas también acelerará el horneado de forma considerable. Sin embargo, esto requerirá que reimportes todas las escenas 3D mapeadas con luz antes de que puedas hornear mapas de luz nuevamente.</p>
 </section>
 <section id="denoising">
-<span id="doc-using-lightmap-gi-denoising"></span><h2>Denoising<a class="headerlink" href="#denoising" title="Link to this heading"></a></h2>
-<p>Since baking lightmaps relies on raytracing, there will always be visible noise
-in the &quot;raw&quot; baked lightmap. Noise is especially visible in areas that are
-difficult to reach by bounced light, such as indoor areas with small openings
-where the sunlight can enter. Noise can be reduced by increasing bake quality,
-but doing so will increase bake times significantly.</p>
+<span id="doc-using-lightmap-gi-denoising"></span><h2>Reducción de ruido (Denoising)<a class="headerlink" href="#denoising" title="Link to this heading"></a></h2>
+<p>Dado que hornear mapas de luz se basa en trazado de rayos (raytracing), siempre habrá ruido visible en el mapa de luz horneado &quot;en bruto&quot;. El ruido es especialmente visible en áreas difíciles de alcanzar por la luz rebotada, como zonas interiores con pequeñas aberturas donde entra la luz solar. El ruido se puede reducir aumentando la calidad de horneado, pero hacerlo incrementará los tiempos de horneado significativamente.</p>
 <figure class="align-center" id="id5">
-<img alt="Comparison between denoising disabled and enabled" src="../../../_images/lightmap_gi_denoiser_comparison.webp" />
+<img alt="Comparación entre reducción de ruido desactivada y activada" src="../../../_images/lightmap_gi_denoiser_comparison.webp" />
 <figcaption>
-<p><span class="caption-text">Comparison between denoising disabled and enabled (with the default JNLM denoiser).</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Comparación entre reducción de ruido desactivada y activada (con el denoiser JNLM por defecto).</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>To combat noise without increasing bake times too much, a denoiser can be used.
-A denoiser is an algorithm that runs on the final baked lightmap, detects patterns of
-noise and softens them while attempting to best preserve detail.
-Godot offers two denoising algorithms:</p>
+<p>Para combatir el ruido sin alargar demasiado los tiempos de horneado, se puede utilizar un reductor de ruido (denoiser). Un denoiser es un algoritmo que se ejecuta sobre el mapa de luz horneado final, detecta patrones de ruido y los suaviza intentando preservar el detalle al máximo. Godot ofrece dos algoritmos de reducción de ruido:</p>
 <section id="jnlm-non-local-means-with-joint-filtering">
 <h3>JNLM (Non-Local Means with Joint Filtering)<a class="headerlink" href="#jnlm-non-local-means-with-joint-filtering" title="Link to this heading"></a></h3>
-<p>JNLM is the default denoising method and is included in Godot. It uses a simple
-but efficient denoising algorithm known as <em>non-local means</em>. JNLM runs on the
-GPU using a compute shader, and is compatible with any GPU that can run Godot
-4's RenderingDevice-based renderers. No additional setup is required.</p>
-<p>JNLM's denoising can be adjusted using the <strong>Denoiser Strength</strong> property that
-is visible when <strong>Use Denoiser</strong> enabled. Higher values can be more effective at
-removing noise, at the cost of suppressing shadow detail for static shadows.</p>
+<p>JNLM es el método de reducción de ruido por defecto y está incluido en Godot. Utiliza un algoritmo de eliminación de ruido simple pero eficiente conocido como <em>non-local means</em>. JNLM se ejecuta en la GPU mediante un compute shader y es compatible con cualquier GPU capaz de ejecutar los renderizadores basados en RenderingDevice de Godot 4. No se requiere configuración adicional.</p>
+<p>La reducción de ruido de JNLM se puede ajustar usando la propiedad <strong>Denoiser Strength</strong> que está visible cuando <strong>Use Denoiser</strong> está habilitado. Valores más altos pueden ser más efectivos para eliminar ruido, a costa de suprimir el detalle en las sombras estáticas.</p>
 <figure class="align-center" id="id6">
-<img alt="Comparison between JNLM denoiser strength values" src="../../../_images/lightmap_gi_denoiser_jnlm_strength.webp" />
+<img alt="Comparación entre valores de fuerza del denoiser JNLM" src="../../../_images/lightmap_gi_denoiser_jnlm_strength.webp" />
 <figcaption>
-<p><span class="caption-text">Comparison between JNLM denoiser strength values. Higher values can reduce detail.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Comparación entre valores de fuerza del denoiser JNLM. Valores más altos pueden reducir el detalle.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="oidn-open-image-denoise">
 <h3>OIDN (Open Image Denoise)<a class="headerlink" href="#oidn-open-image-denoise" title="Link to this heading"></a></h3>
-<p>Unlike JNLM, OIDN uses a machine learning approach to denoising lightmaps. It
-features a model specifically trained to remove noise from lightmaps while
-preserving more shadow detail in most scenes compared to JNLM.</p>
-<p>OIDN can run on the GPU if hardware acceleration is configured. With a modern
-high-end GPU, this can provide a speedup of over 50× over CPU-based denoising:</p>
+<p>A diferencia de JNLM, OIDN utiliza un enfoque de aprendizaje automático (machine learning) para reducir el ruido en mapas de luz. Cuenta con un modelo entrenado específicamente para eliminar ruido de lightmaps conservando un mayor nivel de detalle en las sombras en la mayoría de escenas en comparación con JNLM.</p>
+<p>OIDN puede ejecutarse en la GPU si se configura la aceleración de hardware. Con una GPU moderna de gama alta, esto puede proporcionar una velocidad más de 50 veces superior a la reducción de ruido basada en CPU:</p>
 <ul class="simple">
-<li><p>On AMD GPUs, HIP must be installed and configured.</p></li>
-<li><p>On NVIDIA GPUs, CUDA must be installed and configured. This may automatically
-be done by the NVIDIA installer, but on Linux, CUDA libraries may not be
-installed by default. Double-check that the CUDA packages from your Linux
-distribution are installed.</p></li>
-<li><p>On Intel GPUs, SYCL must be installed and configured.</p></li>
+<li><p>En GPUs AMD, se debe instalar y configurar HIP.</p></li>
+<li><p>En GPUs NVIDIA, se debe instalar y configurar CUDA. Esto puede hacerlo automáticamente el instalador de NVIDIA, pero en Linux las bibliotecas CUDA podrían no instalarse por defecto. Verifica dos veces que los paquetes de CUDA de tu distribución Linux estén instalados.</p></li>
+<li><p>En GPUs Intel, se debe instalar y configurar SYCL.</p></li>
 </ul>
-<p>If hardware acceleration is not available, OIDN will fall back to multithreaded
-CPU-based denoising. To confirm whether GPU-based denoising is working, use a
-GPU utilization monitor while baking lightmaps and look at the GPU utilization
-percentage and VRAM utilization while the denoising step is shown in the Godot
-editor. The <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> command line tool can be useful for this.</p>
-<p>OIDN is not included with Godot due to its relatively large download size. You
-can download precompiled OIDN binary packages from its
-<a class="reference external" href="https://www.openimagedenoise.org/downloads.html">website</a>.
-Extract the package to a location on your PC, then specify the path to the
-<code class="docutils literal notranslate"><span class="pre">oidnDenoise</span></code> executable in the Editor Settings (<strong>FileSystem &gt; Tools &gt; OIDN &gt;
-OIDN Denoise Path</strong>). This executable is located within the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder of
-the binary package you extracted.</p>
-<p>After specifying the path to the OIDN denoising executable, change the denoising
-method in the project settings by setting <strong>Rendering &gt; Lightmapping &gt;
-Denoiser</strong> to <strong>OIDN</strong>. This will affect all lightmap bakes on this project
-after the setting is changed.</p>
+<p>Si la aceleración por hardware no está disponible, OIDN recurrirá a la reducción de ruido multihilo basada en CPU. Para confirmar si la reducción de ruido basada en GPU está funcionando, utiliza un monitor de utilización de GPU mientras horneas lightmaps y observa el porcentaje de utilización de la GPU y la memoria VRAM mientras se muestra el paso de reducción de ruido en el editor de Godot. La herramienta de línea de comandos <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> puede ser útil para esto.</p>
+<p>OIDN no está incluido en Godot debido a su tamaño de descarga relativamente grande. Puedes descargar paquetes binarios precompilados de OIDN desde su <a class="reference external" href="https://www.openimagedenoise.org/downloads.html">sitio web</a>. Extrae el paquete en una ubicación de tu PC y luego especifica la ruta al ejecutable <code class="docutils literal notranslate"><span class="pre">oidnDenoise</span></code> en la Configuración del Editor (<strong>FileSystem &gt; Tools &gt; OIDN &gt; OIDN Denoise Path</strong>). Este ejecutable se encuentra dentro de la carpeta <code class="docutils literal notranslate"><span class="pre">bin</span></code> del paquete binario extraído.</p>
+<p>Después de especificar la ruta al ejecutable de OIDN, cambia el método de reducción de ruido en la configuración del proyecto configurando <strong>Rendering &gt; Lightmapping &gt; Denoiser</strong> a <strong>OIDN</strong>. Esto afectará a todos los horneados de mapas de luz en este proyecto después de cambiar la opción.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The denoising method is configured in the project settings instead of the
-editor settings. This is done so that different team members working on the
-same project are assured to be using the same denoising method for
-consistent results.</p>
+<p>El método de reducción de ruido se configura en los ajustes del proyecto en lugar de los ajustes del editor. Esto se hace para que los diferentes miembros del equipo que trabajan en el mismo proyecto tengan garantizado el uso del mismo método para obtener resultados consistentes.</p>
 </div>
 <figure class="align-center" id="id7">
-<img alt="Comparison between JNLM and OIDN denoisers" src="../../../_images/lightmap_gi_denoiser_jnlm_vs_oidn.webp" />
+<img alt="Comparación entre denoisers JNLM y OIDN" src="../../../_images/lightmap_gi_denoiser_jnlm_vs_oidn.webp" />
 <figcaption>
-<p><span class="caption-text">Comparison between JNLM and OIDN denoisers.
-Notice how OIDN better preserves detail and reduces seams across different objects.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">Comparación entre los denoisers JNLM y OIDN. Observa cómo OIDN preserva mejor los detalles y reduce las costuras entre diferentes objetos.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="dynamic-objects">
 <span id="doc-using-lightmap-gi-dynamic-objects"></span><h2>Objetos dinámicos<a class="headerlink" href="#dynamic-objects" title="Link to this heading"></a></h2>
-<p>Unlike VoxelGI and SDFGI, dynamic objects receive indirect lighting differently
-compared to static objects. This is because lightmapping is only performed on
-static objects.</p>
-<p>To display indirect lighting on dynamic objects, a 3D probe system is used, with
-light probes being spread throughout the scene. When baking lightmaps, the
-lightmapper will calculate the amount of <em>indirect</em> light received by the probe.
-Direct light is not stored within light probes, even for lights that have their
-bake mode set to <strong>Static</strong> (as dynamic objects continue to be lit in
-real-time).</p>
-<p>There are 2 ways to add light probes to a scene:</p>
+<p>A diferencia de VoxelGI y SDFGI, los objetos dinámicos reciben iluminación indirecta de forma diferente a los objetos estáticos. Esto se debe a que el mapeo de luz solo se realiza sobre objetos estáticos.</p>
+<p>Para mostrar iluminación indirecta en objetos dinámicos, se utiliza un sistema de sondas 3D, distribuyendo sondas de luz por toda la escena. Al hornear lightmaps, el horneador calculará la cantidad de luz <em>indirecta</em> recibida por la sonda. La luz directa no se almacena dentro de las sondas de luz, incluso para luces que tienen su modo de horneado en <strong>Static</strong> (ya que los objetos dinámicos continúan iluminándose en tiempo real).</p>
+<p>Hay 2 formas de agregar sondas de luz a una escena:</p>
 <ul class="simple">
-<li><p><strong>Automatic:</strong> Set <strong>Gen Probes &gt; Subdiv</strong> to a value other than <strong>Disabled</strong>,
-then bake lightmaps. The default is <code class="docutils literal notranslate"><span class="pre">8</span></code>, but you can choose a greater value
-to improve precision at the cost of longer bake times and larger output file
-size.</p></li>
-<li><p><strong>Manual:</strong> In addition or as an alternative to generating probes
-automatically, you can add light probes manually by adding <a class="reference internal" href="../../../classes/class_lightmapprobe.html#class-lightmapprobe"><span class="std std-ref">LightmapProbe</span></a>
-nodes to the scene. This can be used to improve lighting detail in areas frequently
-travelled by dynamic objects. After placing LightmapProbe nodes in the scene,
-you must bake lightmaps again for them to be effective.</p></li>
+<li><p><strong>Automática:</strong> Establece <strong>Gen Probes &gt; Subdiv</strong> en un valor distinto de <strong>Disabled</strong>, luego hornea los mapas de luz. El valor por defecto es <code class="docutils literal notranslate"><span class="pre">8</span></code>, pero puedes elegir un valor mayor para mejorar la precisión a costa de mayores tiempos de horneado y mayor tamaño de archivo.</p></li>
+<li><p><strong>Manual:</strong> Además o como alternativa a generar sondas automáticamente, puedes agregarlas manualmente agregando nodos <a class="reference internal" href="../../../classes/class_lightmapprobe.html#class-lightmapprobe"><span class="std std-ref">LightmapProbe</span></a> a la escena. Esto se puede usar para mejorar el detalle de iluminación en áreas frecuentadas por objetos dinámicos. Después de colocar los nodos LightmapProbe en la escena, debes hornear los mapas de luz nuevamente para que surtan efecto.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>After baking lightmaps, you will notice white spheres in the 3D scene that
-represent how baked lighting will affect dynamic objects. These spheres do
-<strong>not</strong> appear in the running project.</p>
-<p>If you want to hide these spheres in the editor, toggle <strong>View &gt; Gizmos &gt;
-LightmapGI</strong> at the top of the 3D editor (a &quot;closed eye&quot; icon indicates the
-gizmo is hidden).</p>
+<p>Después de hornear mapas de luz, notarás esferas blancas en la escena 3D que representan cómo la iluminación horneada afectará a los objetos dinámicos. Estas esferas <strong>no</strong> aparecen en el proyecto en ejecución.</p>
+<p>Si deseas ocultar estas esferas en el editor, activa o desactiva <strong>View &gt; Gizmos &gt; LightmapGI</strong> en la parte superior del editor 3D (un icono de &quot;ojo cerrado&quot; indica que el gizmo está oculto).</p>
 </div>
 </section>
 <section id="lightmap-data">
-<span id="doc-using-lightmap-gi-data"></span><h2>Lightmap data<a class="headerlink" href="#lightmap-data" title="Link to this heading"></a></h2>
-<p>The <strong>Data &gt; Light Data</strong> property in the LightmapGI node contains the lightmap
-data after baking. Textures are saved to disk, but this also contains the
-capture data for dynamic objects, which can be heavy. If you are using a scene
-in <code class="docutils literal notranslate"><span class="pre">.tscn</span></code> format, you should save this resource to an external binary
-<code class="docutils literal notranslate"><span class="pre">.lmbake</span></code> file to avoid bloating the <code class="docutils literal notranslate"><span class="pre">.tscn</span></code> scene with binary data encoded
-in Base64.</p>
+<span id="doc-using-lightmap-gi-data"></span><h2>Datos del mapa de luz (Lightmap data)<a class="headerlink" href="#lightmap-data" title="Link to this heading"></a></h2>
+<p>La propiedad <strong>Data &gt; Light Data</strong> en el nodo LightmapGI contiene los datos del mapa de luz después de hornear. Las texturas se guardan en el disco, pero esto también contiene los datos de captura para objetos dinámicos, que pueden ser pesados. Si estás utilizando una escena en formato <code class="docutils literal notranslate"><span class="pre">.tscn</span></code>, debes guardar este recurso en un archivo binario externo <code class="docutils literal notranslate"><span class="pre">.lmbake</span></code> para evitar inflar la escena <code class="docutils literal notranslate"><span class="pre">.tscn</span></code> con datos binarios codificados en Base64.</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
 <p>El archivo EXR generado se puede ver e incluso editar utilizando un editor de imágenes para realizar el pos-procesamiento si es necesario. Sin embargo, ten en cuenta que los cambios en el archivo EXR se perderán cuando vuelva a crear mapas de luz.</p>
 </div>
 </section>
 <section id="reducing-lightmapgi-artifacts">
-<h2>Reducing LightmapGI artifacts<a class="headerlink" href="#reducing-lightmapgi-artifacts" title="Link to this heading"></a></h2>
-<p>If you notice LightmapGI nodes popping in and out of existence as the camera
-moves, this is most likely because the engine is rendering too many LightmapGI
-instances at once. Godot is limited to rendering 8 LightmapGI nodes at once,
-which means up to 8 instances can be in the camera view before some of them will
-start flickering.</p>
+<h2>Reducir artefactos de LightmapGI<a class="headerlink" href="#reducing-lightmapgi-artifacts" title="Link to this heading"></a></h2>
+<p>Si notas que los nodos LightmapGI aparecen y desaparecen a medida que se mueve la cámara, lo más probable es que el motor esté renderizando demasiadas instancias de LightmapGI a la vez. Godot está limitado a renderizar 8 nodos LightmapGI simultáneamente, lo que significa que pueden haber hasta 8 instancias en la vista de la cámara antes de que algunas comiencen a parpadear.</p>
 </section>
 </section>
 
@@ -13602,8 +13334,8 @@ start flickering.</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="using_sdfgi.html" class="btn btn-neutral float-left" title="Signed distance field global illumination (SDFGI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="reflection_probes.html" class="btn btn-neutral float-right" title="Reflection Probe" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="using_sdfgi.html" class="btn btn-neutral float-left" title="Iluminación global por campos de distancia con signo (SDFGI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="reflection_probes.html" class="btn btn-neutral float-right" title="Sondas de reflexión (ReflectionProbes)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

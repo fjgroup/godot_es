@@ -13061,10 +13061,10 @@ momento en que dibujan su contenido hasta que se muestran en la pantalla.</p>
 <section id="stretch-transform">
 <h2>Transformación de estiramiento<a class="headerlink" href="#stretch-transform" title="Link to this heading"></a></h2>
 <p>Por último, los Viewports tienen un <em>Stretch Transform</em>, que se utiliza al cambiar de tamaño o estirar la pantalla. Esta transformación se utiliza internamente (como se describe en <a class="reference internal" href="../rendering/multiple_resolutions.html#doc-multiple-resolutions"><span class="std std-ref">Múltiples resoluciones</span></a>) pero también se puede configurar manualmente en cada Viewport.</p>
-<p>Input events are multiplied by this transform, but lack the ones above. To
-convert InputEvent coordinates to local CanvasItem coordinates, the
+<p>Los eventos de entrada (Input events) se multiplican por esta transformación, pero carecen de las anteriores. Para
+convertir las coordenadas de InputEvent a coordenadas locales de CanvasItem, se añadió la función
 <a class="reference internal" href="../../classes/class_canvasitem.html#class-canvasitem-method-make-input-local"><span class="std std-ref">CanvasItem.make_input_local()</span></a>
-function was added for convenience.</p>
+por conveniencia.</p>
 </section>
 <section id="window-transform">
 <h2>Transform de Window<a class="headerlink" href="#window-transform" title="Link to this heading"></a></h2>
