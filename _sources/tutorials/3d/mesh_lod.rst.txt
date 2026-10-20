@@ -1,142 +1,140 @@
 .. _doc_mesh_lod:
 
-Mesh level of detail (LOD)
-==========================
+Nivel de detalle de malla (LOD)
+===============================
 
-Level of detail (LOD) is one of the most important ways to optimize rendering
-performance in a 3D project, along with :ref:`doc_occlusion_culling`.
+El nivel de detalle (LOD / *Level of Detail*) es una de las formas más importantes de optimizar el
+rendimiento de renderizado en un proyecto 3D, junto con la :ref:`doc_occlusion_culling`.
 
-On this page, you'll learn:
+En esta página, aprenderás:
 
-- How mesh LOD can improve your 3D project's rendering performance.
-- How to set up mesh LOD in Godot.
-- How to measure mesh LOD's effectiveness in your project
-  (and alternatives you can explore if it doesn't meet your expectations).
+- Cómo el LOD de malla puede mejorar el rendimiento de renderizado de tu proyecto 3D.
+- Cómo configurar el LOD de malla en Godot.
+- Cómo medir la efectividad del LOD de malla en tu proyecto
+  (y alternativas que puedes explorar si no cumple con tus expectativas).
 
 .. seealso::
 
-    You can see how mesh LOD works in action using the
-    `Occlusion Culling and Mesh LOD demo project <https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod>`__.
+    Puedes ver cómo funciona el LOD de malla en acción utilizando el
+    `proyecto de demostración de Eliminación de Oclusión y LOD de Malla <https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod>`__.
 
-Introduction
+Introducción
 ------------
 
-Historically, level of detail in 3D games involved manually authoring meshes
-with lower geometry density, then configuring the distance thresholds at which
-these lower-detailed meshes should be drawn. This approach is still used today
-when increased control is needed.
+Históricamente, el nivel de detalle en juegos 3D implicaba crear manualmente mallas
+con menor densidad geométrica, y luego configurar los umbrales de distancia a los
+cuales se debían dibujar estas mallas de menor detalle. Este enfoque todavía se utiliza
+hoy en día cuando se requiere un mayor control.
 
-However, in projects that have a large amount of detailed 3D assets, setting up
-LOD manually can be a very time-consuming process. As a result, automatic mesh
-decimation and LOD configuration is becoming increasingly popular.
+Sin embargo, en proyectos con una gran cantidad de recursos 3D detallados, configurar
+el LOD manualmente puede ser un proceso muy laborioso. Como resultado, la diezmación
+automática de mallas y la configuración automática de LOD se han vuelto cada vez más populares.
 
-Godot provides a way to automatically generate less detailed meshes for LOD
-usage on import, then use those LOD meshes when needed automatically. This is
-completely transparent to the user.
-The `meshoptimizer <https://meshoptimizer.org/>`__ library is used for LOD mesh
-generation behind the scenes.
+Godot proporciona una forma de generar automáticamente mallas menos detalladas para uso
+de LOD durante la importación, y luego utilizar esas mallas LOD automáticamente cuando sea
+necesario. Esto es completamente transparente para el usuario.
+La biblioteca `meshoptimizer <https://meshoptimizer.org/>`__ se utiliza internamente para la
+generación de mallas LOD.
 
-Mesh LOD works with any node that draws 3D meshes. This includes MeshInstance3D,
-MultiMeshInstance3D, GPUParticles3D and CPUParticles3D.
+El LOD de malla funciona con cualquier nodo que dibuje mallas 3D. Esto incluye MeshInstance3D,
+MultiMeshInstance3D, GPUParticles3D y CPUParticles3D.
 
-Visual comparison
------------------
+Comparación visual
+------------------
 
-Here is an example of LOD meshes generated on import. Lower detailed meshes
-will be used when the camera is far away from the object:
+A continuación se muestra un ejemplo de mallas LOD generadas en la importación. Se utilizarán
+mallas de menor detalle cuando la cámara esté lejos del objeto:
 
 .. figure:: img/mesh_lod_comparison_shaded.png
    :align: center
-   :alt: From most detailed (left) to least detailed (right), shaded view
+   :alt: De mayor detalle (izquierda) a menor detalle (derecha), vista sombreada
 
-   From most detailed (left) to least detailed (right), shaded view
+   De mayor detalle (izquierda) a menor detalle (derecha), vista sombreada
 
-Here's the same image with wireframe rendering to make the decimation easier to see:
+Aquí está la misma imagen con renderizado en malla alámbrica (*wireframe*) para facilitar la visualización del diezmado:
 
 .. figure:: img/mesh_lod_comparison_wireframe.png
    :align: center
-   :alt: From most detailed (left) to least detailed (right), wireframe view
+   :alt: De mayor detalle (izquierda) a menor detalle (derecha), vista alámbrica
 
-   From most detailed (left) to least detailed (right), wireframe view
+   De mayor detalle (izquierda) a menor detalle (derecha), vista alámbrica
 
 .. seealso::
 
-    If you need to manually configure level of detail with artist-created meshes,
-    use :ref:`doc_visibility_ranges` instead of automatic mesh LOD.
+    Si necesitas configurar manualmente el nivel de detalle con mallas creadas por artistas,
+    utiliza :ref:`doc_visibility_ranges` en lugar del LOD de malla automático.
 
-Generating mesh LOD
--------------------
+Generación de LOD de malla
+--------------------------
 
-By default, mesh LOD generation happens automatically for imported 3D scenes
-(glTF, .blend, Collada, FBX). Once LOD meshes are generated, they will
-automatically be used when rendering the scene. You don't need to configure
-anything manually.
+Por defecto, la generación de LOD de malla se realiza automáticamente para escenas 3D importadas
+(glTF, .blend, Collada, FBX). Una vez generadas las mallas LOD, se utilizarán automáticamente
+al renderizar la escena. No es necesario configurar nada manualmente.
 
-However, mesh LOD generation does **not** automatically happen for imported 3D
-meshes (OBJ). This is because OBJ files are not imported as full 3D scenes by
-default, but only as individual mesh resources to load into a MeshInstance3D
-node (or GPUParticles3D, CPUParticles3D, ...).
+Sin embargo, la generación de LOD de malla **no** ocurre automáticamente para mallas 3D importadas
+individualmente (OBJ). Esto se debe a que los archivos OBJ no se importan por defecto como escenas 3D
+completas, sino únicamente como recursos de malla individuales para cargar en un nodo MeshInstance3D
+(o GPUParticles3D, CPUParticles3D, ...).
 
-To make an OBJ file have mesh LOD generated for it, select it in the FileSystem
-dock, go to the Import dock, change its **Import As** option to **Scene** then
-click **Reimport**:
+Para hacer que un archivo OBJ tenga generación de LOD de malla, selecciónalo en el dock
+Sistema de Archivos (*FileSystem*), ve al dock Importar (*Import*), cambia su opción **Importar Como**
+a **Escena** (*Scene*) y luego haz clic en **Reimportar**:
 
 .. figure:: img/mesh_lod_obj_import.png
    :align: center
-   :alt: Changing the import type on an OBJ file in the Import dock
+   :alt: Cambio del tipo de importación en un archivo OBJ en el dock Importar
 
-   Changing the import type on an OBJ file in the Import dock
+   Cambio del tipo de importación en un archivo OBJ en el dock Importar
 
-This will require restarting the editor after clicking **Reimport**.
+Esto requerirá reiniciar el editor después de hacer clic en **Reimportar**.
 
 .. note::
 
-   The mesh LOD generation process is not perfect, and may occasionally
-   introduce rendering issues (especially in skinned meshes). Mesh LOD
-   generation can also take a while on complex meshes.
+   El proceso de generación de LOD de malla no es perfecto y ocasionalmente puede
+   introducir fallos visuales de renderizado (especialmente en mallas con piel/esqueleto o *skinned meshes*).
+   La generación de LOD de malla también puede tardar un tiempo en mallas complejas.
 
-   If mesh LOD causes a specific mesh to look broken, you can disable LOD
-   generation for it in the Import dock. This will also speed up resource
-   importing. This can be done globally in the 3D scene's import options, or on
-   a per-mesh basis using the Advanced Import Settings dialog.
+   Si el LOD de malla hace que una malla específica se vea rota, puedes desactivar la
+   generación de LOD para ella en el dock Importar. Esto también acelerará la importación
+   de recursos. Esto se puede hacer de forma global en las opciones de importación de la
+   escena 3D, o por cada malla individual utilizando el cuadro de diálogo de Configuración Avanzada de Importación.
 
-   See :ref:`Importing 3D scenes <doc_importing_3d_scenes_using_the_import_dock>`
-   for more information.
+   Consulta :ref:`Importación de escenas 3D <doc_importing_3d_scenes_using_the_import_dock>`
+   para obtener más información.
 
-Comparing mesh LOD visuals and performance
-------------------------------------------
+Comparación visual y de rendimiento del LOD de malla
+----------------------------------------------------
 
-To disable mesh LOD in the editor for comparison purposes, use the
-**Disable Mesh LOD** advanced debug draw mode. This can be done using the menu
-in the top-left corner of the 3D viewport (labeled **Perspective** or
-**Orthogonal** depending on camera mode):
+Para desactivar el LOD de malla en el editor con fines comparativos, utiliza el modo de dibujo de
+depuración avanzada **Desactivar LOD de Malla** (*Disable Mesh LOD*). Esto se puede hacer utilizando
+el menú en la esquina superior izquierda del visor 3D (etiquetado como **Perspectiva** u
+**Ortogonal** según el modo de la cámara):
 
 .. figure:: img/mesh_lod_disable_lod.png
    :align: center
-   :alt: Disabling mesh LOD in the 3D viewport's top-left menu
+   :alt: Desactivación del LOD de malla en el menú superior izquierdo del visor 3D
 
-   Disabling mesh LOD in the 3D viewport's top-left menu
+   Desactivación del LOD de malla en el menú superior izquierdo del visor 3D
 
-Enable **View Frame Time** in the same menu to view FPS in the top-right corner.
-Also enable **View Information** in the same menu to view the number of primitives
-(vertices + indices) rendered in the bottom-right corner.
+Activa **Ver Tiempo de Cuadro** (*View Frame Time*) en el mismo menú para ver los FPS en la esquina superior derecha.
+Activa también **Ver Información** (*View Information*) en el mismo menú para ver el número de primitivas
+(vértices + índices) renderizadas en la esquina inferior derecha.
 
-If mesh LOD is working correctly in your scene and your camera is far away
-enough from the mesh, you should notice the number of drawn primitives
-decreasing and FPS increasing when mesh LOD is left enabled (unless you are
-CPU-bottlenecked).
+Si el LOD de malla funciona correctamente en tu escena y la cámara está suficientemente lejos
+de la malla, deberías notar que el número de primitivas dibujadas disminuye y los FPS aumentan
+cuando el LOD de malla permanece habilitado (a menos que haya un cuello de botella en la CPU).
 
-To see mesh LOD decimation in action, change the debug draw mode to
-**Display Wireframe** in the menu specified above, then adjust the
-**Rendering > Mesh LOD > LOD Change > Threshold Pixels** project setting.
+Para ver el diezmado del LOD de malla en acción, cambia el modo de dibujo de depuración a
+**Mostrar Malla Alámbrica** (*Display Wireframe*) en el menú mencionado anteriormente, y luego ajusta
+la propiedad de proyecto **Rendering > Mesh LOD > LOD Change > Threshold Pixels**.
 
-Configuring mesh LOD performance and quality
---------------------------------------------
+Configuración del rendimiento y la calidad del LOD de malla
+-----------------------------------------------------------
 
-You can adjust how aggressive mesh LOD transitions should be in the root viewport
-by changing the **Rendering > Mesh LOD > LOD Change > Threshold Pixels** project
-setting. To change this value at runtime, set ``mesh_lod_threshold`` on the
-root viewport as follows:
+Puedes ajustar qué tan agresivas deben ser las transiciones de LOD de malla en el visor raíz
+modificando el ajuste de proyecto **Rendering > Mesh LOD > LOD Change > Threshold Pixels**.
+Para cambiar este valor en tiempo de ejecución, define ``mesh_lod_threshold`` en el visor
+raíz de la siguiente manera:
 
 .. tabs::
  .. code-tab:: gdscript
@@ -147,55 +145,51 @@ root viewport as follows:
 
     GetTree().Root.MeshLodThreshold = 4.0f;
 
-Each viewport has its own ``mesh_lod_threshold`` property, which can be set
-independently from other viewports.
+Cada Viewport tiene su propia propiedad ``mesh_lod_threshold``, que se puede configurar de
+forma independiente de otros visores.
 
-The default mesh LOD threshold of 1 pixel is tuned to look *perceptually*
-lossless; it provides a significant performance gain with an unnoticeable loss
-in quality. Higher values will make LOD transitions happen sooner when the
-camera moves away, resulting in higher performance, but lower quality.
+El umbral de LOD de malla predeterminado de 1 píxel está ajustado para ser *perceptualmente*
+sin pérdidas; proporciona una ganancia significativa de rendimiento con una pérdida imperceptible
+de calidad. Valores más altos harán que las transiciones de LOD ocurran antes cuando la cámara
+se aleja, lo que resultará en un mayor rendimiento pero menor calidad.
 
-If you need to perform per-object adjustments to mesh LOD, you can adjust how
-aggressive LOD transitions should be by adjusting the **LOD Bias** property on
-any node that inherits from GeometryInstance3D. Values *above* ``1.0`` will make
-LOD transitions happen later than usual (resulting in higher quality, but lower
-performance). Values *below* ``1.0`` will make LOD transitions happen sooner than
-usual (resulting in lower quality, but higher performance).
+Si necesitas realizar ajustes por objeto para el LOD de malla, puedes ajustar qué tan agresivas
+deben ser las transiciones modificando la propiedad **LOD Bias** en cualquier nodo que herede
+de GeometryInstance3D. Valores *superiores* a ``1.0`` harán que las transiciones de LOD ocurran
+más tarde de lo habitual (lo que resulta en mayor calidad, pero menor rendimiento). Valores
+*inferiores* a ``1.0`` harán que las transiciones de LOD ocurran antes de lo habitual
+(lo que resulta en menor calidad, pero mayor rendimiento).
 
-Additionally, ReflectionProbe nodes have their own **Mesh LOD Threshold** property
-that can be adjusted to improve rendering performance when the reflection probe
-updates. This is especially important for ReflectionProbes that use the **Always**
-update mode.
+Además, los nodos ReflectionProbe tienen su propia propiedad **Mesh LOD Threshold** que se
+puede ajustar para mejorar el rendimiento de renderizado cuando la sonda de reflexión se actualiza.
+Esto es especialmente importante para las ReflectionProbes que utilizan el modo de actualización **Always**.
 
 .. note::
 
-    When rendering the scene, mesh LOD selection uses a screen-space metric.
-    This means it automatically takes camera field of view and viewport
-    resolution into account. Higher camera FOV and lower viewport resolutions
-    will make LOD selection more aggressive; the engine will display heavily
-    decimated models earlier when the camera moves away.
+    Al renderizar la escena, la selección de LOD de malla utiliza una métrica en el espacio de pantalla.
+    Esto significa que toma automáticamente en cuenta el campo de visión (FOV) de la cámara y la
+    resolución del visor. Un FOV de cámara más alto y resoluciones de visor más bajas harán que la
+    selección de LOD sea más agresiva; el motor mostrará modelos fuertemente diezmados más pronto
+    cuando la cámara se aleje.
 
-    As a result, unlike :ref:`doc_visibility_ranges`, you don't need to do
-    anything specific in your project to take camera FOV and viewport resolution
-    into account.
+    Como resultado, a diferencia de :ref:`doc_visibility_ranges`, no necesitas hacer nada
+    específico en tu proyecto para tener en cuenta el FOV de la cámara y la resolución del visor.
 
-Using mesh LOD with MultiMesh and particles
--------------------------------------------
+Uso del LOD de malla con MultiMesh y partículas
+-----------------------------------------------
 
-For LOD selection, the point of the node's :abbr:`AABB (Axis-Aligned Bounding Box)`
-that is the closest to the camera is used as a basis. This applies to any kind
-of mesh LOD (including for individual MeshInstance3D)s, but this has some implications
-for nodes that display multiple meshes at once, such as MultiMeshInstance3D,
-CPUParticles3D, and GPUParticles3D. Most importantly, this means that all
-instances will be drawn with the same LOD level at a given time.
+Para la selección de LOD, se utiliza como base el punto del :abbr:`AABB (Axis-Aligned Bounding Box)`
+del nodo que esté más cerca de la cámara. Esto se aplica a cualquier tipo de LOD de malla (incluidas
+las mallas individuales de MeshInstance3D), pero tiene algunas implicaciones para nodos que muestran
+múltiples mallas a la vez, como MultiMeshInstance3D, CPUParticles3D y GPUParticles3D. Lo más
+importante es que esto significa que todas las instancias se dibujarán con el mismo nivel de LOD
+en un momento determinado.
 
-If you are noticing incorrect LOD selection with GPUParticles3D, make sure
-the node's visibility AABB is configured by selecting the GPUParticles3D
-node and using **GPUParticles3D > Generate AABB** at the top of the 3D
-viewport.
+Si notas una selección incorrecta de LOD con GPUParticles3D, asegúrate de que el AABB de visibilidad
+del nodo esté configurado seleccionando el nodo GPUParticles3D y usando **GPUParticles3D > Generar AABB**
+en la parte superior del visor 3D.
 
-If you have instances in a MultiMesh that are far away from each other, they
-should be placed in a separate MultiMeshInstance3D node. Doing so will also
-improve rendering performance, as frustum and occlusion culling will be able to
-cull individual nodes (while they can't cull individual instances in a
-MultiMesh).
+Si tienes instancias en un MultiMesh que están muy lejos unas de otras, deben colocarse en un nodo
+MultiMeshInstance3D separado. Hacerlo también mejorará el rendimiento del renderizado, ya que el recorte
+por tronco de visión (*frustum culling*) y la eliminación de oclusión (*occlusion culling*) podrán
+descartar nodos individuales (mientras que no pueden descartar instancias individuales dentro de un MultiMesh).

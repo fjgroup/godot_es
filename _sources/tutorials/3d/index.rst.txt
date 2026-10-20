@@ -33,7 +33,7 @@ Rendering
    volumetric_fog
    3d_antialiasing
 
-Optimization
+Optimización
 ------------
 
 .. toctree::

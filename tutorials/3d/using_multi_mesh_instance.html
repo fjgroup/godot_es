@@ -1,18 +1,18 @@
-﻿
+
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Using MultiMeshInstance3D" />
+<meta property="og:title" content="Uso de MultiMeshInstance3D" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/using_multi_mesh_instance.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
-<meta property="og:description" content="Introducción: In a normal scenario, you would use a MeshInstance3D node to display a 3D mesh like a human model for the main character, but in some cases, you would like to create multiple instance..." />
-<meta name="description" content="Introducción: In a normal scenario, you would use a MeshInstance3D node to display a 3D mesh like a human model for the main character, but in some cases, you would like to create multiple instance..." />
+<meta property="og:description" content="En un escenario normal, usarías un nodo MeshInstance3D para mostrar una malla 3D, como el modelo de un personaje humano, pero en algunos casos querrás crear múltiples instancias de la misma malla en una escena..." />
+<meta name="description" content="En un escenario normal, usarías un nodo MeshInstance3D para mostrar una malla 3D, como el modelo de un personaje humano, pero en algunos casos querrás crear múltiples instancias de la misma malla en una escena..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Using MultiMeshInstance3D &mdash; Documentación de Godot Engine (4.x) en español</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Uso de MultiMeshInstance3D &mdash; Documentación de Godot Engine (4.x) en español</title>
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
@@ -12979,7 +12979,7 @@
 		
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">3D</a></li>
-      <li class="breadcrumb-item active">Using MultiMeshInstance3D</li>
+      <li class="breadcrumb-item active">Uso de MultiMeshInstance3D</li>
 	</ul>
 </li>
 
@@ -13039,69 +13039,66 @@
 
   
   <section id="using-multimeshinstance3d">
-<span id="doc-using-multi-mesh-instance"></span><h1>Using MultiMeshInstance3D<a class="headerlink" href="#using-multimeshinstance3d" title="Link to this heading"></a></h1>
+<span id="doc-using-multi-mesh-instance"></span><h1>Uso de MultiMeshInstance3D<a class="headerlink" href="#using-multimeshinstance3d" title="Link to this heading"></a></h1>
 <section id="introduction">
 <h2>Introducción<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>En un escenario normal, usarías un nodo <a class="reference internal" href="../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> para mostrar una malla 3D. Sin embargo, si necesitas dibujar miles de instancias de la misma malla (como hierba o árboles), MultiMeshInstance3D permite hacerlo en una única llamada de dibujado.</p>
-<p>MultiMeshInstance3D, as the name suggests, creates multiple copies of a
-MeshInstance over a surface of a specific mesh. An example would be having a
-tree mesh populate a landscape mesh with trees of random scales and orientations.</p>
+<p>En un escenario normal, usarías un nodo <a class="reference internal" href="../../classes/class_meshinstance3d.html#class-meshinstance3d"><span class="std std-ref">MeshInstance3D</span></a> para mostrar una malla 3D, como el modelo de un personaje humano, pero en algunos casos querrás crear múltiples instancias de la misma malla en una escena. <em>Podrías</em> duplicar el mismo nodo varias veces y ajustar las transformaciones manualmente. Esto puede ser un proceso tedioso y el resultado puede verse mecánico. Además, este método no favorece las iteraciones rápidas. <a class="reference internal" href="../../classes/class_multimeshinstance3d.html#class-multimeshinstance3d"><span class="std std-ref">MultiMeshInstance3D</span></a> es una de las soluciones posibles a este problema.</p>
+<p>MultiMeshInstance3D, como su nombre indica, crea múltiples copias de una MeshInstance sobre la superficie de una malla específica. Un ejemplo sería poblar una malla de terreno con árboles de escalas y orientaciones aleatorias usando una malla de árbol.</p>
 </section>
 <section id="setting-up-the-nodes">
-<h2>Configurar los nodos<a class="headerlink" href="#setting-up-the-nodes" title="Link to this heading"></a></h2>
-<p>The basic setup requires three nodes: the MultiMeshInstance3D node
-and two MeshInstance3D nodes.</p>
-<p>Se utiliza un nodo como objetivo: la malla de superficie sobre la cual deseas colocar múltiples mallas. En el árbol de escenas, este suele ser el terreno o suelo del nivel.</p>
-<p>El otro nodo se usa como la fuente, la malla que quieres que se duplique. En el caso del árbol, este sería el árbol mismo.</p>
-<p>En nuestro ejemplo, usaríamos un nodo <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> como contenedor padre para organizar tanto la superficie como el nodo MultiMeshInstance3D.</p>
+<h2>Configuración de los nodos<a class="headerlink" href="#setting-up-the-nodes" title="Link to this heading"></a></h2>
+<p>La configuración básica requiere tres nodos: el nodo MultiMeshInstance3D y dos nodos MeshInstance3D.</p>
+<p>Un nodo se utiliza como objetivo (<em>target</em>), la malla de superficie sobre la cual deseas colocar múltiples mallas. En el ejemplo del árbol, este sería el paisaje/terreno.</p>
+<p>El otro nodo se utiliza como origen (<em>source</em>), la malla que deseas duplicar. En el caso del árbol, este sería el árbol en sí.</p>
+<p>En nuestro ejemplo, usaremos un nodo <a class="reference internal" href="../../classes/class_node3d.html#class-node3d"><span class="std std-ref">Node3D</span></a> como nodo raíz de la escena. El árbol de la escena se verá así:</p>
 <img alt="../../_images/multimesh_scene_tree.png" src="../../_images/multimesh_scene_tree.png" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Para simplificar, este tutorial utiliza primitivas integradas.</p>
+<p>Por motivos de simplicidad, este tutorial utiliza primitivas integradas.</p>
 </div>
-<p>Ahora tienes todo listo. Selecciona el nodo MultiMeshInstance3D y observa la barra de herramientas superior; deberías ver el menú contextual de MultiMesh listo para poblar las instancias sobre la superficie.</p>
+<p>Ahora tienes todo listo. Selecciona el nodo MultiMeshInstance3D y observa la barra de herramientas; deberías ver un botón adicional llamado <code class="docutils literal notranslate"><span class="pre">MultiMesh</span></code> junto a <code class="docutils literal notranslate"><span class="pre">Vista</span></code>. Haz clic en él y selecciona <em>Poblar superficie</em> (<em>Populate surface</em>) en el menú desplegable. Aparecerá una nueva ventana titulada <em>Poblar MultiMesh</em> (<em>Populate MultiMesh</em>).</p>
 <img alt="../../_images/multimesh_toolbar.png" src="../../_images/multimesh_toolbar.png" />
 <img alt="../../_images/multimesh_settings.png" src="../../_images/multimesh_settings.png" />
 </section>
 <section id="multimesh-settings">
-<h2>Configuración de MultiMesh<a class="headerlink" href="#multimesh-settings" title="Link to this heading"></a></h2>
+<h2>Ajustes de MultiMesh<a class="headerlink" href="#multimesh-settings" title="Link to this heading"></a></h2>
 <p>A continuación se describen las opciones.</p>
 <section id="target-surface">
-<h3>Superficie del objetivo<a class="headerlink" href="#target-surface" title="Link to this heading"></a></h3>
-<p>La malla utilizada como la superficie de destino en la que colocar las copias de la malla de origen.</p>
+<h3>Superficie objetivo (Target Surface)<a class="headerlink" href="#target-surface" title="Link to this heading"></a></h3>
+<p>La malla utilizada como la superficie de destino en la que se colocarán las copias de tu malla de origen.</p>
 </section>
 <section id="source-mesh">
-<h3>Malla de la fuente<a class="headerlink" href="#source-mesh" title="Link to this heading"></a></h3>
-<p>La malla que quieres que se duplique en la superficie del objetivo.</p>
+<h3>Malla de origen (Source Mesh)<a class="headerlink" href="#source-mesh" title="Link to this heading"></a></h3>
+<p>La malla que deseas duplicar sobre la superficie objetivo.</p>
 </section>
 <section id="mesh-up-axis">
-<h3>El eje de la malla<a class="headerlink" href="#mesh-up-axis" title="Link to this heading"></a></h3>
-<p>El eje utilizado como eje ascendente de la malla de la fuente.</p>
+<h3>Eje superior de la malla (Mesh Up Axis)<a class="headerlink" href="#mesh-up-axis" title="Link to this heading"></a></h3>
+<p>El eje utilizado como eje hacia arriba de la malla de origen.</p>
 </section>
 <section id="random-rotation">
-<h3>Rotación aleatoria<a class="headerlink" href="#random-rotation" title="Link to this heading"></a></h3>
-<p>Aleatorizando la rotación alrededor del eje ascendente de la malla de la fuente.</p>
+<h3>Rotación aleatoria (Random Rotation)<a class="headerlink" href="#random-rotation" title="Link to this heading"></a></h3>
+<p>Aleatoriza la rotación alrededor del eje hacia arriba de la malla de origen.</p>
 </section>
 <section id="random-tilt">
-<h3>Inclinación aleatoria<a class="headerlink" href="#random-tilt" title="Link to this heading"></a></h3>
-<p>Aleatorizando la rotación general de la malla de la fuente.</p>
+<h3>Inclinación aleatoria (Random Tilt)<a class="headerlink" href="#random-tilt" title="Link to this heading"></a></h3>
+<p>Aleatoriza la inclinación y rotación general de la malla de origen.</p>
 </section>
 <section id="random-scale">
-<h3>Escala aleatoria<a class="headerlink" href="#random-scale" title="Link to this heading"></a></h3>
-<p>Aleatorizando la escala de la malla de la fuente.</p>
+<h3>Escala aleatoria (Random Scale)<a class="headerlink" href="#random-scale" title="Link to this heading"></a></h3>
+<p>Aleatoriza la escala de la malla de origen.</p>
 </section>
 <section id="scale">
-<h3>Escala<a class="headerlink" href="#scale" title="Link to this heading"></a></h3>
-<p>La escala de la malla de la fuente que se colocará sobre la superficie del objetivo.</p>
+<h3>Escala (Scale)<a class="headerlink" href="#scale" title="Link to this heading"></a></h3>
+<p>La escala de la malla de origen que se colocará sobre la superficie objetivo.</p>
 </section>
 <section id="amount">
-<h3>Cantidad<a class="headerlink" href="#amount" title="Link to this heading"></a></h3>
-<p>La cantidad de instancias de malla colocadas sobre la superficie del objetivo.</p>
-<p>La cantidad de instancias de malla colocadas sobre la superficie del objetivo.</p>
-<p>El resultado final debería ser así:</p>
-<img alt="../../_images/multimesh_result.png" src="../../_images/multimesh_result.png" />
-<p>Para modificar el resultado, repite el mismo paso previo con parámetros diferentes.</p>
+<h3>Cantidad (Amount)<a class="headerlink" href="#amount" title="Link to this heading"></a></h3>
+<p>La cantidad de instancias de malla que se colocarán sobre la superficie objetivo.</p>
 </section>
+<p>Selecciona la superficie objetivo. En el caso del árbol, este debe ser el nodo del paisaje/terreno. La malla de origen debe ser el nodo del árbol. Ajusta los demás parámetros según tu preferencia. Presiona <code class="docutils literal notranslate"><span class="pre">Poblar</span></code> (<em>Populate</em>) y se colocarán múltiples copias de la malla de origen sobre la malla objetivo. Si estás satisfecho con el resultado, puedes eliminar la instancia de malla que usaste como malla de origen.</p>
+<p>El resultado final debería verse así:</p>
+<img alt="../../_images/multimesh_result.png" src="../../_images/multimesh_result.png" />
+<p>Para modificar el resultado, repite los pasos anteriores con parámetros diferentes.</p>
 </section>
 </section>
 
@@ -13111,7 +13108,7 @@ and two MeshInstance3D nodes.</p>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="3d_antialiasing.html" class="btn btn-neutral float-left" title="3D antialiasing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="mesh_lod.html" class="btn btn-neutral float-right" title="Mesh level of detail (LOD)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mesh_lod.html" class="btn btn-neutral float-right" title="Nivel de detalle de malla (LOD)" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

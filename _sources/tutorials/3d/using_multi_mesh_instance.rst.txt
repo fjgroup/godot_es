@@ -2,107 +2,108 @@
 
 .. _doc_using_multi_mesh_instance:
 
-Using MultiMeshInstance3D
-=========================
+Uso de MultiMeshInstance3D
+==========================
 
-Introduction
+Introducción
 ------------
 
-In a normal scenario, you would use a :ref:`MeshInstance3D <class_MeshInstance3D>`
-node to display a 3D mesh like a human model for the main character, but in some
-cases, you would like to create multiple instances of the same mesh in a scene.
-You *could* duplicate the same node multiple times and adjust the transforms
-manually. This may be a tedious process and the result may look mechanical.
-Also, this method is not conducive to rapid iterations.
-:ref:`MultiMeshInstance3D <class_MultiMeshInstance3D>` is one of the possible
-solutions to this problem.
+En un escenario normal, usarías un nodo :ref:`MeshInstance3D <class_MeshInstance3D>`
+para mostrar una malla 3D, como el modelo de un personaje humano, pero en algunos
+casos querrás crear múltiples instancias de la misma malla en una escena.
+*Podrías* duplicar el mismo nodo varias veces y ajustar las transformaciones
+manualmente. Esto puede ser un proceso tedioso y el resultado puede verse mecánico.
+Además, este método no favorece las iteraciones rápidas.
+:ref:`MultiMeshInstance3D <class_MultiMeshInstance3D>` es una de las soluciones
+posibles a este problema.
 
-MultiMeshInstance3D, as the name suggests, creates multiple copies of a
-MeshInstance over a surface of a specific mesh. An example would be having a
-tree mesh populate a landscape mesh with trees of random scales and orientations.
+MultiMeshInstance3D, como su nombre indica, crea múltiples copias de una
+MeshInstance sobre la superficie de una malla específica. Un ejemplo sería poblar
+una malla de terreno con árboles de escalas y orientaciones aleatorias usando una malla
+de árbol.
 
-Setting up the nodes
---------------------
+Configuración de los nodos
+--------------------------
 
-The basic setup requires three nodes: the MultiMeshInstance3D node
-and two MeshInstance3D nodes.
+La configuración básica requiere tres nodos: el nodo MultiMeshInstance3D
+y dos nodos MeshInstance3D.
 
-One node is used as the target, the surface mesh that you want to place multiple meshes
-on. In the tree example, this would be the landscape.
+Un nodo se utiliza como objetivo (*target*), la malla de superficie sobre la cual
+deseas colocar múltiples mallas. En el ejemplo del árbol, este sería el paisaje/terreno.
 
-The other node is used as the source, the mesh that you want to have duplicated.
-In the tree case, this would be the tree itself.
+El otro nodo se utiliza como origen (*source*), la malla que deseas duplicar.
+En el caso del árbol, este sería el árbol en sí.
 
-In our example, we would use a :ref:`Node3D <class_Node3D>` node as the root node of
-the scene. Your scene tree would look like this:
+En nuestro ejemplo, usaremos un nodo :ref:`Node3D <class_Node3D>` como nodo raíz de
+la escena. El árbol de la escena se verá así:
 
 .. image:: img/multimesh_scene_tree.png
 
-.. note:: For simplicity's sake, this tutorial uses built-in primitives.
+.. note:: Por motivos de simplicidad, este tutorial utiliza primitivas integradas.
 
-Now you have everything ready. Select the MultiMeshInstance3D node and look at the
-toolbar, you should see an extra button called ``MultiMesh`` next to ``View``.
-Click it and select *Populate surface* in the dropdown menu. A new window titled
-*Populate MultiMesh* will pop up.
+Ahora tienes todo listo. Selecciona el nodo MultiMeshInstance3D y observa la barra
+de herramientas; deberías ver un botón adicional llamado ``MultiMesh`` junto a ``Vista``.
+Haz clic en él y selecciona *Poblar superficie* (*Populate surface*) en el menú desplegable.
+Aparecerá una nueva ventana titulada *Poblar MultiMesh* (*Populate MultiMesh*).
 
 .. image:: img/multimesh_toolbar.png
 
 .. image:: img/multimesh_settings.png
 
-MultiMesh settings
-------------------
+Ajustes de MultiMesh
+--------------------
 
-Below are descriptions of the options.
+A continuación se describen las opciones.
 
-Target Surface
+Superficie objetivo (Target Surface)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La malla utilizada como la superficie de destino en la que se colocarán las copias de
+tu malla de origen.
+
+Malla de origen (Source Mesh)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La malla que deseas duplicar sobre la superficie objetivo.
+
+Eje superior de la malla (Mesh Up Axis)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+El eje utilizado como eje hacia arriba de la malla de origen.
+
+Rotación aleatoria (Random Rotation)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aleatoriza la rotación alrededor del eje hacia arriba de la malla de origen.
+
+Inclinación aleatoria (Random Tilt)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aleatoriza la inclinación y rotación general de la malla de origen.
+
+Escala aleatoria (Random Scale)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aleatoriza la escala de la malla de origen.
+
+Escala (Scale)
 ~~~~~~~~~~~~~~
 
-The mesh used as the target surface on which to place copies of your
-source mesh.
+La escala de la malla de origen que se colocará sobre la superficie objetivo.
 
-Source Mesh
-~~~~~~~~~~~
+Cantidad (Amount)
+~~~~~~~~~~~~~~~~~
 
-The mesh you want duplicated on the target surface.
+La cantidad de instancias de malla que se colocarán sobre la superficie objetivo.
 
-Mesh Up Axis
-~~~~~~~~~~~~
+Selecciona la superficie objetivo. En el caso del árbol, este debe ser el nodo del paisaje/terreno.
+La malla de origen debe ser el nodo del árbol. Ajusta los demás parámetros
+según tu preferencia. Presiona ``Poblar`` (*Populate*) y se colocarán múltiples copias
+de la malla de origen sobre la malla objetivo. Si estás satisfecho con el resultado,
+puedes eliminar la instancia de malla que usaste como malla de origen.
 
-The axis used as the up axis of the source mesh.
-
-Random Rotation
-~~~~~~~~~~~~~~~
-
-Randomizing the rotation around the up axis of the source mesh.
-
-Random Tilt
-~~~~~~~~~~~
-
-Randomizing the overall rotation of the source mesh.
-
-Random Scale
-~~~~~~~~~~~~
-
-Randomizing the scale of the source mesh.
-
-Scale
-~~~~~
-
-The scale of the source mesh that will be placed over the target surface.
-
-Amount
-~~~~~~
-
-The amount of mesh instances placed over the target surface.
-
-Select the target surface. In the tree case, this should be the landscape node.
-The source mesh should be the tree node. Adjust the other parameters
-according to your preference. Press ``Populate`` and multiple copies of the
-source mesh will be placed over the target mesh. If you are satisfied with the
-result, you can delete the mesh instance used as the source mesh.
-
-The end result should look like this:
+El resultado final debería verse así:
 
 .. image:: img/multimesh_result.png
 
-To change the result, repeat the previous steps with different parameters.
+Para modificar el resultado, repite los pasos anteriores con parámetros diferentes.
