@@ -13096,8 +13096,7 @@
 <li><p>Los materiales Alpha-Blended son significativamente más lentos de renderizar, especialmente si se superponen.</p></li>
 <li><p>Los materiales con Alpha-Blending pueden presentar problemas de ordenación cuando superficies transparentes se superponen. Esto significa que las superficies pueden renderizarse en un orden incorrecto, y las superficies traseras parecen estar delante de las que están más cerca de la cámara.</p></li>
 <li><p>Los materiales con Alpha-blending no proyectan sombras, pero pueden recibirlas.</p></li>
-<li><p>Alpha-blended materials don't appear in any reflections (other than
-reflection probes).</p></li>
+<li><p>Los materiales con Alpha-blending no aparecen en ningún reflejo (aparte de las sondas de reflexión/reflection probes).</p></li>
 <li><p>Los reflejos en el espacio de pantalla y los reflejos nítidos del SDFGI no aparecen en materiales con mezcla alfa. Cuando el SDFGI está habilitado, se utilizan reflejos aproximados como alternativa, independientemente de la irregularidad del material.</p></li>
 </ul>
 <p>Antes de usar el modo de transparencia <strong>Alpha</strong>, considera si otro modo de transparencia es más adecuado a tus necesidades.</p>
@@ -13129,13 +13128,9 @@ reflection probes).</p></li>
 <ul class="simple">
 <li><p><strong>Mix</strong>: Modo de mezcla por defecto, alpha controla cuánto es visible el objeto.</p></li>
 <li><p><strong>Add</strong>: Aditivo. El color final del objeto se suma al color de la pantalla, ideal para efectos como destellos o fuego.</p></li>
-<li><p><strong>Subtract:</strong> The final color of the object is subtracted from the color of the
-screen.</p></li>
-<li><p><strong>Multiply:</strong> The final color of the object is multiplied with the color of the
-screen.</p></li>
-<li><p><strong>Premultiplied Alpha:</strong> The color of the object is expected to have already been
-multiplied by the alpha. This behaves like <strong>Add</strong> when the alpha is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>
-(fully transparent) and like <strong>Mix</strong> when the alpha is <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (opaque).</p></li>
+<li><p><strong>Subtract:</strong> Sustractivo. El color final del objeto se resta del color de la pantalla.</p></li>
+<li><p><strong>Multiply:</strong> Multiplicativo. El color final del objeto se multiplica por el color de la pantalla.</p></li>
+<li><p><strong>Premultiplied Alpha:</strong> Alfa premultiplicado. Se asume que el color del objeto ya ha sido multiplicado por el alfa. Se comporta como <strong>Add</strong> cuando el alfa es <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (completamente transparente) y como <strong>Mix</strong> cuando el alfa es <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (opaco).</p></li>
 </ul>
 <img alt="../../_images/spatial_material8.png" src="../../_images/spatial_material8.png" />
 </section>
@@ -13186,10 +13181,7 @@ multiplied by the alpha. This behaves like <strong>Add</strong> when the alpha i
 </figure>
 <p>El modo de sombreado <strong>Per-Pixel</strong> (Por pixel) calcula la iluminación por cada pixel, y es una buena opción para la mayoría de los casos de uso. Sin embargo, en algunos casos podrías querer mejorar el rendimiento usando otra técnica de sombreado.</p>
 <p>El modo de sombreado <strong>Per-Vertex</strong> (Por vértice), frecuentemente denominado &quot;Vertex Shading&quot; o &quot;Vertex Lighting&quot;, calcula la iluminación para cada vértice y luego interpola el resultado para cada pixel de los poligonos formados por ese vértice.</p>
-<p>On low-end or mobile devices, using per-vertex lighting can considerably increase
-rendering performance. When rendering several layers of transparency,
-such as when using particle systems, using per-vertex shading can improve
-performance, especially when the camera is close to particles.</p>
+<p>En dispositivos móviles o de gama baja, utilizar iluminación por vértice puede incrementar considerablemente el rendimiento del renderizado. Al renderizar varias capas de transparencia, como cuando se usan sistemas de partículas, usar sombreado por vértice puede mejorar el rendimiento, especialmente cuando la cámara está cerca de las partículas.</p>
 <p>También puedes utilizar la iluminación por vértice (Per-Vertex) para lograr un aspecto retro.</p>
 <figure class="align-center" id="id1">
 <img alt="Dos cubos con textura de ladrillo, uno sombreado y otro sin sombrear." src="../../_images/standard_material_shading_modes_textured.webp" />
@@ -13202,8 +13194,7 @@ performance, especially when the camera is close to particles.</p>
 </section>
 <section id="diffuse-mode">
 <h3>Diffuse Mode (Modo difuso)<a class="headerlink" href="#diffuse-mode" title="Link to this heading"></a></h3>
-<p>Specifies the algorithm used by diffuse scattering of light when hitting
-the object. The default is <strong>Burley</strong>. Other modes are also available:</p>
+<p>Especifica el algoritmo utilizado para la dispersión difusa de la luz cuando impacta en el objeto. El valor predeterminado es <strong>Burley</strong>. También hay otros modos disponibles:</p>
 <ul class="simple">
 <li><p><strong>Burley:</strong> Modo predeterminado, el algoritmo difuso original de Disney Principled PBS.</p></li>
 <li><p><strong>Lambert:</strong> No se ve afectado por la rugosidad.</p></li>
@@ -13391,13 +13382,11 @@ the object. The default is <strong>Burley</strong>. Other modes are also availab
 <span id="doc-standard-material-3d-sampling"></span><h2>Sampling (Muestreo)<a class="headerlink" href="#sampling" title="Link to this heading"></a></h2>
 <section id="filter">
 <h3>Filter (Filtro)<a class="headerlink" href="#filter" title="Link to this heading"></a></h3>
-<p>The filtering method for the textures used by the material. See <a class="reference internal" href="../../classes/class_basematerial3d.html#class-basematerial3d-property-texture-filter"><span class="std std-ref">this page</span></a>
-for a full list of options and their description.</p>
+<p>El método de filtrado para las texturas utilizadas por el material. Consulta <a class="reference internal" href="../../classes/class_basematerial3d.html#class-basematerial3d-property-texture-filter"><span class="std std-ref">esta página</span></a> para ver una lista completa de opciones y su descripción.</p>
 </section>
 <section id="repeat">
 <h3>Repeat (Repetir)<a class="headerlink" href="#repeat" title="Link to this heading"></a></h3>
-<p>if the textures used by the material repeat, and how they repeat. See <a class="reference internal" href="../../classes/class_basematerial3d.html#class-basematerial3d-property-texture-repeat"><span class="std std-ref">this page</span></a>
-for a full list of options and their description.</p>
+<p>Indica si las texturas utilizadas por el material se repiten y cómo lo hacen. Consulta <a class="reference internal" href="../../classes/class_basematerial3d.html#class-basematerial3d-property-texture-repeat"><span class="std std-ref">esta página</span></a> para ver una lista completa de opciones y su descripción.</p>
 </section>
 </section>
 <section id="shadows">
@@ -13417,12 +13406,10 @@ for a full list of options and their description.</p>
 <h3>Modo Billboard<a class="headerlink" href="#billboard-mode" title="Link to this heading"></a></h3>
 <p>Activa billboard mode para materiales de dibujo. Esto controla la forma en que el objeto mira hacia la cámara:</p>
 <ul class="simple">
-<li><p><strong>Disabled</strong>: Billboard mode está desactivado.</p></li>
-<li><p><strong>Enabled:</strong> Billboard mode is enabled. The object's -Z axis will always
-face the camera's viewing plane.</p></li>
-<li><p><strong>Y-Billboard:</strong> The object's X axis will always be aligned with the camera's viewing plane.</p></li>
-<li><p><strong>Particle Billboard:</strong> Most suited for particle systems, because it allows
-specifying <a class="reference internal" href="particles/process_material_properties.html#doc-process-material-properties-animation"><span class="std std-ref">flipbook animation</span></a>.</p></li>
+<li><p><strong>Disabled</strong>: El modo cartelera está desactivado.</p></li>
+<li><p><strong>Enabled:</strong> El modo cartelera está activado. El eje -Z del objeto siempre apuntará hacia el plano de visión de la cámara.</p></li>
+<li><p><strong>Y-Billboard:</strong> El eje X del objeto siempre estará alineado con el plano de visión de la cámara.</p></li>
+<li><p><strong>Particle Billboard:</strong> El más adecuado para sistemas de partículas, ya que permite especificar <a class="reference internal" href="particles/process_material_properties.html#doc-process-material-properties-animation"><span class="std std-ref">animación flipbook</span></a>.</p></li>
 </ul>
 <img alt="../../_images/spatial_material9.webp" src="../../_images/spatial_material9.webp" />
 <p>La sección <strong>Animación de Partículas</strong> solamente es visible cuando el modo del billboard es <strong>Billboard de Particulas</strong>.</p>
@@ -13452,9 +13439,7 @@ specifying <a class="reference internal" href="particles/process_material_proper
 </section>
 <section id="use-point-size">
 <h3>Usar Point Size (Tamaño de punto)<a class="headerlink" href="#use-point-size" title="Link to this heading"></a></h3>
-<p>This option is only effective when the geometry rendered is made of points
-(generally it's made of triangles when imported from 3D modeling software). If
-so, then those points can be resized (see below).</p>
+<p>Esta opción solo es efectiva cuando la geometría renderizada está compuesta por puntos (generalmente está hecha de triángulos al importarse desde software de modelado 3D). Si es así, esos puntos pueden cambiar de tamaño (ver más abajo).</p>
 </section>
 <section id="point-size">
 <h3>Point Size (Tamaño de puntos)<a class="headerlink" href="#point-size" title="Link to this heading"></a></h3>
@@ -13463,10 +13448,7 @@ so, then those points can be resized (see below).</p>
 <section id="use-particle-trails">
 <h3>Use Particle Trails<a class="headerlink" href="#use-particle-trails" title="Link to this heading"></a></h3>
 <p><em>Esto solo está disponible en los renderizadores Forward+ y Mobile, no en el renderizador Compatibility.</em></p>
-<p>If true, enables parts of the shader required for GPUParticles3D trails to function.
-This also requires using a mesh with appropriate skinning, such as RibbonTrailMesh
-or TubeTrailMesh. Enabling this feature outside of materials used in GPUParticles3D
-meshes will break material rendering.</p>
+<p>Si es verdadero, activa las partes del shader requeridas para que funcionen las estelas de GPUParticles3D. Esto también requiere usar una malla con el skinning adecuado, como RibbonTrailMesh o TubeTrailMesh. Habilitar esta función fuera de materiales usados en mallas de GPUParticles3D romperá el renderizado del material.</p>
 </section>
 <section id="use-z-clip-scale">
 <h3>Usa la escala Z del clip<a class="headerlink" href="#use-z-clip-scale" title="Link to this heading"></a></h3>
@@ -13483,9 +13465,7 @@ meshes will break material rendering.</p>
 </section>
 <section id="proximity-and-distance-fade">
 <h2>Desvanecimiento de proximidad y distancia<a class="headerlink" href="#proximity-and-distance-fade" title="Link to this heading"></a></h2>
-<p>Godot allows materials to fade by proximity to each other as well as depending
-on the distance from the viewer. Proximity fade is useful for effects such as
-soft particles or a mass of water with a smooth blending to the shores.</p>
+<p>Godot permite que los materiales se desvanezcan por proximidad entre sí, así como en función de la distancia al observador. El desvanecimiento por proximidad es útil para efectos como partículas suaves o una masa de agua con una transición suave hacia las orillas.</p>
 <img alt="../../_images/spatial_material_proxfade.gif" src="../../_images/spatial_material_proxfade.gif" />
 <p>El desvanecimiento de la distancia es útil para haces de luz o indicadores que solo están presentes después de una distancia determinada.</p>
 <p>Ten en cuenta que activar el desvanecimiento por proximidad (proximity fade) o el desvanecimiento por distancia (distance fade) con el modo <strong>Pixel Alpha</strong> habilita el alpha blending. El alpha blending (mezcla alfa) requiere más recursos de la GPU y puede causar problemas de ordenamiento de transparencias. Además, el alpha blending desactiva muchas funciones del material, como la capacidad de proyectar sombras.</p>
@@ -13508,11 +13488,7 @@ soft particles or a mass of water with a smooth blending to the shores.</p>
 <p>Los materiales que escriben en el stencil buffer siempre se dibujan en el pase de transparencia, por lo que están sujetos a las <a class="reference internal" href="3d_rendering_limitations.html#doc-3d-rendering-limitations-transparency-sorting"><span class="std std-ref">limitaciones de transparencia habituales</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Like with the <a class="reference internal" href="#ref-standard-material-3d-grow"><span class="std std-ref">Grow property</span></a>, for the
-stencil outline to work as expected, the mesh must have connected faces with
-shared vertices, or &quot;smooth shading&quot;. If the mesh has disconnected faces with
-unique vertices, or &quot;flat shading&quot;, the mesh will appear to have gaps when using
-a stencil outline.</p>
+<p>Al igual que con la <a class="reference internal" href="#ref-standard-material-3d-grow"><span class="std std-ref">propiedad Grow</span></a>, para que el contorno por stencil funcione según lo esperado, la malla debe tener caras conectadas con vértices compartidos o &quot;sombreado suave&quot; (smooth shading). Si la malla tiene caras desconectadas con vértices únicos o &quot;sombreado plano&quot; (flat shading), la malla parecerá tener huecos al usar un contorno por stencil.</p>
 <p>Los contornos por stencil se renderizan de forma similar a la propiedad Grow, pero no se verán idénticos en todos los escenarios, especialmente cuando hay intersecciones con superficies opacas de por medio.</p>
 </div>
 </section>

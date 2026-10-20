@@ -13041,310 +13041,205 @@
 
   
   <section id="process-material-properties">
-<span id="doc-process-material-properties"></span><h1>Process material properties<a class="headerlink" href="#process-material-properties" title="Link to this heading"></a></h1>
+<span id="doc-process-material-properties"></span><h1>Propiedades del material de proceso<a class="headerlink" href="#process-material-properties" title="Link to this heading"></a></h1>
 <figure class="align-right" id="id1">
-<img alt="ParticleProcessMaterial properties" src="../../../_images/particle_minmaxcurve1.webp" />
+<img alt="Propiedades de ParticleProcessMaterial" src="../../../_images/particle_minmaxcurve1.webp" />
 <figcaption>
-<p><span class="caption-text">Min, max, and curve properties</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Propiedades Min, Max y Curve</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Las propiedades de este material controlan cómo se comportan las partículas y cómo cambian a lo largo de su vida útil. Muchas de ellas tienen valores <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Max</span></code> y <code class="docutils literal notranslate"><span class="pre">Curve</span></code> que permiten afinar su comportamiento. La relación entre estos valores es la siguiente: cuando se genera una partícula, la propiedad se establece con un valor aleatorio entre <code class="docutils literal notranslate"><span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Max</span></code>. Si <code class="docutils literal notranslate"><span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Max</span></code> son iguales, el valor siempre será el mismo para todas las partículas. Si también se establece la <code class="docutils literal notranslate"><span class="pre">Curve</span></code>, el valor de la propiedad se multiplicará por el valor de la curva en el punto actual de la vida útil de una partícula. Utiliza la curva para cambiar una propiedad a lo largo de la vida útil de la partícula. De esta manera se puede expresar un comportamiento muy complejo.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>This page covers how to use ParticleProcessMaterial for 3D scenes specifically.
-For information on how to use it in a 2D Scene see <a class="reference internal" href="../../2d/particle_process_material_2d.html#doc-particle-process-material-2d"><span class="std std-ref">ParticleProcessMaterial 2D Usage</span></a>.</p>
+<p>Esta página cubre específicamente el uso de ParticleProcessMaterial para escenas 3D.
+Para información sobre cómo usarlo en una escena 2D, consulta <a class="reference internal" href="../../2d/particle_process_material_2d.html#doc-particle-process-material-2d"><span class="std std-ref">Uso de ParticleProcessMaterial en 2D</span></a>.</p>
 </div>
 <section id="time">
-<h2>Time<a class="headerlink" href="#time" title="Link to this heading"></a></h2>
+<h2>Tiempo<a class="headerlink" href="#time" title="Link to this heading"></a></h2>
 <p>La propiedad <code class="docutils literal notranslate"><span class="pre">Lifetime</span> <span class="pre">Randomness</span></code> controla cuánto grado de aleatoriedad se aplica a la duración de vida de cada partícula. Un valor de <code class="docutils literal notranslate"><span class="pre">0</span></code> significa que no hay ninguna aleatoriedad y que todas las partículas vivirán exactamente el mismo tiempo, según lo definido por la propiedad <a class="reference internal" href="properties.html#doc-3d-particles-properties-time"><span class="std std-ref">Lifetime</span></a>. Un valor de <code class="docutils literal notranslate"><span class="pre">1</span></code> indica que la duración de vida de una partícula será completamente aleatoria dentro del rango [0.0, <code class="docutils literal notranslate"><span class="pre">Lifetime</span></code>].</p>
 </section>
-</section>
 <section id="particle-flags">
-<h1>Particle flags<a class="headerlink" href="#particle-flags" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">Align</span> <span class="pre">Y</span></code> property aligns each particle's Y-axis with its velocity. Enabling this
-property is the same as setting the <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">Transform Align</span></a> property to
-<code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">to</span> <span class="pre">Velocity</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code> property works with the properties in the <a class="reference external" href="#angle">Angle</a> and
-<a class="reference external" href="#angular-velocity">Angular Velocity</a> groups to control particle rotation. <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code>
-has to be enabled if you want to apply any rotation to particles. The exception to this
-is any particle that uses the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>
-where the <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>. In that case, particles
-rotate even without <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code> enabled.</p>
-<p>When the <code class="docutils literal notranslate"><span class="pre">Disable</span> <span class="pre">Z</span></code> property is enabled, particles will not move along the Z-axis.
-Whether that is going to be the particle system's local Z-axis or the world Z-axis is
-determined by the <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">Local Coords</span></a> property.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Damping</span> <span class="pre">as</span> <span class="pre">Friction</span></code> property changes the behavior of damping from a constant
-deceleration to a deceleration based on speed.</p>
+<h1>Banderas de partículas (Particle flags)<a class="headerlink" href="#particle-flags" title="Link to this heading"></a></h1>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Align</span> <span class="pre">Y</span></code> alinea el eje Y de cada partícula con su velocidad. Habilitar esta propiedad equivale a configurar la propiedad <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">Transform Align</span></a> en <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">to</span> <span class="pre">Velocity</span></code>.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code> funciona junto con las propiedades de los grupos <a class="reference external" href="#angle">Angle</a> y <a class="reference external" href="#angular-velocity">Angular Velocity</a> para controlar la rotación de las partículas. <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code> debe estar habilitado si deseas aplicar cualquier rotación a las partículas. La excepción a esto es cualquier partícula que use el Standard Material donde la propiedad <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> esté configurada en <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>. En ese caso, las partículas rotarán incluso sin <code class="docutils literal notranslate"><span class="pre">Rotate</span> <span class="pre">Y</span></code> activado.</p>
+<p>Cuando la propiedad <code class="docutils literal notranslate"><span class="pre">Disable</span> <span class="pre">Z</span></code> está habilitada, las partículas no se moverán a lo largo del eje Z. Si este será el eje Z local del sistema de partículas o el eje Z del mundo lo determina la propiedad <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">Local Coords</span></a>.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Damping</span> <span class="pre">as</span> <span class="pre">Friction</span></code> cambia el comportamiento de amortiguación (damping) de una desaceleración constante a una desaceleración basada en la velocidad.</p>
 </section>
 <section id="spawn">
 <h1>Emisión (Spawn)<a class="headerlink" href="#spawn" title="Link to this heading"></a></h1>
 <section id="emission-shape">
-<span id="doc-process-material-properties-shapes"></span><h2>Emission shape<a class="headerlink" href="#emission-shape" title="Link to this heading"></a></h2>
-<p>Particles can emit from a single point in space or in a way that they fill out a shape.
-The <code class="docutils literal notranslate"><span class="pre">Shape</span></code> property controls that shape. <code class="docutils literal notranslate"><span class="pre">Point</span></code> is the default value. All
-particles emit from a single point in the center of the particle system. When set to <code class="docutils literal notranslate"><span class="pre">Sphere</span></code>
-or <code class="docutils literal notranslate"><span class="pre">Box</span></code>, particles emit in a way that they fill out a sphere or a box shape evenly.
-You have full control over the size of these shapes. <code class="docutils literal notranslate"><span class="pre">Sphere</span> <span class="pre">Surface</span></code> works like <code class="docutils literal notranslate"><span class="pre">Sphere</span></code>,
-but instead of filling it out, all particles spawn on the sphere's surface.</p>
+<span id="doc-process-material-properties-shapes"></span><h2>Forma de emisión (Emission shape)<a class="headerlink" href="#emission-shape" title="Link to this heading"></a></h2>
+<p>Las partículas pueden emitirse desde un único punto en el espacio o de forma que llenen una figura geométrica. La propiedad <code class="docutils literal notranslate"><span class="pre">Shape</span></code> controla dicha forma. <code class="docutils literal notranslate"><span class="pre">Point</span></code> es el valor predeterminado: todas las partículas se emiten desde un único punto en el centro del sistema. Cuando se establece en <code class="docutils literal notranslate"><span class="pre">Sphere</span></code> o <code class="docutils literal notranslate"><span class="pre">Box</span></code>, las partículas se emiten llenando uniformemente una esfera o una caja. Tienes control total sobre el tamaño de estas formas. <code class="docutils literal notranslate"><span class="pre">Sphere</span> <span class="pre">Surface</span></code> funciona como <code class="docutils literal notranslate"><span class="pre">Sphere</span></code>, pero en lugar de llenar el interior, todas las partículas se generan en la superficie exterior de la esfera.</p>
 <figure class="align-default" id="id2">
-<img alt="Simple particle emission shapes" src="../../../_images/particle_shapes_simple.webp" />
+<img alt="Formas simples de emisión de partículas" src="../../../_images/particle_shapes_simple.webp" />
 <figcaption>
-<p><span class="caption-text">Particles emitting from a point (left), in a sphere (middle), and in a box (right)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Partículas emitiéndose desde un punto (izquierda), dentro de una esfera (centro) y dentro de una caja (derecha)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-right" id="id3">
-<img alt="Ring-shaped particle system" src="../../../_images/particle_ring.webp" />
+<img alt="Sistema de partículas en forma de anillo" src="../../../_images/particle_ring.webp" />
 <figcaption>
-<p><span class="caption-text">A ring-shaped particle system</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Un sistema de partículas en forma de anillo</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Ring</span></code> emission shape makes particles emit in the shape of a ring. You can control the ring's
-direction by changing the <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Axis</span></code> property. <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Height</span></code> controls the thickness
-of the ring along its axis. <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Radius</span></code> and <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Inner</span> <span class="pre">Radius</span></code> control how wide
-the ring is and how large the hole in the middle should be. The image shows a particle
-system with a radius of <code class="docutils literal notranslate"><span class="pre">2</span></code> and an inner radius of <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, the axis points along the
-global Z-axis.</p>
-<p>In addition to these relatively simple shapes, you can select the <code class="docutils literal notranslate"><span class="pre">Points</span></code> or
-<code class="docutils literal notranslate"><span class="pre">Directed</span> <span class="pre">Points</span></code> option to create highly complex emission shapes. See the
-<a class="reference internal" href="complex_shapes.html#doc-3d-particles-complex-shapes"><span class="std std-ref">Complex emission shapes</span></a> section for a detailed
-explanation of how to set these up.</p>
+<p>La forma de emisión <code class="docutils literal notranslate"><span class="pre">Ring</span></code> hace que las partículas se emitan en forma de anillo. Puedes controlar la orientación del anillo cambiando la propiedad <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Axis</span></code>. <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Height</span></code> controla el grosor del anillo a lo largo de su eje. <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Radius</span></code> y <code class="docutils literal notranslate"><span class="pre">Ring</span> <span class="pre">Inner</span> <span class="pre">Radius</span></code> controlan el ancho del anillo y el tamaño del orificio central. La imagen muestra un sistema con un radio de <code class="docutils literal notranslate"><span class="pre">2</span></code> y un radio interior de <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, con el eje apuntando a lo largo del eje Z global.</p>
+<p>Además de estas formas relativamente simples, puedes seleccionar la opción <code class="docutils literal notranslate"><span class="pre">Points</span></code> o <code class="docutils literal notranslate"><span class="pre">Directed</span> <span class="pre">Points</span></code> para crear formas de emisión altamente complejas. Consulta la sección de <a class="reference internal" href="complex_shapes.html#doc-3d-particles-complex-shapes"><span class="std std-ref">Formas de emisión complejas</span></a> para una explicación detallada sobre cómo configurarlas.</p>
 </section>
 <section id="angle">
-<h2>Angle (Ángulo)<a class="headerlink" href="#angle" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Angle</span></code> property controls a particle's starting rotation <a class="reference external" href="#process-material-properties">as described above</a>.
-In order to have an actual effect on the particle, you have to enable one of two properties: <a class="reference external" href="#particle-flags">Rotate Y</a>
-rotates the particle around the particle system's Y-axis. The <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> property in
-the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>, if it is set to <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>, rotates
-the particle around the axis that points from the particle to the camera.</p>
+<h2>Ángulo (Angle)<a class="headerlink" href="#angle" title="Link to this heading"></a></h2>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Angle</span></code> controla la rotación inicial de una partícula como se describió anteriormente. Para que tenga un efecto real sobre la partícula, debes habilitar una de dos propiedades: <a class="reference external" href="#particle-flags">Rotate Y</a> hace girar la partícula alrededor del eje Y del sistema. La propiedad <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> en el <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>, si se establece en <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>, rota la partícula alrededor del eje que apunta desde la partícula hacia la cámara.</p>
 </section>
 <section id="direction">
 <h2>Dirección<a class="headerlink" href="#direction" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Direction</span></code> property alone is not enough to see any particle movement. Whatever
-values you set here only take effect once velocity or acceleration properties are set, too.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Direction</span></code> por sí sola no es suficiente para ver movimiento en las partículas. Cualquier valor establecido aquí solo surte efecto una vez que se configuran también las propiedades de velocidad o aceleración.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Direction</span></code> property is a vector that controls each particle's direction of movement
-at the moment it is spawned. A value of <code class="docutils literal notranslate"><span class="pre">(X=1,Y=0,Z=0)</span></code> would make all particles move
-sideways along the X-axis. For something like a fountain where particles shoot out up in the
-air, a value of <code class="docutils literal notranslate"><span class="pre">(X=0,Y=1,Z=0)</span></code> would be a good starting point.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Direction</span></code> es un vector que controla la dirección del movimiento de cada partícula en el momento en que se genera. Un valor de <code class="docutils literal notranslate"><span class="pre">(X=1,Y=0,Z=0)</span></code> haría que todas las partículas se muevan lateralmente a lo largo del eje X. Para una fuente donde las partículas salen disparadas hacia arriba en el aire, un valor de <code class="docutils literal notranslate"><span class="pre">(X=0,Y=1,Z=0)</span></code> sería un buen punto de partida.</p>
 <figure class="align-default" id="id4">
-<img alt="Different values for particle direction" src="../../../_images/particle_direction.webp" />
+<img alt="Diferentes valores para la dirección de las partículas" src="../../../_images/particle_direction.webp" />
 <figcaption>
-<p><span class="caption-text">Different direction values: Y-axis only (left), equal values for X and Y (middle), X and Y with gravity enabled (right)</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Diferentes valores de dirección: solo eje Y (izquierda), valores iguales para X e Y (centro), X e Y con gravedad habilitada (derecha)</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>After setting a direction, you will notice that all particles move in the same direction in
-a straight line. The <code class="docutils literal notranslate"><span class="pre">Spread</span></code> property adds some variation and randomness to each particle's
-direction. The higher the value, the stronger the deviation from the original path. A value
-of <code class="docutils literal notranslate"><span class="pre">0</span></code> means there is no spread at all while a value of <code class="docutils literal notranslate"><span class="pre">180</span></code> makes particles shoot out in
-every direction. You could use this for something like pieces of debris during an explosion effect.</p>
+<p>Después de establecer una dirección, notarás que todas las partículas se mueven en la misma dirección en línea recta. La propiedad <code class="docutils literal notranslate"><span class="pre">Spread</span></code> (Dispersión) añade variación y aleatoriedad a la dirección de cada partícula. Cuanto mayor sea el valor, mayor será la desviación de la trayectoria original. Un valor de <code class="docutils literal notranslate"><span class="pre">0</span></code> significa que no hay dispersión en absoluto, mientras que un valor de <code class="docutils literal notranslate"><span class="pre">180</span></code> hace que las partículas salgan disparadas en todas direcciones. Podrías usar esto para fragmentos de escombros durante una explosión.</p>
 <figure class="align-default" id="id5">
-<img alt="Different values for particle spread" src="../../../_images/particle_spread.webp" />
+<img alt="Diferentes valores para la dispersión de partículas" src="../../../_images/particle_spread.webp" />
 <figcaption>
-<p><span class="caption-text">No spread (left), 45 degree angle (middle), full 180 degrees (right)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Sin dispersión (izquierda), ángulo de 45 grados (centro), 180 grados completos (derecha)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Flatness</span></code> property limits the spread along the Y-axis. A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> means there
-is no limit and a value of <code class="docutils literal notranslate"><span class="pre">1</span></code> will eliminate all particle movement along the Y-axis. The
-particles will spread out completely &quot;flat&quot;.</p>
-<p>You won't see any actual movement until you also set some values for the velocity and
-acceleration properties below, so let's take a look at those next.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Flatness</span></code> (Aplanamiento) limita la dispersión a lo largo del eje Y. Un valor de <code class="docutils literal notranslate"><span class="pre">0</span></code> significa que no hay límite y un valor de <code class="docutils literal notranslate"><span class="pre">1</span></code> eliminará todo movimiento de partículas a lo largo del eje Y, dispersándose de forma completamente &quot;plana&quot;.</p>
+<p>No verás ningún movimiento real hasta que también establezcas valores para las propiedades de velocidad y aceleración a continuación.</p>
 </section>
 <section id="initial-velocity">
-<h2>Initial velocity<a class="headerlink" href="#initial-velocity" title="Link to this heading"></a></h2>
-<p>While the <code class="docutils literal notranslate"><span class="pre">Direction</span></code> property controls a particle's movement direction, the <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Velocity</span></code>
-controls how fast it goes. It's separated into <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Max</span></code>, both
-set to <code class="docutils literal notranslate"><span class="pre">0</span></code> by default, which is why you don't see any movement initially. As soon as you set
-values for either of these properties <a class="reference external" href="#process-material-properties">as described above</a>, the
-particles begin to move. The direction is multiplied by these values, so you can make particles
-move in the opposite direction by setting a negative velocity.</p>
+<h2>Velocidad inicial (Initial velocity)<a class="headerlink" href="#initial-velocity" title="Link to this heading"></a></h2>
+<p>Mientras que la propiedad <code class="docutils literal notranslate"><span class="pre">Direction</span></code> controla la dirección de movimiento de una partícula, <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Velocity</span></code> controla qué tan rápido va. Se divide en <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Max</span></code>, ambos en <code class="docutils literal notranslate"><span class="pre">0</span></code> por defecto (razón por la cual no se observa movimiento inicialmente). Tan pronto como estableces valores para cualquiera de estas propiedades, las partículas comienzan a moverse. La dirección se multiplica por estos valores, por lo que puedes hacer que las partículas se muevan en dirección opuesta configurando una velocidad negativa.</p>
 </section>
 </section>
 <section id="accelerations">
 <h1>Aceleraciones<a class="headerlink" href="#accelerations" title="Link to this heading"></a></h1>
 <section id="gravity">
-<h2>Gravity (Gravedad)<a class="headerlink" href="#gravity" title="Link to this heading"></a></h2>
-<p>The next few property groups work closely together to control particle movement and rotation.
-<code class="docutils literal notranslate"><span class="pre">Gravity</span></code> drags particles in the direction it points at, which is straight down at the strength
-of Earth's gravity by default. Gravity affects all particle movement.
-If your game uses physics and the world's gravity can change at runtime, you can use this property
-to keep the game's gravity in sync with particle gravity. A <code class="docutils literal notranslate"><span class="pre">Gravity</span></code> value of <code class="docutils literal notranslate"><span class="pre">(X=0,Y=0,Z=0)</span></code> means
-no particle will ever move at all if none of the other movement properties are set.</p>
+<h2>Gravedad (Gravity)<a class="headerlink" href="#gravity" title="Link to this heading"></a></h2>
+<p>Los siguientes grupos de propiedades colaboran estrechamente para controlar el movimiento y la rotación de las partículas. <code class="docutils literal notranslate"><span class="pre">Gravity</span></code> arrastra a las partículas hacia la dirección a la que apunta, que por defecto es hacia abajo con la intensidad de la gravedad terrestre (-9.8). La gravedad afecta a todo movimiento de partículas. Si tu juego utiliza física y la gravedad del mundo cambia durante el juego, puedes usar esta propiedad para mantener sincronizada la gravedad del juego con la de las partículas. Un valor de <code class="docutils literal notranslate"><span class="pre">Gravity</span></code> de <code class="docutils literal notranslate"><span class="pre">(X=0,Y=0,Z=0)</span></code> significa que ninguna partícula se moverá si no se configuran otras propiedades de movimiento.</p>
 <figure class="align-default" id="id6">
-<img alt="Different values for particle gravity" src="../../../_images/particle_gravity.webp" />
+<img alt="Diferentes valores para la gravedad de las partículas" src="../../../_images/particle_gravity.webp" />
 <figcaption>
-<p><span class="caption-text">Left: (X=0,Y=-9.8,Z=0), middle: (X=0,Y=9.8,Z=0), right: (X=4,Y=2,Z=0).</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Izquierda: (X=0,Y=-9.8,Z=0), centro: (X=0,Y=9.8,Z=0), derecha: (X=4,Y=2,Z=0).</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="angular-velocity">
-<h2>Angular velocity<a class="headerlink" href="#angular-velocity" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Angular</span> <span class="pre">Velocity</span></code> controls a particle's speed of rotation <a class="reference external" href="#process-material-properties">as described above</a>.
-You can reverse the direction by using negative numbers for <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Min</span></code> or <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Max</span></code>. Like the
-<a class="reference external" href="#angle">Angle</a> property, the rotation will only be visible if the <a class="reference external" href="#particle-flags">Rotate Y</a> flag is set
-or the <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code> mode is selected in the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>.</p>
+<h2>Velocidad angular (Angular velocity)<a class="headerlink" href="#angular-velocity" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Angular</span> <span class="pre">Velocity</span></code> controla la velocidad de rotación de una partícula. Puedes invertir la dirección usando números negativos en <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Min</span></code> o <code class="docutils literal notranslate"><span class="pre">Velocity</span> <span class="pre">Max</span></code>. Al igual que con <a class="reference external" href="#angle">Angle</a>, la rotación solo será visible si la bandera <a class="reference external" href="#particle-flags">Rotate Y</a> está activada o si se selecciona el modo <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code> en el Standard Material.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The <a class="reference external" href="#damping">Damping</a> property has no effect on the angular velocity.</p>
+<p>La propiedad <a class="reference external" href="#damping">Damping</a> no afecta a la velocidad angular.</p>
 </div>
 </section>
 <section id="linear-acceleration">
-<h2>Linear acceleration<a class="headerlink" href="#linear-acceleration" title="Link to this heading"></a></h2>
-<p>A particle's velocity is a constant value: once it's set, it doesn't change and the particle will
-always move at the same speed. You can use the <code class="docutils literal notranslate"><span class="pre">Linear</span> <span class="pre">Accel</span></code> property to
-change the speed of movement over a particle's lifetime <a class="reference external" href="#process-material-properties">as described above</a>.
-Positive values will speed up the particle and make it move faster. Negative values will slow it
-down until it stops and starts moving in the other direction.</p>
+<h2>Aceleración lineal (Linear acceleration)<a class="headerlink" href="#linear-acceleration" title="Link to this heading"></a></h2>
+<p>La velocidad de una partícula es un valor constante: una vez establecida, no cambia y la partícula siempre se moverá a la misma velocidad. Puedes usar la propiedad <code class="docutils literal notranslate"><span class="pre">Linear</span> <span class="pre">Accel</span></code> para alterar la velocidad de movimiento a lo largo de su vida útil. Los valores positivos acelerarán la partícula haciéndola avanzar más rápido. Los valores negativos la ralentizarán hasta detenerla e invertir su movimiento en la otra dirección.</p>
 <figure class="align-default" id="id7">
-<img alt="Different values for particle linear acceleration" src="../../../_images/particle_accel_linear.webp" />
+<img alt="Diferentes valores para la aceleración lineal de partículas" src="../../../_images/particle_accel_linear.webp" />
 <figcaption>
-<p><span class="caption-text">Negative (top) and positive (bottom) linear acceleration</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">Aceleración lineal negativa (arriba) y positiva (abajo)</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>It's important to keep in mind that when we change acceleration, we're not changing the velocity
-directly, we're changing the <em>change</em> in velocity. A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> on the acceleration curve
-does not stop the particle's movement, it stops the change in the particle's movement. Whatever
-its velocity was at that moment, it will keep moving at that velocity until the acceleration is
-changed again.</p>
+<p>Es importante recordar que cuando modificamos la aceleración no alteramos la velocidad directamente, sino el <em>cambio</em> en la velocidad. Un valor de <code class="docutils literal notranslate"><span class="pre">0</span></code> en la curva de aceleración no detiene el movimiento de la partícula, detiene la alteración de su movimiento: continuará desplazándose a la velocidad alcanzada en ese instante hasta que la aceleración vuelva a cambiar.</p>
 </section>
 <section id="radial-acceleration">
-<h2>Radial acceleration<a class="headerlink" href="#radial-acceleration" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Accel</span></code> property adds a gravity-like force to all particles, with the origin
-of that force at the particle system's current location. Negative values make particles move
-towards the center, like the force of gravity from a planet on objects in its orbit. Positive
-values make particles move away from the center.</p>
+<h2>Aceleración radial (Radial acceleration)<a class="headerlink" href="#radial-acceleration" title="Link to this heading"></a></h2>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Accel</span></code> añade una fuerza gravitacional hacia todas las partículas, con el origen situado en la posición actual del sistema de partículas. Los valores negativos atraen las partículas hacia el centro, similar a la gravedad de un planeta sobre cuerpos en su órbita. Los valores positivos hacen que las partículas se alejen del centro.</p>
 <figure class="align-default" id="id8">
-<img alt="Different values for particle radial acceleration" src="../../../_images/particle_accel_radial.webp" />
+<img alt="Diferentes valores para la aceleración radial" src="../../../_images/particle_accel_radial.webp" />
 <figcaption>
-<p><span class="caption-text">Negative (left) and positive (right) radial acceleration</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-text">Aceleración radial negativa (izquierda) y positiva (derecha)</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="tangential-acceleration">
-<h2>Tangential acceleration<a class="headerlink" href="#tangential-acceleration" title="Link to this heading"></a></h2>
+<h2>Aceleración tangencial (Tangential acceleration)<a class="headerlink" href="#tangential-acceleration" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id9">
 <img alt="Tangentes en un círculo" src="../../../_images/particle_tangent.webp" />
 <figcaption>
 <p><span class="caption-text">Tangentes en un círculo</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>This property adds particle acceleration in the direction of the tangent to a circle on the particle
-system's XZ-plane with the origin at the system's center and a radius the distance between each
-particle's current location and the system's center projected onto that plane.</p>
-<p>Let's unpack that.</p>
-<p>A tangent to a circle is a straight line that &quot;touches&quot; the circle in a right angle to the circle's
-radius at the touch point. A circle on the particle system's XZ-plane is the circle that you see
-when you look straight down at the particle system from above.</p>
+<p>Esta propiedad añade aceleración a las partículas en la dirección de la tangente a un círculo en el plano XZ del sistema, con origen en el centro del sistema y con un radio igual a la distancia proyectada entre la ubicación actual de la partícula y el centro del sistema.</p>
+<p>Veámoslo con más claridad:</p>
+<p>Una tangente a un círculo es una línea recta que &quot;toca&quot; el círculo formando un ángulo recto con el radio en el punto de contacto. Un círculo en el plano XZ del sistema de partículas es el círculo que verías si miraras el sistema desde arriba en vista cenital.</p>
 <figure class="align-right" id="id10">
-<img alt="Tangential acceleration from above" src="../../../_images/particle_accel_tangent.webp" />
+<img alt="Aceleración tangencial vista desde arriba" src="../../../_images/particle_accel_tangent.webp" />
 <figcaption>
-<p><span class="caption-text">Tangential acceleration from above</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+<p><span class="caption-text">Aceleración tangencial vista desde arriba</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p><code class="docutils literal notranslate"><span class="pre">Tangential</span> <span class="pre">Accel</span></code> is always limited to that plane and never move particles along the system's Y-axis.
-A particle's location is enough to define such a circle where the distance to the system's center is
-the radius if we ignore the vector's Y component.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Tangential</span> <span class="pre">Accel</span></code> property will make particles orbit the particle system's center, but the
-radius will increase constantly. Viewed from above, particles will move away from the center
-in a spiral. Negative values reverse the direction.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tangential</span> <span class="pre">Accel</span></code> siempre está limitado a ese plano y nunca desplaza las partículas sobre el eje Y del sistema. La posición de la partícula es suficiente para definir dicho círculo ignorando el componente Y.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Tangential</span> <span class="pre">Accel</span></code> hará que las partículas orbiten el centro del sistema, pero con un radio que se incrementa constantemente. Vistas desde arriba, las partículas se alejarán del centro formando una espiral. Los valores negativos invierten el sentido de giro.</p>
 </section>
 <section id="damping">
-<h2>Damping (Amortiguación)<a class="headerlink" href="#damping" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Damping</span></code> property gradually stops all movement. Each frame, a particle's movement
-is slowed down a little unless the total acceleration is greater than the damping effect. If
-it isn't, the particle will keep slowing down until it doesn't move at all. The greater the value, the less
-time it takes to bring particles to a complete halt.</p>
+<h2>Amortiguación (Damping)<a class="headerlink" href="#damping" title="Link to this heading"></a></h2>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Damping</span></code> detiene gradualmente el movimiento. En cada fotograma, el desplazamiento de la partícula se desacelera a menos que la aceleración total sea mayor que el efecto de amortiguación. Si no lo es, continuará frenando hasta detenerse por completo. Cuanto mayor sea el valor, menos tiempo tardará en frenar.</p>
 </section>
 <section id="attractor-interaction">
-<h2>Attractor interaction<a class="headerlink" href="#attractor-interaction" title="Link to this heading"></a></h2>
-<p>If you want the particle system to interact with <a class="reference internal" href="attractors.html#doc-3d-particles-attractors"><span class="std std-ref">particle attractors</span></a>,
-you have to check the <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> property. When it is disabled, the particle system
-ignores all particle attractors.</p>
+<h2>Interacción con atractores (Attractor interaction)<a class="headerlink" href="#attractor-interaction" title="Link to this heading"></a></h2>
+<p>Si deseas que el sistema de partículas interactúe con los <a class="reference internal" href="attractors.html#doc-3d-particles-attractors"><span class="std std-ref">atractores de partículas</span></a>, debes marcar la propiedad <code class="docutils literal notranslate"><span class="pre">Enabled</span></code>. Cuando está desactivada, el sistema ignorará todos los atractores.</p>
 </section>
 </section>
 <section id="display">
 <h1>Visualización<a class="headerlink" href="#display" title="Link to this heading"></a></h1>
 <section id="scale">
-<h2>Escala<a class="headerlink" href="#scale" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Scale</span></code> controls a particle's size <a class="reference external" href="#process-material-properties">as described above</a>. You can set
-different values for <code class="docutils literal notranslate"><span class="pre">Scale</span> <span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Scale</span> <span class="pre">Max</span></code> to randomize each particle's size. Negative values
-are not allowed, so you won't be able to flip particles with this property. If you emit particles as
-billboards, the <code class="docutils literal notranslate"><span class="pre">Keep</span> <span class="pre">Size</span></code> property on the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>
-in your draw passes has to be enabled for any scaling to have an effect.</p>
+<h2>Escala (Scale)<a class="headerlink" href="#scale" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Scale</span></code> controla el tamaño de la partícula. Puedes establecer diferentes valores para <code class="docutils literal notranslate"><span class="pre">Scale</span> <span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Scale</span> <span class="pre">Max</span></code> para aleatorizar el tamaño de cada partícula. No se permiten valores negativos, por lo que no podrás voltear partículas con esta propiedad. Si emites partículas como vallas publicitarias (billboards), la propiedad <code class="docutils literal notranslate"><span class="pre">Keep</span> <span class="pre">Size</span></code> en el Standard Material en tus pases de dibujado debe estar habilitada para que el escalado surta efecto.</p>
 </section>
 <section id="color">
 <h2>Color<a class="headerlink" href="#color" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Color</span></code> property controls a particle's initial color. It will have an effect only after the
-<code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">As</span> <span class="pre">Albedo</span></code> property in the <code class="docutils literal notranslate"><span class="pre">Vertex</span> <span class="pre">Color</span></code> group of the <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>
-is enabled. This property is multiplied with color coming from the particle material's
-own <code class="docutils literal notranslate"><span class="pre">Color</span></code> or <code class="docutils literal notranslate"><span class="pre">Texture</span></code> property.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Color</span></code> controla el color inicial de la partícula. Solo tendrá efecto después de habilitar la propiedad <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">As</span> <span class="pre">Albedo</span></code> en el grupo <code class="docutils literal notranslate"><span class="pre">Vertex</span> <span class="pre">Color</span></code> del Standard Material. Esta propiedad se multiplica con el color proveniente de la propiedad propia <code class="docutils literal notranslate"><span class="pre">Color</span></code> o <code class="docutils literal notranslate"><span class="pre">Texture</span></code> del material de la partícula.</p>
 <figure class="align-right" id="id11">
 <img alt="Cambio de color de partículas" src="../../../_images/particle_ramp.webp" />
 <figcaption>
-<p><span class="caption-text">Setting up a color ramp</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+<p><span class="caption-text">Configuración de una rampa de color</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>There are two <code class="docutils literal notranslate"><span class="pre">Ramp</span></code> properties in the <code class="docutils literal notranslate"><span class="pre">Color</span></code> group. These allow you to define a range of colors
-that are used to set the particle's color. The <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Ramp</span></code> property changes a particle's color
-over the course of its lifetime. It moves through the entire range of colors you defined.
-The <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Initial</span> <span class="pre">Ramp</span></code> property selects the particle's initial color from a random
-position on the color ramp.</p>
+<p>Existen dos propiedades <code class="docutils literal notranslate"><span class="pre">Ramp</span></code> en el grupo <code class="docutils literal notranslate"><span class="pre">Color</span></code>. Estas permiten definir un rango de colores para las partículas. La propiedad <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Ramp</span></code> cambia el color de una partícula a lo largo de su vida útil, recorriendo todo el rango de colores definido. La propiedad <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Initial</span> <span class="pre">Ramp</span></code> selecciona el color inicial de la partícula desde una posición aleatoria de la rampa de color.</p>
 <p>Para configurar una rampa de color, haz clic en el cuadro junto al nombre de la propiedad y, en el menú desplegable, selecciona <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">GradientTexture1D</span></code>. Vuelva a hacer clic en el cuadro para abrir los detalles de la textura. Busque la propiedad <code class="docutils literal notranslate"><span class="pre">Gradient</span></code>, haz clic en el cuadro junto a ella y selecciona <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Gradient</span></code>. Vuelva a hacer clic en ese cuadro y verá un rango de colores. Haz clic en cualquier parte de ese rango para insertar un nuevo marcador. Puedes mover el marcador con el ratón y eliminarlo haciendo clic con el botón derecho. Cuando se selecciona un marcador, puedes usar el selector de color junto al rango para cambiar su color.</p>
 </section>
 <section id="hue-variation">
-<h2>Hue variation<a class="headerlink" href="#hue-variation" title="Link to this heading"></a></h2>
-<p>Like the <code class="docutils literal notranslate"><span class="pre">Color</span></code> property, <code class="docutils literal notranslate"><span class="pre">Hue</span> <span class="pre">Variation</span></code> controls a particle's color, but in a
-different way. It does so not by setting color values directly, but by
-<em>shifting the color's hue</em>.</p>
-<p>Hue describes a color's pigment: red, orange, yellow, green and so on. It does not
-tell you anything about how bright or how saturated the color is. The <code class="docutils literal notranslate"><span class="pre">Hue</span> <span class="pre">Variation</span></code>
-property controls the range of available hues <a class="reference external" href="#process-material-properties">as described above</a>.</p>
-<p>It works on top of the particle's current color. The values you set for
-<code class="docutils literal notranslate"><span class="pre">Variation</span> <span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Variation</span> <span class="pre">Max</span></code> control how far the hue is allowed to shift
-in either direction. A higher value leads to more color variation while a low value
-limits the available colors to the closest neighbors of the original color.</p>
+<h2>Variación de tono (Hue variation)<a class="headerlink" href="#hue-variation" title="Link to this heading"></a></h2>
+<p>Al igual que la propiedad <code class="docutils literal notranslate"><span class="pre">Color</span></code>, <code class="docutils literal notranslate"><span class="pre">Hue</span> <span class="pre">Variation</span></code> controla el color de una partícula, pero de una manera diferente: lo hace desplazando el tono (hue) del color en lugar de establecer los valores de color directamente.</p>
+<p>El tono describe el pigmento de un color: rojo, naranja, amarillo, verde, etcétera. No define qué tan brillante o qué tan saturado es el color. La propiedad <code class="docutils literal notranslate"><span class="pre">Hue</span> <span class="pre">Variation</span></code> controla el rango de tonos disponibles.</p>
+<p>Funciona sobre el color actual de la partícula. Los valores asignados a <code class="docutils literal notranslate"><span class="pre">Variation</span> <span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Variation</span> <span class="pre">Max</span></code> controlan cuánto se permite variar el tono en cualquier dirección. Un valor más alto produce mayor diversidad de colores, mientras que un valor bajo limita los colores resultantes a los tonos más cercanos al color original.</p>
 <figure class="align-default" id="id12">
-<img alt="Different values for hue variation" src="../../../_images/particle_hue.webp" />
+<img alt="Diferentes valores para la variación de tono" src="../../../_images/particle_hue.webp" />
 <figcaption>
-<p><span class="caption-text">Different values for hue variation, both times with blue as base color: 0.6 (left) and 0.1 (right)</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+<p><span class="caption-text">Diferentes valores para la variación de tono, ambos con azul como color base: 0.6 (izquierda) y 0.1 (derecha)</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="animation">
 <span id="doc-process-material-properties-animation"></span><h2>Animación<a class="headerlink" href="#animation" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Animation</span></code> property group controls the behavior of sprite
-sheet animations in the particle's <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a>.
-The <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Max</span></code>, and <code class="docutils literal notranslate"><span class="pre">Curve</span></code> values work <a class="reference external" href="#process-material-properties">as described above</a>.</p>
-<p>An animated sprite sheet is a texture that contains several smaller images aligned on a grid.
-The images are shown one after the other so fast that they combine to play a short
-animation, like a flipbook. You can use them for animated particles like smoke or fire.
-These are the steps to create an animated particle system:</p>
+<p>El grupo de propiedades <code class="docutils literal notranslate"><span class="pre">Animation</span></code> controla el comportamiento de las animaciones por hoja de sprites (sprite sheet) en el Standard Material de la partícula. Los valores <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Max</span></code> y <code class="docutils literal notranslate"><span class="pre">Curve</span></code> funcionan como se explicó anteriormente.</p>
+<p>Una hoja de sprites animada es una textura que contiene varias imágenes más pequeñas alineadas en una cuadrícula. Las imágenes se muestran una tras otra a gran velocidad de modo que se combinan para reproducir una animación corta (como en un flipbook). Puedes usarlas para partículas animadas como humo o fuego. Estos son los pasos para crear un sistema de partículas animado:</p>
 <figure class="align-right" id="id13">
-<img alt="A sprite sheet" src="../../../_images/particle_sprite.webp" />
+<img alt="Una hoja de sprites" src="../../../_images/particle_sprite.webp" />
 <figcaption>
-<p><span class="caption-text">An 8x8 animated smoke sprite sheet</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+<p><span class="caption-text">Una hoja de sprites animada de humo de 8x8</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <ol class="arabic simple">
-<li><p>Import a sprite sheet texture into the engine. If you don't have one at hand, you can download the <a class="reference download internal" download="" href="../../../_downloads/0e9010cdc7bfae0d0bed55a967d66e0b/particle_sprite_smoke.webp"><code class="xref download docutils literal notranslate"><span class="pre">high-res</span> <span class="pre">version</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">example</span> <span class="pre">image</span></code></a>.</p></li>
-<li><p>Set up a particle system with at least one draw pass and assign a <code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">Material</span></code> to the mesh in that draw pass.</p></li>
-<li><p>Assign the sprite sheet to the <code class="docutils literal notranslate"><span class="pre">Texture</span></code> property in the <code class="docutils literal notranslate"><span class="pre">Albedo</span></code> group</p></li>
-<li><p>Set the material's <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> property to <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>. Doing so makes the <code class="docutils literal notranslate"><span class="pre">Particles</span> <span class="pre">Anim</span></code> group available in the material.</p></li>
-<li><p>Set <code class="docutils literal notranslate"><span class="pre">H</span> <span class="pre">Frames</span></code> to the number of columns and <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">Frames</span></code> to the number of rows in the sprite sheet.</p></li>
-<li><p>Check <code class="docutils literal notranslate"><span class="pre">Loop</span></code> if you want the animation to keep repeating.</p></li>
+<li><p>Importa una textura de hoja de sprites al motor. Si no tienes una a mano, puedes descargar la <a class="reference download internal" download="" href="../../../_downloads/0e9010cdc7bfae0d0bed55a967d66e0b/particle_sprite_smoke.webp"><code class="xref download docutils literal notranslate"><span class="pre">versión en alta resolución de la imagen de ejemplo</span></code></a>.</p></li>
+<li><p>Configura un sistema de partículas con al menos un pase de dibujo y asigna un <code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">Material</span></code> a la malla en ese pase.</p></li>
+<li><p>Asigna la hoja de sprites a la propiedad <code class="docutils literal notranslate"><span class="pre">Texture</span></code> en el grupo <code class="docutils literal notranslate"><span class="pre">Albedo</span></code>.</p></li>
+<li><p>Establece la propiedad <code class="docutils literal notranslate"><span class="pre">Billboard</span></code> del material en <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code>. Esto hace que el grupo <code class="docutils literal notranslate"><span class="pre">Particles</span> <span class="pre">Anim</span></code> esté disponible en el material.</p></li>
+<li><p>Configura <code class="docutils literal notranslate"><span class="pre">H</span> <span class="pre">Frames</span></code> con la cantidad de columnas y <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">Frames</span></code> con la cantidad de filas de la hoja de sprites.</p></li>
+<li><p>Marca <code class="docutils literal notranslate"><span class="pre">Loop</span></code> si deseas que la animación se repita continuamente.</p></li>
 </ol>
-<p>That's it for the Standard Material. You won't see any animation right away. This is
-where the <code class="docutils literal notranslate"><span class="pre">Animation</span></code> properties come in. The <code class="docutils literal notranslate"><span class="pre">Speed</span></code> properties control how fast
-the sprite sheet animates. Set <code class="docutils literal notranslate"><span class="pre">Speed</span> <span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Speed</span> <span class="pre">Max</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code> and you should see the
-animation playing. The <code class="docutils literal notranslate"><span class="pre">Offset</span></code> properties control where the animation starts on a
-newly spawned particle. By default, it will always be the first image in the sequence.
-You can add some variety by changing <code class="docutils literal notranslate"><span class="pre">Offset</span> <span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Offset</span> <span class="pre">Max</span></code> to randomize
-the starting position.</p>
+<p>Eso es todo para el Standard Material. No verás ninguna animación de inmediato; aquí es donde entran las propiedades de <code class="docutils literal notranslate"><span class="pre">Animation</span></code>. Las propiedades de <code class="docutils literal notranslate"><span class="pre">Speed</span></code> controlan qué tan rápido se reproduce la animación. Establece <code class="docutils literal notranslate"><span class="pre">Speed</span> <span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Speed</span> <span class="pre">Max</span></code> en <code class="docutils literal notranslate"><span class="pre">1</span></code> y deberías ver la animación funcionando. Las propiedades <code class="docutils literal notranslate"><span class="pre">Offset</span></code> controlan en qué cuadro comienza la animación en una partícula recién generada. De forma predeterminada siempre será la primera imagen de la secuencia. Puedes añadir variedad modificando <code class="docutils literal notranslate"><span class="pre">Offset</span> <span class="pre">Min</span></code> y <code class="docutils literal notranslate"><span class="pre">Offset</span> <span class="pre">Max</span></code> para aleatorizar la posición de inicio.</p>
 <figure class="align-default" id="id14">
-<img alt="Animated particles" src="../../../_images/particle_animate.webp" />
+<img alt="Partículas animadas" src="../../../_images/particle_animate.webp" />
 <figcaption>
-<p><span class="caption-text">Three different particle systems using the same smoke sprite sheet</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+<p><span class="caption-text">Tres sistemas de partículas diferentes utilizando la misma hoja de sprites de humo</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Dependiendo de cuántas imágenes contenga su hoja de sprites y de cuánto tiempo esté viva su partícula, es posible que la animación no se vea fluida. La relación entre la vida útil de las partículas, la velocidad de la animación y la cantidad de imágenes en la hoja de sprites es la siguiente:</p>
@@ -13354,71 +13249,44 @@ the starting position.</p>
 <div class="math notranslate nohighlight">
 \[Animación\ FPS = \frac{Número\ de\ imágenes}{Tiempo\ vida\ útil}\]</div>
 </div>
-<p>If your sprite sheet contains
-64 (8x8) images and the particle's lifetime is set to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">second</span></code>, the animation
-will be very smooth at <strong>64 FPS</strong> (1 second / 64 images). if the lifetime is set to <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">seconds</span></code>, it
-will still be fairly smooth at <strong>32 FPS</strong>. But if the particle is alive for
-<code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">seconds</span></code>, the animation will be visibly choppy at <strong>8 FPS</strong>. In order to make the
-animation smooth again, you need to increase the animation speed to something like <code class="docutils literal notranslate"><span class="pre">3</span></code>
-to reach an acceptable framerate.</p>
+<p>Si tu hoja de sprites contiene 64 (8x8) imágenes y la vida útil de la partícula está configurada en <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">segundo</span></code>, la animación será sumamente fluida a <strong>64 FPS</strong> (1 segundo / 64 imágenes). Si la vida útil se establece en <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">segundos</span></code>, seguirá siendo bastante fluida a <strong>32 FPS</strong>. Pero si la partícula dura <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">segundos</span></code>, la animación se verá visiblemente entrecortada a <strong>8 FPS</strong>. Para que vuelva a ser fluida, debes aumentar la velocidad de la animación a un valor aproximado de <code class="docutils literal notranslate"><span class="pre">3</span></code> para alcanzar una tasa de fotogramas aceptable.</p>
 <figure class="align-default" id="id15">
 <img alt="Vida de partículas animadas" src="../../../_images/particle_animate_lifetime.webp" />
 <figcaption>
-<p><span class="caption-text">The same particle system at different lifetimes: 1 second (left), 2 seconds (middle), 8 seconds (right)</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+<p><span class="caption-text">El mismo sistema de partículas con diferentes tiempos de vida: 1 segundo (izquierda), 2 segundos (centro), 8 segundos (derecha)</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Note that the GPUParticles3D node's <strong>Fixed FPS</strong> also affects animation
-playback. For smooth animation playback, it's recommended to set it to 0 so that
-the particle is simulated on every rendered frame. If this is not an option for
-your use case, set <strong>Fixed FPS</strong> to be equal to the effective framerate used by
-the flipbook animation (see above for the formula).</p>
+<p>Ten en cuenta que la propiedad <strong>Fixed FPS</strong> del nodo GPUParticles3D también afecta la reproducción de la animación. Para una reproducción suave, se recomienda establecerla en 0 de manera que la partícula se simule en cada fotograma renderizado. Si esto no es viable en tu caso de uso, configura <strong>Fixed FPS</strong> para que sea igual a la tasa de fotogramas efectiva empleada por la animación flipbook (consulta la fórmula anterior).</p>
 </section>
 <section id="turbulence">
-<span id="doc-process-material-properties-turbulence"></span><h2>Turbulence<a class="headerlink" href="#turbulence" title="Link to this heading"></a></h2>
-<p>Turbulence adds noise to particle movement, creating interesting and lively patterns.
-Check the box next to the <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> property to activate it. A number
-of new properties show up that control the movement speed, noise pattern and overall influence
-on the particle system. You can find a detailed explanation of these in the section on
-<a class="reference internal" href="turbulence.html#doc-3d-particles-turbulence"><span class="std std-ref">particle turbulence</span></a>.</p>
+<span id="doc-process-material-properties-turbulence"></span><h2>Turbulencia (Turbulence)<a class="headerlink" href="#turbulence" title="Link to this heading"></a></h2>
+<p>La turbulencia añade ruido al movimiento de las partículas, creando patrones interesantes y vivos. Marca la casilla junto a la propiedad <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> para activarla. Aparecerá una serie de nuevas propiedades que controlan la velocidad de movimiento, el patrón de ruido y la influencia general en el sistema de partículas. Puedes encontrar una explicación detallada de estas en la sección sobre <a class="reference internal" href="turbulence.html#doc-3d-particles-turbulence"><span class="std std-ref">turbulencia de partículas</span></a>.</p>
 </section>
 </section>
 <section id="collision">
 <span id="doc-process-material-properties-subemitter"></span><h1>Colisión<a class="headerlink" href="#collision" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">Mode</span></code> property controls how and if emitters collide with particle collision nodes. Set it
-to <code class="docutils literal notranslate"><span class="pre">Disabled</span></code> to disable any collision for this particle system. Set it to <code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">On</span> <span class="pre">Contact</span></code>
-if you want particles to disappear as soon as they collide. Set it to <code class="docutils literal notranslate"><span class="pre">Constant</span></code> to make
-particles collide and bounce around. You will see two new properties appear in the inspector.
-They control how particles behave during collision events.</p>
-<p>A high <code class="docutils literal notranslate"><span class="pre">Friction</span></code> value will reduce sliding along surfaces. This is especially
-helpful if particles collide with sloped surfaces and you want them to stay in
-place instead of sliding all the way to the bottom, like snow falling on a mountain.
-A high <code class="docutils literal notranslate"><span class="pre">Bounce</span></code> value will make particles bounce off surfaces they collide with,
-like rubber balls on a solid floor.</p>
-<p>If the <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Scale</span></code> property is enabled, the <a class="reference internal" href="properties.html#doc-3d-particles-properties-collision"><span class="std std-ref">collision base size</span></a>
-is multiplied by the particle's <a class="reference external" href="#scale">current scale</a>. You can use this to
-make sure that the rendered size and the collision size match for particles
-with random scale or scale that varies over time.</p>
-<p>You can learn more about particle collisions in the <a class="reference internal" href="collision.html#doc-3d-particles-collision"><span class="std std-ref">Collisions</span></a>
-section in this manual.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Mode</span></code> controla cómo y si los emisores colisionan con nodos de colisión de partículas. Establécela en <code class="docutils literal notranslate"><span class="pre">Disabled</span></code> para desactivar las colisiones en este sistema. Elige <code class="docutils literal notranslate"><span class="pre">Hide</span> <span class="pre">On</span> <span class="pre">Contact</span></code> si deseas que las partículas desaparezcan tan pronto colisionen. Selecciona <code class="docutils literal notranslate"><span class="pre">Constant</span></code> para que las partículas colisionen y reboten. Verás dos nuevas propiedades en el inspector que controlan el comportamiento de las partículas durante los eventos de colisión.</p>
+<p>Un valor alto de <code class="docutils literal notranslate"><span class="pre">Friction</span></code> reducirá el deslizamiento por superficies. Esto es especialmente útil si las partículas colisionan con superficies inclinadas y deseas que permanezcan en su lugar en lugar de deslizarse hasta el fondo (como nieve cayendo sobre una montaña). Un valor alto de <code class="docutils literal notranslate"><span class="pre">Bounce</span></code> hará que las partículas reboten en las superficies contra las que chocan, como pelotas de goma en un suelo sólido.</p>
+<p>Si la propiedad <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Scale</span></code> está habilitada, el <a class="reference internal" href="properties.html#doc-3d-particles-properties-collision"><span class="std std-ref">tamaño de colisión base</span></a> se multiplica por la escala actual de la partícula. Puedes usar esto para asegurarte de que el tamaño renderizado y el tamaño de colisión coincidan en partículas con escala aleatoria o con escala que varía con el tiempo.</p>
+<p>Puedes aprender más sobre colisiones de partículas en la sección <a class="reference internal" href="collision.html#doc-3d-particles-collision"><span class="std std-ref">Colisiones de partículas 3D</span></a> de este manual.</p>
 </section>
 <section id="sub-emitter">
 <h1>Subemisor<a class="headerlink" href="#sub-emitter" title="Link to this heading"></a></h1>
 <figure class="align-right" id="id16">
 <img alt="Modos de subemisor" src="../../../_images/particle_sub_mode.webp" />
 <figcaption>
-<p><span class="caption-text">The available sub-emitter modes</span><a class="headerlink" href="#id16" title="Link to this image"></a></p>
+<p><span class="caption-text">Modos de subemisor disponibles</span><a class="headerlink" href="#id16" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>La propiedad <code class="docutils literal notranslate"><span class="pre">Mode</span></code> controla cómo y cuándo se generan los subemisores. Establézcala en <code class="docutils literal notranslate"><span class="pre">Disabled</span></code> y nunca se generarán subemisores. Establézcala en <code class="docutils literal notranslate"><span class="pre">Constant</span></code> para que los subemisores se generen continuamente a un ritmo constante. La propiedad <code class="docutils literal notranslate"><span class="pre">Frequency</span></code> controla la frecuencia con la que esto sucede en el lapso de un segundo. Establezca el modo en <code class="docutils literal notranslate"><span class="pre">At</span> <span class="pre">End</span></code> para que el subemisor se genere al final de la vida útil de la partícula principal, justo antes de que se destruya. La propiedad <code class="docutils literal notranslate"><span class="pre">Amount</span> <span class="pre">At</span> <span class="pre">End</span></code> controla cuántos subemisores se generarán. Establezca el modo en <code class="docutils literal notranslate"><span class="pre">At</span> <span class="pre">Collision</span></code> para que los subemisores se generen cuando una partícula colisione con el entorno. La propiedad <code class="docutils literal notranslate"><span class="pre">Amount</span> <span class="pre">At</span> <span class="pre">Collision</span></code> controla cuántos subemisores se generarán.</p>
-<p>When the <code class="docutils literal notranslate"><span class="pre">Keep</span> <span class="pre">Velocity</span></code> property is enabled, the newly spawned sub-emitter starts off
-with the parent particle's velocity at the time the sub-emitter is created.</p>
-<p>See the <a class="reference internal" href="subemitters.html#doc-3d-particles-subemitters"><span class="std std-ref">Sub-emitters</span></a> section in this manual for a detailed explanation of how
-to add a sub-emitter to a particle system.</p>
+<p>Cuando la propiedad <code class="docutils literal notranslate"><span class="pre">Keep</span> <span class="pre">Velocity</span></code> está habilitada, el subemisor recién generado hereda la velocidad que tenía la partícula principal en el momento de la creación del subemisor.</p>
+<p>Consulta la sección de <a class="reference internal" href="subemitters.html#doc-3d-particles-subemitters"><span class="std std-ref">Subemisores de partículas</span></a> en este manual para una explicación detallada sobre cómo añadir un subemisor a un sistema de partículas.</p>
 </section>
 <section id="customizing-the-process-material">
-<h1>Customizing the process material<a class="headerlink" href="#customizing-the-process-material" title="Link to this heading"></a></h1>
+<h1>Personalizar el material de proceso<a class="headerlink" href="#customizing-the-process-material" title="Link to this heading"></a></h1>
 <p>Si necesitas cambiar o implementar nuevos comportamientos en el código del shader, puedes hacerlo convirtiendo el ParticleProcessMaterial actual en un <a class="reference internal" href="../../../classes/class_shadermaterial.html#class-shadermaterial"><span class="std std-ref">ShaderMaterial</span></a>. Las propiedades existentes se conservan durante el proceso de conversión. Las funciones que estén habilitadas también influirán en lo que aparezca en el código del shader convertido.</p>
 <p>Para hacerlo, haz clic derecho sobre el material en el panel FileSystem y elige <strong>Convert to ShaderMaterial</strong>. También puedes hacerlo haciendo clic derecho sobre cualquier propiedad que contenga una referencia al material en el inspector.</p>
+</section>
 </section>
 
 

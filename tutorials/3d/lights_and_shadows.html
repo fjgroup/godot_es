@@ -13052,8 +13052,8 @@
 <p>El color de emisión es una propiedad del material. Puedes leer más sobre ello en el tutorial <a class="reference internal" href="standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Material estándar 3D y material ORM 3D</span></a>.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>You can compare various types of lights in action using the
-<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/lights_and_shadows">3D Lights and Shadows demo project</a>.</p>
+<p>Puedes comparar varios tipos de luces en acción utilizando el
+<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/lights_and_shadows">proyecto de demostración 3D Lights and Shadows</a>.</p>
 </div>
 </section>
 <section id="light-nodes">
@@ -13069,10 +13069,9 @@
 <li><p><strong>Negativa:</strong> La luz se vuelve sustractiva en lugar de aditiva. A veces resulta útil compensar manualmente algunas esquinas oscuras.</p></li>
 <li><p><strong>Especular:</strong> Afecta la intensidad de la mancha especular en los objetos afectados por esta luz. En cero, esta luz se convierte en una luz difusa pura.</p></li>
 <li><p><strong>Bake Mode:</strong> Establece el modo de &quot;bake&quot; para la luz. Véase <a class="reference internal" href="global_illumination/using_lightmap_gi.html#doc-using-lightmap-gi"><span class="std std-ref">Using Lightmap global illumination</span></a>.</p></li>
-<li><p><strong>Cull Mask:</strong> Objects that are in the selected layers below will be affected by this light.
-Note that objects disabled via this cull mask will still cast shadows.
-If you don't want disabled objects to cast shadows, adjust the <strong>Cast Shadow</strong>
-property on the GeometryInstance3D to the desired value.</p></li>
+<li><p><strong>Cull Mask:</strong> Los objetos que se encuentren en las capas seleccionadas a continuación se verán afectados por esta luz.
+Ten en cuenta que los objetos desactivados mediante esta máscara de exclusión seguirán proyectando sombras.
+Si no deseas que los objetos desactivados proyecten sombras, ajusta la propiedad <strong>Cast Shadow</strong> en el GeometryInstance3D al valor deseado.</p></li>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
@@ -13092,34 +13091,25 @@ property on the GeometryInstance3D to the desired value.</p></li>
 <h2>Mapeo de sombras<a class="headerlink" href="#shadow-mapping" title="Link to this heading"></a></h2>
 <p>Las luces opcionalmente pueden proyectar sombras. Esto les da mayor realismo (la luz no llega a las zonas ocluidas), pero puede incurrir en un mayor coste de rendimiento. Hay una lista de parámetros de sombra genéricos, cada uno también tiene una función específica:</p>
 <ul class="simple">
-<li><p><strong>Enabled:</strong> Check to enable shadow mapping in this light.</p></li>
+<li><p><strong>Enabled:</strong> Marca para habilitar el mapeo de sombras en esta luz.</p></li>
 <li><p>Opacidad: Las áreas ocluidas se oscurecen con este factor de opacidad. Las sombras son completamente opacas por defecto, pero se puede modificar para que sean translúcidas para una luz determinada.</p></li>
-<li><p><strong>Bias:</strong> When this parameter is too low, self-shadowing occurs. When too
-high, shadows separate from the casters. Tweak to what works best for you.</p></li>
-<li><p><strong>Normal Bias:</strong> When this parameter is too low, self-shadowing occurs. When too
-high, shadows appear misaligned from the casters. Tweak to what works best for you.</p></li>
-<li><p><strong>Transmittance Bias:</strong> When this parameter is too low, self-shadowing
-occurs on materials that have transmittance enabled. When too high, shadows
-will not affect materials that have transmittance enabled consistently. Tweak
-to what works best for you.</p></li>
-<li><p><strong>Reverse Cull Face:</strong> Some scenes work better when shadow mapping is rendered
-with face-culling inverted.</p></li>
+<li><p><strong>Bias:</strong> Cuando este parámetro es demasiado bajo, se produce autosombreado indeseado (shadow acne). Cuando es demasiado alto, las sombras se separan de los emisores (peter-panning). Ajústalo al valor que mejor funcione para tu escena.</p></li>
+<li><p><strong>Normal Bias:</strong> Cuando este parámetro es demasiado bajo, se produce autosombreado. Cuando es demasiado alto, las sombras parecen desalineadas respecto a los emisores. Ajústalo al valor óptimo para tu caso.</p></li>
+<li><p><strong>Transmittance Bias:</strong> Cuando este parámetro es demasiado bajo, se produce autosombreado en materiales que tienen transmitancia habilitada. Cuando es demasiado alto, las sombras no afectarán consistentemente a los materiales con transmitancia activada. Ajústalo según tus necesidades.</p></li>
+<li><p><strong>Reverse Cull Face:</strong> Algunas escenas funcionan mejor cuando el mapeo de sombras se renderiza con la eliminación de caras invertida (inverted face-culling).</p></li>
 <li><p><strong>Blur:</strong> Multiplica el radio de desenfoque (blur) de la sombra para esta luz. Esto funciona tanto con el mapeo de sombras tradicional como con las sombras de endurecimiento por contacto (luces con <strong>Angular Distance</strong> o <strong>Size</strong> superior a <code class="docutils literal notranslate"><span class="pre">0.0</span></code>). Valores más altos dan como resultado sombras más suaves, que también parecerán ser más estables temporalmente para los objetos en movimiento. La desventaja de aumentar el desenfoque de la sombra es que hará que el patrón granulado utilizado para el filtrado sea más notorio. Consulta también <a class="reference internal" href="#doc-lights-and-shadows-shadow-filter-mode"><span class="std std-ref">Modo del filtro de sombras</span></a>.</p></li>
 <li><p><strong>Caster Mask:</strong> Las sombras solo son proyectadas por los objetos que se encuentren en estas capas. Ten en cuenta que esta máscara no afecta a los objetos <em>sobre</em> los cuales se proyectan las sombras.</p></li>
 </ul>
 <img alt="../../_images/lights_and_shadows_blur.webp" src="../../_images/lights_and_shadows_blur.webp" />
 <section id="tweaking-shadow-bias">
 <h3>Ajustar el sesgo de sombra<a class="headerlink" href="#tweaking-shadow-bias" title="Link to this heading"></a></h3>
-<p>Below is an image of what tweaking bias looks like. Default values work for most
-cases, but in general, it depends on the size and complexity of geometry.</p>
+<p>A continuación se muestra una imagen ilustrativa del ajuste del sesgo (bias). Los valores predeterminados funcionan para la mayoría de los casos, pero en general depende del tamaño y la complejidad de la geometría.</p>
 <p>Si el <strong>Shadow Bias</strong> o el <strong>Shadow Normal Bias</strong> se configuran con un valor demasiado bajo para una luz determinada, la sombra se &quot;esparcirá&quot; sobre los objetos. Esto hará que la apariencia prevista de la luz se oscurezca, y es lo que se conoce como <em>shadow acne</em>:</p>
 <img alt="../../_images/lights_and_shadows_acne.webp" src="../../_images/lights_and_shadows_acne.webp" />
 <p>Por otro lado, si <strong>Shadow Bias</strong> o <strong>Shadow Normal Bias</strong> se establecen con un valor demasiado alto para una luz determinada, la sombra puede parecer desconectada del objeto. Esto se denomina <em>peter-panning</em>:</p>
 <img alt="../../_images/lights_and_shadows_peter_panning.webp" src="../../_images/lights_and_shadows_peter_panning.webp" />
 <p>En general, aumentar <strong>Shadow Normal Bias</strong> es preferible en lugar de aumentar <strong>Shadow Bias</strong>. Aumentar <strong>Shadow Normal Bias</strong> no provoca tanto peter-panning como aumentar <strong>Shadow Bias</strong>, pero aun así puede resolver la mayoría de los problemas de shadow acne de manera eficiente. La desventaja de aumentar <strong>Shadow Normal Bias</strong> es que puede hacer que las sombras parezcan más delgadas en ciertos objetos.</p>
-<p>Any sort of bias issues can be fixed by
-<a class="reference internal" href="#doc-lights-and-shadows-balancing-performance-and-quality"><span class="std std-ref">increasing the shadow map resolution</span></a>,
-at the cost of decreased performance.</p>
+<p>Cualquier tipo de problema con el sesgo se puede solucionar <a class="reference internal" href="#doc-lights-and-shadows-balancing-performance-and-quality"><span class="std std-ref">aumentando la resolución del mapa de sombras</span></a>, a costa de un menor rendimiento.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Ajustar la configuración del mapeo de sombras es un arte; no existen configuraciones de &quot;talla única&quot; que sirvan para todo. Para lograr los mejores resultados visuales, es posible que necesites utilizar diferentes valores de shadow bias de forma individual para cada luz.</p>
@@ -13132,37 +13122,23 @@ at the cost of decreased performance.</p>
 <p>Este es el tipo de luz más común y representa una fuente de luz muy lejana (como el sol). También es la luz menos costosa de calcular y debería utilizarse siempre que sea posible (aunque no es el mapa de sombras menos costoso de calcular, pero eso se explicará más adelante).</p>
 <p>La luz direccional modela un número infinito de rayos de luz paralelos que cubren la escena completa. El nodo de luz direccional es representado por una gran flecha que indica la dirección de los rayos de luz. Sin embargo, la posición del nodo no afecta al comportamiento de luz y puede ser colocado en cualquier lugar de la escena.</p>
 <img alt="../../_images/light_directional.png" src="../../_images/light_directional.png" />
-<p>Every face whose front-side is hit by the light rays is lit, while the others
-stay dark. Unlike most other light types, directional lights don't have specific
-parameters.</p>
+<p>Cada cara cuya parte frontal es alcanzada por los rayos de luz se ilumina, mientras que las demás permanecen a oscuras. A diferencia de la mayoría de los demás tipos de luz, las luces direccionales no cuentan con parámetros específicos de atenuación.</p>
 <p>La luz direccional también ofrece una propiedad de <strong>Angular Distance</strong>, que determina el tamaño angular de la luz en grados. Aumentar este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> hará que las sombras sean más suaves a mayores distancias del objeto que las proyecta (caster), al tiempo que afecta la apariencia del sol en los materiales de cielo procedimental (procedural sky). Esto se conoce como una sombra de &quot;endurecimiento por contacto&quot; o <em>contact-hardening shadow</em> (también conocida como PCSS).</p>
 <p>Como referencia, la distancia angular del Sol visto desde la Tierra es de aproximadamente <code class="docutils literal notranslate"><span class="pre">0.5</span></code>. Este tipo de sombra es costosa en términos de rendimiento, por lo que te recomendamos consultar <a class="reference internal" href="#doc-lights-and-shadows-pcss-recommendations"><span class="std std-ref">PCSS recommendations</span></a> si vas a establecer este valor por encima de <code class="docutils literal notranslate"><span class="pre">0.0</span></code> en luces que tengan las sombras activadas.</p>
 <section id="directional-shadow-mapping">
 <h3>Mapeo de sombras direccional<a class="headerlink" href="#directional-shadow-mapping" title="Link to this heading"></a></h3>
-<p>To compute shadow maps, the scene is rendered (only depth) from an orthogonal
-point of view that covers the whole scene (or up to the max distance). There is,
-however, a problem with this approach because objects closer to the camera
-receive low-resolution shadows that may appear blocky.</p>
+<p>Para calcular los mapas de sombras, la escena se renderiza (solo la profundidad) desde un punto de vista ortogonal que cubre toda la escena (o hasta la distancia máxima). Sin embargo, existe un inconveniente con este método, ya que los objetos más cercanos a la cámara reciben sombras de baja resolución que pueden verse pixeladas o en bloques.</p>
 <p>Para solucionar esto, se utiliza una técnica llamada <em>Mapas de Sombra Divididos Paralelos</em> (<em>Parallel Split Shadow Maps</em>, o PSSM). Esto divide el frustum de visión en 2 o 4 áreas. Cada área obtiene su propio mapa de sombras. Esto permite que áreas pequeñas cercanas al espectador tengan la misma resolución de sombras que un área enorme y lejana. Cuando las sombras están habilitadas para DirectionalLight3D, el modo de sombra predeterminado es PSSM con 4 divisiones. En escenarios donde un objeto es lo suficientemente grande como para aparecer en las cuatro divisiones, resulta en un aumento de las llamadas de dibujado. Específicamente, dicho objeto se renderizará cinco veces en total: una vez por cada una de las cuatro divisiones de sombra y una vez para el renderizado final de la escena. Esto puede afectar el rendimiento, por lo que es importante comprender este comportamiento para optimizar su escena y gestionar las expectativas de rendimiento.</p>
 <img alt="../../_images/lights_and_shadows_pssm_explained.webp" src="../../_images/lights_and_shadows_pssm_explained.webp" />
 <p>Con esto, las sombras se vuelven más detalladas:</p>
 <img alt="../../_images/lights_and_shadows_directional_mode.webp" src="../../_images/lights_and_shadows_directional_mode.webp" />
 <p>Para controlar PSSM, se exponen varios parámetros:</p>
 <img alt="../../_images/lights_and_shadows_directional_shadow_params.webp" src="../../_images/lights_and_shadows_directional_shadow_params.webp" />
-<p>Each split distance is controlled relative to the camera far (or shadow
-<strong>Max Distance</strong> if greater than <code class="docutils literal notranslate"><span class="pre">0.0</span></code>). <code class="docutils literal notranslate"><span class="pre">0.0</span></code> is the eye position and
-<code class="docutils literal notranslate"><span class="pre">1.0</span></code> is where the shadow ends at a distance. Splits are in-between.
-Default values generally work well, but tweaking the first split a bit is common
-to give more detail to close objects (like a character in a third-person game).</p>
+<p>La distancia de cada división se controla en relación con el plano lejano de la cámara (o la <strong>Distancia Máxima</strong> de la sombra si es mayor que <code class="docutils literal notranslate"><span class="pre">0.0</span></code>). <code class="docutils literal notranslate"><span class="pre">0.0</span></code> es la posición del observador y <code class="docutils literal notranslate"><span class="pre">1.0</span></code> es donde termina la sombra en la distancia. Las divisiones se sitúan en valores intermedios. Los valores predeterminados suelen funcionar bien, pero es habitual ajustar ligeramente la primera división para dar más detalle a los objetos cercanos (como un personaje en un juego en tercera persona).</p>
 <p>Asegúrate siempre de establecer una <strong>Distancia Máxima</strong> de sombra según las necesidades de la escena. Una distancia máxima menor dará como resultado sombras de mejor aspecto y un mejor rendimiento, ya que será necesario incluir menos objetos en la representación de sombras. También puedes ajustar <strong>Inicio de Desvanecimiento</strong> (Fade Start) para controlar qué tan agresivo debe ser el desvanecimiento de la sombra en la distancia. Para escenas en las que la <strong>Distancia Máxima</strong> cubre completamente la escena en cualquier posición de la cámara, puedes aumentar <strong>Inicio de Desvanecimiento</strong> a <code class="docutils literal notranslate"><span class="pre">1.0</span></code> para evitar que la sombra se desvanezca a distancia. Esto no debe hacerse en escenas en las que la <strong>Distancia Máxima</strong> no cubre completamente la escena, ya que la sombra parecerá cortarse de repente.</p>
-<p>Sometimes, the transition between a split and the next can look bad. To fix
-this, the <strong>Blend Splits</strong> option can be turned on, which sacrifices detail and
-performance in exchange for smoother transitions:</p>
+<p>A veces, la transición entre una división y la siguiente puede verse discontinua. Para solucionar esto, se puede activar la opción <strong>Blend Splits</strong>, que sacrifica un poco de detalle y rendimiento a cambio de transiciones más suaves:</p>
 <img alt="../../_images/blend_splits.png" src="../../_images/blend_splits.png" />
-<p>The <strong>Shadow &gt; Normal Bias</strong> parameter can be used to fix special cases of
-self-shadowing when objects are perpendicular to the light. The only downside is
-that it makes the shadow a bit thinner. Consider increasing <strong>Shadow &gt; Normal
-Bias</strong> before increasing <strong>Shadow &gt; Bias</strong> in most situations.</p>
+<p>El parámetro <strong>Shadow &gt; Normal Bias</strong> se puede utilizar para corregir casos especiales de autosombreado cuando los objetos son perpendiculares a la luz. El único inconveniente es que hace que la sombra sea un poco más delgada. Considera aumentar <strong>Shadow &gt; Normal Bias</strong> antes de aumentar <strong>Shadow &gt; Bias</strong> en la mayoría de las situaciones.</p>
 <p>Por último, <strong>Pancake Size</strong> es una propiedad que puede ajustarse para solucionar el problema de sombras faltantes cuando se utilizan objetos grandes con mallas que no están subdivididas. Cambia este valor únicamente si notas que faltan sombras y el problema no está relacionado con el sesgo de sombras (shadow biasing).</p>
 </section>
 </section>
@@ -13171,7 +13147,7 @@ Bias</strong> before increasing <strong>Shadow &gt; Bias</strong> in most situat
 <p>Omni light es un punto que emite luz esféricamente en todas las direcciones hasta un radio dado.</p>
 <img alt="../../_images/light_omni.png" src="../../_images/light_omni.png" />
 <p>En la vida real, la atenuación de la luz es una función inversa, lo que significa que las luces omnidireccionales no tienen radio. Esto es un problema porque calcular un gran número de este tipo de luces se volvería costoso.</p>
-<p>To solve this, a <strong>Range</strong> parameter is introduced together with an attenuation function.</p>
+<p>Para solucionar esto, se introduce un parámetro <strong>Range</strong> (Alcance) junto con una función de atenuación.</p>
 <img alt="../../_images/light_omni_params.png" src="../../_images/light_omni_params.png" />
 <p>Estos dos parámetros permiten ajustar cómo funciona esto visualmente para encontrar resultados estéticamente agradables.</p>
 <img alt="../../_images/light_attenuation.png" src="../../_images/light_attenuation.png" />
@@ -13180,16 +13156,9 @@ Bias</strong> before increasing <strong>Shadow &gt; Bias</strong> in most situat
 <section id="omni-shadow-mapping">
 <h3>Mapeo de sombras omnidireccional<a class="headerlink" href="#omni-shadow-mapping" title="Link to this heading"></a></h3>
 <p>El mapeo de sombras para una Omni light es relativamente sencillo. Lo principal a considerar es el algoritmo que se utilizará para renderizarlo.</p>
-<p>Omni Shadows can be rendered as either <strong>Dual Paraboloid</strong> or <strong>Cube</strong> mapped.
-<strong>Dual Paraboloid</strong> renders quickly, but can cause deformations, while <strong>Cube</strong>
-is more correct, but slower. The default is <strong>Cube</strong>, but consider changing it
-to <strong>Dual Paraboloid</strong> for lights where it doesn't make much of a visual
-difference.</p>
+<p>Las sombras omnidireccionales se pueden renderizar mediante mapeo <strong>Dual Paraboloid</strong> (paraboloide dual) o <strong>Cube</strong> (cubemap). <strong>Dual Paraboloid</strong> se renderiza con rapidez, pero puede ocasionar deformaciones, mientras que <strong>Cube</strong> es más preciso, aunque más lento. El valor predeterminado es <strong>Cube</strong>, pero considera cambiarlo a <strong>Dual Paraboloid</strong> para luces donde no suponga una gran diferencia visual.</p>
 <img alt="../../_images/lights_and_shadows_dual_parabolid_vs_cubemap.webp" src="../../_images/lights_and_shadows_dual_parabolid_vs_cubemap.webp" />
-<p>If the objects being rendered are mostly irregular and subdivided, Dual
-Paraboloid is usually enough. In any case, as these shadows are cached in a
-shadow atlas (more on that at the end), it may not make a difference in
-performance for most scenes.</p>
+<p>Si los objetos que se están renderizando son en su mayoría irregulares y subdivididos, Dual Paraboloid suele ser suficiente. En cualquier caso, como estas sombras se almacenan en caché dentro de un atlas de sombras (se explica más detalladamente al final), puede que no represente una gran diferencia en el rendimiento para la mayoría de las escenas.</p>
 <p>Las luces Omni con las sombras activadas pueden hacer uso de proyectores. La textura del proyector <em>multiplicará</em> el color de la luz por el color en un punto determinado de la textura. Como resultado, las luces generalmente parecerán ser más oscuras una vez que se asigna una textura de proyector; puedes aumentar la <strong>Energy</strong> para compensar esto.</p>
 <p>Las texturas de proyector para las luces Omni requieren un mapeo panorámico de 360°, similar a las texturas de <a class="reference internal" href="../../classes/class_panoramaskymaterial.html#class-panoramaskymaterial"><span class="std std-ref">PanoramaSkyMaterial</span></a>.</p>
 <p>Con la textura del proyector a continuación, se obtiene el siguiente resultado:</p>
@@ -13204,11 +13173,10 @@ performance for most scenes.</p>
 <section id="spot-light">
 <span id="doc-lights-and-shadows-spot-light"></span><h2>Spot light (luz focal)<a class="headerlink" href="#spot-light" title="Link to this heading"></a></h2>
 <p>Las luces focales (o puntuales) son similares a las omnidireccionales (omni lights), excepto porque emiten luz solamente en un cono (o &quot;corte&quot;). Son útiles para simular linternas, luces de coche, reflectores, focos, etc. Este tipo de luz además se atenúa en la dirección opuesta a la que apunta.</p>
-<p>Spot lights share the same <strong>Range</strong>, <strong>Attenuation</strong> and <strong>Size</strong> as OmniLight3D,
-and add two extra parameters:</p>
+<p>Las luces focales comparten los mismos parámetros de <strong>Range</strong>, <strong>Attenuation</strong> y <strong>Size</strong> que OmniLight3D, y agregan dos parámetros adicionales:</p>
 <ul class="simple">
 <li><p><strong>Angle</strong>: El ángulo de apertura de la luz.</p></li>
-<li><p><strong>Angle Attenuation:</strong> The cone attenuation, which helps soften the cone borders.</p></li>
+<li><p><strong>Angle Attenuation:</strong> La atenuación del cono, que ayuda a suavizar los bordes del haz de luz.</p></li>
 </ul>
 <section id="spot-shadow-mapping">
 <h3>Mapeo de sombras focal<a class="headerlink" href="#spot-shadow-mapping" title="Link to this heading"></a></h3>
@@ -13226,101 +13194,50 @@ and add two extra parameters:</p>
 </section>
 <section id="area-light">
 <span id="doc-lights-and-shadows-area-light"></span><h2>Area light<a class="headerlink" href="#area-light" title="Link to this heading"></a></h2>
-<p>Sometimes, you want lighting to come from a large area instead of a single
-point. Area lights are useful for simulating soft, diffuse lighting, such as
-light coming from a window or a lit billboard.</p>
-<p>Godot provides the <a class="reference internal" href="../../classes/class_arealight3d.html#class-arealight3d"><span class="std std-ref">AreaLight3D</span></a> node for this purpose, which emits
-light from a rectangular area. The node only emits light and has no other visual
-representation in the scene. The screenshots below use a <a class="reference internal" href="../../classes/class_sprite3d.html#class-sprite3d"><span class="std std-ref">Sprite3D</span></a>
-node as a child of the area light for visualization purposes.</p>
+<p>A veces se requiere que la iluminación provenga de un área amplia en lugar de un único punto. Las luces de área (Area lights) son útiles para simular iluminación suave y difusa, como la luz que entra por una ventana o una valla publicitaria iluminada.</p>
+<p>Godot proporciona el nodo <a class="reference internal" href="../../classes/class_arealight3d.html#class-arealight3d"><span class="std std-ref">AreaLight3D</span></a> para este propósito, el cual emite luz desde un área rectangular. El nodo solo emite luz y no tiene ninguna otra representación visual en la escena. Las capturas de pantalla siguientes utilizan un nodo <a class="reference internal" href="../../classes/class_sprite3d.html#class-sprite3d"><span class="std std-ref">Sprite3D</span></a> como hijo de la luz de área con fines ilustrativos.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>This type of light is the most expensive to render in real-time. It should
-be used sparingly, especially when shadows are enabled.
-Consider using them only for cinematics or when targeting high-end devices.</p>
-<p>In Forward+, as soon as one area light is visible in the view frustum, it
-incurs an additional performance cost on <strong>all</strong> rendered objects in the
-scene, even those that are not reached by an area light. This tradeoff
-allows for a greater number of area lights to be rendered (clustered
-lighting).</p>
-<p>In Mobile and Compatibility, only objects that are reached by an area light
-incur an additional performance cost.</p>
+<p>Este tipo de luz es el más costoso de renderizar en tiempo real. Debe utilizarse con moderación, especialmente cuando las sombras están habilitadas. Considera utilizarlas solo para cinemáticas o en dispositivos de gama alta.</p>
+<p>En Forward+, tan pronto como una luz de área es visible en el frustum de visión, genera un costo de rendimiento adicional en <strong>todos</strong> los objetos renderizados en la escena, incluso aquellos que no son alcanzados por la luz de área. Este compromiso permite renderizar una mayor cantidad de luces de área (iluminación agrupada/clustered lighting).</p>
+<p>En Mobile y Compatibility, solo los objetos alcanzados por una luz de área incurren en un costo de rendimiento adicional.</p>
 </div>
-<p>Area lights can also cast shadows, with variable penumbra simulated using
-<a class="reference internal" href="#doc-lights-and-shadows-pcss-recommendations"><span class="std std-ref">PCSS</span></a> by default. The size
-of this penumbra can be controlled with the Light3D <strong>Size</strong> property. This
-effect can be quite demanding, so it can be turned off by setting <strong>Size</strong> to
-<code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
+<p>Las luces de área también pueden proyectar sombras, con penumbra variable simulada mediante <a class="reference internal" href="#doc-lights-and-shadows-pcss-recommendations"><span class="std std-ref">PCSS</span></a> de forma predeterminada. El tamaño de esta penumbra se puede controlar con la propiedad <strong>Size</strong> de Light3D. Este efecto puede ser bastante exigente, por lo que se puede desactivar estableciendo <strong>Size</strong> en <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Shadows cast by an area light may look incorrect if the object casting shadows
-doesn't have enough subdivisions and it's very close to the area light.
-This is the same limitation as Dual Paraboloid shadow mode on an omni light.</p>
+<p>Las sombras proyectadas por una luz de área pueden verse incorrectas si el objeto que proyecta las sombras no tiene suficientes subdivisiones y se encuentra muy cerca de la luz de área. Esta es la misma limitación que el modo de sombra Dual Paraboloid en una luz omnidireccional.</p>
 </div>
 <img alt="../../_images/lights_and_shadows_area_example.webp" src="../../_images/lights_and_shadows_area_example.webp" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Since area lights are difficult to simulate in a real-time rasterized
-renderer, they come with a number of limitations.</p>
-<p>For small light sources, you will likely get better results when using point
-lights. Shadows from area lights are crude approximations, as they are
-calculated as if they were point lights, and may appear to be distorted at
-the edges. To get a better result, make sure the meshes in the light's range
-are sufficiently subdivided.</p>
-<p>Area lights suffer from light leaking on the backside of geometry closely in
-front of them at grazing angles, so be careful with where you place them.</p>
-<p>Lastly, not all material features are fully supported; area lights are
-practically limited to Lambertian diffuse and GGX specular shading, while
-anisotropic materials will appear as if isotropic. Vertex shading is also
-not implemented for area lights.</p>
+<p>Dado que las luces de área son difíciles de simular en un renderizador rasterizado en tiempo real, conllevan una serie de limitaciones:</p>
+<p>Para fuentes de luz pequeñas, obtendrás mejores resultados utilizando luces puntuales. Las sombras de las luces de área son aproximaciones simples, ya que se calculan como si fueran luces puntuales, y pueden aparecer distorsionadas en los bordes. Para obtener un mejor resultado, asegúrate de que las mallas dentro del alcance de la luz estén suficientemente subdivididas.</p>
+<p>Las luces de área sufren de fuga de luz (light leaking) en la parte posterior de geometrías cercanas frente a ellas en ángulos rasantes, así que ten cuidado con su ubicación.</p>
+<p>Por último, no todas las funciones de los materiales son totalmente compatibles; las luces de área están prácticamente limitadas al sombreado difuso Lambertiano y especular GGX, mientras que los materiales anisotrópicos se verán como isotrópicos. El sombreado por vértices tampoco está implementado para las luces de área.</p>
 </div>
-<p>Area lights emit light in a rectangular area defined by the <strong>Area &gt; Size</strong>
-property (not to be confused with the generic Light3D <strong>Size</strong> property). To get
-a physically accurate result, you should resize this area to match the size of
-the real-life light source you are trying to simulate. For example, if you are
-simulating a 1-meter neon tube that is 10 centimeters wide, set the area
-size to <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0.1)</span></code> and adjust the energy accordingly.</p>
-<p>By default, the light's energy is normalized: the larger the area, the weaker
-the light. This allows you to change the area size without needing to adjust the
-energy to compensate, which is useful for animation. You can disable this
-behavior by unchecking <strong>Area &gt; Normalize Energy</strong> if you want the energy to be
-independent of the area size.</p>
-<p>The rectangular area can optionally be textured. This can be effectively used to
-change the light's shape into any 2D shape, or tint it in different colors. The
-texture's alpha channel is treated as black (no light coming through). The area
-light's texture will be visible in reflections according to the surface's
-roughness. This behavior is different from omni/spot projectors, as it does not
-project the texture directly onto all diffuse lighting.</p>
-<p>When using a textures that are transparent or black toward the edges, you might
-want to leave a gap of a few pixels to make sure the texture is blurred
-smoothly.</p>
+<p>Las luces de área emiten luz en un área rectangular definida por la propiedad <strong>Area &gt; Size</strong> (que no debe confundirse con la propiedad genérica <strong>Size</strong> de Light3D). Para obtener un resultado físicamente preciso, debes redimensionar esta área para que coincida con el tamaño de la fuente de luz real que estás intentando simular. Por ejemplo, si estás simulando un tubo de neón de 1 metro de largo por 10 centímetros de ancho, establece el tamaño del área en <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0.1)</span></code> y ajusta la energía en consecuencia.</p>
+<p>De forma predeterminada, la energía de la luz está normalizada: cuanto mayor sea el área, más débil será la luz emitida por unidad de superficie. Esto te permite cambiar el tamaño del área sin necesidad de reajustar manualmente la energía para compensar, lo cual resulta muy útil en animaciones. Puedes desactivar este comportamiento desmarcando <strong>Area &gt; Normalize Energy</strong> si deseas que la energía sea independiente del tamaño del área.</p>
+<p>El área rectangular puede tener texturas opcionalmente. Esto puede utilizarse de forma efectiva para cambiar la forma de la luz a cualquier silueta 2D o teñirla de diferentes colores. El canal alfa de la textura se trata como negro (no pasa luz). La textura de la luz de área será visible en los reflejos según la rugosidad de la superficie. Este comportamiento es diferente al de los proyectores omni/focales, ya que no proyecta la textura directamente sobre toda la iluminación difusa.</p>
+<p>Al utilizar texturas que son transparentes o negras hacia los bordes, es recomendable dejar un margen de unos pocos píxeles para asegurarse de que la textura se desenfoque con suavidad.</p>
 <img alt="../../_images/lights_and_shadows_area_texture.webp" src="../../_images/lights_and_shadows_area_texture.webp" />
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Changing the area light's texture at runtime can be expensive, especially if
-the texture is large.</p>
-<p>To reduce the performance impact of switching textures at runtime, make sure
-each dimension of an area texture is either a multiple of 128 pixels, or a
-power of two. This removes the need for a scaling pass, which slows down
-texture changes. The textures don't necessarily have to be square to be
-optimal. Examples of optimal texture sizes include 32×64, 128×128, and
-256×384.</p>
-<p>Textured area lights are not supported in the Compatibility renderer.</p>
+<p>Cambiar la textura de la luz de área en tiempo de ejecución puede ser costoso, especialmente si la textura es grande.</p>
+<p>Para reducir el impacto en el rendimiento al alternar texturas en tiempo de ejecución, asegúrate de que cada dimensión de la textura sea un múltiplo de 128 píxeles o una potencia de dos. Esto elimina la necesidad de una pasada de escalado, lo que agiliza los cambios de textura. Las texturas no tienen por qué ser necesariamente cuadradas para ser óptimas. Ejemplos de tamaños óptimos incluyen 32×64, 128×128 y 256×384.</p>
+<p>Las luces de área con textura no son compatibles con el renderizador Compatibility.</p>
 </div>
 </section>
 <section id="shadow-atlas">
 <span id="doc-lights-and-shadows-shadow-atlas"></span><h2>Atlas de sombras<a class="headerlink" href="#shadow-atlas" title="Link to this heading"></a></h2>
-<p>Unlike Directional lights, which have their own shadow texture, omni and spot
-lights are assigned to slots of a shadow atlas. This atlas can be configured in
-the advanced Project Settings (<strong>Rendering &gt; Lights And Shadows &gt; Positional Shadow</strong>).</p>
-<p>The resolution applies to the whole shadow atlas. This atlas is divided into four quadrants:</p>
+<p>A diferencia de las luces direccionales, que tienen su propia textura de sombra, a las luces omnidireccionales y focales se les asignan ranuras (slots) dentro de un atlas de sombras. Este atlas se puede configurar en la Configuración Avanzada del Proyecto (<strong>Renderizado &gt; Luces y Sombras &gt; Sombra Posicional</strong>).</p>
+<p>La resolución se aplica a todo el atlas de sombras. Este atlas se divide en cuatro cuadrantes:</p>
 <img alt="../../_images/lights_and_shadows_shadow_quadrants.webp" src="../../_images/lights_and_shadows_shadow_quadrants.webp" />
 <p>Cada cuadrante se puede subdividir para asignar cualquier número de mapas de sombras; la siguiente es la subdivisión predeterminada:</p>
 <img alt="../../_images/lights_and_shadows_shadow_quadrants2.webp" src="../../_images/lights_and_shadows_shadow_quadrants2.webp" />
 <p>El atlas de sombras asigna el espacio de la siguiente manera:</p>
 <ul class="simple">
-<li><p>The biggest shadow map size (when no subdivision is used) represents a light the size of the screen (or bigger).</p></li>
-<li><p>Subdivisions (smaller maps) represent shadows for lights that are further away from view and proportionally smaller.</p></li>
+<li><p>El tamaño de mapa de sombras más grande (cuando no se utiliza subdivisión) representa una luz del tamaño de la pantalla (o mayor).</p></li>
+<li><p>Las subdivisiones (mapas más pequeños) representan sombras para luces que están más alejadas de la vista y proporcionalmente más pequeñas.</p></li>
 </ul>
 <p>En Cada fotograma, se realiza el siguiente procedimiento para todas las luces:</p>
 <ol class="arabic simple">
@@ -13328,9 +13245,7 @@ the advanced Project Settings (<strong>Rendering &gt; Lights And Shadows &gt; Po
 <li><p>Se comprueba si ha cambiado algún objeto que afecte al mapa de sombras. Si esto sucedió, se renderiza de nuevo la luz.</p></li>
 <li><p>Si no ha ocurrido nada de lo anterior, no se hace nada, y la sombra queda intacta.</p></li>
 </ol>
-<p>If the slots in a quadrant are full, lights are pushed back to smaller slots,
-depending on size and distance. If all slots in all quadrants are full, some
-lights will not be able to render shadows even if shadows are enabled on them.</p>
+<p>Si las ranuras de un cuadrante están llenas, las luces se reubican en ranuras más pequeñas, dependiendo de su tamaño y distancia. Si todas las ranuras de todos los cuadrantes están llenas, algunas luces no podrán renderizar sombras incluso si las tienen habilitadas.</p>
 <p>La estrategia de asignación de sombras por defecto permite renderizar hasta 88 luces con sombras habilitadas dentro del frustum de la cámara (4 + 4 + 16 + 64):</p>
 <ol class="arabic simple">
 <li><p>El primer y más detallado cuadrante puede almacenar 4 sombras.</p></li>
@@ -13339,10 +13254,7 @@ lights will not be able to render shadows even if shadows are enabled on them.</
 <li><p>El cuarto cuadrante, el menos detallado, puede almacenar 64 sombras, con aún menos detalles.</p></li>
 </ol>
 <p>Utilizar un mayor número de sombras por cuadrante permite soportar una mayor cantidad total de luces con sombras habilitadas, al tiempo que mejora el rendimiento (ya que las sombras se renderizarán a una resolución menor para cada luz). Sin embargo, aumentar el número de sombras por cuadrante se hace a costa de una menor calidad de las sombras.</p>
-<p>In some cases, you may want to use a different allocation strategy. For example,
-in a top-down game where all lights are around the same size, you may want to
-set all quadrants to have the same subdivision so that all lights have shadows
-of similar quality level.</p>
+<p>En algunos casos, es posible que desees utilizar una estrategia de asignación diferente. Por ejemplo, en un juego con vista aérea (top-down) donde todas las luces tienen aproximadamente el mismo tamaño, puedes configurar todos los cuadrantes para que tengan la misma subdivisión, de modo que todas las luces tengan sombras con un nivel de calidad similar.</p>
 </section>
 <section id="balancing-performance-and-quality">
 <span id="doc-lights-and-shadows-balancing-performance-and-quality"></span><h2>Balancing performance and quality<a class="headerlink" href="#balancing-performance-and-quality" title="Link to this heading"></a></h2>

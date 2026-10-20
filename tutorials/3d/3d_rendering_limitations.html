@@ -13056,10 +13056,9 @@
 <p>Al utilizar el método de renderizado Compatibility, no se utiliza el renderizado HDR interno y la precisión de color se limita a 8 bits por canal, lo que puede provocar bandas de color (banding) más evidentes en degradados suaves.</p>
 <p>Hay dos caminos principales para solucionar las bandas:</p>
 <ul class="simple">
-<li><p>If using the Forward+ or Forward Mobile rendering methods, enable
+<li><p>Si utilizas los métodos de renderizado Forward+ o Forward Mobile, habilita
 <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-rendering-anti-aliasing-quality-use-debanding"><span class="std std-ref">Use Debanding</span></a>
-in <strong>Project Settings &gt; Rendering &gt; Anti Aliasing</strong>. This applies a fullscreen debanding
-shader as a post-processing effect and is very cheap.</p></li>
+en <strong>Project Settings &gt; Rendering &gt; Anti Aliasing</strong>. Esto aplica un shader de eliminación de bandas (debanding) a pantalla completa como efecto de postprocesamiento y es muy económico.</p></li>
 <li><p>Alternativamente, hornea algo de ruido o tramado (dithering) en tus texturas. Esto es principalmente efectivo en 2D, por ejemplo, para viñetas o cielos degradados.</p></li>
 </ul>
 <figure class="align-center" id="id1">
@@ -13075,12 +13074,7 @@ shader as a post-processing effect and is very cheap.</p></li>
 </section>
 <section id="depth-buffer-precision">
 <h2>Precisión del buffer de profundidad<a class="headerlink" href="#depth-buffer-precision" title="Link to this heading"></a></h2>
-<p>To sort objects in 3D space, rendering engines rely on a <em>depth buffer</em> (also
-called <em>Z-buffer</em>). This buffer has a finite precision: 32-bit on desktop
-platforms, 24-bit on mobile platforms (for performance reasons). If two
-different objects end up on the same buffer value, then Z-fighting will occur.
-This will materialize as textures flickering back and forth as the camera moves
-or rotates.</p>
+<p>Para ordenar objetos en el espacio 3D, los motores de renderizado se basan en un <em>búfer de profundidad</em> (también llamado <em>Z-buffer</em>). Este búfer tiene una precisión finita: 32 bits en plataformas de escritorio, 24 bits en plataformas móviles (por razones de rendimiento). Si dos objetos diferentes terminan con el mismo valor en el búfer, se producirá un conflicto de profundidad (Z-fighting). Esto se manifestará como texturas que parpadean intermitentemente a medida que la cámara se mueve o rota.</p>
 <p>Para que la memoria intermedia de profundidad sea más precisa en el área de renderizado, deberías <em>aumentar</em> la propiedad <strong>Casi</strong> del nodo de la cámara. Sin embargo, ten cuidado: si lo pones demasiado alto, los jugadores podrán ver a través de la geometría cercana. También deberías <em>disminuir</em> la propiedad <strong>Lejos</strong> del nodo de la cámara al valor más bajo permitido para tu caso de uso, aunque ten en cuenta que no afectará a la precisión tanto como la propiedad <strong>Cercana</strong>.</p>
 <p>Si sólo necesitas alta precisión cuando el jugador puede ver a lo lejos, podrías cambiarlo dinámicamente según las condiciones del juego. Por ejemplo, si el jugador entra en un avión, la propiedad <strong>Casi</strong> puede ser aumentada temporalmente para evitar la lucha Z en la distancia. Entonces puede ser disminuido una vez que el jugador deja el avión.</p>
 <p>Dependiendo de la escena y de las condiciones de visualización, también puede ser capaz de mover los objetos del combate Z más lejos sin que la diferencia sea visible para el jugador.</p>
@@ -13099,10 +13093,7 @@ or rotates.</p>
 <ul class="simple">
 <li><p>Solo haz transparentes los materiales si realmente lo necesitas. Si un material solo tiene una pequeña sección transparente, considera dividir la geometría en superficies opacas y transparentes independientes.</p></li>
 <li><p>Si tu textura tiene principalmente áreas totalmente opacas y totalmente transparentes, puedes utilizar la prueba alfa (Alpha Scissor) en lugar de la transparencia alpha blend convencional. Esto permite que el objeto se dibuje en el paso opaco y proyecte sombras correctas.</p></li>
-<li><p>If you need to render semi-transparent areas of the texture, alpha scissor
-isn't suitable. Instead, setting the StandardMaterial3D's
-<strong>Transparency &gt; Transparency</strong> property to <strong>Depth Pre-Pass</strong> can sometimes
-work (at a performance cost). You can also try the <strong>Alpha Hash</strong> mode.</p></li>
+<li><p>Si necesitas renderizar áreas semitransparentes de la textura, el recorte alfa (alpha scissor) no es adecuado. En su lugar, configurar la propiedad <strong>Transparency &gt; Transparency</strong> de StandardMaterial3D en <strong>Depth Pre-Pass</strong> a veces puede funcionar (con un costo de rendimiento). También puedes probar el modo <strong>Alpha Hash</strong>.</p></li>
 <li><p>Si deseas que un material se desvanezca con la distancia, usa el modo de desvanecimiento por distancia de StandardMaterial3D <strong>Pixel Dither</strong> en lugar de <strong>Pixel Alpha</strong> para evitar que todo el objeto pase al paso de dibujado transparente.</p></li>
 </ul>
 <figure class="align-center" id="id3">
