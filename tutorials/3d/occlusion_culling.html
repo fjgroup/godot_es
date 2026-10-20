@@ -9,8 +9,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/occlusion_culling.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
-<meta property="og:description" content="In a 3D rendering engine, occlusion culling is the process of performing hidden geometry removal. En esta pagina aprenderá: What are the advantages and pitfalls of occlusion culling., How to set up..." />
-<meta name="description" content="In a 3D rendering engine, occlusion culling is the process of performing hidden geometry removal. En esta pagina aprenderá: What are the advantages and pitfalls of occlusion culling., How to set up..." />
+<meta property="og:description" content="En un motor de renderizado 3D, la eliminación de oclusión (occlusion culling) es el proceso de realizar la eliminación de geometría oculta. En esta página aprenderás: Cuáles son las ventajas y dificultades..." />
+<meta name="description" content="En un motor de renderizado 3D, la eliminación de oclusión (occlusion culling) es el proceso de realizar la eliminación de geometría oculta. En esta página aprenderás: Cuáles son las ventajas y dificultades..." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Eliminación de oclusión &mdash; Documentación de Godot Engine (4.x) en español</title>
 
@@ -37,7 +37,7 @@
   
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Resolution scaling" href="resolution_scaling.html" />
+    <link rel="next" title="Escalado de resolución" href="resolution_scaling.html" />
     <link rel="prev" title="Visibility ranges (HLOD)" href="visibility_ranges.html" />
 <meta name="doc_version" content="4.x" />
 <meta name="doc_is_latest" content="True" />
@@ -1277,47 +1277,47 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#optimization">Optimización</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="using_multi_mesh_instance.html">Using MultiMeshInstance3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="using_multi_mesh_instance.html">Uso de MultiMeshInstance3D</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="using_multi_mesh_instance.html#introduction">Introducción</a></li>
 <li class="toctree-l4"><a class="reference internal" href="using_multi_mesh_instance.html#setting-up-the-nodes">Configurar los nodos</a></li>
 <li class="toctree-l4"><a class="reference internal" href="using_multi_mesh_instance.html#multimesh-settings">Configuración de MultiMesh</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="mesh_lod.html">Mesh level of detail (LOD)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mesh_lod.html">Nivel de detalle de malla (LOD)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#introduction">Introducción</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#visual-comparison">Comparaciones visuales</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#generating-mesh-lod">Generating mesh LOD</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#comparing-mesh-lod-visuals-and-performance">Comparing mesh LOD visuals and performance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#configuring-mesh-lod-performance-and-quality">Configuring mesh LOD performance and quality</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#using-mesh-lod-with-multimesh-and-particles">Using mesh LOD with MultiMesh and particles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#generating-mesh-lod">Generación de LOD de malla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#comparing-mesh-lod-visuals-and-performance">Comparar visuales y rendimiento de LOD de malla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#configuring-mesh-lod-performance-and-quality">Configurar rendimiento y calidad de LOD de malla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mesh_lod.html#using-mesh-lod-with-multimesh-and-particles">Usar LOD de malla con MultiMesh y partículas</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="visibility_ranges.html">Visibility ranges (HLOD)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="visibility_ranges.html">Rangos de visibilidad (HLOD)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#how-it-works">Cómo funciona</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#setting-up-visibility-range">Setting up visibility range</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#visibility-range-properties">Visibility range properties</a></li>
-<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#configuration-tips">Configuration tips</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#setting-up-visibility-range">Configuración del rango de visibilidad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#visibility-range-properties">Propiedades del rango de visibilidad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visibility_ranges.html#configuration-tips">Consejos de configuración</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Eliminación de oclusión</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#why-use-occlusion-culling">Why use occlusion culling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#how-occlusion-culling-works-in-godot">How occlusion culling works in Godot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#setting-up-occlusion-culling">Setting up occlusion culling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#previewing-occlusion-culling">Previewing occlusion culling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#performance-considerations">Performance considerations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Solución De Problemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why-use-occlusion-culling">Por qué usar eliminación de oclusión</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-occlusion-culling-works-in-godot">Cómo funciona la eliminación de oclusión en Godot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-up-occlusion-culling">Configuración de la eliminación de oclusión</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#previewing-occlusion-culling">Vista previa de la eliminación de oclusión</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-considerations">Consideraciones de rendimiento</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Resolución de problemas</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="resolution_scaling.html">Resolution scaling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#why-use-resolution-scaling">Why use resolution scaling?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#resolution-scaling-options">Resolution scaling options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#troubleshooting">Solución De Problemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resolution_scaling.html">Escalado de resolución</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#why-use-resolution-scaling">¿Por qué usar escalado de resolución?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#resolution-scaling-options">Opciones de escalado de resolución</a></li>
+<li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#troubleshooting">Resolución de problemas</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="variable_rate_shading.html">Variable rate shading</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="variable_rate_shading.html#what-is-variable-rate-shading">¿Qué es el shading de tasa varaible?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable_rate_shading.html">Sombreado de tasa variable (VRS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="variable_rate_shading.html#what-is-variable-rate-shading">¿Qué es el sombreado de tasa variable?</a></li>
 <li class="toctree-l4"><a class="reference internal" href="variable_rate_shading.html#hardware-support">Soporte de hardware</a></li>
-<li class="toctree-l4"><a class="reference internal" href="variable_rate_shading.html#using-variable-rate-shading-in-godot">Using variable rate shading in Godot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_rate_shading.html#using-variable-rate-shading-in-godot">Uso del sombreado de tasa variable en Godot</a></li>
 </ul>
 </li>
 </ul>
@@ -13042,172 +13042,170 @@
   
   <section id="occlusion-culling">
 <span id="doc-occlusion-culling"></span><h1>Eliminación de oclusión<a class="headerlink" href="#occlusion-culling" title="Link to this heading"></a></h1>
-<p>In a 3D rendering engine, <strong>occlusion culling</strong> is the process of performing
-hidden geometry removal.</p>
-<p>En esta pagina aprenderá:</p>
+<p>En un motor de renderizado 3D, la <strong>eliminación de oclusión</strong> (<em>occlusion culling</em>) es el proceso de realizar
+la eliminación de geometría oculta.</p>
+<p>En esta página, aprenderás:</p>
 <ul class="simple">
-<li><p>What are the advantages and pitfalls of occlusion culling.</p></li>
-<li><p>How to set up occlusion culling in Godot.</p></li>
-<li><p>Resolver problemas comunes del filtrado por oclusión.</p></li>
+<li><p>Cuáles son las ventajas y dificultades de la eliminación de oclusión.</p></li>
+<li><p>Cómo configurar la eliminación de oclusión en Godot.</p></li>
+<li><p>Solución de problemas comunes con la eliminación de oclusión.</p></li>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>You can see how occlusion culling works in action using the
-<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod">Occlusion Culling and Mesh LOD demo project</a>.</p>
+<p>Puedes ver cómo funciona la eliminación de oclusión en acción utilizando el
+<a class="reference external" href="https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod">proyecto de demostración de Eliminación de Oclusión y LOD de Malla</a>.</p>
 </div>
 <section id="why-use-occlusion-culling">
-<h2>Why use occlusion culling<a class="headerlink" href="#why-use-occlusion-culling" title="Link to this heading"></a></h2>
-<p>In this example scene with hundreds of rooms stacked next to each other, a
-dynamic object (red sphere) is hidden behind the wall in the lit room (on the
-left of the door):</p>
+<h2>Por qué usar eliminación de oclusión<a class="headerlink" href="#why-use-occlusion-culling" title="Link to this heading"></a></h2>
+<p>En esta escena de ejemplo con cientos de habitaciones apiladas una al lado de otra, un
+objeto dinámico (esfera roja) está oculto detrás de la pared en la habitación iluminada (a la
+izquierda de la puerta):</p>
 <figure class="align-center" id="id1">
-<img alt="Example scene with an occlusion culling-friendly layout" src="../../_images/occlusion_culling_scene_example.png" />
+<img alt="Escena de ejemplo con una disposición adecuada para la eliminación de oclusión" src="../../_images/occlusion_culling_scene_example.png" />
 <figcaption>
-<p><span class="caption-text">Example scene with an occlusion culling-friendly layout</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Escena de ejemplo con una disposición adecuada para la eliminación de oclusión</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>With occlusion culling disabled, all the rooms behind the lit room have to be
-rendered. The dynamic object also has to be rendered:</p>
+<p>Con la eliminación de oclusión deshabilitada, todas las habitaciones detrás de la habitación iluminada tienen que
+ser renderizadas. El objeto dinámico también tiene que ser renderizado:</p>
 <figure class="align-center" id="id2">
-<img alt="Example scene with occlusion culling disabled (wireframe)" src="../../_images/occlusion_culling_disabled.png" />
+<img alt="Escena de ejemplo con eliminación de oclusión deshabilitada (malla alámbrica)" src="../../_images/occlusion_culling_disabled.png" />
 <figcaption>
-<p><span class="caption-text">Example scene with occlusion culling <strong>disabled</strong> (wireframe)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Escena de ejemplo con eliminación de oclusión <strong>deshabilitada</strong> (malla alámbrica)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>With occlusion culling enabled, only the rooms that are actually visible have to
-be rendered. The dynamic object is also occluded by the wall, and therefore no
-longer has to be rendered:</p>
+<p>Con la eliminación de oclusión habilitada, solo las habitaciones que son realmente visibles tienen que
+ser renderizadas. El objeto dinámico también queda ocluido por la pared y, por lo tanto, ya no
+tiene que renderizarse:</p>
 <figure class="align-center" id="id3">
-<img alt="Example scene with occlusion culling enabled (wireframe)" src="../../_images/occlusion_culling_enabled.png" />
+<img alt="Escena de ejemplo con eliminación de oclusión habilitada (malla alámbrica)" src="../../_images/occlusion_culling_enabled.png" />
 <figcaption>
-<p><span class="caption-text">Example scene with occlusion culling <strong>enabled</strong> (wireframe)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Escena de ejemplo con eliminación de oclusión <strong>habilitada</strong> (malla alámbrica)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Since the engine has less work to do (fewer vertices to render and fewer draw calls),
-performance will increase as long as there are enough occlusion culling opportunities
-in the scene. This means occlusion culling is most effective in indoor scenes,
-preferably with many smaller rooms instead of fewer larger rooms. Combine
-this with <a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Mesh level of detail (LOD)</span></a> and <a class="reference internal" href="visibility_ranges.html#doc-visibility-ranges"><span class="std std-ref">Visibility ranges (HLOD)</span></a> to further improve
-performance gains.</p>
+<p>Dado que el motor tiene menos trabajo que hacer (menos vértices para renderizar y menos llamadas de dibujo (<em>draw calls</em>)),
+el rendimiento aumentará siempre que haya suficientes oportunidades de eliminación de oclusión
+en la escena. Esto significa que la eliminación de oclusión es más efectiva en escenas interiores,
+preferiblemente con muchas habitaciones pequeñas en lugar de pocas habitaciones grandes. Combina
+esto con <a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Nivel de detalle de malla (LOD)</span></a> y <a class="reference internal" href="visibility_ranges.html#doc-visibility-ranges"><span class="std std-ref">Rangos de visibilidad (HLOD)</span></a> para mejorar aún más
+las ganancias de rendimiento.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When using the Forward+ renderer, the engine already
-performs a <em>depth prepass</em>. This consists in rendering a depth-only version
-of the scene before rendering the scene's actual materials. This is used to
-ensure each opaque pixel is only shaded once, reducing the cost of overdraw
-significantly.</p>
-<p>The greatest performance benefits can be observed when using the Mobile
-renderer, as it does not feature a depth prepass for performance reasons. As
-a result, occlusion culling will actively decrease shading overdraw with
-that renderer.</p>
-<p>Nonetheless, even when using a depth prepass, there is still a noticeable
-benefit to occlusion culling in complex 3D scenes. However, in scenes with
-few occlusion culling opportunities, occlusion culling may not be worth the
-added setup and CPU usage.</p>
+<p>Al utilizar el renderizador Forward+, el motor ya
+realiza una <em>prepasada de profundidad</em> (<em>depth prepass</em>). Esto consiste en renderizar una versión solo de profundidad
+de la escena antes de renderizar los materiales reales de la escena. Esto se utiliza para
+asegurar que cada píxel opaco se sombree solo una vez, reduciendo significativamente el costo del
+sobregiro (<em>overdraw</em>).</p>
+<p>Los mayores beneficios de rendimiento se pueden observar al utilizar el renderizador
+Mobile, ya que no cuenta con una prepasada de profundidad por razones de rendimiento. Como
+resultado, la eliminación de oclusión reducirá activamente el sobregiro de sombreado con
+dicho renderizador.</p>
+<p>No obstante, incluso cuando se utiliza una prepasada de profundidad, todavía existe un beneficio
+notable con la eliminación de oclusión en escenas 3D complejas. Sin embargo, en escenas con
+pocas oportunidades de eliminación de oclusión, puede que la eliminación de oclusión no valga la pena
+debido a la configuración añadida y el uso de CPU.</p>
 </div>
 </section>
 <section id="how-occlusion-culling-works-in-godot">
-<h2>How occlusion culling works in Godot<a class="headerlink" href="#how-occlusion-culling-works-in-godot" title="Link to this heading"></a></h2>
+<h2>Cómo funciona la eliminación de oclusión en Godot<a class="headerlink" href="#how-occlusion-culling-works-in-godot" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>&quot;occluder&quot; refers to the shape blocking the view, while &quot;occludee&quot; refers to
-the object being hidden.</p>
+<p>&quot;oclusor&quot; (<em>occluder</em>) se refiere a la forma que bloquea la vista, mientras que &quot;objeto ocluido&quot; (<em>occludee</em>) se refiere
+al objeto que queda oculto.</p>
 </div>
-<p>In Godot, occlusion culling works by rasterizing the scene's occluder geometry
-to a low-resolution buffer on the CPU. This is done using
-the software raytracing library <a class="reference external" href="https://github.com/embree/embree">Embree</a>.</p>
-<p>The engine then uses this low-resolution buffer to test the occludee's
-<abbr title="Axis-Aligned Bounding Box">AABB</abbr> against the occluder shapes.
-The occludee's <abbr title="Axis-Aligned Bounding Box">AABB</abbr> must be <em>fully occluded</em>
-by the occluder shape to be culled.</p>
-<p>As a result, smaller objects are more likely to be effectively culled than
-larger objects. Larger occluders (such as walls) also tend to be much more
-effective than smaller ones (such as decoration props).</p>
+<p>En Godot, la eliminación de oclusión funciona rasterizando la geometría oclusora de la escena
+en un búfer de baja resolución en la CPU. Esto se realiza utilizando
+la biblioteca de trazado de rayos por software <a class="reference external" href="https://github.com/embree/embree">Embree</a>.</p>
+<p>Luego, el motor utiliza este búfer de baja resolución para probar el
+<abbr title="Axis-Aligned Bounding Box">AABB</abbr> del objeto ocluido contra las formas oclusoras.
+El <abbr title="Axis-Aligned Bounding Box">AABB</abbr> del objeto ocluido debe estar <em>completamente ocluido</em>
+por la forma oclusora para ser eliminado.</p>
+<p>Como resultado, los objetos más pequeños tienen más probabilidades de ser eliminados eficazmente que
+los objetos más grandes. Los oclusores más grandes (como las paredes) también suelen ser mucho más
+efectivos que los más pequeños (como accesorios de decoración).</p>
 </section>
 <section id="setting-up-occlusion-culling">
-<h2>Setting up occlusion culling<a class="headerlink" href="#setting-up-occlusion-culling" title="Link to this heading"></a></h2>
-<p>The first step to using occlusion culling is to enable the
-<strong>Rendering &gt; **Occlusion Culling &gt; Use Occlusion Culling</strong> project setting.
-(Make sure the <strong>Advanced</strong> toggle is enabled in the Project Settings dialog to
-be able to see it.)</p>
-<p>This project setting applies immediately, so you don't need to restart the editor.</p>
-<p>After enabling the project setting, you still need to create some occluders. For
-performance reasons, the engine doesn't automatically use all visible geometry
-as a basis for occlusion culling. Instead, the engine requires a simplified
-representation of the scene with only static objects to be baked.</p>
-<p>There are two ways to set up occluders in a scene:</p>
+<h2>Configuración de la eliminación de oclusión<a class="headerlink" href="#setting-up-occlusion-culling" title="Link to this heading"></a></h2>
+<p>El primer paso para usar la eliminación de oclusión es habilitar el ajuste de proyecto
+<strong>Rendering &gt; Occlusion Culling &gt; Use Occlusion Culling</strong> (Renderizado &gt; Eliminación de Oclusión &gt; Usar Eliminación de Oclusión).
+(Asegúrate de que la opción <strong>Advanced</strong> esté habilitada en el cuadro de diálogo de Ajustes del Proyecto para
+poder verla).</p>
+<p>Este ajuste de proyecto se aplica inmediatamente, por lo que no es necesario reiniciar el editor.</p>
+<p>Después de habilitar el ajuste de proyecto, todavía necesitas crear algunos oclusores. Por
+razones de rendimiento, el motor no utiliza automáticamente toda la geometría visible
+como base para la eliminación de oclusión. En su lugar, el motor requiere que se hornee
+una representación simplificada de la escena que contenga únicamente objetos estáticos.</p>
+<p>Hay dos formas de configurar oclusores en una escena:</p>
 <section id="automatically-baking-occluders-recommended">
-<span id="doc-occlusion-culling-baking"></span><h3>Automatically baking occluders (recommended)<a class="headerlink" href="#automatically-baking-occluders-recommended" title="Link to this heading"></a></h3>
+<span id="doc-occlusion-culling-baking"></span><h3>Horneado automático de oclusores (recomendado)<a class="headerlink" href="#automatically-baking-occluders-recommended" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Only MeshInstance3D nodes are currently taken into account in the <em>occluder</em>
-baking process. MultiMeshInstance3D, GPUParticles3D, CPUParticles3D and CSG
-nodes are <strong>not</strong> taken into account when baking occluders. If you wish
-those to be treated as occluders, you have to manually create occluder
-shapes that (roughly) match their geometry.</p>
-<p>Since Godot 4.4, CSG nodes can be taken into account in the baking process if they are
-<a class="reference internal" href="csg_tools.html#doc-csg-tools-converting-to-mesh-instance-3d"><span class="std std-ref">converted to a MeshInstance3D</span></a>
-before baking occluders.</p>
-<p>This restriction does not apply to <em>occludees</em>. Any node type that inherits
-from GeometryInstance3D can be occluded.</p>
+<p>Actualmente, solo los nodos MeshInstance3D se tienen en cuenta en el proceso de
+horneado de <em>oclusores</em>. Los nodos MultiMeshInstance3D, GPUParticles3D, CPUParticles3D y CSG
+<strong>no</strong> se tienen en cuenta al hornear oclusores. Si deseas
+que estos se traten como oclusores, debes crear manualmente formas de oclusor
+que coincidan (aproximadamente) con su geometría.</p>
+<p>Desde Godot 4.4, los nodos CSG se pueden tener en cuenta en el proceso de horneado si se
+<a class="reference internal" href="csg_tools.html#doc-csg-tools-converting-to-mesh-instance-3d"><span class="std std-ref">convierten a un MeshInstance3D</span></a>
+antes de hornear los oclusores.</p>
+<p>Esta restricción no se aplica a los <em>objetos ocluidos</em> (<em>occludees</em>). Cualquier tipo de nodo que herede
+de GeometryInstance3D puede ser ocluido.</p>
 </div>
-<p>After enabling the occlusion culling project setting mentioned above, add an
-OccluderInstance3D node to the scene containing your 3D level.</p>
-<p>Select the OccluderInstance3D node, then click <strong>Bake Occluders</strong> at the top of
-the 3D editor viewport. After baking, the OccluderInstance3D node will contain
-an Occluder3D resource that stores a simplified version of your level's
-geometry. This occluder geometry appears as purple wireframe lines in the 3D view
-(as long as <strong>View Gizmos</strong> is enabled in the <strong>Perspective</strong> menu).
-This geometry is then used to provide occlusion culling for both static and
-dynamic occludees.</p>
-<p>After baking, you may notice that your dynamic objects (such as the player,
-enemies, etc…) are included in the baked mesh. To prevent this, set the
-<strong>Bake &gt; Cull Mask</strong> property on the OccluderInstance3D to exclude certain visual
-layers from being baked.</p>
-<p>For example, you can disable layer 2 on the cull mask, then configure your
-dynamic objects' MeshInstance3D nodes to be located on the visual layer 2
-(instead of layer 1). To do so, select the MeshInstance3D node in question, then
-on the <strong>VisualInstance3D &gt; Layers</strong> property, uncheck layer 1 then check layer
-2. After configuring both cull mask and layers, bake occluders again by
-following the above process.</p>
+<p>Después de habilitar el ajuste de proyecto de eliminación de oclusión mencionado anteriormente, añade un
+nodo OccluderInstance3D a la escena que contiene tu nivel 3D.</p>
+<p>Selecciona el nodo OccluderInstance3D, luego haz clic en <strong>Bake Occluders</strong> (Hornear Oclusores) en la parte superior del
+viewport del editor 3D. Después de hornear, el nodo OccluderInstance3D contendrá
+un recurso Occluder3D que almacena una versión simplificada de la geometría
+de tu nivel. Esta geometría de oclusión aparece como líneas de malla alámbrica púrpura en la vista 3D
+(siempre que <strong>View Gizmos</strong> esté habilitado en el menú <strong>Perspective</strong>).
+Esta geometría se utiliza luego para proporcionar eliminación de oclusión tanto para objetos ocluidos estáticos
+como dinámicos.</p>
+<p>Después de hornear, es posible que notes que tus objetos dinámicos (como el jugador,
+enemigos, etc.) están incluidos en la malla horneada. Para evitar esto, establece la
+propiedad <strong>Bake &gt; Cull Mask</strong> en el OccluderInstance3D para excluir ciertas capas
+visuales del horneado.</p>
+<p>Por ejemplo, puedes deshabilitar la capa 2 en la máscara de corte (cull mask), y luego configurar los
+nodos MeshInstance3D de tus objetos dinámicos para que se ubiquen en la capa visual 2
+(en lugar de la capa 1). Para hacerlo, selecciona el nodo MeshInstance3D en cuestión, luego
+en la propiedad <strong>VisualInstance3D &gt; Layers</strong>, desmarca la capa 1 y marca la capa
+2. Después de configurar tanto la máscara de corte como las capas, hornea los oclusores de nuevo
+siguiendo el proceso anterior.</p>
 </section>
 <section id="manually-placing-occluders">
-<h3>Manually placing occluders<a class="headerlink" href="#manually-placing-occluders" title="Link to this heading"></a></h3>
-<p>This approach is more suited for specialized use cases, such as creating occlusion
-for MultiMeshInstance3D setups or CSG nodes (due to the aforementioned limitation).</p>
-<p>After enabling the occlusion culling project setting mentioned above, add an
-OccluderInstance3D node to the scene containing your 3D level. Select the
-OccluderInstance3D node, then choose an occluder type to add in the <strong>Occluder</strong>
-property:</p>
+<h3>Colocación manual de oclusores<a class="headerlink" href="#manually-placing-occluders" title="Link to this heading"></a></h3>
+<p>Este enfoque es más adecuado para casos de uso especializados, como crear oclusión
+para configuraciones de MultiMeshInstance3D o nodos CSG (debido a la limitación antes mencionada).</p>
+<p>Después de habilitar el ajuste de proyecto de eliminación de oclusión mencionado anteriormente, añade un
+nodo OccluderInstance3D a la escena que contiene tu nivel 3D. Selecciona el
+nodo OccluderInstance3D, y luego elige un tipo de oclusor para añadir en la propiedad <strong>Occluder</strong>:</p>
 <ul class="simple">
-<li><p>QuadOccluder3D (a single plane)</p></li>
-<li><p>BoxOccluder3D (a cuboid)</p></li>
-<li><p>SphereOccluder3D (a sphere-shaped occluder)</p></li>
-<li><p>PolygonOccluder3D (a 2D polygon with as many points as you want)</p></li>
+<li><p>QuadOccluder3D (un solo plano)</p></li>
+<li><p>BoxOccluder3D (un cuboide)</p></li>
+<li><p>SphereOccluder3D (un oclusor con forma de esfera)</p></li>
+<li><p>PolygonOccluder3D (un polígono 2D con tantos puntos como desees)</p></li>
 </ul>
-<p>There is also ArrayOccluder3D, whose points can't be modified in the editor but
-can be useful for procedural generation from a script.</p>
+<p>También existe ArrayOccluder3D, cuyos puntos no se pueden modificar en el editor, pero
+puede ser útil para la generación procedimental desde un script.</p>
 </section>
 </section>
 <section id="previewing-occlusion-culling">
-<span id="doc-occlusion-culling-preview"></span><h2>Previewing occlusion culling<a class="headerlink" href="#previewing-occlusion-culling" title="Link to this heading"></a></h2>
-<p>You can enable a debug draw mode to preview what the occlusion culling is
-actually &quot;seeing&quot;. In the top-left corner of the 3D editor viewport, click the
-<strong>Perspective</strong> button (or <strong>Orthogonal</strong> depending on your current camera
-mode), then choose <strong>Display Advanced… &gt; Occlusion Culling Buffer</strong>. This will
-display the low-resolution buffer that is used by the engine for occlusion
-culling.</p>
-<p>In the same menu, you can also enable <strong>View Information</strong> and <strong>View Frame
-Time</strong> to view the number of draw calls and rendered primitives (vertices +
-indices) in the bottom-right corner, along with the number of frames per second
-rendered in the top-right corner.</p>
-<p>If you toggle occlusion culling in the project settings while this information
-is displayed, you can see how much occlusion culling improves performance in
-your scene. Note that the performance benefit highly depends on the 3D editor
-camera's view angle, as occlusion culling is only effective if there are
-occluders in front of the camera.</p>
-<p>To toggle occlusion culling at runtime, set <code class="docutils literal notranslate"><span class="pre">use_occlusion_culling</span></code> on the
-root viewport as follows:</p>
+<span id="doc-occlusion-culling-preview"></span><h2>Vista previa de la eliminación de oclusión<a class="headerlink" href="#previewing-occlusion-culling" title="Link to this heading"></a></h2>
+<p>Puedes habilitar un modo de dibujo de depuración para previsualizar lo que la eliminación de oclusión está
+&quot;viendo&quot; realmente. En la esquina superior izquierda del viewport del editor 3D, haz clic en el
+botón <strong>Perspective</strong> (o <strong>Orthogonal</strong> según tu modo de cámara actual),
+y luego elige <strong>Display Advanced… &gt; Occlusion Culling Buffer</strong>. Esto mostrará
+el búfer de baja resolución que utiliza el motor para la eliminación de oclusión.</p>
+<p>En el mismo menú, también puedes habilitar <strong>View Information</strong> y <strong>View Frame
+Time</strong> para ver el número de llamadas de dibujo y primitivas renderizadas (vértices +
+índices) en la esquina inferior derecha, junto con el número de fotogramas por segundo
+renderizados en la esquina superior derecha.</p>
+<p>Si alternas la eliminación de oclusión en los ajustes del proyecto mientras se muestra esta información,
+podrás ver cuánto mejora el rendimiento la eliminación de oclusión en
+tu escena. Ten en cuenta que el beneficio de rendimiento depende en gran medida del ángulo de visión de la
+cámara del editor 3D, ya que la eliminación de oclusión solo es efectiva si hay
+oclusores frente a la cámara.</p>
+<p>Para alternar la eliminación de oclusión en tiempo de ejecución, establece <code class="docutils literal notranslate"><span class="pre">use_occlusion_culling</span></code> en el
+viewport raíz de la siguiente manera:</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-0-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button></div><div aria-labelledby="tab-0-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="nf">get_tree</span><span class="p">()</span><span class="o">.</span><span class="vi">root</span><span class="o">.</span><span class="vi">use_occlusion_culling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="l">true</span>
 </pre></div>
@@ -13216,91 +13214,95 @@ root viewport as follows:</p>
 </pre></div>
 </div>
 </div></div>
-<p>Toggling occlusion culling at runtime is useful to compare performance on a
-running project.</p>
+<p>Alternar la eliminación de oclusión en tiempo de ejecución es útil para comparar el rendimiento en un
+proyecto en ejecución.</p>
 </section>
 <section id="performance-considerations">
-<h2>Performance considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading"></a></h2>
+<h2>Consideraciones de rendimiento<a class="headerlink" href="#performance-considerations" title="Link to this heading"></a></h2>
 <section id="design-your-levels-to-take-advantage-of-occlusion-culling">
-<h3>Diseña tus niveles tomando ventaja del filtrado por oclusión<a class="headerlink" href="#design-your-levels-to-take-advantage-of-occlusion-culling" title="Link to this heading"></a></h3>
-<p><strong>This is the most important guideline.</strong> A good level design is not just about
-what the gameplay demands; it should also be built with occlusion in mind.</p>
-<p>For indoor environments, add opaque walls to &quot;break&quot; the line of sight at
-regular intervals and ensure not too much of the scene can be seen at once.</p>
-<p>For large open scenes, use a pyramid-like structure for the terrain's elevation
-when possible. This provides the greatest culling opportunities compared to any
-other terrain shape.</p>
+<h3>Diseña tus niveles para aprovechar la eliminación de oclusión<a class="headerlink" href="#design-your-levels-to-take-advantage-of-occlusion-culling" title="Link to this heading"></a></h3>
+<p><strong>Esta es la pauta más importante.</strong> Un buen diseño de niveles no se trata solo de
+lo que exige la jugabilidad; también debe construirse teniendo en cuenta la oclusión.</p>
+<p>Para entornos interiores, añade paredes opacas para &quot;romper&quot; la línea de visión a
+intervalos regulares y asegurarte de que no se pueda ver demasiado de la escena a la vez.</p>
+<p>Para escenas abiertas grandes, utiliza una estructura tipo pirámide para la elevación del terreno
+cuando sea posible. Esto proporciona las mayores oportunidades de eliminación en comparación con cualquier
+otra forma de terreno.</p>
 </section>
 <section id="avoid-moving-occluderinstance3d-nodes-during-gameplay">
-<h3>Avoid moving OccluderInstance3D nodes during gameplay<a class="headerlink" href="#avoid-moving-occluderinstance3d-nodes-during-gameplay" title="Link to this heading"></a></h3>
-<p>This includes moving the parents of OccluderInstance3D nodes, as this will cause
-the nodes themselves to move in global space, therefore requiring the <abbr title="Bounding Volume Hierarchy">BVH</abbr> to be rebuilt.</p>
-<p>Toggling an OccluderInstance3D's visibility (or one of its parents' visibility)
-is not as expensive, as the update only needs to happen once (rather than
-continuously).</p>
-<p>For example, if you have a sliding or rotating door, you can make the
-OccluderInstance3D node not be a child of the door itself (so that the occluder
-never moves), but you can hide the OccluderInstance3D visibility once the door
-starts opening. You can then reshow the OccluderInstance3D once the door is
-fully closed.</p>
-<p>If you absolutely have to move an OccluderInstance3D node during gameplay, use a
-primitive Occluder3D shape for it instead of a complex baked shape.</p>
+<h3>Evita mover nodos OccluderInstance3D durante el juego<a class="headerlink" href="#avoid-moving-occluderinstance3d-nodes-during-gameplay" title="Link to this heading"></a></h3>
+<p>Esto incluye mover los nodos padre de los nodos OccluderInstance3D, ya que esto hará
+que los nodos mismos se muevan en el espacio global, requiriendo por lo tanto que se reconstruya
+el <abbr title="Bounding Volume Hierarchy / Jerarquía de Volúmenes Envolventes">BVH</abbr>.</p>
+<p>Alternar la visibilidad de un OccluderInstance3D (o la visibilidad de uno de sus padres)
+no es tan costoso, ya que la actualización solo necesita ocurrir una vez (en lugar de
+continuamente).</p>
+<p>Por ejemplo, si tienes una puerta corrediza o giratoria, puedes hacer que el
+nodo OccluderInstance3D no sea hijo de la puerta misma (para que el oclusor
+nunca se mueva), pero puedes ocultar la visibilidad del OccluderInstance3D una vez que la puerta
+comience a abrirse. Luego puedes volver a mostrar el OccluderInstance3D una vez que la puerta esté
+completamente cerrada.</p>
+<p>Si es absolutamente necesario mover un nodo OccluderInstance3D durante el juego, utiliza una
+forma primitiva de Occluder3D para él en lugar de una forma horneada compleja.</p>
 </section>
 <section id="use-the-simplest-possible-occluder-shapes">
-<h3>Use the simplest possible occluder shapes<a class="headerlink" href="#use-the-simplest-possible-occluder-shapes" title="Link to this heading"></a></h3>
-<p>Si notas bajo rendimiento o trastabilleo en escenas 3D complejas, puede indicar que el CPU está sobrecargado como resultado de renderizar oclusores detallados. Selecciona el nodo OccluderInstance3D, incrementa la propiedad <strong>Bake &gt; Simplification</strong> y procesa los oclusores de nuevo.</p>
-<p>Remember to keep the simplification value reasonable. Values that are too high
-for the level's geometry may cause incorrect occlusion culling to occur, as in
-<a class="reference internal" href="#doc-occlusion-culling-troubleshooting-false-negative"><span class="std std-ref">My occludee is being culled when it shouldn't be</span></a>.</p>
-<p>If this still doesn't lead to low enough CPU usage,
-you can try adjusting the <strong>Rendering &gt; Occlusion Culling &gt; BVH Build Quality</strong>
-project setting and/or decreasing
+<h3>Usa las formas de oclusor más simples posibles<a class="headerlink" href="#use-the-simplest-possible-occluder-shapes" title="Link to this heading"></a></h3>
+<p>Si notas bajo rendimiento o tirones (<em>stuttering</em>) en escenas 3D complejas, puede significar
+que la CPU está sobrecargada como resultado de renderizar oclusores detallados.
+Selecciona el nodo OccluderInstance3D,
+incrementa la propiedad <strong>Bake &gt; Simplification</strong> y luego hornea los oclusores de nuevo.</p>
+<p>Recuerda mantener el valor de simplificación en un nivel razonable. Valores demasiado altos
+para la geometría del nivel pueden provocar que ocurra una eliminación de oclusión incorrecta, como se explica en
+<a class="reference internal" href="#doc-occlusion-culling-troubleshooting-false-negative"><span class="std std-ref">Mi objeto se ocluye cuando no debería</span></a>.</p>
+<p>Si esto aún no conduce a un uso de CPU lo suficientemente bajo,
+puedes intentar ajustar el ajuste de proyecto <strong>Rendering &gt; Occlusion Culling &gt; BVH Build Quality</strong>
+y/o disminuir
 <strong>Rendering &gt; Occlusion Culling &gt; Occlusion Rays Per Thread</strong>.
-You'll need to enable the <strong>Advanced</strong> toggle in the Project Settings dialog to
-see those settings.</p>
+Necesitarás habilitar la opción <strong>Advanced</strong> en el cuadro de diálogo de Ajustes del Proyecto para
+ver estos ajustes.</p>
 </section>
 </section>
 <section id="troubleshooting">
-<h2>Solución De Problemas<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<h2>Resolución de problemas<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
 <section id="my-occludee-isn-t-being-culled-when-it-should-be">
-<h3>My occludee isn't being culled when it should be<a class="headerlink" href="#my-occludee-isn-t-being-culled-when-it-should-be" title="Link to this heading"></a></h3>
-<p><strong>On the occluder side:</strong></p>
-<p>First, double-check that the <strong>Bake &gt; Cull Mask</strong> property in the
-OccluderInstance3D is set to allow baking the meshes you'd like. The visibility
-layer of the MeshInstance3D nodes must be present within the cull mask for the
-mesh to be included in the bake.</p>
-<p>Also note that occluder baking only takes meshes with <em>opaque</em> materials into
-account. Surfaces will <em>transparent</em> materials will <strong>not</strong> be included in the
-bake, even if the texture applied on them is fully opaque.</p>
-<p>Lastly, remember that MultiMeshInstance3D, GPUParticles3D, CPUParticles3D and CSG
-nodes are <strong>not</strong> taken into account when baking occluders. As a workaround, you
-can add OccluderInstance3D nodes for those manually.</p>
-<p><strong>On the occludee side:</strong></p>
-<p>Make sure <strong>Extra Cull Margin</strong> is set as low as possible (it should usually be
-<code class="docutils literal notranslate"><span class="pre">0.0</span></code>), and that <strong>Ignore Occlusion Culling</strong> is disabled in the object's
-GeometryInstance3D section.</p>
-<p>Also, check the AABB's size (which is represented by an orange box when
-selecting the node). This axis-aligned bounding box must be <em>fully</em> occluded by
-the occluder shapes for the occludee to be hidden.</p>
+<h3>Mi objeto no se ocluye cuando debería<a class="headerlink" href="#my-occludee-isn-t-being-culled-when-it-should-be" title="Link to this heading"></a></h3>
+<p><strong>Del lado del oclusor:</strong></p>
+<p>En primer lugar, verifica dos veces que la propiedad <strong>Bake &gt; Cull Mask</strong> en el
+OccluderInstance3D esté configurada para permitir hornear las mallas que deseas. La capa
+de visibilidad de los nodos MeshInstance3D debe estar presente dentro de la máscara de corte para que
+la malla se incluya en el horneado.</p>
+<p>Ten en cuenta también que el horneado de oclusores solo toma en cuenta mallas con materiales <em>opacos</em>.
+Las superficies con materiales <em>transparentes</em> <strong>no</strong> se incluirán en el
+horneado, incluso si la textura aplicada sobre ellas es completamente opaca.</p>
+<p>Por último, recuerda que los nodos MultiMeshInstance3D, GPUParticles3D, CPUParticles3D y CSG
+<strong>no</strong> se toman en cuenta al hornear oclusores. Como solución alternativa, puedes
+añadir nodos OccluderInstance3D para estos manualmente.</p>
+<p><strong>Del lado del objeto ocluido:</strong></p>
+<p>Asegúrate de que <strong>Extra Cull Margin</strong> esté configurado lo más bajo posible (generalmente debería ser
+<code class="docutils literal notranslate"><span class="pre">0.0</span></code>), y que <strong>Ignore Occlusion Culling</strong> esté deshabilitado en la sección
+GeometryInstance3D del objeto.</p>
+<p>Además, verifica el tamaño del AABB (que se representa mediante un cuadro naranja al
+seleccionar el nodo). Este cuadro delimitador alineado con los ejes debe estar <em>completamente</em> ocluido por
+las formas oclusoras para que el objeto ocluido quede oculto.</p>
 </section>
 <section id="my-occludee-is-being-culled-when-it-shouldn-t-be">
-<span id="doc-occlusion-culling-troubleshooting-false-negative"></span><h3>My occludee is being culled when it shouldn't be<a class="headerlink" href="#my-occludee-is-being-culled-when-it-shouldn-t-be" title="Link to this heading"></a></h3>
-<p>The most likely cause for this is that objects that were included in the
-occluder bake have been moved after baking occluders. For instance, this can
-occur when moving your level geometry around or rearranging its layout. To fix
-this, select the OccluderInstance3D node and bake occluders again.</p>
-<p>This can also happen because dynamic objects were included in the bake, even
-though they shouldn't be. Use the
-<a class="reference internal" href="#doc-occlusion-culling-preview"><span class="std std-ref">occlusion culling debug draw mode</span></a> to look
-for occluder shapes that shouldn't be present, then
-<a class="reference internal" href="#doc-occlusion-culling-baking"><span class="std std-ref">adjust the bake cull mask accordingly</span></a>.</p>
-<p>The last possible cause for this is overly aggressive mesh simplification during
-the occluder baking process. Select the OccluderInstance3D node,
-decrease the <strong>Bake &gt; Simplification</strong> property then bake occluders again.</p>
-<p>As a last resort, you can enable the <strong>Ignore Occlusion Culling</strong> property on
-the occludee. This will negate the performance improvements of occlusion culling
-for that object, but it makes sense to do this for objects that will never be
-culled (such as a first-person view model).</p>
+<span id="doc-occlusion-culling-troubleshooting-false-negative"></span><h3>Mi objeto se ocluye cuando no debería<a class="headerlink" href="#my-occludee-is-being-culled-when-it-shouldn-t-be" title="Link to this heading"></a></h3>
+<p>La causa más probable de esto es que los objetos que se incluyeron en el
+horneado de oclusores se hayan movido después de hornearlos. Por ejemplo, esto puede
+ocurrir al mover la geometría del nivel de un lugar a otro o al reorganizar su disposición. Para solucionar
+esto, selecciona el nodo OccluderInstance3D y hornea los oclusores de nuevo.</p>
+<p>Esto también puede suceder porque se incluyeron objetos dinámicos en el horneado, a pesar de
+que no deberían estarlo. Utiliza el
+<a class="reference internal" href="#doc-occlusion-culling-preview"><span class="std std-ref">modo de dibujo de depuración de eliminación de oclusión</span></a> para buscar
+formas oclusoras que no deberían estar presentes, y luego
+<a class="reference internal" href="#doc-occlusion-culling-baking"><span class="std std-ref">ajusta la máscara de corte de horneado según corresponda</span></a>.</p>
+<p>La última causa posible para esto es una simplificación de malla excesivamente agresiva durante
+el proceso de horneado de oclusores. Selecciona el nodo OccluderInstance3D,
+disminuye la propiedad <strong>Bake &gt; Simplification</strong> y luego hornea los oclusores de nuevo.</p>
+<p>Como último recurso, puedes habilitar la propiedad <strong>Ignore Occlusion Culling</strong> en
+el objeto ocluido. Esto anulará las mejoras de rendimiento de la eliminación de oclusión
+para ese objeto, pero tiene sentido hacerlo para objetos que nunca serán
+occluidos (como el modelo de vista en primera persona).</p>
 </section>
 </section>
 </section>
@@ -13311,7 +13313,7 @@ culled (such as a first-person view model).</p>
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="visibility_ranges.html" class="btn btn-neutral float-left" title="Visibility ranges (HLOD)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="resolution_scaling.html" class="btn btn-neutral float-right" title="Resolution scaling" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="resolution_scaling.html" class="btn btn-neutral float-right" title="Escalado de resolución" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

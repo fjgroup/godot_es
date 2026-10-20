@@ -14,8 +14,8 @@
 
 .. _doc_3d_rendering:
 
-Rendering
----------
+Renderizado
+-----------
 
 .. toctree::
    :maxdepth: 1
@@ -47,8 +47,8 @@ Optimización
    resolution_scaling
    variable_rate_shading
 
-Tools
------
+Herramientas
+------------
 
 .. toctree::
    :maxdepth: 1

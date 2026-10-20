@@ -1,18 +1,18 @@
-﻿
+
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Variable rate shading" />
+<meta property="og:title" content="Sombreado de tasa variable (VRS)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/variable_rate_shading.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
-<meta property="og:description" content="¿Qué es el shading de tasa varaible?: In modern 3D rendering engines, shaders are much more complex compared to before. The advent of physically-based rendering, real-time global illumination and s..." />
-<meta name="description" content="¿Qué es el shading de tasa varaible?: In modern 3D rendering engines, shaders are much more complex compared to before. The advent of physically-based rendering, real-time global illumination and s..." />
+<meta property="og:description" content="En los motores de renderizado 3D modernos, los shaders son mucho más complejos que antes. La llegada del renderizado basado en física (PBR), la iluminación global en tiempo real y los efectos de espacio de pantalla (screen-space) han aumentado..." />
+<meta name="description" content="En los motores de renderizado 3D modernos, los shaders son mucho más complejos que antes. La llegada del renderizado basado en física (PBR), la iluminación global en tiempo real y los efectos de espacio de pantalla (screen-space) han aumentado..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Variable rate shading &mdash; Documentación de Godot Engine (4.x) en español</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Sombreado de tasa variable (VRS) &mdash; Documentación de Godot Engine (4.x) en español</title>
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
@@ -36,7 +36,7 @@
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Prototipando niveles con CSG" href="csg_tools.html" />
-    <link rel="prev" title="Resolution scaling" href="resolution_scaling.html" />
+    <link rel="prev" title="Escalado de resolución" href="resolution_scaling.html" />
 <meta name="doc_version" content="4.x" />
 <meta name="doc_is_latest" content="True" />
 <meta name="doc_pagename" content="tutorials/3d/variable_rate_shading" />
@@ -1312,10 +1312,14 @@
 <li class="toctree-l4"><a class="reference internal" href="resolution_scaling.html#troubleshooting">Solución De Problemas</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Variable rate shading</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#what-is-variable-rate-shading">¿Qué es el shading de tasa varaible?</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Sombreado de tasa variable (VRS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-is-variable-rate-shading">¿Qué es el sombreado de tasa variable?</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hardware-support">Soporte de hardware</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-variable-rate-shading-in-godot">Using variable rate shading in Godot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-variable-rate-shading-in-godot">Uso del sombreado de tasa variable en Godot</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#creating-a-vrs-density-map">Creación de un mapa de densidad VRS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#performance-comparison">Comparación de rendimiento</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -12979,7 +12983,7 @@
 		
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">3D</a></li>
-      <li class="breadcrumb-item active">Variable rate shading</li>
+      <li class="breadcrumb-item active">Sombreado de tasa variable (VRS)</li>
 	</ul>
 </li>
 
@@ -13039,122 +13043,128 @@
 
   
   <section id="variable-rate-shading">
-<span id="doc-variable-rate-shading"></span><h1>Variable rate shading<a class="headerlink" href="#variable-rate-shading" title="Link to this heading"></a></h1>
+<span id="doc-variable-rate-shading"></span><h1>Sombreado de tasa variable (VRS)<a class="headerlink" href="#variable-rate-shading" title="Link to this heading"></a></h1>
 <section id="what-is-variable-rate-shading">
-<h2>¿Qué es el shading de tasa varaible?<a class="headerlink" href="#what-is-variable-rate-shading" title="Link to this heading"></a></h2>
-<p>In modern 3D rendering engines, shaders are much more complex compared to
-before. The advent of physically-based rendering, real-time global illumination
-and screen-space effects has increased the number of <em>per-pixel</em> shading that
-must be performed to render each frame. Additionally, screen resolutions also
-have increased a lot, with 1440p and 4K now being common target resolutions.
-As a result, the total shading cost in scene rendering usually represents
-a significant amount of the time taken to render each frame.</p>
-<p>Variable rate shading (VRS) is a method of decreasing this shading cost by
-reducing the resolution of <em>per-pixel</em> shading (also called <em>fragment</em> shading),
-while keeping the original resolution for rendering geometry. This means geometry
-edges remain as sharp as they would without VRS. VRS can be combined with any
-<a class="reference internal" href="3d_antialiasing.html#doc-3d-antialiasing"><span class="std std-ref">3D antialiasing</span></a> technique (MSAA, FXAA, TAA, SSAA).</p>
-<p>VRS allows specifying the shading quality in a local manner, which makes it
-possible to have certain parts of the viewport receive more detailed shading
-than others. This is particularly useful in virtual reality (VR) to achieve
-<em>foveated rendering</em>, where the center of the viewport is more detailed than the
-edges.</p>
-<p>Here's a scene rendered with rate shading disabled then enabled, using the
-density map linked at the bottom of this page:</p>
+<h2>¿Qué es el sombreado de tasa variable?<a class="headerlink" href="#what-is-variable-rate-shading" title="Link to this heading"></a></h2>
+<p>En los motores de renderizado 3D modernos, los shaders son mucho más complejos
+que antes. La llegada del renderizado basado en física (PBR), la iluminación
+global en tiempo real y los efectos de espacio de pantalla (<em>screen-space</em>) han
+aumentado la cantidad de sombreado <em>por píxel</em> que debe realizarse para renderizar
+cada fotograma. Además, las resoluciones de pantalla también se han incrementado
+considerablemente, siendo 1440p y 4K resoluciones objetivo habituales en la
+actualidad. Como resultado, el costo total de sombreado en el renderizado de una
+escena suele representar una cantidad significativa del tiempo necesario para
+renderizar cada fotograma.</p>
+<p>El sombreado de tasa variable (VRS) es un método para disminuir este costo de
+sombreado al reducir la resolución del sombreado <em>por píxel</em> (también llamado
+sombreado de <em>fragmentos</em> o <em>fragment shading</em>), manteniendo al mismo tiempo
+la resolución original para renderizar la geometría. Esto significa que los
+bordes de la geometría se mantienen tan nítidos como lo harían sin VRS. El VRS
+se puede combinar con cualquier técnica de <a class="reference internal" href="3d_antialiasing.html#doc-3d-antialiasing"><span class="std std-ref">antialiasing 3D</span></a> (MSAA, FXAA, TAA, SSAA).</p>
+<p>El VRS permite especificar la calidad del sombreado de manera local, lo que hace
+posible que ciertas partes del viewport reciban un sombreado más detallado que
+otras. Esto resulta particularmente útil en realidad virtual (VR) para lograr
+un <em>renderizado foveado</em> (<em>foveated rendering</em>), donde el centro del viewport
+es más detallado que los bordes.</p>
+<p>Aquí se muestra una escena renderizada con el sombreado de tasa variable
+desactivado y luego activado, utilizando el mapa de densidad enlazado al final
+de esta página:</p>
 <figure class="align-center" id="id1">
-<img alt="Variable rate shading disabled in textured scene" src="../../_images/variable_rate_shading_textured_disabled.webp" />
+<img alt="Sombreado de tasa variable desactivado en una escena con texturas" src="../../_images/variable_rate_shading_textured_disabled.webp" />
 <figcaption>
-<p><span class="caption-text">Variable rate shading disabled in textured scene</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Sombreado de tasa variable desactivado en una escena con texturas</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id2">
-<img alt="Variable rate shading enabled in textured scene (lower quality, but higher performance)" src="../../_images/variable_rate_shading_textured_enabled.webp" />
+<img alt="Sombreado de tasa variable activado en una escena con texturas (menor calidad, pero mayor rendimiento)" src="../../_images/variable_rate_shading_textured_enabled.webp" />
 <figcaption>
-<p><span class="caption-text">Variable rate shading enabled in textured scene (lower quality, but higher performance)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Sombreado de tasa variable activado en una escena con texturas (menor calidad, pero mayor rendimiento)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>When used in scenes with low-frequency detail (such as scenes with a
-stylized/low-poly aesthetic), it's possible to achieve similar performance gains,
-but with less reduction in visual quality:</p>
+<p>Cuando se utiliza en escenas con detalles de baja frecuencia (como escenas con
+una estética estilizada o <em>low-poly</em>), es posible lograr mejoras de rendimiento
+similares, pero con una menor reducción en la calidad visual:</p>
 <figure class="align-center" id="id3">
-<img alt="Variable rate shading disabled in untextured scene" src="../../_images/variable_rate_shading_untextured_disabled.webp" />
+<img alt="Sombreado de tasa variable desactivado en una escena sin texturas" src="../../_images/variable_rate_shading_untextured_disabled.webp" />
 <figcaption>
-<p><span class="caption-text">Variable rate shading disabled in untextured scene</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Sombreado de tasa variable desactivado en una escena sin texturas</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id4">
-<img alt="Variable rate shading enabled in untextured scene (lower quality, but higher performance)" src="../../_images/variable_rate_shading_untextured_enabled.webp" />
+<img alt="Sombreado de tasa variable activado en una escena sin texturas (menor calidad, pero mayor rendimiento)" src="../../_images/variable_rate_shading_untextured_enabled.webp" />
 <figcaption>
-<p><span class="caption-text">Variable rate shading enabled in untextured scene (lower quality, but higher performance)</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Sombreado de tasa variable activado en una escena sin texturas (menor calidad, pero mayor rendimiento)</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="hardware-support">
 <h2>Soporte de hardware<a class="headerlink" href="#hardware-support" title="Link to this heading"></a></h2>
-<p>Variable rate shading is only supported on specific GPUs:</p>
-<p><strong>Escritorio</strong></p>
+<p>El sombreado de tasa variable solo es compatible con GPUs específicas:</p>
+<p><strong>Escritorio:</strong></p>
 <ul class="simple">
-<li><p>NVIDIA Turing and newer (including GTX 1600 series)</p></li>
-<li><p>AMD RDNA2 and newer (both integrated and dedicated GPUs – including Steam Deck)</p></li>
-<li><p>Intel Arc Alchemist and newer <strong>(dedicated GPUs only)</strong></p>
+<li><p>NVIDIA Turing y más recientes (incluyendo la serie GTX 1600)</p></li>
+<li><p>AMD RDNA2 y más recientes (tanto GPUs integradas como dedicadas; incluyendo Steam Deck)</p></li>
+<li><p>Intel Arc Alchemist y más recientes <strong>(solo GPUs dedicadas)</strong></p>
 <ul>
-<li><p>Intel integrated graphics do not support variable rate shading.</p></li>
+<li><p>Los gráficos integrados de Intel no admiten sombreado de tasa variable.</p></li>
 </ul>
 </li>
 </ul>
-<p><strong>Mobile SoCs:</strong></p>
+<p><strong>SoCs móviles:</strong></p>
 <ul class="simple">
-<li><p>Snapdragon 888 and newer</p></li>
-<li><p>MediaTek Dimensity 9000 and newer</p></li>
-<li><p>ARM Mali-G615 and newer</p></li>
+<li><p>Snapdragon 888 y más recientes</p></li>
+<li><p>MediaTek Dimensity 9000 y más recientes</p></li>
+<li><p>ARM Mali-G615 y más recientes</p></li>
 </ul>
-<p>As of January 2023, Apple and Raspberry Pi GPUs do not support variable rate shading.</p>
+<p>A fecha de enero de 2023, las GPUs de Apple y Raspberry Pi no admiten sombreado de tasa variable.</p>
 </section>
 <section id="using-variable-rate-shading-in-godot">
-<h2>Using variable rate shading in Godot<a class="headerlink" href="#using-variable-rate-shading-in-godot" title="Link to this heading"></a></h2>
+<h2>Uso del sombreado de tasa variable en Godot<a class="headerlink" href="#using-variable-rate-shading-in-godot" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Both Forward+ and Mobile renderers support variable rate
-shading. VRS can be used in both pancake (non-XR) and XR display modes.</p>
-<p>The Compatibility renderer does <strong>not</strong> support variable rate shading.
-For XR, you can use <a class="reference internal" href="../xr/openxr_settings.html#doc-openxr-settings-foveation-level"><span class="std std-ref">foveation level</span></a>
-as an alternative.</p>
+<p>Tanto el renderizador Forward+ como el Mobile admiten sombreado de tasa
+variable. El VRS se puede utilizar tanto en modos de visualización estándar
+(en pantalla plana / no XR) como en XR.</p>
+<p>El renderizador Compatibility <strong>no</strong> admite sombreado de tasa variable.
+Para XR, puedes utilizar el <a class="reference internal" href="../xr/openxr_settings.html#doc-openxr-settings-foveation-level"><span class="std std-ref">nivel de foveación</span></a>
+como alternativa.</p>
 </div>
-<p>In the advanced Project Settings, the <strong>Rendering &gt; VRS</strong> section offers settings
-to control variable rate shading on the root viewport:</p>
+<p>En la configuración avanzada del proyecto (Project Settings), la sección <strong>Rendering &gt; VRS</strong> ofrece ajustes
+para controlar el sombreado de tasa variable en el viewport raíz:</p>
 <ul class="simple">
-<li><p><strong>Mode:</strong> Controls the variable rate shading mode. <strong>Disabled</strong> disables
-variable rate shading. <strong>Texture</strong> uses a manually authored texture to set
-shading density (see the property below). <strong>XR</strong> automatically generates a
-texture suited for foveated rendering in virtual/augmented reality.</p></li>
-<li><p><strong>Texture:</strong> The texture to use to control shading density on the root
-viewport. Only used if <strong>Mode</strong> is <strong>Texture</strong>.</p></li>
+<li><p><strong>Mode:</strong> Controla el modo de sombreado de tasa variable. <strong>Disabled</strong> desactiva
+el sombreado de tasa variable. <strong>Texture</strong> utiliza una textura creada manualmente
+para definir la densidad de sombreado (consulta la propiedad a continuación).
+<strong>XR</strong> genera automáticamente una textura adecuada para el renderizado foveado
+en realidad virtual/aumentada.</p></li>
+<li><p><strong>Texture:</strong> La textura que se utilizará para controlar la densidad de sombreado
+en el viewport raíz. Solo se utiliza si <strong>Mode</strong> está en <strong>Texture</strong>.</p></li>
 </ul>
-<p>For custom viewports, the VRS mode and texture must be set manually to the
-<a class="reference internal" href="../../classes/class_viewport.html#class-viewport"><span class="std std-ref">Viewport</span></a> node.</p>
+<p>Para viewports personalizados, el modo VRS y la textura deben configurarse manualmente en el nodo
+<a class="reference internal" href="../../classes/class_viewport.html#class-viewport"><span class="std std-ref">Viewport</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>On unsupported hardware, there is no visual difference when variable rate
-shading is enabled. You can check whether hardware supports variable rate
-shading by running the editor or project with the <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>
-<a class="reference internal" href="../editor/command_line_tutorial.html#doc-command-line-tutorial"><span class="std std-ref">command line argument</span></a>.</p>
+<p>En hardware incompatible, no habrá diferencia visual cuando el sombreado
+de tasa variable esté activado. Puedes comprobar si el hardware admite
+sombreado de tasa variable ejecutando el editor o el proyecto con el
+<a class="reference internal" href="../editor/command_line_tutorial.html#doc-command-line-tutorial"><span class="std std-ref">argumento de línea de comandos</span></a> <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>.</p>
 </div>
 <section id="creating-a-vrs-density-map">
-<h3>Creating a VRS density map<a class="headerlink" href="#creating-a-vrs-density-map" title="Link to this heading"></a></h3>
-<p>If using the <strong>Texture</strong> VRS mode, you <em>must</em> set a texture to be used as a
-density map. Otherwise, no effect will be visible.</p>
-<p>You can create your own VRS density map manually using an image editor, or
-generate it using another method (e.g. on the CPU using the Image class, or on
-the GPU using a shader). However, beware of performance implications when
-generating a VRS image dynamically. If opting for dynamic generation, make sure
-the VRS image generation process is fast enough to avoid outweighing the
-performance gains from VRS.</p>
-<p>The texture must follow these rules:</p>
+<h3>Creación de un mapa de densidad VRS<a class="headerlink" href="#creating-a-vrs-density-map" title="Link to this heading"></a></h3>
+<p>Si utilizas el modo VRS <strong>Texture</strong>, <em>debes</em> asignar una textura para usarla como
+mapa de densidad. De lo contrario, no se apreciará ningún efecto.</p>
+<p>Puedes crear tu propio mapa de densidad VRS manualmente con un editor de imágenes,
+o generarlo mediante otro método (por ejemplo, en la CPU utilizando la clase
+Image, o en la GPU mediante un shader). Sin embargo, ten en cuenta las implicaciones
+de rendimiento al generar una imagen VRS dinámicamente. Si optas por la generación
+dinámica, asegúrate de que el proceso de generación de la imagen VRS sea lo
+suficientemente rápido como para no contrarrestar las ganancias de rendimiento del VRS.</p>
+<p>La textura debe cumplir estas reglas:</p>
 <ul class="simple">
-<li><p>The texture <em>must</em> use a lossless compression format so that colors can be
-matched precisely.</p></li>
-<li><p>The following VRS densities are mapped to various colors, with brighter colors
-representing a lower level of shading precision:</p></li>
+<li><p>La textura <em>debe</em> utilizar un formato de compresión sin pérdidas (<em>lossless</em>)
+para que los colores puedan coincidir con precisión.</p></li>
+<li><p>Las siguientes densidades VRS están asignadas a varios colores, donde los
+colores más brillantes representan un nivel más bajo de precisión de sombreado:</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -13164,7 +13174,7 @@ representing a lower level of shading precision:</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>1×1 (highest detail)</p></td>
+<tr class="row-even"><td><p>1×1 (máximo detalle)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">rgb(0,</span> <span class="pre">0,</span> <span class="pre">0)</span> <span class="pre">-</span> <span class="pre">#000000</span></code></p></td>
 <td></td>
 </tr>
@@ -13194,59 +13204,61 @@ representing a lower level of shading precision:</p></li>
 </tr>
 <tr class="row-odd"><td><p>4×8</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">rgb(170,</span> <span class="pre">255,</span> <span class="pre">0)</span> <span class="pre">-</span> <span class="pre">#aaff00</span></code></p></td>
-<td><p>Not supported on most hardware.</p></td>
+<td><p>No compatible en la mayoría de GPUs.</p></td>
 </tr>
 <tr class="row-even"><td><p>8×4</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">rgb(255,</span> <span class="pre">170,</span> <span class="pre">0)</span> <span class="pre">-</span> <span class="pre">#ffaa00</span></code></p></td>
-<td><p>Not supported on most hardware.</p></td>
+<td><p>No compatible en la mayoría de GPUs.</p></td>
 </tr>
-<tr class="row-odd"><td><p>8×8 (lowest detail)</p></td>
+<tr class="row-odd"><td><p>8×8 (mínimo detalle)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">rgb(255,</span> <span class="pre">255,</span> <span class="pre">0)</span> <span class="pre">-</span> <span class="pre">#ffff00</span></code></p></td>
-<td><p>Not supported on most hardware.</p></td>
+<td><p>No compatible en la mayoría de GPUs.</p></td>
 </tr>
 </tbody>
 </table>
-<p>For example, this VRS density texture provides the highest shading density in
-the center of the viewport, and the lowest shading density in the corners:</p>
+<p>Por ejemplo, esta textura de densidad VRS proporciona la densidad de sombreado más
+alta en el centro del viewport y la más baja en las esquinas:</p>
 <figure class="align-center" id="id5">
-<img alt="Example VRS density map texture, simulating foveated rendering" src="../../_images/variable_rate_shading_texture_example.webp" />
+<img alt="Ejemplo de textura de mapa de densidad VRS, simulando renderizado foveado" src="../../_images/variable_rate_shading_texture_example.webp" />
 <figcaption>
-<p><span class="caption-text">Example VRS density map texture, simulating foveated rendering</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Ejemplo de textura de mapa de densidad VRS, simulando renderizado foveado</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>There are no size or aspect ratio requirements for the VRS density texture.
-However, there is no benefit to using a VRS density map that is larger than the
-viewport resolution divided by the GPU's <em>tile size</em>. The tile size is what
-determines the smallest area of pixels where the shading density can be changed
-separately from other tiles. On most GPUs, this tile size is 8×8 pixels. You can
-view the tile size by running Godot with the <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> command line
-argument, as it's printed in the VRS debugging information.</p>
-<p>Therefore, sticking to a relatively low resolution such as 256×256 (square) or
-480×270 (16:9) is recommended. Depending on your use cases, a square texture may
-be more suited compared to a texture that matches the most common viewport
-aspect ratio in your project (such as 16:9).</p>
+<p>No hay requisitos de tamaño ni de relación de aspecto para la textura de densidad VRS.
+Sin embargo, no supone ningún beneficio utilizar un mapa de densidad VRS más grande
+que la resolución del viewport dividida por el <em>tamaño de tesela</em> (<em>tile size</em>) de
+la GPU. El tamaño de tesela determina el área más pequeña de píxeles donde la
+densidad de sombreado se puede modificar independientemente de otras teselas. En la
+mayoría de las GPUs, este tamaño de tesela es de 8×8 píxeles. Puedes consultar el
+tamaño de tesela ejecutando Godot con el argumento de línea de comandos <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>,
+ya que se muestra en la información de depuración de VRS.</p>
+<p>Por lo tanto, se recomienda ceñirse a una resolución relativamente baja como 256×256
+(cuadrada) o 480×270 (16:9). Dependiendo de tus casos de uso, una textura cuadrada
+puede resultar más adecuada en comparación con una textura que coincida con la
+relación de aspecto de viewport más común en tu proyecto (como 16:9).</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>When using variable rate shading, you can use a negative
-<a class="reference internal" href="resolution_scaling.html#doc-resolution-scaling-mipmap-bias"><span class="std std-ref">texture mipmap LOD bias</span></a>
-to reduce blurriness in areas with reduced shading rate.</p>
-<p>Note that the texture LOD bias is set globally, so this will also affect
-areas of the viewport with full shading rate. Don't use values that are too
-low, or textures will appear grainy.</p>
+<p>Al utilizar sombreado de tasa variable, puedes usar un
+<a class="reference internal" href="resolution_scaling.html#doc-resolution-scaling-mipmap-bias"><span class="std std-ref">sesgo de LOD de mipmap de textura</span></a>
+negativo para reducir la borrosidad en áreas con una tasa de sombreado reducida.</p>
+<p>Ten en cuenta que el sesgo de LOD de textura se aplica de forma global, por lo
+que también afectará a las áreas del viewport con una tasa de sombreado completa.
+No utilices valores excesivamente bajos, o las texturas se verán granuladas.</p>
 </div>
 </section>
 <section id="performance-comparison">
-<h3>Performance comparison<a class="headerlink" href="#performance-comparison" title="Link to this heading"></a></h3>
-<p>To give an idea of how much VRS can improve performance in theory, here's a
-performance comparison with the textured example scene shown at the top of this
-page. The VRS density map example present on this page is used.</p>
-<p>Results were captured on a GeForce RTX 4090 with the NVIDIA 525.60.11 driver.</p>
+<h3>Comparación de rendimiento<a class="headerlink" href="#performance-comparison" title="Link to this heading"></a></h3>
+<p>Para dar una idea de cuánto puede mejorar el rendimiento el VRS en teoría, aquí
+tienes una comparación de rendimiento con la escena de ejemplo con texturas que
+se muestra al principio de esta página. Se utilizó la textura de mapa de densidad
+VRS de ejemplo presentada en esta página.</p>
+<p>Los resultados se obtuvieron en una GeForce RTX 4090 con el controlador NVIDIA 525.60.11.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Resolución</p></th>
-<th class="head"><p>VRS disabled</p></th>
-<th class="head"><p>VRS enabled</p></th>
-<th class="head"><p>Performance improvement</p></th>
+<th class="head"><p>VRS desactivado</p></th>
+<th class="head"><p>VRS activado</p></th>
+<th class="head"><p>Mejora de rendimiento</p></th>
 </tr>
 </thead>
 <tbody>
@@ -13272,14 +13284,14 @@ page. The VRS density map example present on this page is used.</p>
 </tr>
 </tbody>
 </table>
-<p>In terms of performance improvements, variable rate shading is more beneficial
-at higher target resolutions. The reduction in visual quality is also less
-noticeable at high resolutions.</p>
+<p>En términos de mejoras de rendimiento, el sombreado de tasa variable resulta más
+beneficioso a resoluciones objetivo más altas. La reducción de la calidad visual
+también es menos perceptible a altas resoluciones.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>For non-VR games, you will probably have to use a less aggressive VRS texture
-than what was used in this example. As a result, the effective performance
-gains will be lower.</p>
+<p>Para juegos que no sean de VR, probablemente tendrás que utilizar una textura VRS
+menos agresiva que la utilizada en este ejemplo. Como resultado, las ganancias
+reales de rendimiento serán menores.</p>
 </div>
 </section>
 </section>
@@ -13290,7 +13302,7 @@ gains will be lower.</p>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="resolution_scaling.html" class="btn btn-neutral float-left" title="Resolution scaling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="resolution_scaling.html" class="btn btn-neutral float-left" title="Escalado de resolución" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
         <a href="csg_tools.html" class="btn btn-neutral float-right" title="Prototipando niveles con CSG" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

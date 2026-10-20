@@ -104,109 +104,109 @@ Cada tema consta de dos archivos sincronizados:
 ---
 
 ### 4. Eliminación de oclusión (`occlusion_culling`)
-- [ ] **Archivos objetivo:**
+- [x] **Archivos objetivo:**
   - `tutorials/3d/occlusion_culling.html`
   - `_sources/tutorials/3d/occlusion_culling.rst.txt`
-- [ ] **Título principal:**
-  - [ ] *Occlusion culling* -> *Eliminación de oclusión*
-- [ ] **Subsecciones a traducir:**
-  - [ ] **Why use occlusion culling** (*Por qué usar eliminación de oclusión*)
+- [x] **Título principal:**
+  - [x] *Occlusion culling* -> *Eliminación de oclusión*
+- [x] **Subsecciones a traducir:**
+  - [x] **Why use occlusion culling** (*Por qué usar eliminación de oclusión*)
     - Escenarios interiores vs. exteriores.
     - Comparación Forward+ (depth prepass) vs. Mobile (alto beneficio por sobregiro/overdraw).
-  - [ ] **How occlusion culling works in Godot** (*Cómo funciona la eliminación de oclusión en Godot*)
+  - [x] **How occlusion culling works in Godot** (*Cómo funciona la eliminación de oclusión en Godot*)
     - Rasterizado por CPU en búfer de baja resolución mediante la biblioteca `Embree`.
     - Concepto de oclusor (*occluder*) y objeto ocluido (*occludee*).
     - Prueba del AABB del objeto ocluido.
-  - [ ] **Setting up occlusion culling** (*Configuración de la eliminación de oclusión*)
+  - [x] **Setting up occlusion culling** (*Configuración de la eliminación de oclusión*)
     - Ajuste de proyecto: `Rendering > Occlusion Culling > Use Occlusion Culling`.
-    - [ ] **Automatically baking occluders (recommended)** (*Horneado automático de oclusores (recomendado)*)
+    - [x] **Automatically baking occluders (recommended)** (*Horneado automático de oclusores (recomendado)*)
       - Nodo `OccluderInstance3D` y botón **Bake Occluders**.
       - Filtrado de objetos dinámicos mediante `Bake > Cull Mask` y capas de `VisualInstance3D`.
-    - [ ] **Manually placing occluders** (*Colocación manual de oclusores*)
+    - [x] **Manually placing occluders** (*Colocación manual de oclusores*)
       - Tipos: `QuadOccluder3D`, `BoxOccluder3D`, `SphereOccluder3D`, `PolygonOccluder3D`, `ArrayOccluder3D`.
-  - [ ] **Previewing occlusion culling** (*Vista previa de la eliminación de oclusión*)
+  - [x] **Previewing occlusion culling** (*Vista previa de la eliminación de oclusión*)
     - Modo de depuración: `Display Advanced... > Occlusion Culling Buffer`.
     - Estadísticas con `View Information` y `View Frame Time`.
     - Control por código: `use_occlusion_culling` en Viewport (GDScript y C#).
-  - [ ] **Performance considerations** (*Consideraciones de rendimiento*)
-    - [ ] **Design your levels to take advantage of occlusion culling** (*Diseña tus niveles para aprovechar la eliminación de oclusión*)
-    - [ ] **Avoid moving OccluderInstance3D nodes during gameplay** (*Evita mover nodos OccluderInstance3D durante el juego*)
-    - [ ] **Use the simplest possible occluder shapes** (*Usa las formas de oclusor más simples posibles*)
+  - [x] **Performance considerations** (*Consideraciones de rendimiento*)
+    - [x] **Design your levels to take advantage of occlusion culling** (*Diseña tus niveles para aprovechar la eliminación de oclusión*)
+    - [x] **Avoid moving OccluderInstance3D nodes during gameplay** (*Evita mover nodos OccluderInstance3D durante el juego*)
+    - [x] **Use the simplest possible occluder shapes** (*Usa las formas de oclusor más simples posibles*)
       - Propiedades `Bake > Simplification`, `BVH Build Quality`, `Occlusion Rays Per Thread`.
-  - [ ] **Troubleshooting** (*Resolución de problemas*)
-    - [ ] **My occludee isn't being culled when it should be** (*Mi objeto no se ocluye cuando debería*)
+  - [x] **Troubleshooting** (*Resolución de problemas*)
+    - [x] **My occludee isn't being culled when it should be** (*Mi objeto no se ocluye cuando debería*)
       - Verificación de Cull Mask, materiales opacos vs. transparentes, AABB y margen de corte.
-    - [ ] **My occludee is being culled when it shouldn't be** (*Mi objeto se ocluye cuando no debería*)
+    - [x] **My occludee is being culled when it shouldn't be** (*Mi objeto se ocluye cuando no debería*)
       - Objetos movidos tras hornear, oclusores dinámicos no deseados, simplificación excesiva.
 
 ---
 
 ### 5. Escalado de resolución (`resolution_scaling`)
-- [ ] **Archivos objetivo:**
+- [x] **Archivos objetivo:**
   - `tutorials/3d/resolution_scaling.html`
   - `_sources/tutorials/3d/resolution_scaling.rst.txt`
-- [ ] **Título principal:**
-  - [ ] *Resolution scaling* -> *Escalado de resolución*
-- [ ] **Subsecciones a traducir:**
-  - [ ] **Why use resolution scaling?** (*¿Por qué usar escalado de resolución?*)
+- [x] **Título principal:**
+  - [x] *Resolution scaling* -> *Escalado de resolución*
+- [x] **Subsecciones a traducir:**
+  - [x] **Why use resolution scaling?** (*¿Por qué usar escalado de resolución?*)
     - Impacto en cuellos de botella de GPU y dispositivos móviles.
-  - [ ] **Resolution scaling options** (*Opciones de escalado de resolución*)
-    - [ ] **Scaling mode** (*Modo de escalado*)
+  - [x] **Resolution scaling options** (*Opciones de escalado de resolución*)
+    - [x] **Scaling mode** (*Modo de escalado*)
       - Comparación entre `Bilinear`, `FSR 1.0` (AMD FidelityFX) y `FSR 2.2`.
       - Interacción con técnicas de antialiasing (TAA, MSAA, FXAA).
-    - [ ] **Rendering scale** (*Escala de renderizado*)
+    - [x] **Rendering scale** (*Escala de renderizado*)
       - Ajuste `Rendering > Scaling 3D > Scale` y `scaling_3d_scale` en `Viewport`.
       - Supermuestreo (SSAA) con valores mayores a 1.0.
       - Tablas completas de resoluciones (1080p, 1440p, 4K) y cálculo de megapíxeles por cuadro.
-    - [ ] **FSR Sharpness** (*Nitidez FSR*)
+    - [x] **FSR Sharpness** (*Nitidez FSR*)
       - Inversión de valores (0.0 más nítido, 2.0 menos nítido). Trucos para resolución nativa.
-    - [ ] **Mipmap bias** (*Sesgo de mipmap*)
+    - [x] **Mipmap bias** (*Sesgo de mipmap*)
       - Preservación de detalle de texturas con valores negativos.
       - Ajuste `Texture Mipmap Bias` y compensación para TAA y FXAA.
-  - [ ] **Troubleshooting** (*Resolución de problemas*)
-    - [ ] **Performance does not increase much when decreasing resolution scale** (*El rendimiento no aumenta mucho al disminuir la escala de resolución*)
+  - [x] **Troubleshooting** (*Resolución de problemas*)
+    - [x] **Performance does not increase much when decreasing resolution scale** (*El rendimiento no aumenta mucho al disminuir la escala de resolución*)
       - Detección de cuellos de botella en CPU (*draw calls*) o efectos de postproceso intensivos.
 
 ---
 
 ### 6. Sombreado de tasa variable (`variable_rate_shading`)
-- [ ] **Archivos objetivo:**
+- [x] **Archivos objetivo:**
   - `tutorials/3d/variable_rate_shading.html`
   - `_sources/tutorials/3d/variable_rate_shading.rst.txt`
-- [ ] **Título principal:**
-  - [ ] *Variable rate shading* -> *Sombreado de tasa variable (VRS)*
-- [ ] **Subsecciones a traducir:**
-  - [ ] **What is variable rate shading?** (*¿Qué es el sombreado de tasa variable?*)
+- [x] **Título principal:**
+  - [x] *Variable rate shading* -> *Sombreado de tasa variable (VRS)*
+- [x] **Subsecciones a traducir:**
+  - [x] **What is variable rate shading?** (*¿Qué es el sombreado de tasa variable?*)
     - Reducción del costo de sombreado por fragmento preservando la geometría.
     - Aplicación en Realidad Virtual (VR) para *foveated rendering* (renderizado foveado).
-  - [ ] **Hardware support** (*Soporte de hardware*)
+  - [x] **Hardware support** (*Soporte de hardware*)
     - Compatibilidad en GPUs de escritorio (NVIDIA Turing+, AMD RDNA2+, Intel Arc).
     - Compatibilidad móvil (Snapdragon 888+, Dimensity 9000+, Mali-G615+).
-  - [ ] **Using variable rate shading in Godot** (*Uso del sombreado de tasa variable en Godot*)
+  - [x] **Using variable rate shading in Godot** (*Uso del sombreado de tasa variable en Godot*)
     - Ajustes en `Rendering > VRS`: `Mode` (Disabled, Texture, XR) y `Texture`.
     - Renderizadores compatibles (Forward+, Mobile; no soportado en Compatibility).
-    - [ ] **Creating a VRS density map** (*Creación de un mapa de densidad VRS*)
+    - [x] **Creating a VRS density map** (*Creación de un mapa de densidad VRS*)
       - Tabla de densidades (1x1 a 8x8) y asignación de colores RGB exactos.
       - Recomendaciones de tamaño de textura (256x256, 480x270) basadas en el tamaño de tesela (*tile size* de 8x8).
       - Uso conjunto con sesgo negativo de mipmap.
-    - [ ] **Performance comparison** (*Comparación de rendimiento*)
+    - [x] **Performance comparison** (*Comparación de rendimiento*)
       - Tabla de comparativa en resoluciones 1080p, 1440p, 4K y 8K.
 
 ---
 
 ### 7. Índice Principal y Menús Globales
-- [ ] **Archivos objetivo:**
+- [x] **Archivos objetivo:**
   - `tutorials/3d/index.html` (sección `#optimization` y bloque `toctree-l1`)
   - `_sources/tutorials/3d/index.rst.txt`
-- [ ] **Enlaces de la sección Optimización:**
-  - [ ] `Using MultiMeshInstance3D` -> `Uso de MultiMeshInstance3D`
-  - [ ] `Mesh level of detail (LOD)` -> `Nivel de detalle de malla (LOD)`
-  - [ ] `Visibility ranges (HLOD)` -> `Rangos de visibilidad (HLOD)`
-  - [ ] `Eliminación de oclusión` -> Mantener / Verificar consistencia
-  - [ ] `Resolution scaling` -> `Escalado de resolución`
-  - [ ] `Variable rate shading` -> `Sombreado de tasa variable (VRS)`
-- [ ] **Sincronización de barras laterales:**
-  - [ ] Actualizar títulos en el árbol de navegación lateral de las páginas 3D para que coincidan con los nuevos nombres en español.
+- [x] **Enlaces de la sección Optimización:**
+  - [x] `Using MultiMeshInstance3D` -> `Uso de MultiMeshInstance3D`
+  - [x] `Mesh level of detail (LOD)` -> `Nivel de detalle de malla (LOD)`
+  - [x] `Visibility ranges (HLOD)` -> `Rangos de visibilidad (HLOD)`
+  - [x] `Eliminación de oclusión` -> Mantener / Verificar consistencia
+  - [x] `Resolution scaling` -> `Escalado de resolución`
+  - [x] `Variable rate shading` -> `Sombreado de tasa variable (VRS)`
+- [x] **Sincronización de barras laterales:**
+  - [x] Actualizar títulos en el árbol de navegación lateral de las páginas 3D para que coincidan con los nuevos nombres en español.
 
 ---
 

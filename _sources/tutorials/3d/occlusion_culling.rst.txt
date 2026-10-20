@@ -1,204 +1,202 @@
 .. _doc_occlusion_culling:
 
-Occlusion culling
-=================
+Eliminación de oclusión
+=======================
 
-In a 3D rendering engine, **occlusion culling** is the process of performing
-hidden geometry removal.
+En un motor de renderizado 3D, la **eliminación de oclusión** (*occlusion culling*) es el proceso de realizar
+la eliminación de geometría oculta.
 
-On this page, you'll learn:
+En esta página, aprenderás:
 
-- What are the advantages and pitfalls of occlusion culling.
-- How to set up occlusion culling in Godot.
-- Troubleshooting common issues with occlusion culling.
+- Cuáles son las ventajas y dificultades de la eliminación de oclusión.
+- Cómo configurar la eliminación de oclusión en Godot.
+- Solución de problemas comunes con la eliminación de oclusión.
 
 .. seealso::
 
-    You can see how occlusion culling works in action using the
-    `Occlusion Culling and Mesh LOD demo project <https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod>`__.
+    Puedes ver cómo funciona la eliminación de oclusión en acción utilizando el
+    `proyecto de demostración de Eliminación de Oclusión y LOD de Malla <https://github.com/godotengine/godot-demo-projects/tree/master/3d/occlusion_culling_mesh_lod>`__.
 
-Why use occlusion culling
--------------------------
+Por qué usar eliminación de oclusión
+------------------------------------
 
-In this example scene with hundreds of rooms stacked next to each other, a
-dynamic object (red sphere) is hidden behind the wall in the lit room (on the
-left of the door):
+En esta escena de ejemplo con cientos de habitaciones apiladas una al lado de otra, un
+objeto dinámico (esfera roja) está oculto detrás de la pared en la habitación iluminada (a la
+izquierda de la puerta):
 
 .. figure:: img/occlusion_culling_scene_example.png
    :align: center
-   :alt: Example scene with an occlusion culling-friendly layout
+   :alt: Escena de ejemplo con una disposición adecuada para la eliminación de oclusión
 
-   Example scene with an occlusion culling-friendly layout
+   Escena de ejemplo con una disposición adecuada para la eliminación de oclusión
 
-With occlusion culling disabled, all the rooms behind the lit room have to be
-rendered. The dynamic object also has to be rendered:
+Con la eliminación de oclusión deshabilitada, todas las habitaciones detrás de la habitación iluminada tienen que
+ser renderizadas. El objeto dinámico también tiene que ser renderizado:
 
 .. figure:: img/occlusion_culling_disabled.png
    :align: center
-   :alt: Example scene with occlusion culling disabled (wireframe)
+   :alt: Escena de ejemplo con eliminación de oclusión deshabilitada (malla alámbrica)
 
-   Example scene with occlusion culling **disabled** (wireframe)
+   Escena de ejemplo con eliminación de oclusión **deshabilitada** (malla alámbrica)
 
-With occlusion culling enabled, only the rooms that are actually visible have to
-be rendered. The dynamic object is also occluded by the wall, and therefore no
-longer has to be rendered:
+Con la eliminación de oclusión habilitada, solo las habitaciones que son realmente visibles tienen que
+ser renderizadas. El objeto dinámico también queda ocluido por la pared y, por lo tanto, ya no
+tiene que renderizarse:
 
 .. figure:: img/occlusion_culling_enabled.png
    :align: center
-   :alt: Example scene with occlusion culling enabled (wireframe)
+   :alt: Escena de ejemplo con eliminación de oclusión habilitada (malla alámbrica)
 
-   Example scene with occlusion culling **enabled** (wireframe)
+   Escena de ejemplo con eliminación de oclusión **habilitada** (malla alámbrica)
 
-Since the engine has less work to do (fewer vertices to render and fewer draw calls),
-performance will increase as long as there are enough occlusion culling opportunities
-in the scene. This means occlusion culling is most effective in indoor scenes,
-preferably with many smaller rooms instead of fewer larger rooms. Combine
-this with :ref:`doc_mesh_lod` and :ref:`doc_visibility_ranges` to further improve
-performance gains.
-
-.. note::
-
-    When using the Forward+ renderer, the engine already
-    performs a *depth prepass*. This consists in rendering a depth-only version
-    of the scene before rendering the scene's actual materials. This is used to
-    ensure each opaque pixel is only shaded once, reducing the cost of overdraw
-    significantly.
-
-    The greatest performance benefits can be observed when using the Mobile
-    renderer, as it does not feature a depth prepass for performance reasons. As
-    a result, occlusion culling will actively decrease shading overdraw with
-    that renderer.
-
-    Nonetheless, even when using a depth prepass, there is still a noticeable
-    benefit to occlusion culling in complex 3D scenes. However, in scenes with
-    few occlusion culling opportunities, occlusion culling may not be worth the
-    added setup and CPU usage.
-
-How occlusion culling works in Godot
-------------------------------------
+Dado que el motor tiene menos trabajo que hacer (menos vértices para renderizar y menos llamadas de dibujo (*draw calls*)),
+el rendimiento aumentará siempre que haya suficientes oportunidades de eliminación de oclusión
+en la escena. Esto significa que la eliminación de oclusión es más efectiva en escenas interiores,
+preferiblemente con muchas habitaciones pequeñas en lugar de pocas habitaciones grandes. Combina
+esto con :ref:`doc_mesh_lod` y :ref:`doc_visibility_ranges` para mejorar aún más
+las ganancias de rendimiento.
 
 .. note::
 
-    "occluder" refers to the shape blocking the view, while "occludee" refers to
-    the object being hidden.
+    Al utilizar el renderizador Forward+, el motor ya
+    realiza una *prepasada de profundidad* (*depth prepass*). Esto consiste en renderizar una versión solo de profundidad
+    de la escena antes de renderizar los materiales reales de la escena. Esto se utiliza para
+    asegurar que cada píxel opaco se sombree solo una vez, reduciendo significativamente el costo del
+    sobregiro (*overdraw*).
 
-In Godot, occlusion culling works by rasterizing the scene's occluder geometry
-to a low-resolution buffer on the CPU. This is done using
-the software raytracing library `Embree <https://github.com/embree/embree>`__.
+    Los mayores beneficios de rendimiento se pueden observar al utilizar el renderizador
+    Mobile, ya que no cuenta con una prepasada de profundidad por razones de rendimiento. Como
+    resultado, la eliminación de oclusión reducirá activamente el sobregiro de sombreado con
+    dicho renderizador.
 
-The engine then uses this low-resolution buffer to test the occludee's
-:abbr:`AABB (Axis-Aligned Bounding Box)` against the occluder shapes.
-The occludee's :abbr:`AABB (Axis-Aligned Bounding Box)` must be *fully occluded*
-by the occluder shape to be culled.
+    No obstante, incluso cuando se utiliza una prepasada de profundidad, todavía existe un beneficio
+    notable con la eliminación de oclusión en escenas 3D complejas. Sin embargo, en escenas con
+    pocas oportunidades de eliminación de oclusión, puede que la eliminación de oclusión no valga la pena
+    debido a la configuración añadida y el uso de CPU.
 
-As a result, smaller objects are more likely to be effectively culled than
-larger objects. Larger occluders (such as walls) also tend to be much more
-effective than smaller ones (such as decoration props).
+Cómo funciona la eliminación de oclusión en Godot
+-------------------------------------------------
 
-Setting up occlusion culling
-----------------------------
+.. note::
 
-The first step to using occlusion culling is to enable the
-**Rendering > Occlusion Culling > Use Occlusion Culling** project setting.
-(Make sure the **Advanced** toggle is enabled in the Project Settings dialog to
-be able to see it.)
+    "oclusor" (*occluder*) se refiere a la forma que bloquea la vista, mientras que "objeto ocluido" (*occludee*) se refiere
+    al objeto que queda oculto.
 
-This project setting applies immediately, so you don't need to restart the editor.
+En Godot, la eliminación de oclusión funciona rasterizando la geometría oclusora de la escena
+en un búfer de baja resolución en la CPU. Esto se realiza utilizando
+la biblioteca de trazado de rayos por software `Embree <https://github.com/embree/embree>`__.
 
-After enabling the project setting, you still need to create some occluders. For
-performance reasons, the engine doesn't automatically use all visible geometry
-as a basis for occlusion culling. Instead, the engine requires a simplified
-representation of the scene with only static objects to be baked.
+Luego, el motor utiliza este búfer de baja resolución para probar el
+:abbr:`AABB (Axis-Aligned Bounding Box)` del objeto ocluido contra las formas oclusoras.
+El :abbr:`AABB (Axis-Aligned Bounding Box)` del objeto ocluido debe estar *completamente ocluido*
+por la forma oclusora para ser eliminado.
 
-There are two ways to set up occluders in a scene:
+Como resultado, los objetos más pequeños tienen más probabilidades de ser eliminados eficazmente que
+los objetos más grandes. Los oclusores más grandes (como las paredes) también suelen ser mucho más
+efectivos que los más pequeños (como accesorios de decoración).
+
+Configuración de la eliminación de oclusión
+-------------------------------------------
+
+El primer paso para usar la eliminación de oclusión es habilitar el ajuste de proyecto
+**Rendering > Occlusion Culling > Use Occlusion Culling** (Renderizado > Eliminación de Oclusión > Usar Eliminación de Oclusión).
+(Asegúrate de que la opción **Advanced** esté habilitada en el cuadro de diálogo de Ajustes del Proyecto para
+poder verla).
+
+Este ajuste de proyecto se aplica inmediatamente, por lo que no es necesario reiniciar el editor.
+
+Después de habilitar el ajuste de proyecto, todavía necesitas crear algunos oclusores. Por
+razones de rendimiento, el motor no utiliza automáticamente toda la geometría visible
+como base para la eliminación de oclusión. En su lugar, el motor requiere que se hornee
+una representación simplificada de la escena que contenga únicamente objetos estáticos.
+
+Hay dos formas de configurar oclusores en una escena:
 
 .. _doc_occlusion_culling_baking:
 
-Automatically baking occluders (recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Horneado automático de oclusores (recomendado)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
 
-    Only MeshInstance3D nodes are currently taken into account in the *occluder*
-    baking process. MultiMeshInstance3D, GPUParticles3D, CPUParticles3D and CSG
-    nodes are **not** taken into account when baking occluders. If you wish
-    those to be treated as occluders, you have to manually create occluder
-    shapes that (roughly) match their geometry.
+    Actualmente, solo los nodos MeshInstance3D se tienen en cuenta en el proceso de
+    horneado de *oclusores*. Los nodos MultiMeshInstance3D, GPUParticles3D, CPUParticles3D y CSG
+    **no** se tienen en cuenta al hornear oclusores. Si deseas
+    que estos se traten como oclusores, debes crear manualmente formas de oclusor
+    que coincidan (aproximadamente) con su geometría.
 
-    Since Godot 4.4, CSG nodes can be taken into account in the baking process if they are
-    :ref:`converted to a MeshInstance3D <doc_csg_tools_converting_to_mesh_instance_3d>`
-    before baking occluders.
+    Desde Godot 4.4, los nodos CSG se pueden tener en cuenta en el proceso de horneado si se
+    :ref:`convierten a un MeshInstance3D <doc_csg_tools_converting_to_mesh_instance_3d>`
+    antes de hornear los oclusores.
 
-    This restriction does not apply to *occludees*. Any node type that inherits
-    from GeometryInstance3D can be occluded.
+    Esta restricción no se aplica a los *objetos ocluidos* (*occludees*). Cualquier tipo de nodo que herede
+    de GeometryInstance3D puede ser ocluido.
 
-After enabling the occlusion culling project setting mentioned above, add an
-OccluderInstance3D node to the scene containing your 3D level.
+Después de habilitar el ajuste de proyecto de eliminación de oclusión mencionado anteriormente, añade un
+nodo OccluderInstance3D a la escena que contiene tu nivel 3D.
 
-Select the OccluderInstance3D node, then click **Bake Occluders** at the top of
-the 3D editor viewport. After baking, the OccluderInstance3D node will contain
-an Occluder3D resource that stores a simplified version of your level's
-geometry. This occluder geometry appears as purple wireframe lines in the 3D view
-(as long as **View Gizmos** is enabled in the **Perspective** menu).
-This geometry is then used to provide occlusion culling for both static and
-dynamic occludees.
+Selecciona el nodo OccluderInstance3D, luego haz clic en **Bake Occluders** (Hornear Oclusores) en la parte superior del
+viewport del editor 3D. Después de hornear, el nodo OccluderInstance3D contendrá
+un recurso Occluder3D que almacena una versión simplificada de la geometría
+de tu nivel. Esta geometría de oclusión aparece como líneas de malla alámbrica púrpura en la vista 3D
+(siempre que **View Gizmos** esté habilitado en el menú **Perspective**).
+Esta geometría se utiliza luego para proporcionar eliminación de oclusión tanto para objetos ocluidos estáticos
+como dinámicos.
 
-After baking, you may notice that your dynamic objects (such as the player,
-enemies, etc…) are included in the baked mesh. To prevent this, set the
-**Bake > Cull Mask** property on the OccluderInstance3D to exclude certain visual
-layers from being baked.
+Después de hornear, es posible que notes que tus objetos dinámicos (como el jugador,
+enemigos, etc.) están incluidos en la malla horneada. Para evitar esto, establece la
+propiedad **Bake > Cull Mask** en el OccluderInstance3D para excluir ciertas capas
+visuales del horneado.
 
-For example, you can disable layer 2 on the cull mask, then configure your
-dynamic objects' MeshInstance3D nodes to be located on the visual layer 2
-(instead of layer 1). To do so, select the MeshInstance3D node in question, then
-on the **VisualInstance3D > Layers** property, uncheck layer 1 then check layer
-2. After configuring both cull mask and layers, bake occluders again by
-following the above process.
+Por ejemplo, puedes deshabilitar la capa 2 en la máscara de corte (cull mask), y luego configurar los
+nodos MeshInstance3D de tus objetos dinámicos para que se ubiquen en la capa visual 2
+(en lugar de la capa 1). Para hacerlo, selecciona el nodo MeshInstance3D en cuestión, luego
+en la propiedad **VisualInstance3D > Layers**, desmarca la capa 1 y marca la capa
+2. Después de configurar tanto la máscara de corte como las capas, hornea los oclusores de nuevo
+siguiendo el proceso anterior.
 
-Manually placing occluders
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Colocación manual de oclusores
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This approach is more suited for specialized use cases, such as creating occlusion
-for MultiMeshInstance3D setups or CSG nodes (due to the aforementioned limitation).
+Este enfoque es más adecuado para casos de uso especializados, como crear oclusión
+para configuraciones de MultiMeshInstance3D o nodos CSG (debido a la limitación antes mencionada).
 
-After enabling the occlusion culling project setting mentioned above, add an
-OccluderInstance3D node to the scene containing your 3D level. Select the
-OccluderInstance3D node, then choose an occluder type to add in the **Occluder**
-property:
+Después de habilitar el ajuste de proyecto de eliminación de oclusión mencionado anteriormente, añade un
+nodo OccluderInstance3D a la escena que contiene tu nivel 3D. Selecciona el
+nodo OccluderInstance3D, y luego elige un tipo de oclusor para añadir en la propiedad **Occluder**:
 
-- QuadOccluder3D (a single plane)
-- BoxOccluder3D (a cuboid)
-- SphereOccluder3D (a sphere-shaped occluder)
-- PolygonOccluder3D (a 2D polygon with as many points as you want)
+- QuadOccluder3D (un solo plano)
+- BoxOccluder3D (un cuboide)
+- SphereOccluder3D (un oclusor con forma de esfera)
+- PolygonOccluder3D (un polígono 2D con tantos puntos como desees)
 
-There is also ArrayOccluder3D, whose points can't be modified in the editor but
-can be useful for procedural generation from a script.
+También existe ArrayOccluder3D, cuyos puntos no se pueden modificar en el editor, pero
+puede ser útil para la generación procedimental desde un script.
 
 .. _doc_occlusion_culling_preview:
 
-Previewing occlusion culling
-----------------------------
+Vista previa de la eliminación de oclusión
+------------------------------------------
 
-You can enable a debug draw mode to preview what the occlusion culling is
-actually "seeing". In the top-left corner of the 3D editor viewport, click the
-**Perspective** button (or **Orthogonal** depending on your current camera
-mode), then choose **Display Advanced… > Occlusion Culling Buffer**. This will
-display the low-resolution buffer that is used by the engine for occlusion
-culling.
+Puedes habilitar un modo de dibujo de depuración para previsualizar lo que la eliminación de oclusión está
+"viendo" realmente. En la esquina superior izquierda del viewport del editor 3D, haz clic en el
+botón **Perspective** (o **Orthogonal** según tu modo de cámara actual),
+y luego elige **Display Advanced… > Occlusion Culling Buffer**. Esto mostrará
+el búfer de baja resolución que utiliza el motor para la eliminación de oclusión.
 
-In the same menu, you can also enable **View Information** and **View Frame
-Time** to view the number of draw calls and rendered primitives (vertices +
-indices) in the bottom-right corner, along with the number of frames per second
-rendered in the top-right corner.
+En el mismo menú, también puedes habilitar **View Information** y **View Frame
+Time** para ver el número de llamadas de dibujo y primitivas renderizadas (vértices +
+índices) en la esquina inferior derecha, junto con el número de fotogramas por segundo
+renderizados en la esquina superior derecha.
 
-If you toggle occlusion culling in the project settings while this information
-is displayed, you can see how much occlusion culling improves performance in
-your scene. Note that the performance benefit highly depends on the 3D editor
-camera's view angle, as occlusion culling is only effective if there are
-occluders in front of the camera.
+Si alternas la eliminación de oclusión en los ajustes del proyecto mientras se muestra esta información,
+podrás ver cuánto mejora el rendimiento la eliminación de oclusión en
+tu escena. Ten en cuenta que el beneficio de rendimiento depende en gran medida del ángulo de visión de la
+cámara del editor 3D, ya que la eliminación de oclusión solo es efectiva si hay
+oclusores frente a la cámara.
 
-To toggle occlusion culling at runtime, set ``use_occlusion_culling`` on the
-root viewport as follows:
+Para alternar la eliminación de oclusión en tiempo de ejecución, establece ``use_occlusion_culling`` en el
+viewport raíz de la siguiente manera:
 
 .. tabs::
  .. code-tab:: gdscript
@@ -210,116 +208,116 @@ root viewport as follows:
     GetTree().Root.UseOcclusionCulling = true;
 
 
-Toggling occlusion culling at runtime is useful to compare performance on a
-running project.
+Alternar la eliminación de oclusión en tiempo de ejecución es útil para comparar el rendimiento en un
+proyecto en ejecución.
 
-Performance considerations
---------------------------
+Consideraciones de rendimiento
+------------------------------
 
-Design your levels to take advantage of occlusion culling
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Diseña tus niveles para aprovechar la eliminación de oclusión
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**This is the most important guideline.** A good level design is not just about
-what the gameplay demands; it should also be built with occlusion in mind.
+**Esta es la pauta más importante.** Un buen diseño de niveles no se trata solo de
+lo que exige la jugabilidad; también debe construirse teniendo en cuenta la oclusión.
 
-For indoor environments, add opaque walls to "break" the line of sight at
-regular intervals and ensure not too much of the scene can be seen at once.
+Para entornos interiores, añade paredes opacas para "romper" la línea de visión a
+intervalos regulares y asegurarte de que no se pueda ver demasiado de la escena a la vez.
 
-For large open scenes, use a pyramid-like structure for the terrain's elevation
-when possible. This provides the greatest culling opportunities compared to any
-other terrain shape.
+Para escenas abiertas grandes, utiliza una estructura tipo pirámide para la elevación del terreno
+cuando sea posible. Esto proporciona las mayores oportunidades de eliminación en comparación con cualquier
+otra forma de terreno.
 
-Avoid moving OccluderInstance3D nodes during gameplay
+Evita mover nodos OccluderInstance3D durante el juego
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This includes moving the parents of OccluderInstance3D nodes, as this will cause
-the nodes themselves to move in global space, therefore requiring the :abbr:`BVH
-(Bounding Volume Hierarchy)` to be rebuilt.
+Esto incluye mover los nodos padre de los nodos OccluderInstance3D, ya que esto hará
+que los nodos mismos se muevan en el espacio global, requiriendo por lo tanto que se reconstruya
+el :abbr:`BVH (Bounding Volume Hierarchy / Jerarquía de Volúmenes Envolventes)`.
 
-Toggling an OccluderInstance3D's visibility (or one of its parents' visibility)
-is not as expensive, as the update only needs to happen once (rather than
-continuously).
+Alternar la visibilidad de un OccluderInstance3D (o la visibilidad de uno de sus padres)
+no es tan costoso, ya que la actualización solo necesita ocurrir una vez (en lugar de
+continuamente).
 
-For example, if you have a sliding or rotating door, you can make the
-OccluderInstance3D node not be a child of the door itself (so that the occluder
-never moves), but you can hide the OccluderInstance3D visibility once the door
-starts opening. You can then reshow the OccluderInstance3D once the door is
-fully closed.
+Por ejemplo, si tienes una puerta corrediza o giratoria, puedes hacer que el
+nodo OccluderInstance3D no sea hijo de la puerta misma (para que el oclusor
+nunca se mueva), pero puedes ocultar la visibilidad del OccluderInstance3D una vez que la puerta
+comience a abrirse. Luego puedes volver a mostrar el OccluderInstance3D una vez que la puerta esté
+completamente cerrada.
 
-If you absolutely have to move an OccluderInstance3D node during gameplay, use a
-primitive Occluder3D shape for it instead of a complex baked shape.
+Si es absolutamente necesario mover un nodo OccluderInstance3D durante el juego, utiliza una
+forma primitiva de Occluder3D para él en lugar de una forma horneada compleja.
 
-Use the simplest possible occluder shapes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usa las formas de oclusor más simples posibles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you notice low performance or stuttering in complex 3D scenes, it may mean
-that the CPU is overloaded as a result of rendering detailed occluders.
-Select the OccluderInstance3D node,
-increase the **Bake > Simplification** property then bake occluders again.
+Si notas bajo rendimiento o tirones (*stuttering*) en escenas 3D complejas, puede significar
+que la CPU está sobrecargada como resultado de renderizar oclusores detallados.
+Selecciona el nodo OccluderInstance3D,
+incrementa la propiedad **Bake > Simplification** y luego hornea los oclusores de nuevo.
 
-Remember to keep the simplification value reasonable. Values that are too high
-for the level's geometry may cause incorrect occlusion culling to occur, as in
+Recuerda mantener el valor de simplificación en un nivel razonable. Valores demasiado altos
+para la geometría del nivel pueden provocar que ocurra una eliminación de oclusión incorrecta, como se explica en
 :ref:`doc_occlusion_culling_troubleshooting_false_negative`.
 
-If this still doesn't lead to low enough CPU usage,
-you can try adjusting the **Rendering > Occlusion Culling > BVH Build Quality**
-project setting and/or decreasing
+Si esto aún no conduce a un uso de CPU lo suficientemente bajo,
+puedes intentar ajustar el ajuste de proyecto **Rendering > Occlusion Culling > BVH Build Quality**
+y/o disminuir
 **Rendering > Occlusion Culling > Occlusion Rays Per Thread**.
-You'll need to enable the **Advanced** toggle in the Project Settings dialog to
-see those settings.
+Necesitarás habilitar la opción **Advanced** en el cuadro de diálogo de Ajustes del Proyecto para
+ver estos ajustes.
 
-Troubleshooting
----------------
+Resolución de problemas
+-----------------------
 
-My occludee isn't being culled when it should be
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mi objeto no se ocluye cuando debería
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**On the occluder side:**
+**Del lado del oclusor:**
 
-First, double-check that the **Bake > Cull Mask** property in the
-OccluderInstance3D is set to allow baking the meshes you'd like. The visibility
-layer of the MeshInstance3D nodes must be present within the cull mask for the
-mesh to be included in the bake.
+En primer lugar, verifica dos veces que la propiedad **Bake > Cull Mask** en el
+OccluderInstance3D esté configurada para permitir hornear las mallas que deseas. La capa
+de visibilidad de los nodos MeshInstance3D debe estar presente dentro de la máscara de corte para que
+la malla se incluya en el horneado.
 
-Also note that occluder baking only takes meshes with *opaque* materials into
-account. Surfaces will *transparent* materials will **not** be included in the
-bake, even if the texture applied on them is fully opaque.
+Ten en cuenta también que el horneado de oclusores solo toma en cuenta mallas con materiales *opacos*.
+Las superficies con materiales *transparentes* **no** se incluirán en el
+horneado, incluso si la textura aplicada sobre ellas es completamente opaca.
 
-Lastly, remember that MultiMeshInstance3D, GPUParticles3D, CPUParticles3D and CSG
-nodes are **not** taken into account when baking occluders. As a workaround, you
-can add OccluderInstance3D nodes for those manually.
+Por último, recuerda que los nodos MultiMeshInstance3D, GPUParticles3D, CPUParticles3D y CSG
+**no** se toman en cuenta al hornear oclusores. Como solución alternativa, puedes
+añadir nodos OccluderInstance3D para estos manualmente.
 
-**On the occludee side:**
+**Del lado del objeto ocluido:**
 
-Make sure **Extra Cull Margin** is set as low as possible (it should usually be
-``0.0``), and that **Ignore Occlusion Culling** is disabled in the object's
-GeometryInstance3D section.
+Asegúrate de que **Extra Cull Margin** esté configurado lo más bajo posible (generalmente debería ser
+``0.0``), y que **Ignore Occlusion Culling** esté deshabilitado en la sección
+GeometryInstance3D del objeto.
 
-Also, check the AABB's size (which is represented by an orange box when
-selecting the node). This axis-aligned bounding box must be *fully* occluded by
-the occluder shapes for the occludee to be hidden.
+Además, verifica el tamaño del AABB (que se representa mediante un cuadro naranja al
+seleccionar el nodo). Este cuadro delimitador alineado con los ejes debe estar *completamente* ocluido por
+las formas oclusoras para que el objeto ocluido quede oculto.
 
 .. _doc_occlusion_culling_troubleshooting_false_negative:
 
-My occludee is being culled when it shouldn't be
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mi objeto se ocluye cuando no debería
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The most likely cause for this is that objects that were included in the
-occluder bake have been moved after baking occluders. For instance, this can
-occur when moving your level geometry around or rearranging its layout. To fix
-this, select the OccluderInstance3D node and bake occluders again.
+La causa más probable de esto es que los objetos que se incluyeron en el
+horneado de oclusores se hayan movido después de hornearlos. Por ejemplo, esto puede
+ocurrir al mover la geometría del nivel de un lugar a otro o al reorganizar su disposición. Para solucionar
+esto, selecciona el nodo OccluderInstance3D y hornea los oclusores de nuevo.
 
-This can also happen because dynamic objects were included in the bake, even
-though they shouldn't be. Use the
-:ref:`occlusion culling debug draw mode <doc_occlusion_culling_preview>` to look
-for occluder shapes that shouldn't be present, then
-:ref:`adjust the bake cull mask accordingly <doc_occlusion_culling_baking>`.
+Esto también puede suceder porque se incluyeron objetos dinámicos en el horneado, a pesar de
+que no deberían estarlo. Utiliza el
+:ref:`modo de dibujo de depuración de eliminación de oclusión <doc_occlusion_culling_preview>` para buscar
+formas oclusoras que no deberían estar presentes, y luego
+:ref:`ajusta la máscara de corte de horneado según corresponda <doc_occlusion_culling_baking>`.
 
-The last possible cause for this is overly aggressive mesh simplification during
-the occluder baking process. Select the OccluderInstance3D node,
-decrease the **Bake > Simplification** property then bake occluders again.
+La última causa posible para esto es una simplificación de malla excesivamente agresiva durante
+el proceso de horneado de oclusores. Selecciona el nodo OccluderInstance3D,
+disminuye la propiedad **Bake > Simplification** y luego hornea los oclusores de nuevo.
 
-As a last resort, you can enable the **Ignore Occlusion Culling** property on
-the occludee. This will negate the performance improvements of occlusion culling
-for that object, but it makes sense to do this for objects that will never be
-culled (such as a first-person view model).
+Como último recurso, puedes habilitar la propiedad **Ignore Occlusion Culling** en
+el objeto ocluido. Esto anulará las mejoras de rendimiento de la eliminación de oclusión
+para ese objeto, pero tiene sentido hacerlo para objetos que nunca serán
+occluidos (como el modelo de vista en primera persona).
