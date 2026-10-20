@@ -1,18 +1,18 @@
-﻿
+
 
 <!DOCTYPE html>
 <html class="writer-html5" lang="es" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Visibility ranges (HLOD)" />
+<meta property="og:title" content="Rangos de visibilidad (HLOD)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.godotengine.org/es/4.x/tutorials/3d/visibility_ranges.html" />
 <meta property="og:site_name" content="Godot Engine documentation" />
-<meta property="og:description" content="Along with Mesh level of detail (LOD) and Eliminación de oclusión, visibility ranges are another tool to improve performance in large, complex 3D scenes. En esta pagina aprenderá: What visibility r..." />
-<meta name="description" content="Along with Mesh level of detail (LOD) and Eliminación de oclusión, visibility ranges are another tool to improve performance in large, complex 3D scenes. En esta pagina aprenderá: What visibility r..." />
+<meta property="og:description" content="Junto con el nivel de detalle de malla (LOD) y la eliminación de oclusión, los rangos de visibilidad son otra herramienta para mejorar el rendimiento en escenas 3D grandes y complejas..." />
+<meta name="description" content="Junto con el nivel de detalle de malla (LOD) y la eliminación de oclusión, los rangos de visibilidad son otra herramienta para mejorar el rendimiento en escenas 3D grandes y complejas..." />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Visibility ranges (HLOD) &mdash; Documentación de Godot Engine (4.x) en español</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Rangos de visibilidad (HLOD) &mdash; Documentación de Godot Engine (4.x) en español</title>
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
@@ -12979,7 +12979,7 @@
 		
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">3D</a></li>
-      <li class="breadcrumb-item active">Visibility ranges (HLOD)</li>
+      <li class="breadcrumb-item active">Rangos de visibilidad (HLOD)</li>
 	</ul>
 </li>
 
@@ -13039,139 +13039,71 @@
 
   
   <section id="visibility-ranges-hlod">
-<span id="doc-visibility-ranges"></span><h1>Visibility ranges (HLOD)<a class="headerlink" href="#visibility-ranges-hlod" title="Link to this heading"></a></h1>
-<p>Along with <a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Mesh level of detail (LOD)</span></a> and <a class="reference internal" href="occlusion_culling.html#doc-occlusion-culling"><span class="std std-ref">Eliminación de oclusión</span></a>,
-visibility ranges are another tool to improve performance in large,
-complex 3D scenes.</p>
-<p>En esta pagina aprenderá:</p>
+<span id="doc-visibility-ranges"></span><h1>Rangos de visibilidad (HLOD)<a class="headerlink" href="#visibility-ranges-hlod" title="Link to this heading"></a></h1>
+<p>Junto con el <a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Nivel de detalle de malla (LOD)</span></a> y la <a class="reference internal" href="occlusion_culling.html#doc-occlusion-culling"><span class="std std-ref">Eliminación de oclusión</span></a>, los rangos de visibilidad son otra herramienta para mejorar el rendimiento en escenas 3D grandes y complejas.</p>
+<p>En esta página aprenderás:</p>
 <ul class="simple">
-<li><p>What visibility ranges can do and which scenarios they are useful in.</p></li>
-<li><p>How to set up visibility ranges (manual LOD) in Godot.</p></li>
-<li><p>How to tune visibility ranges for best performance and quality.</p></li>
+<li><p>Qué pueden hacer los rangos de visibilidad y en qué escenarios son útiles.</p></li>
+<li><p>Cómo configurar rangos de visibilidad (LOD manual) en Godot.</p></li>
+<li><p>Cómo ajustar los rangos de visibilidad para obtener el mejor rendimiento y calidad.</p></li>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>If you only need meshes to become less detailed over distance, but don't have
-manually authored LOD meshes, consider relying on automatic
-<a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Mesh level of detail (LOD)</span></a> instead.</p>
-<p>Note that automatic mesh LOD and visibility ranges can be used at the same
-time, even on the same mesh.</p>
+<p>Si solo necesitas que las mallas sean menos detalladas a la distancia, pero no tienes mallas LOD creadas manualmente por artistas, considera recurrir al <a class="reference internal" href="mesh_lod.html#doc-mesh-lod"><span class="std std-ref">Nivel de detalle de malla (LOD)</span></a> automático en su lugar.</p>
+<p>Ten en cuenta que el LOD de malla automático y los rangos de visibilidad se pueden utilizar al mismo tiempo, incluso en la misma malla.</p>
 </div>
 <section id="how-it-works">
 <h2>Cómo funciona<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h2>
-<p>Visibility ranges can be used with any node that inherits from GeometryInstance3D.
-This means they can be used not only with MeshInstance3D and MultiMeshInstance3D
-for artist-controlled <abbr title="Hierarchical Level of Detail">HLOD</abbr>, but also
-GPUParticles3D, CPUParticles3D, Label3D, Sprite3D, AnimatedSprite3D and CSGShape3D.</p>
-<p>Since visibility ranges are configured on a per-node basis, this makes it possible
-to use different node types as part of a <abbr title="Level of Detail">LOD</abbr> system.
-For example, you could display a MeshInstance3D representing a tree when up close,
-and replace it with a Sprite3D impostor in the distance to improve performance.</p>
-<p>The benefit of <abbr title="Hierarchical Level of Detail">HLOD</abbr> over a traditional
-<abbr title="Level of Detail">LOD</abbr> system is its hierarchical nature. A single larger
-mesh can replace several smaller meshes, so that the number of draw calls can be
-reduced at a distance, but culling opportunities can be preserved when up close.
-For example, you can have a group of houses that uses individual MeshInstance3D
-nodes (one for each house) when up close, but turns into a single MeshInstance3D
-that represents a less detailed group of houses (or use a MultiMeshInstance3D).</p>
-<p>Lastly, visibility ranges can also be used to fade certain objects entirely when
-the camera gets too close or too far. This can be used for gameplay purposes,
-but also to reduce visual clutter. For example, Label3D nodes can be faded using
-visibility ranges when they're too far away to be readable or relevant to the
-player.</p>
+<p>Los rangos de visibilidad se pueden usar con cualquier nodo que herede de GeometryInstance3D. Esto significa que no solo se pueden usar con MeshInstance3D y MultiMeshInstance3D para <abbr title="Hierarchical Level of Detail / Nivel de Detalle Jerárquico">HLOD</abbr> controlado por artistas, sino también con GPUParticles3D, CPUParticles3D, Label3D, Sprite3D, AnimatedSprite3D y CSGShape3D.</p>
+<p>Dado que los rangos de visibilidad se configuran nodo por nodo, esto permite utilizar diferentes tipos de nodos como parte de un sistema de <abbr title="Level of Detail / Nivel de Detalle">LOD</abbr>. Por ejemplo, podrías mostrar un MeshInstance3D que represente un árbol de cerca, y reemplazarlo con un impostor Sprite3D en la distancia para mejorar el rendimiento.</p>
+<p>El beneficio de <abbr title="Hierarchical Level of Detail">HLOD</abbr> sobre un sistema tradicional de <abbr title="Level of Detail">LOD</abbr> radica en su naturaleza jerárquica. Una sola malla más grande puede reemplazar a varias mallas más pequeñas, de modo que el número de llamadas de dibujo (<em>draw calls</em>) se reduzca a la distancia, pero preservando las oportunidades de descarte (<em>culling</em>) de cerca. Por ejemplo, puedes tener un grupo de casas que use nodos MeshInstance3D individuales (uno para cada casa) de cerca, pero que se convierta en un único MeshInstance3D que represente a un grupo de casas menos detallado (o usar un MultiMeshInstance3D).</p>
+<p>Por último, los rangos de visibilidad también se pueden usar para desvanecer por completo ciertos objetos cuando la cámara se acerca o se aleja demasiado. Esto puede usarse con fines de jugabilidad, pero también para reducir la saturación visual. Por ejemplo, los nodos Label3D se pueden desvanecer usando rangos de visibilidad cuando están demasiado lejos para ser legibles o relevantes para el jugador.</p>
 </section>
 <section id="setting-up-visibility-range">
-<h2>Setting up visibility range<a class="headerlink" href="#setting-up-visibility-range" title="Link to this heading"></a></h2>
-<p>This is a quick-start guide for configuring a basic LOD system. After following
-this guide, this LOD system will display a SphereMesh when up close and a
-BoxMesh when the camera is far away enough. A small hysteresis margin is also
-configured via the <strong>Begin Margin</strong> and <strong>End Margin</strong> properties. This prevents
-LODs from popping back and forth too quickly when the camera is moving at the
-&quot;edge&quot; of the LOD transition.</p>
-<p>The visibility range properties can be found in the <strong>Visibility Range</strong> section
-of the GeometryInstance3D inspector after selecting the MeshInstance3D Node.</p>
+<h2>Configuración del rango de visibilidad<a class="headerlink" href="#setting-up-visibility-range" title="Link to this heading"></a></h2>
+<p>Esta es una guía de inicio rápido para configurar un sistema LOD básico. Después de seguir esta guía, este sistema LOD mostrará un SphereMesh de cerca y un BoxMesh cuando la cámara esté suficientemente lejos. También se configura un pequeño margen de histéresis mediante las propiedades <strong>Begin Margin</strong> y <strong>End Margin</strong>. Esto evita que los niveles de LOD alternen bruscamente de un lado a otro cuando la cámara se mueve en el &quot;borde&quot; de la transición de LOD.</p>
+<p>Las propiedades de rango de visibilidad se encuentran en la sección <strong>Visibility Range</strong> del inspector de GeometryInstance3D tras seleccionar el nodo MeshInstance3D.</p>
 <ul class="simple">
-<li><p>Add a Node3D node that will be used to group the two MeshInstance3D nodes
-together.</p></li>
-<li><p>Add a first MeshInstance3D node as a child of the Node3D. Assign a new
-SphereMesh to its Mesh property.</p></li>
-<li><p>Set the first MeshInstance3D's visibility range <strong>End</strong> to <code class="docutils literal notranslate"><span class="pre">10.0</span></code> and <strong>End
-Margin</strong> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p>Add a second MeshInstance3D node as a child of the Node3D. Assign a new
-BoxMesh to its Mesh property.</p></li>
-<li><p>Set the second MeshInstance3D's visibility range <strong>Begin</strong> to <code class="docutils literal notranslate"><span class="pre">10.0</span></code> and
-<strong>Begin Margin</strong> to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p>Move the camera away and back towards the object. Notice how the object will
-transition from a sphere to a box as the camera moves away.</p></li>
+<li><p>Añade un nodo Node3D que se utilizará para agrupar los dos nodos MeshInstance3D juntos.</p></li>
+<li><p>Añade un primer nodo MeshInstance3D como hijo del Node3D. Asigna un nuevo SphereMesh a su propiedad Mesh.</p></li>
+<li><p>Establece el rango de visibilidad <strong>End</strong> del primer MeshInstance3D en <code class="docutils literal notranslate"><span class="pre">10.0</span></code> y <strong>End Margin</strong> en <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>Añade un segundo nodo MeshInstance3D como hijo del Node3D. Asigna un nuevo BoxMesh a su propiedad Mesh.</p></li>
+<li><p>Establece el rango de visibilidad <strong>Begin</strong> del segundo MeshInstance3D en <code class="docutils literal notranslate"><span class="pre">10.0</span></code> y <strong>Begin Margin</strong> en <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p>Mueve la cámara alejándote y acercándote al objeto. Observa cómo el objeto transiciona de una esfera a una caja a medida que la cámara se aleja.</p></li>
 </ul>
 </section>
 <section id="visibility-range-properties">
-<h2>Visibility range properties<a class="headerlink" href="#visibility-range-properties" title="Link to this heading"></a></h2>
-<p>In the inspector of any node that inherits from GeometryInstance3D, you can adjust
-the following properties in the GeometryInstance3D's <strong>Visibility Range</strong> section:</p>
+<h2>Propiedades del rango de visibilidad<a class="headerlink" href="#visibility-range-properties" title="Link to this heading"></a></h2>
+<p>En el inspector de cualquier nodo que herede de GeometryInstance3D, puedes ajustar las siguientes propiedades en la sección <strong>Visibility Range</strong> de GeometryInstance3D:</p>
 <ul class="simple">
-<li><p><strong>Begin:</strong> The instance will be hidden when the camera is closer to the
-<em>center of the instance's AABB</em> (axis-aligned bounding box) than this value (in 3D units).</p></li>
-<li><p><strong>Begin Margin:</strong> The hysteresis or alpha fade transition distance to use for
-the close-up transition (in 3D units). The behavior of this property depends
-on <strong>Fade Mode</strong>.</p></li>
-<li><p><strong>End:</strong> The instance will be hidden when the camera is further away from the
-<em>center of the instance's AABB</em> than this value (in 3D units).</p></li>
-<li><p><strong>End Margin:</strong> The hysteresis or alpha fade transition distance to use for
-the far-away transition (in 3D units). The behavior of this property depends
-on <strong>Fade Mode</strong>.</p></li>
-<li><p><strong>Fade Mode:</strong> Controls how the transition between LOD levels should be performed.
-See below for details.</p></li>
+<li><p><strong>Begin:</strong> La instancia se ocultará cuando la cámara esté más cerca del <em>centro del AABB de la instancia</em> (caja delimitadora alineada con los ejes) que este valor (en unidades 3D).</p></li>
+<li><p><strong>Begin Margin:</strong> La distancia de margen de histéresis o de desvanecimiento alfa a usar para la transición cercana (en unidades 3D). El comportamiento de esta propiedad depende del <strong>Fade Mode</strong>.</p></li>
+<li><p><strong>End:</strong> La instancia se ocultará cuando la cámara esté más lejos del <em>centro del AABB de la instancia</em> que este valor (en unidades 3D).</p></li>
+<li><p><strong>End Margin:</strong> La distancia de margen de histéresis o de desvanecimiento alfa a usar para la transición lejana (en unidades 3D). El comportamiento de esta propiedad depende del <strong>Fade Mode</strong>.</p></li>
+<li><p><strong>Fade Mode:</strong> Controla cómo se debe realizar la transición entre los niveles de LOD. Consulta los detalles abajo.</p></li>
 </ul>
 <section id="fade-mode">
-<span id="doc-visibility-ranges-fade-mode"></span><h3>Fade mode<a class="headerlink" href="#fade-mode" title="Link to this heading"></a></h3>
+<span id="doc-visibility-ranges-fade-mode"></span><h3>Modo de desvanecimiento (Fade Mode)<a class="headerlink" href="#fade-mode" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The fade mode chosen only has a visible impact if either
-<strong>Visibility Range &gt; Begin Margin</strong> or <strong>Visibility Range &gt; End Margin</strong> is
-greater than <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
+<p>El modo de desvanecimiento elegido solo tiene un impacto visible si <strong>Visibility Range &gt; Begin Margin</strong> o <strong>Visibility Range &gt; End Margin</strong> es mayor que <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
 </div>
-<p>In the inspector's <strong>Visibility Range</strong> section, there are 3 fade modes to
-choose from:</p>
+<p>En la sección <strong>Visibility Range</strong> del inspector, hay 3 modos de desvanecimiento para elegir:</p>
 <ul class="simple">
-<li><p><strong>Disabled:</strong> Uses hysteresis to switch between LOD levels instantly. This
-prevents situations where LOD levels are switched back and forth quickly when
-the player moves forward and then backward at the LOD transition point. The
-hysteresis distance is determined by <strong>Visibility Range &gt; Begin Margin</strong> and
-<strong>Visibility Range &gt; End Margin</strong>. This mode provides the best performance as
-it doesn't force rendering to become transparent during the fade transition.</p></li>
-<li><p><strong>Self:</strong> Uses alpha blending to smoothly fade between LOD levels. The node
-will fade-out itself when reaching the limits of its own visibility range. The
-fade transition distance is determined by <strong>Visibility Range &gt; Begin Margin</strong>
-and <strong>Visibility Range &gt; End Margin</strong>. This mode forces transparent rendering
-on the object during its fade transition, so it has a performance impact.</p></li>
-<li><p><strong>Dependencies:</strong> Uses alpha blending to smoothly fade between LOD levels. The
-node will fade-in its dependencies when reaching the limits of its own
-visibility range. The fade transition distance is determined by <strong>Visibility
-Range &gt; Begin Margin</strong> and <strong>Visibility Range &gt; End Margin</strong>. This mode forces
-transparent rendering on the object during its fade transition, so it has a
-performance impact. This mode is intended for hierarchical LOD systems using
-<a class="reference internal" href="#doc-visibility-ranges-visibility-parent"><span class="std std-ref">Visibility parent</span></a>. It acts
-the same as <strong>Self</strong> if visibility ranges are used to perform non-hierarchical
-LOD.</p></li>
+<li><p><strong>Disabled:</strong> Utiliza histéresis para alternar entre niveles de LOD instantáneamente. Esto evita situaciones donde los niveles de LOD se alternen rápidamente cuando el jugador se mueve hacia adelante y hacia atrás en el punto de transición de LOD. La distancia de histéresis está determinada por <strong>Visibility Range &gt; Begin Margin</strong> y <strong>Visibility Range &gt; End Margin</strong>. Este modo proporciona el mejor rendimiento, ya que no fuerza a que el renderizado se vuelva transparente durante la transición de desvanecimiento.</p></li>
+<li><p><strong>Self:</strong> Utiliza mezcla alfa (<em>alpha blending</em>) para desvanecer suavemente entre niveles de LOD. El nodo se desvanecerá a sí mismo al alcanzar los límites de su propio rango de visibilidad. La distancia de transición está determinada por <strong>Visibility Range &gt; Begin Margin</strong> y <strong>Visibility Range &gt; End Margin</strong>. Este modo fuerza el renderizado transparente en el objeto durante su transición de desvanecimiento, por lo que tiene un impacto en el rendimiento.</p></li>
+<li><p><strong>Dependencies:</strong> Utiliza mezcla alfa (<em>alpha blending</em>) para desvanecer suavemente entre niveles de LOD. El nodo hará aparecer gradualmente (<em>fade-in</em>) a sus dependencias al alcanzar los límites de su propio rango de visibilidad. La distancia de transición está determinada por <strong>Visibility Range &gt; Begin Margin</strong> y <strong>Visibility Range &gt; End Margin</strong>. Este modo fuerza el renderizado transparente en el objeto durante su transición de desvanecimiento, por lo que impacta el rendimiento. Este modo está pensado para sistemas HLOD jerárquicos que utilizan <a class="reference internal" href="#doc-visibility-ranges-visibility-parent"><span class="std std-ref">Padre de visibilidad</span></a>. Actúa de la misma manera que <strong>Self</strong> si se utilizan rangos de visibilidad para realizar un LOD no jerárquico.</p></li>
 </ul>
 </section>
 <section id="visibility-parent">
-<span id="doc-visibility-ranges-visibility-parent"></span><h3>Visibility parent<a class="headerlink" href="#visibility-parent" title="Link to this heading"></a></h3>
-<p>The <strong>Visibility Parent</strong> property makes it easier to set up
-<abbr title="Hierarchical Level of Detail">HLOD</abbr>. It allows automatically hiding
-child nodes if its parent is visible given its current visibility range properties.</p>
+<span id="doc-visibility-ranges-visibility-parent"></span><h3>Padre de visibilidad (Visibility Parent)<a class="headerlink" href="#visibility-parent" title="Link to this heading"></a></h3>
+<p>La propiedad <strong>Visibility Parent</strong> facilita la configuración de <abbr title="Hierarchical Level of Detail / Nivel de Detalle Jerárquico">HLOD</abbr>. Permite ocultar automáticamente nodos hijos si su padre es visible según sus propiedades actuales de rango de visibilidad.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The target of <strong>Visibility Parent</strong> <em>must</em> inherit from
-<a class="reference internal" href="../../classes/class_geometryinstance3d.html#class-geometryinstance3d"><span class="std std-ref">GeometryInstance3D</span></a>.</p>
-<p>Despite its name, the <strong>Visibility Parent</strong> property <em>can</em> point to a node
-that is not a parent of the node in the scene tree. However, it is
-impossible to point <strong>Visibility Parent</strong> towards a child node, as this
-creates a dependency cycle which is not supported. You will get an error
-message in the Output panel if a dependency cycle occurs.</p>
+<p>El objetivo de <strong>Visibility Parent</strong> <em>debe</em> heredar de <a class="reference internal" href="../../classes/class_geometryinstance3d.html#class-geometryinstance3d"><span class="std std-ref">GeometryInstance3D</span></a>.</p>
+<p>A pesar de su nombre, la propiedad <strong>Visibility Parent</strong> <em>puede</em> apuntar a un nodo que no sea un padre del nodo en el árbol de escenas. Sin embargo, es imposible apuntar <strong>Visibility Parent</strong> hacia un nodo hijo, ya que esto crea un ciclo de dependencia no admitido. Recibirás un mensaje de error en el panel Salida (<em>Output</em>) si ocurre un ciclo de dependencias.</p>
 </div>
-<p>Given the following scene tree (where all nodes inherit from GeometryInstance3D):</p>
+<p>Dado el siguiente árbol de escenas (donde todos los nodos heredan de GeometryInstance3D):</p>
 <div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="err">┖╴</span><span class="nc">BatchOfHouses</span>
 <span class="w">    </span><span class="err">┠╴</span><span class="nc">House1</span>
 <span class="w">    </span><span class="err">┠╴</span><span class="nc">House2</span>
@@ -13179,97 +13111,54 @@ message in the Output panel if a dependency cycle occurs.</p>
 <span class="w">    </span><span class="err">┖╴</span><span class="nc">House4</span>
 </pre></div>
 </div>
-<p>In this example, <em>BatchOfHouses</em> is a large mesh designed to represent all child
-nodes when viewed at a distance. <em>House1</em> to <em>House4</em> are smaller
-MeshInstance3Ds representing individual houses. To configure HLOD in this
-example, we only need to configure two things:</p>
+<p>En este ejemplo, <em>BatchOfHouses</em> es una malla grande diseñada para representar a todos los nodos hijos cuando se ven a la distancia. <em>House1</em> a <em>House4</em> son MeshInstance3D más pequeños que representan casas individuales. Para configurar HLOD en este ejemplo, solo necesitamos configurar dos cosas:</p>
 <ul class="simple">
-<li><p>Set <strong>Visibility Range Begin</strong> to a number greater than <cite>0.0</cite> so that
-<em>BatchOfHouses</em> only appears when far away enough from the camera. Below this
-distance, we want <em>House1</em> to <em>House4</em> to be displayed instead.</p></li>
-<li><p>On <em>House1</em> to <em>House4</em>, assign the <strong>Visibility Parent</strong> property to <em>BatchOfHouses</em>.</p></li>
+<li><p>Establece <strong>Visibility Range Begin</strong> en un número mayor a <cite>0.0</cite> para que <em>BatchOfHouses</em> solo aparezca cuando esté suficientemente lejos de la cámara. Por debajo de esta distancia, queremos que se muestren <em>House1</em> a <em>House4</em> en su lugar.</p></li>
+<li><p>En <em>House1</em> a <em>House4</em>, asigna la propiedad <strong>Visibility Parent</strong> a <em>BatchOfHouses</em>.</p></li>
 </ul>
-<p>This makes it easier to perform further adjustments, as you don't need to adjust
-the <strong>Visibility Range Begin</strong> of <em>BatchOfHouses</em> and <strong>Visibility Range End</strong>
-of <em>House1</em> to <em>House4</em>.</p>
-<p>Fade mode is automatically handled by the <strong>Visibility Parent</strong> property, so
-that the child nodes only become hidden once the parent node is fully faded out.
-This is done to minimize visible pop-in. Depending on your <abbr title="Hierarchical Level of Detail">HLOD</abbr> setup, you may want to try both the <strong>Self</strong> and
-<strong>Dependencies</strong> <a class="reference internal" href="#doc-visibility-ranges-fade-mode"><span class="std std-ref">fade modes</span></a>.</p>
+<p>Esto facilita los ajustes posteriores, ya que no necesitas ajustar el <strong>Visibility Range Begin</strong> de <em>BatchOfHouses</em> y el <strong>Visibility Range End</strong> de <em>House1</em> a <em>House4</em>.</p>
+<p>El modo de desvanecimiento es gestionado automáticamente por la propiedad <strong>Visibility Parent</strong>, de modo que los nodos hijos solo se ocultan una vez que el nodo padre se ha desvanecido por completo. Esto se hace para minimizar la aparición brusca visible (<em>pop-in</em>). Dependiendo de tu configuración de <abbr title="Hierarchical Level of Detail">HLOD</abbr>, quizás quieras probar tanto el modo <strong>Self</strong> como <strong>Dependencies</strong> en los <a class="reference internal" href="#doc-visibility-ranges-fade-mode"><span class="std std-ref">modos de desvanecimiento</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Nodes hidden via the <strong>Visible</strong> property are essentially removed from the
-visibility dependency tree, so dependent instances will not take the hidden
-node or its ancestors into account.</p>
-<p>In practice, this means that if the target of the <strong>Visibility Parent</strong> node
-is hidden by setting its <strong>Visible</strong> property to <code class="docutils literal notranslate"><span class="pre">false</span></code>, the node will
-not be hidden according to the <strong>Visibility Range Begin</strong> value specified in
-the visibility parent.</p>
+<p>Los nodos ocultados mediante la propiedad <strong>Visible</strong> son esencialmente eliminados del árbol de dependencias de visibilidad, por lo que las instancias dependientes no tomarán en cuenta el nodo oculto ni a sus ancestros.</p>
+<p>En la práctica, esto significa que si el objetivo del nodo <strong>Visibility Parent</strong> se oculta estableciendo su propiedad <strong>Visible</strong> en <code class="docutils literal notranslate"><span class="pre">false</span></code>, el nodo no se ocultará según el valor de <strong>Visibility Range Begin</strong> especificado en el padre de visibilidad.</p>
 </div>
 </section>
 </section>
 <section id="configuration-tips">
-<h2>Configuration tips<a class="headerlink" href="#configuration-tips" title="Link to this heading"></a></h2>
+<h2>Consejos de configuración<a class="headerlink" href="#configuration-tips" title="Link to this heading"></a></h2>
 <section id="use-simpler-materials-at-a-distance-to-improve-performance">
-<h3>Use simpler materials at a distance to improve performance<a class="headerlink" href="#use-simpler-materials-at-a-distance-to-improve-performance" title="Link to this heading"></a></h3>
-<p>One way to further improve performance is to use simpler materials for distant
-LOD meshes. While using LOD meshes will reduce the number of vertices that need
-to be rendered, the per-pixel shading load for materials remains identical.
-However, per-pixel shading load is regularly a bottleneck on the GPU in complex
-3D scenes. One way to reduce this shading load on the GPU is to use simpler
-materials when they don't make much of a visual difference.</p>
-<p>Performance gains when doing so should be carefully measured, as
-increasing the number of <em>unique</em> materials in a scene has a performance cost on
-its own. Still, using simpler materials for distant LOD meshes can still result
-in a net performance gain as a result of the fewer per-pixel calculations
-required.</p>
-<p>For example, on the materials used by distant LOD meshes, you can disable
-expensive material features such as:</p>
+<h3>Usar materiales más simples a la distancia para mejorar el rendimiento<a class="headerlink" href="#use-simpler-materials-at-a-distance-to-improve-performance" title="Link to this heading"></a></h3>
+<p>Una forma de mejorar aún más el rendimiento es utilizar materiales más simples para las mallas LOD distantes. Si bien el uso de mallas LOD reducirá el número de vértices que deben renderizarse, la carga de sombreado por píxel para los materiales permanece idéntica. Sin embargo, la carga de sombreado por píxel suele ser un cuello de botella recurrente en la GPU en escenas 3D complejas. Una forma de reducir esta carga de sombreado en la GPU es utilizar materiales más simples cuando no supongan una gran diferencia visual.</p>
+<p>Las ganancias de rendimiento al hacer esto deben medirse con cuidado, ya que aumentar el número de materiales <em>únicos</em> en una escena tiene un costo de rendimiento propio. Aun así, utilizar materiales más simples para mallas LOD distantes puede resultar en una ganancia neta de rendimiento como resultado de requerir menos cálculos por píxel.</p>
+<p>Por ejemplo, en los materiales utilizados por mallas LOD lejanas, puedes desactivar características costosas de materiales como:</p>
 <ul class="simple">
-<li><p>Normal Map (especially on mobile platforms)</p></li>
+<li><p>Normal Map (especialmente en plataformas móviles)</p></li>
 <li><p>Rim</p></li>
 <li><p>Clearcoat</p></li>
 <li><p>Anisotropy (Anisotropía)</p></li>
 <li><p>Height (Altura)</p></li>
-<li><p>Subsurface Scatter (Dispersión Subsuperficial)</p></li>
-<li><p>Iluminación trasera</p></li>
+<li><p>Subsurface Scattering (Dispersión subsuperficial)</p></li>
+<li><p>Back Lighting (Iluminación trasera)</p></li>
 <li><p>Refraction (Refracción)</p></li>
 <li><p>Proximity Fade</p></li>
 </ul>
 </section>
 <section id="use-dithering-for-lod-transitions">
-<h3>Use dithering for LOD transitions<a class="headerlink" href="#use-dithering-for-lod-transitions" title="Link to this heading"></a></h3>
-<p>Godot currently only supports alpha-based fading for visibility ranges. You can
-however use dithering instead by using several different materials for different
-LOD levels.</p>
-<p>There are two advantages to using dithering over alpha blending for LOD transitions:</p>
+<h3>Usar tramado (dithering) para transiciones de LOD<a class="headerlink" href="#use-dithering-for-lod-transitions" title="Link to this heading"></a></h3>
+<p>Actualmente Godot solo admite desvanecimiento basado en alfa para rangos de visibilidad. Sin embargo, puedes utilizar tramado (<em>dithering</em>) usando varios materiales diferentes para distintos niveles de LOD.</p>
+<p>Hay dos ventajas al usar tramado sobre la mezcla alfa para transiciones de LOD:</p>
 <ul class="simple">
-<li><p>Higher performance, as dithering transparency is faster to render compared to
-alpha blending.</p></li>
-<li><p>No visual glitches due to
-<a class="reference internal" href="3d_rendering_limitations.html#doc-3d-rendering-limitations-transparency-sorting"><span class="std std-ref">transparency sorting issues</span></a>
-during LOD transitions.</p></li>
+<li><p>Mayor rendimiento, ya que la transparencia por tramado es más rápida de renderizar en comparación con la mezcla alfa.</p></li>
+<li><p>Sin anomalías visuales debidas a <a class="reference internal" href="3d_rendering_limitations.html#doc-3d-rendering-limitations-transparency-sorting"><span class="std std-ref">problemas de ordenamiento de transparencia</span></a> durante las transiciones de LOD.</p></li>
 </ul>
-<p>The downside of dithering is that a &quot;noisy&quot; pattern is visible during LOD fade
-transitions. This may not be as noticeable at higher viewport resolutions or
-when temporal antialiasing is enabled.</p>
-<p>Also, as distance fade in BaseMaterial3D only supports fading up close <em>or</em>
-fading when far away, this setup is best used with only two LODs as part of the
-setup.</p>
+<p>La desventaja del tramado es que se hace visible un patrón de &quot;ruido&quot; durante las transiciones de desvanecimiento de LOD. Esto puede no ser tan perceptible en resoluciones de visor más altas o cuando el antialiasing temporal (TAA) está activado.</p>
+<p>Además, como el desvanecimiento por distancia en BaseMaterial3D solo admite desvanecer de cerca <em>o</em> desvanecer cuando está lejos, esta configuración se aprovecha mejor con solo dos LOD como parte de la escena.</p>
 <ul class="simple">
-<li><p>Ensure <strong>Begin Margin</strong> and <strong>End Margin</strong> is set to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> on both
-MeshInstance3D nodes, as hysteresis or alpha fade are not desired here.</p></li>
-<li><p>On both MeshInstance3D nodes, <em>decrease</em> <strong>Begin</strong> by the desired fade transition
-distance and <em>increase</em> <strong>End</strong> by the same distance. This is required for the
-dithering transition to actually be visible.</p></li>
-<li><p>On the MeshInstance3D that is displayed up close, edit its material in the inspector.
-Set its <strong>Distance Fade</strong> mode to <strong>Object Dither</strong>. Set <strong>Min Distance</strong> to
-the same value as the visibility range <strong>End</strong>. Set <strong>Max Distance</strong> to the
-same value <em>minus</em> the fade transition distance.</p></li>
-<li><p>On the MeshInstance3D that is displayed far away, edit its material in the inspector.
-Set its <strong>Distance Fade</strong> mode to <strong>Object Dither</strong>. Set <strong>Min Distance</strong> to
-the same value as the visibility range <strong>Begin</strong>. Set <strong>Max Distance</strong> to the
-same value <em>plus</em> the fade transition distance.</p></li>
+<li><p>Asegúrate de que <strong>Begin Margin</strong> y <strong>End Margin</strong> estén establecidos en <code class="docutils literal notranslate"><span class="pre">0.0</span></code> en ambos nodos MeshInstance3D, ya que la histéresis o el desvanecimiento alfa no son deseados en este caso.</p></li>
+<li><p>En ambos nodos MeshInstance3D, <em>disminuye</em> <strong>Begin</strong> en la distancia de transición de desvanecimiento deseada y <em>aumenta</em> <strong>End</strong> en la misma distancia. Esto es necesario para que la transición por tramado sea realmente visible.</p></li>
+<li><p>En el MeshInstance3D que se muestra de cerca, edita su material en el inspector. Establece su modo <strong>Distance Fade</strong> en <strong>Object Dither</strong>. Establece <strong>Min Distance</strong> con el mismo valor que el <strong>End</strong> del rango de visibilidad. Establece <strong>Max Distance</strong> con el mismo valor <em>menos</em> la distancia de transición de desvanecimiento.</p></li>
+<li><p>En el MeshInstance3D que se muestra a la distancia, edita su material en el inspector. Establece su modo <strong>Distance Fade</strong> en <strong>Object Dither</strong>. Establece <strong>Min Distance</strong> con el mismo valor que el <strong>Begin</strong> del rango de visibilidad. Establece <strong>Max Distance</strong> con el mismo valor <em>más</em> la distancia de transición de desvanecimiento.</p></li>
 </ul>
 </section>
 </section>
@@ -13280,7 +13169,7 @@ same value <em>plus</em> the fade transition distance.</p></li>
 
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="mesh_lod.html" class="btn btn-neutral float-left" title="Mesh level of detail (LOD)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="mesh_lod.html" class="btn btn-neutral float-left" title="Nivel de detalle de malla (LOD)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
         <a href="occlusion_culling.html" class="btn btn-neutral float-right" title="Eliminación de oclusión" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -75,29 +75,29 @@ Cada tema consta de dos archivos sincronizados:
 ---
 
 ### 3. Rangos de visibilidad (HLOD) (`visibility_ranges`)
-- [ ] **Archivos objetivo:**
+- [x] **Archivos objetivo:**
   - `tutorials/3d/visibility_ranges.html`
   - `_sources/tutorials/3d/visibility_ranges.rst.txt`
-- [ ] **Título principal:**
-  - [ ] *Visibility ranges (HLOD)* -> *Rangos de visibilidad (HLOD)*
-- [ ] **Subsecciones a traducir:**
-  - [ ] **How it works** (*Cómo funciona*)
+- [x] **Título principal:**
+  - [x] *Visibility ranges (HLOD)* -> *Rangos de visibilidad (HLOD)*
+- [x] **Subsecciones a traducir:**
+  - [x] **How it works** (*Cómo funciona*)
     - Compatibilidad con derivados de `GeometryInstance3D` y cambio de tipo de nodo según distancia.
     - Concepto de HLOD (*Hierarchical Level of Detail*) para reducir *draw calls*.
     - Desvanecimiento total para reducir saturación visual (`Label3D`, etc.).
-  - [ ] **Setting up visibility range** (*Configuración del rango de visibilidad*)
+  - [x] **Setting up visibility range** (*Configuración del rango de visibilidad*)
     - Guía paso a paso: esfera cercana y caja lejana con margen de histéresis.
-  - [ ] **Visibility range properties** (*Propiedades del rango de visibilidad*)
+  - [x] **Visibility range properties** (*Propiedades del rango de visibilidad*)
     - Parámetros: `Begin`, `Begin Margin`, `End`, `End Margin`, `Fade Mode`.
-    - [ ] **Fade mode** (*Modo de desvanecimiento*)
+    - [x] **Fade mode** (*Modo de desvanecimiento*)
       - Modos: `Disabled` (histéresis inmediata), `Self` (desvanecimiento propio con alfa), `Dependencies` (desvanecimiento de dependencias).
-    - [ ] **Visibility parent** (*Padre de visibilidad*)
+    - [x] **Visibility parent** (*Padre de visibilidad*)
       - Jerarquía de visibilidad HLOD (ejemplo de lote de casas).
       - Manejo de ciclos y comportamiento con la propiedad `visible`.
-  - [ ] **Configuration tips** (*Consejos de configuración*)
-    - [ ] **Use simpler materials at a distance to improve performance** (*Usar materiales más simples a la distancia para mejorar el rendimiento*)
+  - [x] **Configuration tips** (*Consejos de configuración*)
+    - [x] **Use simpler materials at a distance to improve performance** (*Usar materiales más simples a la distancia para mejorar el rendimiento*)
       - Desactivación de características costosas (Normal Map, Rim, Subsurface Scattering, Refraction, etc.).
-    - [ ] **Use dithering for LOD transitions** (*Usar tramado (dithering) para transiciones de LOD*)
+    - [x] **Use dithering for LOD transitions** (*Usar tramado (dithering) para transiciones de LOD*)
       - Ventajas sobre alpha blending (mayor rendimiento, sin problemas de orden de transparencia).
       - Configuración con `BaseMaterial3D > Distance Fade -> Object Dither`.
 
