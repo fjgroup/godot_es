@@ -13056,9 +13056,9 @@
 <p>Cuanto más ancho sea el cilindro, más fácilmente el jugador será eliminado.</p>
 <p>A continuación, selecciona nuevamente el nodo <code class="docutils literal notranslate"><span class="pre">MobDetector</span></code> y en el <em>Inspector</em>, <strong>desactiva</strong> su propiedad <em>Monitorable</em>. Esto hace que otros nodos de física no puedan detectar el área. La propiedad complementaria <em>Monitoring</em> le permite detectar colisiones. Luego, elimina la conexión <em>Collision -&gt; Layer</em> y establece la máscara en la capa &quot;enemies&quot;.</p>
 <p><img alt="image3" src="../../_images/04.mob_detector_properties.webp" /></p>
-<p>When areas detect a collision, they emit signals. We're going to connect
-one to the <code class="docutils literal notranslate"><span class="pre">Player</span></code> node. Select <code class="docutils literal notranslate"><span class="pre">MobDetector</span></code> and go to the Signals dock, double-click the
-<code class="docutils literal notranslate"><span class="pre">body_entered</span></code> signal and connect it to the <code class="docutils literal notranslate"><span class="pre">Player</span></code></p>
+<p>Cuando las áreas detectan una colisión, emiten señales. Vamos a conectar
+una al nodo <code class="docutils literal notranslate"><span class="pre">Player</span></code>. Selecciona <code class="docutils literal notranslate"><span class="pre">MobDetector</span></code> y ve al panel de Señales, haz doble clic en la
+señal <code class="docutils literal notranslate"><span class="pre">body_entered</span></code> y conéctala a <code class="docutils literal notranslate"><span class="pre">Player</span></code>.</p>
 <p><img alt="image4" src="../../_images/05.body_entered_signal.webp" /></p>
 <p>El <em>MobDetector</em> emitirá <code class="docutils literal notranslate"><span class="pre">body_entered</span></code> cuando un nodo <a class="reference internal" href="../../classes/class_characterbody3d.html#class-characterbody3d"><span class="std std-ref">CharacterBody3D</span></a> o <a class="reference internal" href="../../classes/class_rigidbody3d.html#class-rigidbody3d"><span class="std std-ref">RigidBody3D</span></a> entre en él. Como solo tiene enmascarada la capa de física &quot;enemies&quot;, solo detectará los nodos <code class="docutils literal notranslate"><span class="pre">Mob</span></code>.</p>
 <p>En cuanto al código, vamos a hacer dos cosas: emitir una señal que luego utilizaremos para finalizar el juego y destruir al jugador. Podemos envolver estas operaciones en una función llamada <code class="docutils literal notranslate"><span class="pre">die()</span></code> que nos ayuda a poner una etiqueta descriptiva en el código.</p>
@@ -13104,8 +13104,8 @@ one to the <code class="docutils literal notranslate"><span class="pre">Player</
 <section id="ending-the-game">
 <h2>Finalizar el juego<a class="headerlink" href="#ending-the-game" title="Link to this heading"></a></h2>
 <p>Podemos utilizar la señal <code class="docutils literal notranslate"><span class="pre">hit</span></code> de <code class="docutils literal notranslate"><span class="pre">Player</span></code> para finalizar el juego. Todo lo que necesitamos hacer es conectarla al nodo <code class="docutils literal notranslate"><span class="pre">Main</span></code> y detener el <code class="docutils literal notranslate"><span class="pre">MobTimer</span></code> en consecuencia.</p>
-<p>Open <code class="docutils literal notranslate"><span class="pre">main.tscn</span></code>, select the <code class="docutils literal notranslate"><span class="pre">Player</span></code> node, and in the <em>Signals</em> dock,
-connect its <code class="docutils literal notranslate"><span class="pre">hit</span></code> signal to the <code class="docutils literal notranslate"><span class="pre">Main</span></code> node.</p>
+<p>Abre <code class="docutils literal notranslate"><span class="pre">main.tscn</span></code>, selecciona el nodo <code class="docutils literal notranslate"><span class="pre">Player</span></code> y en el panel de <em>Señales</em>,
+conecta su señal <code class="docutils literal notranslate"><span class="pre">hit</span></code> al nodo <code class="docutils literal notranslate"><span class="pre">Main</span></code>.</p>
 <p><img alt="image5" src="../../_images/06.player_hit_signal.webp" /></p>
 <p>Obtén y detén el temporizador en la función <code class="docutils literal notranslate"><span class="pre">_on_player_hit()</span></code>.</p>
 <div class="sphinx-tabs docutils container">
@@ -13124,8 +13124,8 @@ connect its <code class="docutils literal notranslate"><span class="pre">hit</sp
 <p>Si pruebas el juego ahora, los monstruos dejarán de aparecer cuando mueras y los que queden desaparecerán de la pantalla.</p>
 <p>Observa también que el juego ya no se bloquea ni muestra un error cuando muere el jugador . Esto se debe a que hemos detenido el MobTimer, por lo que ya no activa la función <code class="docutils literal notranslate"><span class="pre">_on_mob_timer_timeout()</span></code>.</p>
 <p>También nota que la colisión del enemigo con el jugador y su muerte dependen del tamaño y posición de las figuras de colisión de <code class="docutils literal notranslate"><span class="pre">Player</span></code> y <code class="docutils literal notranslate"><span class="pre">Mob</span></code>. Es posible que necesites moverlas y redimensionarlas para lograr una mejor experiencia de juego.</p>
-<p>You can pat yourself on the back: you prototyped a complete 3D game,
-even if it's still a bit rough.</p>
+<p>Puedes darte una palmadita en la espalda: has creado el prototipo de un juego 3D completo,
+aunque todavía sea un poco básico.</p>
 <p>A partir de ahí, agregaremos un puntaje, la opción de volver a intentar el juego y verás cómo puedes hacer que el juego se sienta mucho más vivo con animaciones minimalistas.</p>
 </section>
 <section id="code-checkpoint">

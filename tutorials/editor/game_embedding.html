@@ -13039,250 +13039,239 @@
 
   
   <section id="game-embedding">
-<span id="doc-game-embedding"></span><h1>Game embedding<a class="headerlink" href="#game-embedding" title="Link to this heading"></a></h1>
+<span id="doc-game-embedding"></span><h1>Incrustación del juego<a class="headerlink" href="#game-embedding" title="Link to this heading"></a></h1>
 <p>Godot permite opcionalmente ejecutar el juego en el propio editor. Esto está habilitado por defecto.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>El juego siempre se ejecuta en un proceso separado, sin importar el modo de incrustación utilizado. Esto significa que, si el juego se cuelga, no va a colgarse el editor.</p>
 </div>
 <section id="configuring-game-embedding">
-<h2>Configuring game embedding<a class="headerlink" href="#configuring-game-embedding" title="Link to this heading"></a></h2>
-<p>Game embedding can be in one of 3 states:</p>
+<h2>Configurar la incrustación del juego<a class="headerlink" href="#configuring-game-embedding" title="Link to this heading"></a></h2>
+<p>La incrustación del juego puede encontrarse en uno de 3 estados:</p>
 <ul class="simple">
 <li><p><strong>Ventana flotante</strong> <em>(por defecto)</em>: El juego se ejecuta en una ventana separada, con una barra de juego arriba que permite ajustar la configuración y seleccionar nodos en el juego incrustado. Al presionar el botón <span class="role-button role-ui">Game</span> de la pantalla principal, se enfoca la ventana flotante.</p></li>
 <li><p><strong>Ventana principal:</strong> El juego se ejecuta en el editor, con una barra de juego arriba que permite ajustar la configuración y seleccionar nodos en el juego incrustado. Al presionar el bottón <span class="role-button role-ui">Game</span> de la pantalla principal, se cambia a la pestaña con el proyecto que se está ejecutando.</p></li>
 <li><p><strong>Deshabilitado:</strong> El juego se ejecuta en una ventana separada, como si fuera un proyecto exportado. La barra de juego arriba no está presente, y no es posible seleccionar nodos en el juego incrustado.</p></li>
 </ul>
-<p>To configure this functionality, click the Game main screen at the top of the editor:</p>
+<p>Para configurar esta funcionalidad, haz clic en la pantalla principal Game en la parte superior del editor:</p>
 <figure class="align-center" id="id1">
 <img alt="Accessing the Game embedding main screen" src="../../_images/game_embedding_main_screen.webp" />
 <figcaption>
-<p><span class="caption-text">Accessing the Game embedding main screen</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Acceso a la pantalla principal de incrustación del juego</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Once on the Game main screen, click the dropdown menu in the top-right corner of the Game bar:</p>
+<p>Una vez en la pantalla principal Game, haz clic en el menú desplegable en la esquina superior derecha de la barra de Juego:</p>
 <figure class="align-center" id="id2">
 <img alt="Game embedding mode dropdown" src="../../_images/game_embedding_mode_dropdown.webp" />
 <figcaption>
-<p><span class="caption-text">Game embedding mode dropdown</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Menú desplegable del modo de incrustación del juego</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Two options are available to configure the game embedding mode:</p>
+<p>Hay dos opciones disponibles para configurar el modo de incrustación del juego:</p>
 <ul class="simple">
-<li><p><strong>Embed Game on Next Play:</strong> If enabled, game embedding is enabled and the
-Game bar is available for use on the running game.</p></li>
-<li><p><strong>Make Window Floating on Next Play:</strong> If enabled, the game runs in a floating window.
-If disabled, the game runs in the main editor window.</p></li>
+<li><p><strong>Incrustar juego en la siguiente reproducción:</strong> Si está habilitado, la incrustación del juego se activa y la
+barra de Juego está disponible para usarse en el juego en ejecución.</p></li>
+<li><p><strong>Hacer que la ventana sea flotante en la siguiente reproducción:</strong> Si está habilitado, el juego se ejecuta en una ventana flotante.
+Si está deshabilitado, el juego se ejecuta en la ventana principal del editor.</p></li>
 </ul>
 <section id="embedded-window-sizing">
-<h3>Embedded window sizing<a class="headerlink" href="#embedded-window-sizing" title="Link to this heading"></a></h3>
-<p>As seen in the dropdown menu on the right of the Game bar, there are several
-choices available to configure the embedded window size behavior. This affects
-both the floating and main window embedding modes:</p>
+<h3>Dimensionamiento de la ventana incrustada<a class="headerlink" href="#embedded-window-sizing" title="Link to this heading"></a></h3>
+<p>Como se aprecia en el menú desplegable a la derecha de la barra de Juego, hay varias
+opciones disponibles para configurar el comportamiento del tamaño de la ventana incrustada. Esto afecta
+tanto al modo de incrustación en ventana flotante como en la ventana principal:</p>
 <ul class="simple">
-<li><p><strong>Fixed Size</strong> <em>(default)</em>: Set the viewport size to a fixed resolution, as configured in the Project Settings.
-If both <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-window-width-override"><span class="std std-ref">display/window/size/window_width_override</span></a>
-and <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-window-height-override"><span class="std std-ref">display/window/size/window_height_override</span></a>
-are set above <code class="docutils literal notranslate"><span class="pre">0</span></code>, this override is used instead.</p></li>
-<li><p><strong>Keep Aspect Ratio:</strong> The viewport size stretches to match the game window size,
-but always follows the aspect ratio defined by the <code class="docutils literal notranslate"><span class="pre">width</span> <span class="pre">/</span> <span class="pre">height</span></code> as configured
-in the Project Settings.</p></li>
-<li><p><strong>Stretch to Fit</strong>: The viewport size stretches to match the game window size,
-and may use an aspect ratio different than the one defined by the <code class="docutils literal notranslate"><span class="pre">width</span> <span class="pre">/</span> <span class="pre">height</span></code>
-as configured in the Project Settings. This matches the behavior when game
-embedding is disabled.</p></li>
+<li><p><strong>Tamaño fijo</strong> <em>(por defecto)</em>: Establece el tamaño del viewport a una resolución fija, tal como se configura en la Configuración del Proyecto.
+Si tanto <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-window-width-override"><span class="std std-ref">display/window/size/window_width_override</span></a>
+como <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-display-window-size-window-height-override"><span class="std std-ref">display/window/size/window_height_override</span></a>
+están configurados por encima de <code class="docutils literal notranslate"><span class="pre">0</span></code>, se utiliza esta sobreescritura en su lugar.</p></li>
+<li><p><strong>Mantener relación de aspecto:</strong> El tamaño del viewport se estira para coincidir con el tamaño de la ventana del juego,
+pero siempre respeta la relación de aspecto definida por <code class="docutils literal notranslate"><span class="pre">ancho</span> <span class="pre">/</span> <span class="pre">alto</span></code> según lo configurado
+en la Configuración del Proyecto.</p></li>
+<li><p><strong>Estirar para ajustar</strong>: El tamaño del viewport se estira para coincidir con el tamaño de la ventana del juego,
+y puede usar una relación de aspecto diferente a la definida por <code class="docutils literal notranslate"><span class="pre">ancho</span> <span class="pre">/</span> <span class="pre">alto</span></code>
+según lo configurado en la Configuración del Proyecto. Esto coincide con el comportamiento cuando la incrustación
+del juego está deshabilitada.</p></li>
 </ul>
-<p>These options have no effect when game embedding is disabled.</p>
+<p>Estas opciones no tienen ningún efecto cuando la incrustación del juego está deshabilitada.</p>
 </section>
 </section>
 <section id="features">
 <h2>Características<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
-<p>When game embedding is enabled, several features can be adjusted while the
-project is running using the Game bar at the top.</p>
+<p>Cuando la incrustación del juego está habilitada, se pueden ajustar varias características mientras el
+proyecto se está ejecutando mediante la barra de Juego en la parte superior.</p>
 <figure class="align-center" id="id3">
 <img alt="Game bar at the top of the embedded game window" src="../../_images/game_embedding_game_bar.webp" />
 <figcaption>
-<p><span class="caption-text">Game bar at the top of the embedded game window</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Barra de Juego en la parte superior de la ventana del juego incrustado</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>In order from left to right:</p>
+<p>En orden de izquierda a derecha:</p>
 <section id="pause-f9">
-<h3>Pause (F9)<a class="headerlink" href="#pause-f9" title="Link to this heading"></a></h3>
-<p>Pauses/resumes the game. When paused, the game will stop processing physics and
-idle frames, but it will still render and process input. This allows you to
-<a class="reference internal" href="#doc-game-embedding-interaction-mode"><span class="std std-ref">select nodes in the scene</span></a> and
-inspect their properties in the editor inspector while the game is running.</p>
+<h3>Pausa (F9)<a class="headerlink" href="#pause-f9" title="Link to this heading"></a></h3>
+<p>Pausa o reanuda el juego. Cuando está en pausa, el juego dejará de procesar físicas y
+cuadros inactivos, pero continuará renderizando y procesando entradas. Esto te permite
+<a class="reference internal" href="#doc-game-embedding-interaction-mode"><span class="std std-ref">seleccionar nodos en la escena</span></a> e
+inspeccionar sus propiedades en el inspector del editor mientras el juego está en ejecución.</p>
 </section>
 <section id="frame-advance-f10">
-<h3>Frame advance (F10)<a class="headerlink" href="#frame-advance-f10" title="Link to this heading"></a></h3>
-<p>Only available when the game is paused. Advances the game by one frame,
-allowing you to inspect the state of the game at a specific moment in time.
-This can be used to diagnose short-lived interactions (such as collisions)
-that are hard to inspect when the game is running at full speed.</p>
+<h3>Avanzar fotograma (F10)<a class="headerlink" href="#frame-advance-f10" title="Link to this heading"></a></h3>
+<p>Disponible únicamente cuando el juego está en pausa. Avanza el juego un fotograma,
+lo que permite inspeccionar el estado del juego en un momento específico en el tiempo.
+Esto se puede utilizar para diagnosticar interacciones de corta duración (como colisiones)
+que son difíciles de inspeccionar cuando el juego se ejecuta a toda velocidad.</p>
 </section>
 <section id="game-speed">
-<h3>Game speed<a class="headerlink" href="#game-speed" title="Link to this heading"></a></h3>
-<p>This option is a menu that can adjust the game speed. If the game sets
-<a class="reference internal" href="../../classes/class_engine.html#class-engine-property-time-scale"><span class="std std-ref">Engine.time_scale</span></a> at runtime, it will
-be multiplied by the value set here.</p>
+<h3>Velocidad del juego<a class="headerlink" href="#game-speed" title="Link to this heading"></a></h3>
+<p>Esta opción es un menú que permite ajustar la velocidad del juego. Si el juego establece
+<a class="reference internal" href="../../classes/class_engine.html#class-engine-property-time-scale"><span class="std std-ref">Engine.time_scale</span></a> en tiempo de ejecución, este
+se multiplicará por el valor establecido aquí.</p>
 <figure class="align-center" id="id4">
 <img alt="Game speed dropdown on the left of the Game bar" src="../../_images/game_embedding_game_speed_dropdown.webp" />
 <figcaption>
-<p><span class="caption-text">Game speed dropdown on the left of the Game bar</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Menú desplegable de velocidad del juego a la izquierda de la barra de Juego</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>This can be used to view interactions in slow motion, or speed up the game
-significantly to test mechanics that normally take a long time to occur.</p>
-<p>The reset button to the right of the dropdown resets the game speed to normal (1.0×).</p>
+<p>Esto se puede usar para ver interacciones en cámara lenta o acelerar el juego
+significativamente para probar mecánicas que normalmente toman mucho tiempo en ocurrir.</p>
+<p>El botón de reinicio a la derecha del desplegable restablece la velocidad del juego a la normal (1.0×).</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>When adjusting the game speed using this mechanism, the physics tick rate
-(determined by the
-<a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-physics-common-physics-ticks-per-second"><span class="std std-ref">physics/common/physics_ticks_per_second</span></a>
-project setting) is automatically multiplied by the game speed.
-This allows the game logic to run at a different speed without affecting the
-physics simulation. For example:</p>
+<p>Al ajustar la velocidad del juego con este mecanismo, la frecuencia de ticks de física
+(determinada por el ajuste de proyecto
+<a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-physics-common-physics-ticks-per-second"><span class="std std-ref">physics/common/physics_ticks_per_second</span></a>)
+se multiplica automáticamente por la velocidad del juego.
+Esto permite que la lógica del juego se ejecute a una velocidad diferente sin alterar la
+simulación física. Por ejemplo:</p>
 <ul class="simple">
-<li><p>If you set the game speed to 0.5, the physics tick rate is halved.</p></li>
-<li><p>If you set the game speed to 4.0, the physics tick rate is quadrupled.</p></li>
+<li><p>Si estableces la velocidad del juego en 0.5, la frecuencia de ticks de física se reduce a la mitad.</p></li>
+<li><p>Si estableces la velocidad del juego en 4.0, la frecuencia de ticks de física se cuadruplica.</p></li>
 </ul>
-<p>The <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-physics-common-max-physics-steps-per-frame"><span class="std std-ref">maximum number of physics steps per frame</span></a>
-is also increased to match the new physics tick rate, but it will not
-decrease below the default value when running in slow motion.</p>
+<p>El <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-physics-common-max-physics-steps-per-frame"><span class="std std-ref">número máximo de pasos de física por cuadro</span></a>
+también se incrementa para coincidir con la nueva frecuencia de ticks de física, pero no
+disminuirá por debajo del valor predeterminado cuando se ejecute en cámara lenta.</p>
 </div>
 </section>
 <section id="interaction-mode">
-<span id="doc-game-embedding-interaction-mode"></span><h3>Interaction mode<a class="headerlink" href="#interaction-mode" title="Link to this heading"></a></h3>
-<p>This controls the behavior when clicking or pressing keys while the embedded game window
-has focus.</p>
+<span id="doc-game-embedding-interaction-mode"></span><h3>Modo de interacción<a class="headerlink" href="#interaction-mode" title="Link to this heading"></a></h3>
+<p>Esto controla el comportamiento al hacer clic o presionar teclas mientras la ventana del juego incrustado
+tiene el foco.</p>
 <ul class="simple">
-<li><p><strong>Input</strong> <em>(default)</em>: Allow game input as usual.</p></li>
-<li><p><strong>2D:</strong> Disable game input and allow selecting Node2Ds, Controls, and
-manipulating the 2D camera.</p></li>
-<li><p><strong>3D:</strong> Disable game input and allow selecting Node3Ds and manipulating the 3D camera.</p></li>
+<li><p><strong>Entrada</strong> <em>(por defecto)</em>: Permite la entrada en el juego como de costumbre.</p></li>
+<li><p><strong>2D:</strong> Deshabilita la entrada del juego y permite seleccionar Node2D, Controls y
+manipular la cámara 2D.</p></li>
+<li><p><strong>3D:</strong> Deshabilita la entrada del juego y permite seleccionar Node3D y manipular la cámara 3D.</p></li>
 </ul>
-<p>Nodes that are selected in the 2D and 3D modes can be inspected in the editor's
-inspector, just like if they were selected in the editor. This allows you to
-inspect and modify properties of nodes in the running game.</p>
+<p>Los nodos seleccionados en los modos 2D y 3D se pueden inspeccionar en el
+inspector del editor, tal como si hubieran sido seleccionados en el editor. Esto te permite
+inspeccionar y modificar propiedades de los nodos en el juego en ejecución.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Like in the Remote scene tree, changes made to the running game this way are
-not preserved when the game is stopped.</p>
-<p>To make changes that are preserved after stopping the game, you need to select
-the nodes in the editor's Local scene tree and modify them from there while the game
-is running instead. Make sure <span class="role-menu role-ui">Debug &gt; Synchronize Scene Changes</span> is enabled
-when doing this.</p>
+<p>Al igual que en el árbol de escenas remoto, los cambios realizados en el juego en ejecución de esta manera
+no se conservan cuando se detiene el juego.</p>
+<p>Para realizar cambios que se conserven tras detener el juego, debes seleccionar
+los nodos en el árbol de escenas local del editor y modificarlos desde allí mientras el juego
+está en ejecución. Asegúrate de tener habilitado <span class="role-menu role-ui">Depurar &gt; Sincronizar Cambios de Escena</span>
+al hacer esto.</p>
 </div>
 </section>
 <section id="select-mode">
-<h3>Select mode<a class="headerlink" href="#select-mode" title="Link to this heading"></a></h3>
-<p><em>Only effective if the interaction mode is 2D or 3D, not Input.</em></p>
-<p>When enabling this option, the &quot;show list of selectable nodes at position
-clicked&quot; mode is disabled. However, you can still perform this action in select
-mode by using <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Alt</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Right</kbd> <kbd class="kbd docutils literal notranslate">mouse</kbd> <kbd class="kbd docutils literal notranslate">button</kbd></kbd> at the desired location.</p>
+<h3>Modo de selección<a class="headerlink" href="#select-mode" title="Link to this heading"></a></h3>
+<p><em>Solo tiene efecto si el modo de interacción es 2D o 3D, no Entrada.</em></p>
+<p>Al habilitar esta opción, el modo &quot;mostrar lista de nodos seleccionables en la posición
+clicada&quot; se deshabilita. Sin embargo, todavía puedes realizar esta acción en el modo selección
+utilizando <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Alt</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Botón</kbd> <kbd class="kbd docutils literal notranslate">derecho</kbd> <kbd class="kbd docutils literal notranslate">del</kbd> <kbd class="kbd docutils literal notranslate">ratón</kbd></kbd> en la ubicación deseada.</p>
 </section>
 <section id="show-list-of-selectable-nodes-at-position-clicked">
-<h3>Show list of selectable nodes at position clicked<a class="headerlink" href="#show-list-of-selectable-nodes-at-position-clicked" title="Link to this heading"></a></h3>
-<p><em>Only effective if the interaction mode is 2D or 3D, not Input.</em></p>
-<p>Like in the editor, this shows a list of selectable nodes at the position
-clicked. This is useful when multiple nodes are overlapping and you want to
-select a specific one. When enabling this option, select mode is disabled.</p>
+<h3>Mostrar lista de nodos seleccionables en la posición clicada<a class="headerlink" href="#show-list-of-selectable-nodes-at-position-clicked" title="Link to this heading"></a></h3>
+<p><em>Solo tiene efecto si el modo de interacción es 2D o 3D, no Entrada.</em></p>
+<p>Al igual que en el editor, esto muestra una lista de nodos seleccionables en la posición
+clicada. Es útil cuando varios nodos se superponen y deseas seleccionar
+uno en específico. Al habilitar esta opción, el modo selección se desactiva.</p>
 </section>
 <section id="toggle-selection-visibility">
-<h3>Toggle selection visibility<a class="headerlink" href="#toggle-selection-visibility" title="Link to this heading"></a></h3>
-<p><em>Only effective if the interaction mode is 2D or 3D, not Input.</em></p>
-<p>By default, the selected node in 2D or 3D interaction mode is highlighted with
-an orange rectangle or box (like in the editor).</p>
-<p>When this option is enabled, it appears as a closed eye icon. Future selections
-will not be highlighted in the game view, but are still selected for inspection
-in the inspector. This is useful to avoid visual clutter.</p>
+<h3>Alternar visibilidad de la selección<a class="headerlink" href="#toggle-selection-visibility" title="Link to this heading"></a></h3>
+<p><em>Solo tiene efecto si el modo de interacción es 2D o 3D, no Entrada.</em></p>
+<p>De forma predeterminada, el nodo seleccionado en el modo de interacción 2D o 3D se resalta con
+un rectángulo o caja naranja (igual que en el editor).</p>
+<p>Cuando esta opción está habilitada, aparece como un icono de ojo cerrado. Las selecciones futuras
+no se resaltarán en la vista del juego, pero seguirán seleccionadas para su inspección
+en el inspector. Esto resulta útil para evitar sobrecarga visual.</p>
 </section>
 <section id="selection-advanced-options">
-<h3>Selection advanced options<a class="headerlink" href="#selection-advanced-options" title="Link to this heading"></a></h3>
-<p>Two advanced options are available in the dropdown menu next to the select mode icons:</p>
+<h3>Opciones avanzadas de selección<a class="headerlink" href="#selection-advanced-options" title="Link to this heading"></a></h3>
+<p>Hay dos opciones avanzadas disponibles en el menú desplegable junto a los iconos de modo de selección:</p>
 <ul class="simple">
-<li><p><strong>Don't Select Locked Nodes:</strong> When enabled, nodes that are locked in the
-editor cannot be selected. This mimics editor behavior.</p></li>
-<li><p><strong>Select Group over Children:</strong> When enabled, grouped nodes are selected
-instead of their individual children. This mimics editor behavior.</p></li>
+<li><p><strong>No seleccionar nodos bloqueados:</strong> Cuando está habilitado, los nodos que están bloqueados en el
+editor no se pueden seleccionar. Esto imita el comportamiento del editor.</p></li>
+<li><p><strong>Seleccionar grupo en lugar de hijos:</strong> Cuando está habilitado, se seleccionan los nodos agrupados
+en lugar de sus hijos individuales. Esto imita el comportamiento del editor.</p></li>
 </ul>
 </section>
 <section id="mute-game-audio">
-<h3>Mute game audio<a class="headerlink" href="#mute-game-audio" title="Link to this heading"></a></h3>
-<p>This mutes game audio when enabled, without affecting the editor or other
-applications. This is particularly useful on macOS and Android, which do not
-come with a per-application volume slider out of the box.</p>
+<h3>Silenciar audio del juego<a class="headerlink" href="#mute-game-audio" title="Link to this heading"></a></h3>
+<p>Esto silencia el audio del juego cuando está activado, sin afectar al editor ni a otras
+aplicaciones. Es particularmente útil en macOS y Android, que no cuentan
+con un control de volumen por aplicación de manera predeterminada.</p>
 </section>
 <section id="camera-override">
-<h3>Camera override<a class="headerlink" href="#camera-override" title="Link to this heading"></a></h3>
-<p>When enabled, the camera stops following the game camera. You can then move the
-2D/3D camera freely by switching to the 2D/3D interaction mode and using the
-typical navigation controls:</p>
+<h3>Sobreescritura de cámara (Camera override)<a class="headerlink" href="#camera-override" title="Link to this heading"></a></h3>
+<p>Cuando está habilitada, la cámara deja de seguir a la cámara del juego. Luego puedes mover la
+cámara 2D/3D libremente cambiando al modo de interacción 2D/3D y utilizando los
+controles de navegación convencionales:</p>
 <ul class="simple">
-<li><p>In the 2D interaction mode, use the middle mouse button (or
-<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Space</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Left</kbd> <kbd class="kbd docutils literal notranslate">mouse</kbd> <kbd class="kbd docutils literal notranslate">button</kbd></kbd>) to pan around and the mouse wheel to zoom.</p></li>
-<li><p>In the 3D interaction mode, hold the right mouse button and press <kbd class="kbd docutils literal notranslate">W</kbd>,
-<kbd class="kbd docutils literal notranslate">A</kbd>, <kbd class="kbd docutils literal notranslate">S</kbd>, and <kbd class="kbd docutils literal notranslate">D</kbd> to use freelook. Use the middle mouse button to
-orbit, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Middle</kbd> <kbd class="kbd docutils literal notranslate">mouse</kbd> <kbd class="kbd docutils literal notranslate">button</kbd></kbd> to pan, and the mouse wheel to zoom.
-Additionally, you can use <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Minus</kbd></kbd>, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Plus</kbd></kbd>, and <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">0</kbd></kbd>
-to control the field of view (relative to the game's own camera FOV).</p></li>
+<li><p>En el modo de interacción 2D, usa el botón central del ratón (o
+<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Espacio</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Botón</kbd> <kbd class="kbd docutils literal notranslate">izquierdo</kbd> <kbd class="kbd docutils literal notranslate">del</kbd> <kbd class="kbd docutils literal notranslate">ratón</kbd></kbd>) para desplazarte y la rueda del ratón para hacer zoom.</p></li>
+<li><p>En el modo de interacción 3D, mantén presionado el botón derecho del ratón y presiona <kbd class="kbd docutils literal notranslate">W</kbd>,
+<kbd class="kbd docutils literal notranslate">A</kbd>, <kbd class="kbd docutils literal notranslate">S</kbd> y <kbd class="kbd docutils literal notranslate">D</kbd> para usar la vista libre (freelook). Usa el botón central del ratón para
+orbitar, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Botón</kbd> <kbd class="kbd docutils literal notranslate">central</kbd> <kbd class="kbd docutils literal notranslate">del</kbd> <kbd class="kbd docutils literal notranslate">ratón</kbd></kbd> para desplazarte y la rueda del ratón para hacer zoom.
+Además, puedes usar <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Menos</kbd></kbd>, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Más</kbd></kbd> y <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">0</kbd></kbd>
+para controlar el campo de visión (en relación con el propio campo de visión de la cámara del juego).</p></li>
 </ul>
-<p>This is useful to inspect parts of the scene that are not visible from the game
-camera's point of view, or to inspect the game camera itself. When the camera
-override is disabled, the camera will snap back to the game camera's point of
-view.</p>
-<p>When disabling camera override, the overridden camera's position and rotation
-are not reset. This allows you to quickly toggle back and forth between the game
-camera and the overridden camera.</p>
+<p>Esto es útil para inspeccionar partes de la escena que no son visibles desde el punto de vista
+de la cámara del juego, o para inspeccionar la propia cámara del juego. Cuando se deshabilita la sobreescritura
+de cámara, la cámara volverá a colocarse en el punto de vista de la cámara del juego.</p>
+<p>Al deshabilitar la sobreescritura de cámara, la posición y rotación de la cámara sobreescrita
+no se restablecen. Esto te permite alternar rápidamente entre la cámara del juego
+y la cámara sobreescrita.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>If the camera override appears to be non-interactive, make sure to be in the
-2D or 3D interaction mode. The camera override will keep working while in
-the Input interaction mode, but you won't be able to move the overridden
-camera while in that mode (unless using the <strong>Manipulate From Editors</strong>
-camera override mode as described below).</p>
-<p>When overriding the 2D/3D camera, the project's scripts are not aware of
-this camera override. Keep this in mind when inspecting properties that
-depend on the camera position, as they will account for the original camera
-position instead.</p>
+<p>Si la sobreescritura de cámara parece no responder, asegúrate de estar en el modo de
+interacción 2D o 3D. La sobreescritura de cámara seguirá funcionando mientras estés en el
+modo de interacción de Entrada, pero no podrás mover la cámara sobreescrita mientras estés en ese
+modo (a menos que utilices el modo de sobreescritura <strong>Manipular desde los editores</strong>
+tal como se describe más abajo).</p>
+<p>Al sobreescribir la cámara 2D/3D, los scripts del proyecto no son conscientes de
+esta sobreescritura. Ten esto en cuenta al inspeccionar propiedades que dependan de la
+posición de la cámara, ya que tomarán en cuenta la posición de la cámara original en su lugar.</p>
 </div>
 </section>
 <section id="camera-override-options">
-<h3>Camera override options<a class="headerlink" href="#camera-override-options" title="Link to this heading"></a></h3>
+<h3>Opciones de sobreescritura de cámara<a class="headerlink" href="#camera-override-options" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Reset 2D/3D Camera:</strong> Resets the 2D/3D camera to the position and rotation
-defined by the game. Note that the camera will still be frozen in place until
-you disable camera override.</p></li>
-<li><p><strong>Manipulate In-Game</strong> <em>(default)</em>: The camera override is controlled from the game window.
-This allows controlling the camera without needing to switch back to the editor.</p></li>
-<li><p><strong>Manipulate From Editors:</strong> The camera override is controlled from the editor
-window. This can be useful on multi-monitor setups where the editor can be
-displayed side-by-side with the running project. Also, when using this option,
-the camera override position can be remembered across project runs, since it
-will reuse the editor camera position directly when enabled.</p></li>
+<li><p><strong>Restablecer cámara 2D/3D:</strong> Restablece la cámara 2D/3D a la posición y rotación
+definidas por el juego. Ten en cuenta que la cámara seguirá congelada en su lugar hasta
+que deshabilites la sobreescritura de cámara.</p></li>
+<li><p><strong>Manipular en el juego</strong> <em>(por defecto)</em>: La sobreescritura de cámara se controla desde la ventana del juego.
+Esto permite controlar la cámara sin necesidad de volver al editor.</p></li>
+<li><p><strong>Manipular desde los editores:</strong> La sobreescritura de cámara se controla desde la ventana del editor.
+Esto puede ser útil en configuraciones multimonitor donde el editor se puede visualizar en paralelo con el proyecto en ejecución. Además, al usar esta opción, la posición de sobreescritura de la cámara se puede recordar entre ejecuciones del proyecto, ya que reutilizará la posición de la cámara del editor directamente al habilitarse.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The camera override may appear less smooth while using the
-<strong>Manipulate From Editors</strong> camera override mode, as a result of using
-local network communication between the editor and the game to
-update the camera position.</p>
+<p>La sobreescritura de cámara puede parecer menos fluida al utilizar el modo
+<strong>Manipular desde los editores</strong>, como resultado de utilizar la comunicación de red
+local entre el editor y el juego para actualizar la posición de la cámara.</p>
 </div>
 </section>
 </section>
 <section id="limitations">
 <h2>Limitaciones<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
-<p>Game embedding has a number of limitations to be aware of:</p>
+<p>La incrustación del juego tiene una serie de limitaciones a tener en cuenta:</p>
 <ul class="simple">
-<li><p>In the Android editor, game embedding always uses a floating window.
-By default, the floating window is kept on top of the editor using Android's
-picture-in-picture functionality. This behavior can be disabled in the Game
-bar by unchecking <span class="role-menu role-ui">Keep on Top using PiP</span> in the menu on the right of
-the Game bar.</p></li>
-<li><p>Window mode changes (e.g. fullscreen) are not supported when using game embedding.</p></li>
-<li><p>When <span class="role-menu role-ui">Debug &gt; Customize Run Instances...</span> is used to enable running with
-multiple instances, only the first instance will use game embedding. Other
-instances will spawn in their own windows, without the Game bar at the top.</p></li>
+<li><p>En el editor de Android, la incrustación del juego siempre usa una ventana flotante.
+De forma predeterminada, la ventana flotante se mantiene sobre el editor mediante la función imagen en imagen (PiP) de Android. Este comportamiento se puede desactivar en la barra de Juego desmarcando <span class="role-menu role-ui">Mantener en primer plano usando PiP</span> en el menú a la derecha de la barra de Juego.</p></li>
+<li><p>Los cambios en el modo de ventana (por ejemplo, pantalla completa) no son compatibles al usar la incrustación del juego.</p></li>
+<li><p>Cuando se utiliza <span class="role-menu role-ui">Depurar &gt; Personalizar Instancias de Ejecución...</span> para habilitar la ejecución con múltiples instancias, solo la primera instancia utilizará la incrustación del juego. Las demás instancias se generarán en sus propias ventanas, sin la barra de Juego en la parte superior.</p></li>
 </ul>
 </section>
 </section>

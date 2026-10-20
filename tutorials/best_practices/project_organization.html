@@ -13078,17 +13078,17 @@
 <section id="importing">
 <h2>Importar<a class="headerlink" href="#importing" title="Link to this heading"></a></h2>
 <p>La versión de Godot anterior a la 3.0 hacía el proceso de importación de archivos fuera del proyecto. Aunque esto puede ser útil en proyectos de gran tamaño, ha resultado ser una molestia en la organización del proyecto para la mayoría de los desarrolladores.</p>
-<p>Because of this, assets are now transparently imported from within the project
-folder. See <a class="reference internal" href="../assets_pipeline/import_process.html#doc-import-process"><span class="std std-ref">Proceso de importación</span></a> for more details on how importing works
-in Godot.</p>
+<p>Debido a esto, los recursos ahora se importan de forma transparente desde dentro de la carpeta
+del proyecto. Consulta el <a class="reference internal" href="../assets_pipeline/import_process.html#doc-import-process"><span class="std std-ref">Proceso de importación</span></a> para más detalles sobre cómo funciona la importación
+en Godot.</p>
 <section id="ignoring-specific-folders">
 <span id="doc-project-organization-ignoring-specific-folders"></span><h3>Ignorando carpetas específicas<a class="headerlink" href="#ignoring-specific-folders" title="Link to this heading"></a></h3>
 <p>Para evitar que Godot importe archivos contenidos en una carpeta específica, cree un archivo vacío llamado <code class="docutils literal notranslate"><span class="pre">.gdignore</span></code> en la carpeta (se requiere el `` .`` inicial). Esto puede ser útil para acelerar la importación inicial del proyecto.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>To create a file whose name starts with a dot on Windows, place a dot
-at both the beginning and end of the filename (<code class="docutils literal notranslate"><span class="pre">.gdignore.</span></code>). Windows
-will automatically remove the trailing dot when you confirm the name.</p>
+<p>Para crear un archivo cuyo nombre comience con un punto en Windows, coloca un punto
+tanto al principio como al final del nombre del archivo (<code class="docutils literal notranslate"><span class="pre">.gdignore.</span></code>). Windows
+eliminará automáticamente el punto final cuando confirmes el nombre.</p>
 <p>Para crear un archivo cuyo nombre empiece con un punto en Windows, puedes usar un editor de texto como Notepad++ o usar el siguiente comando en el símbolo del sistema: <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">nul</span> <span class="pre">&gt;</span> <span class="pre">.gdignore</span></code></p>
 </div>
 <p>Una vez que se ignora una carpeta, los recursos en esa carpeta ya no se pueden cargar utilizando los métodos <code class="docutils literal notranslate"><span class="pre">load()</span></code> y <code class="docutils literal notranslate"><span class="pre">preload()</span></code>. Ignorar una carpeta también la ocultará automáticamente en el panel del Sistema de Archivos (FileSystem dock), lo cual puede ser útil para reducir el desorden.</p>

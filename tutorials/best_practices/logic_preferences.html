@@ -13136,27 +13136,27 @@ posición global.</p>
 </pre></div>
 </div>
 </div></div>
-<p>Preloading allows the script to handle all the loading the moment one loads the
-script. Preloading is useful, but there are also times when one doesn't wish
-to use it. Here are a few considerations when determining which to use:</p>
+<p>La precarga permite que el script se encargue de toda la carga en el momento en que se carga el
+script. La precarga es útil, pero también hay ocasiones en las que no se desea
+usarla. Aquí hay algunas consideraciones al determinar cuál utilizar:</p>
 <ol class="arabic simple">
-<li><p>If one cannot determine when the script might load, then preloading a
-resource (especially a scene or script) could result in additional loads
-one does not expect. This could lead to unintentional, variable-length
-load times on top of the original script's load operations.</p></li>
+<li><p>Si no se puede determinar cuándo podría cargarse el script, precargar un
+recurso (especialmente una escena o script) podría provocar cargas adicionales
+que no se esperan. Esto podría provocar tiempos de carga involuntarios y de duración variable
+además de las operaciones de carga del script original.</p></li>
 <li><p>Si algo puede reemplazar el valor (como la inicialización de una escena exportada), entonces precargar el valor no tiene sentido. Este punto no es un factor significante si uno quiere crear siempre los scripts.</p></li>
 <li><p>Si uno sólo desea 'importar' otro recurso de clase (script o escena), entonces usar una constante precargada es a menudo el mejor curso de acción. Sin embargo, en casos excepcionales, es posible que no desee hacer esto:</p>
 <ol class="arabic simple">
 <li><p>Si la clase 'importada' es capaz de ser modificada, entonces debería ser una propiedad, inicializada ya sea con un <code class="docutils literal notranslate"><span class="pre">export</span></code> o un <code class="docutils literal notranslate"><span class="pre">load()</span></code> (y tal vez no inicializada sino más adelante).</p></li>
-<li><p>If the script requires a great many dependencies, and one does not wish
-to consume so much memory, then one may wish to load and unload various
-dependencies at runtime as circumstances change. If one preloads
-resources into constants, then the only way to unload these resources
-would be to unload the entire script. If they are instead loaded
-as properties, then one can set these properties to <code class="docutils literal notranslate"><span class="pre">null</span></code> and remove
-all references to the resource (which, as a
-<a class="reference internal" href="../../classes/class_refcounted.html#class-refcounted"><span class="std std-ref">RefCounted</span></a>-extending type, will cause the
-resources to delete themselves from memory).</p></li>
+<li><p>Si el script requiere una gran cantidad de dependencias y uno no desea
+consumir tanta memoria, es posible que desee cargar y descargar varias
+dependencias en tiempo de ejecución a medida que cambien las circunstancias. Si se precargan
+los recursos en constantes, la única forma de descargarlos
+sería descargar el script completo. Si en su lugar se cargan
+como propiedades, entonces se pueden establecer estas propiedades a <code class="docutils literal notranslate"><span class="pre">null</span></code> y eliminar
+todas las referencias al recurso (lo que, al ser un tipo que extiende de
+<a class="reference internal" href="../../classes/class_refcounted.html#class-refcounted"><span class="std std-ref">RefCounted</span></a>, provocará que los
+recursos se eliminen solos de la memoria).</p></li>
 </ol>
 </li>
 </ol>

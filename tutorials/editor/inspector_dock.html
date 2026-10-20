@@ -13045,23 +13045,23 @@
 <p>Esta página explica en profundidad cómo funciona el panel Inspector. Aprenderás cómo editar propiedades, plegar y desplegar áreas, usar la barra de búsqueda y más.</p>
 <section id="usage">
 <h2>Uso<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<p>If the inspector dock is visible, clicking on a node in the scene tree will automatically
-display its properties.
-If it is not visible, you can show it by navigating to
-<strong>Editor &gt; Editor Docks &gt; Inspector</strong>.</p>
-<p>At the top of the dock are the file and navigation buttons.</p>
+<p>Si el panel del inspector está visible, hacer clic en un nodo en el árbol de escenas mostrará
+automáticamente sus propiedades.
+Si no está visible, puedes mostrarlo navegando a
+<strong>Editor &gt; Paneles del Editor &gt; Inspector</strong>.</p>
+<p>En la parte superior del panel se encuentran los botones de archivo y navegación.</p>
 <img alt="../../_images/inspector_top_buttons.webp" src="../../_images/inspector_top_buttons.webp" />
-<p>From left to right:</p>
+<p>De izquierda a derecha:</p>
 <ul class="simple">
 <li><p>Abre una nueva ventana para seleccionar y crear un recurso nuevo en la memoria y editarlo.</p></li>
 <li><p>Abre un recurso desde el Sistema de Archivos para editarlo.</p></li>
-<li><p>Saves the currently edited resource to disk.</p></li>
+<li><p>Guarda el recurso editado actualmente en el disco.</p></li>
 <li><p>Proporciona opciones para:</p>
 <ul>
 <li><p><strong>Editar Recurso desde el Clipboard</strong> pegando el recurso copiado.</p></li>
 <li><p><strong>Copy Resource</strong> to clipboard.</p></li>
 <li><p><strong>Mostrar en Sistema de Archivos</strong> si el recurso ya está guardado.</p></li>
-<li><p><strong>Make Resource Built-In</strong> to work in a built-in resource, not the one from the disk.</p></li>
+<li><p><strong>Hacer Recurso Integrado</strong> para trabajar en un recurso integrado, no en el del disco.</p></li>
 </ul>
 </li>
 <li><p>las flechas &quot;&lt;&quot; y &quot;&gt;&quot; te permiten navegar por tu historial de objetos editados.</p></li>
@@ -13071,45 +13071,40 @@ If it is not visible, you can show it by navigating to
 <p>A continuación, aparece la barra de búsqueda. Escribe cualquier cosa para filtrar las propiedades mostradas. Borra el texto para borrar la búsqueda. Esta búsqueda no distingue entre mayúsculas y minúsculas y busca letra por letra a medida que escribe. Por ejemplo, si escribes &quot;vsb&quot;, uno de los resultados que verás será la propiedad Visibilidad, ya que esta contiene todas estas letras.</p>
 <p>Antes de analizar el botón de herramientas que se encuentra al lado de la barra de filtro, vale la pena mencionar lo que realmente se ve debajo y cómo está estructurado.</p>
 <img alt="../../_images/inspector_dock_overlay.webp" src="../../_images/inspector_dock_overlay.webp" />
-<p>Properties are grouped inside their respective <em>classes</em> as <em>sections</em>.
-You can expand each section to view the related properties.</p>
+<p>Las propiedades se agrupan dentro de sus respectivas <em>clases</em> como <em>secciones</em>. Puedes expandir cada sección para ver las propiedades relacionadas.</p>
 <p>También puedes abrir la documentación de cada clase haciendo clic derecho en ella y seleccionando <strong>Abrir documentación</strong>. De igual forma, puedes hacer clic derecho en una propiedad y copiar o pegar su valor, copiar su ruta, guardarla en favoritos para que se muestre en la parte superior del inspector o abrir su página de documentación.</p>
-<p>If you hover your mouse over a property, you will see the description of what
-it does as well as how it can be called inside the script.</p>
-<p>You can directly change the values by clicking, typing, or selecting from the menu.
-If the property is a number or a slider, you can keep your left mouse button
-pressed and drag to change the values.</p>
+<p>Si pasas el cursor sobre una propiedad, verás la descripción de lo que
+hace, así como cómo se puede invocar dentro del script.</p>
+<p>Puedes cambiar directamente los valores haciendo clic, escribiendo o seleccionando desde el menú.
+Si la propiedad es un número o un deslizador, puedes mantener presionado el botón izquierdo del ratón
+y arrastrar para cambiar los valores.</p>
 <img alt="../../_images/inspector_dock_subresource.webp" src="../../_images/inspector_dock_subresource.webp" />
-<p>If a node's property is a sub-resource, you can click on the down arrow to pick a
-resource type, or load one using the <strong>Quick Load</strong> or <strong>Load</strong> options.
-Alternatively, a supported resource can be dragged from the FileSystem.
-Once you start dragging, the compatible property will be highlighted.
-Simply drop it on the appropriate property's value.</p>
+<p>Si la propiedad de un nodo es un subrecurso, puedes hacer clic en la flecha hacia abajo para elegir un
+tipo de recurso, o cargar uno mediante las opciones <strong>Carga Rápida</strong> o <strong>Cargar</strong>.
+Alternativamente, se puede arrastrar un recurso compatible desde el panel del Sistema de Archivos.
+Una vez que comiences a arrastrar, la propiedad compatible se resaltará.
+Simplemente suéltalo sobre el valor de la propiedad adecuada.</p>
 <p>Después de cargar un subrecurso, puedes hacer clic en él para ver sus propiedades o ajustarlas.</p>
-<p>The values with different values than their original values will have a revert icon (<img alt="undo" src="../../_images/inspector_dock_revert.webp" />).
-Clicking on this icon reverts the value to its original state.
-If the values are linked with each other, they will have a chain icon and changing one
-will change others as well. You can unchain them by clicking on this icon.</p>
-<p>If you are changing a property a lot, you may consider favoriting it by right-clicking and
-choosing <strong>Favorite Property</strong>. This will show it at the top of the inspector for all objects
-of this class.</p>
-<p>Now that we have a better understanding of the terms, we can proceed with the tool menu.
-If you click the tool menu icon next to the filter bar, a drop-down menu will offer
-various view and edit options.</p>
+<p>Los valores que sean diferentes a sus valores originales tendrán un icono de revertir (<img alt="undo" src="../../_images/inspector_dock_revert.webp" />).
+Hacer clic en este icono revierte el valor a su estado original.
+Si los valores están vinculados entre sí, tendrán un icono de cadena y cambiar uno
+también cambiará los otros. Puedes desvincularlos haciendo clic en este icono.</p>
+<p>Si cambias mucho una propiedad, puedes considerar marcarla como favorita haciendo clic derecho y
+eligiendo <strong>Marcar Propiedad como Favorita</strong>. Esto la mostrará en la parte superior del inspector para todos los objetos
+de esta clase.</p>
+<p>Ahora que comprendemos mejor los términos, podemos continuar con el menú de herramientas.
+Si haces clic en el icono del menú de herramientas junto a la barra de filtro, un menú desplegable ofrecerá
+varias opciones de visualización y edición.</p>
 <img alt="../../_images/inspector_tools_menu.webp" src="../../_images/inspector_tools_menu.webp" />
 <ul class="simple">
-<li><p><strong>Expand All</strong>: Expands all sections showing all available properties.</p></li>
-<li><p><strong>Collapse All</strong>: Collapses all properties showing only classes and the sections.</p></li>
+<li><p><strong>Expandir Todo</strong>: Expande todas las secciones mostrando todas las propiedades disponibles.</p></li>
+<li><p><strong>Contraer Todo</strong>: Contrae todas las propiedades mostrando únicamente las clases y las secciones.</p></li>
 <li><p><strong>Expand Non-Default</strong>: Only expands the sections where the original value is different
 than the current value (the properties with a revert icon (<img alt="undo" src="../../_images/inspector_dock_revert.webp" />)).</p></li>
-<li><p><strong>Property Name Style</strong>: This section determines how the properties' text is displayed in
-the inspector. <code class="docutils literal notranslate"><span class="pre">Raw</span></code> uses the property's own naming, <code class="docutils literal notranslate"><span class="pre">Capitalized</span></code> uses title
-case by changing the initial letters of each word to uppercase and removing underscores,
-<code class="docutils literal notranslate"><span class="pre">Localized</span></code> displays the translation of the properties if you are using the Editor
-in a language other than English.</p></li>
-<li><p><strong>Copy Properties</strong>: Copies all properties of the current node with their current values.</p></li>
-<li><p><strong>Paste Properties</strong>: Pastes the copied properties from the clipboard. Useful to apply
-the common properties of one node to another.</p></li>
+<li><p><strong>Estilo de Nombre de Propiedad</strong>: Esta sección determina cómo se muestra el texto de las propiedades en el inspector. <code class="docutils literal notranslate"><span class="pre">Raw</span></code> muestra las propiedades tal como están definidas en el código (como <code class="docutils literal notranslate"><span class="pre">global_position</span></code>) mientras que <code class="docutils literal notranslate"><span class="pre">Capitalized</span></code> coloca en mayúscula cada palabra (como <code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Position</span></code>).</p></li>
+<li><p><strong>Copiar Propiedades</strong>: Copia todas las propiedades del nodo actual con sus valores actuales.</p></li>
+<li><p><strong>Pegar Propiedades</strong>: Pega las propiedades copiadas desde el portapapeles. Es útil para aplicar
+las propiedades comunes de un nodo a otro.</p></li>
 <li><p><strong>Make Sub-Resources Unique</strong>: By default, a duplicated node shares the sub-resources of
 the original node. Changing one parameter of the sub-resource in one node, affects
 the other one.
@@ -13118,9 +13113,7 @@ other nodes.</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>If a node has exported variables in its attached script, you will also see these
-in the inspector. The first image in this section has one for the Player node:
-<cite>Action Suffix</cite>. See <a class="reference internal" href="../scripting/gdscript/gdscript_exports.html#doc-gdscript-exports"><span class="std std-ref">Propiedades exportadas de GDScript</span></a> for more on this topic.</p>
+<p>Si un nodo tiene variables exportadas en su script adjunto, también las verás en el inspector. La primera imagen de esta página tiene una variable exportada llamada <code class="docutils literal notranslate"><span class="pre">Seek</span> <span class="pre">Speed</span></code>. Consulta <a class="reference internal" href="../scripting/gdscript/gdscript_exports.html#doc-gdscript-exports"><span class="std std-ref">Propiedades exportadas</span></a> para obtener más información sobre la exportación de variables.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>

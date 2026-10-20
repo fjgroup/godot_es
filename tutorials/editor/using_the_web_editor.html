@@ -13049,8 +13049,8 @@
 <h2>Soporte del navegador<a class="headerlink" href="#browser-support" title="Link to this heading"></a></h2>
 <p>El editor web requiere soporte para SharedArrayBuffer de WebAssembly. Esto, a su vez, es necesario para admitir subprocesos en el navegador.</p>
 <p>Consulte <a class="reference internal" href="../../about/system_requirements.html#doc-system-requirements"><span class="std std-ref">Requerimientos del sistema</span></a> para obtener una lista de los navegadores web compatibles. Los navegadores móviles son compatibles, pero no ofrecen una experiencia ideal debido a limitaciones de rendimiento y de entrada.</p>
-<p>The web editor only supports the Compatibility renderer, as there is no
-stable way to run Vulkan applications on the web yet.</p>
+<p>El editor web solo admite el renderizador Compatibility, ya que todavía no existe
+una forma estable de ejecutar aplicaciones Vulkan en la web.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Si experimenta problemas de rendimiento en Firefox, pruebe a utilizar un navegador basado en Chromium, ya que estos pueden ofrecer un mejor rendimiento en aplicaciones WebGL.</p>
@@ -13074,9 +13074,9 @@ stable way to run Vulkan applications on the web yet.</p>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
-<p>See the
-<a class="reference external" href="https://github.com/godotengine/godot/issues?q=is%3Aopen+is%3Aissue+label%3Aplatform%3Aweb+label%3Atopic%3Aeditor">list of open issues on GitHub related to the web editor</a>
-for a list of known bugs.</p>
+<p>Consulta la
+<a class="reference external" href="https://github.com/godotengine/godot/issues?q=is%3Aopen+is%3Aissue+label%3Aplatform%3Aweb+label%3Atopic%3Aeditor">lista de problemas abiertos en GitHub relacionados con el editor web</a>
+para ver los errores conocidos.</p>
 </div>
 </section>
 <section id="importing-a-project">
@@ -13102,8 +13102,8 @@ for a list of known bugs.</p>
 <section id="where-are-my-project-files">
 <h2>¿Dónde están los archivos de mi proyecto?<a class="headerlink" href="#where-are-my-project-files" title="Link to this heading"></a></h2>
 <p>Debido a las limitaciones de seguridad del navegador, el editor guardará los archivos del proyecto en el almacenamiento conocido como IndexedDB del navegador. No se puede acceder a este almacenamiento como una carpeta normal en su máquina, pero es abstraído en una base de datos.</p>
-<p>You can download the project files as a ZIP archive by using
-<strong>Project &gt; Tools &gt; Download Project Source</strong>. This can be used to export the
+<p>Puedes descargar los archivos del proyecto como un archivo ZIP utilizando
+<strong>Proyecto &gt; Herramientas &gt; Descargar Código Fuente del Proyecto</strong>. This can be used to export the
 project using a <a class="reference external" href="https://godotengine.org/download">native Godot editor</a>,
 since exporting from the web editor isn't supported yet.</p>
 <p>En el futuro, puede ser posible utilizar la <cite>HTML5 FileSystem API &lt;https://developer.mozilla.org/en-US/docs/Web/API/FileSystem&gt;</cite> __ para almacenar los archivos del proyecto en el sistema de archivos del usuario como el editor nativo haría. Sin embargo, esto aún no se ha implementado.</p>

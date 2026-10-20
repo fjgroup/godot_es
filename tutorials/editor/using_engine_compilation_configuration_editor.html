@@ -13091,13 +13091,13 @@
 <p>El sistema de compilación utilizará esto para deshabilitar las clases no utilizadas y reducir el tamaño binario como resultado.</p>
 <section id="limitations">
 <h2>Limitaciones<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
-<p>The <span class="role-button role-ui">Detect from Project</span> functionality relies on reading the project's scenes and scripts.
-It will not be able to detect used features in the following scenarios:</p>
+<p>La funcionalidad <span class="role-button role-ui">Detectar desde el Proyecto</span> se basa en leer las escenas y scripts del proyecto.
+No podrá detectar características utilizadas en los siguientes escenarios:</p>
 <ul class="simple">
 <li><p>Características que se utilizan en GDScripts que se crean mediante procedimiento y luego se ejecutan en tiempo de ejecución.</p></li>
-<li><p>Features that are used in <a class="reference internal" href="../scripting/evaluating_expressions.html#doc-evaluating-expressions"><span class="std std-ref">expressions</span></a>.</p></li>
+<li><li><p>Características que se utilizan en <a class="reference internal" href="../scripting/evaluating_expressions.html#doc-evaluating-expressions"><span class="std std-ref">Expresiones</span></a>.</p></li></li>
 <li><p>Características utilizadas en <a class="reference internal" href="../../engine_details/engine_api/gdextension/index.html#doc-gdextension"><span class="std std-ref">GDExtensions</span></a>, a menos que la vinculación del lenguaje permita definir clases utilizadas y la extensión utilice la funcionalidad. Consulte <a class="reference external" href="https://github.com/godotengine/godot/pull/104129">GH-104129</a> para obtener más información.</p></li>
-<li><p>Features that are used in <a class="reference internal" href="../export/exporting_pcks.html#doc-exporting-pcks"><span class="std std-ref">external PCKs loaded at runtime</span></a>.</p></li>
+<li><li><p>Características que se utilizan en archivos <a class="reference internal" href="../export/exporting_pcks.html#doc-exporting-pcks"><span class="std std-ref">PCK</span></a> que se cargan en tiempo de ejecución.</p></li></li>
 <li><p>Certain edge cases may exist. If unsure, please
 <a class="reference external" href="https://github.com/godotengine/godot/issues">open an issue on GitHub</a>
 with a minimal reproduction project attached.</p></li>

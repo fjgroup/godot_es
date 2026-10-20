@@ -13116,13 +13116,13 @@
 </div></blockquote>
 </li>
 </ul>
-<p>Godot implements Dictionary as a <code class="docutils literal notranslate"><span class="pre">HashMap&lt;Variant,</span> <span class="pre">Variant,</span> <span class="pre">VariantHasher,</span> <span class="pre">StringLikeVariantComparator&gt;</span></code>. The engine
-stores a small array (initialized to 2^3 or 8 records) of key-value pairs. When
-one attempts to access a value, they provide it a key. It then <em>hashes</em> the
-key, i.e. converts it into a number. The &quot;hash&quot; is used to calculate the index
-into the array. As an array, the HM then has a quick lookup within the &quot;table&quot;
-of keys mapped to values. When the HashMap becomes too full, it increases to
-the next power of 2 (so, 16 records, then 32, etc.) and rebuilds the structure.</p>
+<p>Godot implementa Dictionary como un <code class="docutils literal notranslate"><span class="pre">HashMap&lt;Variant,</span> <span class="pre">Variant,</span> <span class="pre">VariantHasher,</span> <span class="pre">StringLikeVariantComparator&gt;</span></code>. El motor
+almacena un pequeño arreglo (inicializado a 2^3 u 8 registros) de pares clave-valor. Cuando
+uno intenta acceder a un valor, proporciona una clave. Luego hace un <em>hash</em> de la
+clave, es decir, la convierte en un número. El &quot;hash&quot; se utiliza para calcular el índice
+dentro del arreglo. Como arreglo, el HashMap tiene entonces una búsqueda rápida dentro de la &quot;tabla&quot;
+de claves mapeadas a valores. Cuando el HashMap se llena demasiado, se incrementa a
+la siguiente potencia de 2 (es decir, 16 registros, luego 32, etc.) y reconstruye la estructura.</p>
 <p>Los &quot;Hashes&quot; son para reducir la posibilidad de una colisión de llaves. Si se produce uno, la tabla debe recalcular otro índice para el valor que tenga en cuenta la posición anterior. En total, esto resulta en un acceso constante a todos los registros a expensas de la memoria y de una menor eficiencia operativa.</p>
 <ol class="arabic">
 <li><p>Hashing de cada clave un número arbitrario de veces.</p>
@@ -13257,23 +13257,23 @@ the next power of 2 (so, 16 records, then 32, etc.) and rebuilds the structure.<
 <li><p>el número de regiones que contiene la textura (frames).</p></li>
 </ol>
 <p>Godot's <a class="reference internal" href="../../classes/class_renderingserver.html#class-renderingserver"><span class="std std-ref">RenderingServer</span></a> entonces dibuja las regiones en secuencia a la tasa establecida. La buena noticia es que esto no implica ninguna lógica adicional por parte del motor. La mala noticia es que los usuarios tienen muy poco control.</p>
-<p>Also note that AnimatedTexture is a <a class="reference internal" href="../../classes/class_resource.html#class-resource"><span class="std std-ref">Resource</span></a> unlike
-the other <a class="reference internal" href="../../classes/class_node.html#class-node"><span class="std std-ref">Node</span></a> objects discussed here. One might create
-a <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> node that uses AnimatedTexture as its texture.
-Or (something the others can't do) one could add AnimatedTextures as tiles
-in a <a class="reference internal" href="../../classes/class_tileset.html#class-tileset"><span class="std std-ref">TileSet</span></a> and integrate it with a
-<a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> for many auto-animating backgrounds that
-all render in a single batched draw call.</p>
-<p>The <a class="reference internal" href="../../classes/class_animatedsprite2d.html#class-animatedsprite2d"><span class="std std-ref">AnimatedSprite2D</span></a> node, in combination with the
-<a class="reference internal" href="../../classes/class_spriteframes.html#class-spriteframes"><span class="std std-ref">SpriteFrames</span></a> resource, allows one to create a
-variety of animation sequences through spritesheets, flip between animations,
-and control their speed, regional offset, and orientation. This makes them
-well-suited to controlling 2D frame-based animations.</p>
-<p>If one needs to trigger other effects in relation to animation changes (for
-example, create particle effects, call functions, or manipulate other
-peripheral elements besides the frame-based animation), then one will need to use
-an <a class="reference internal" href="../../classes/class_animationplayer.html#class-animationplayer"><span class="std std-ref">AnimationPlayer</span></a> node in conjunction with
-the AnimatedSprite2D.</p>
+<p>También ten en cuenta que AnimatedTexture es un <a class="reference internal" href="../../classes/class_resource.html#class-resource"><span class="std std-ref">Resource</span></a> a diferencia
+de los otros objetos <a class="reference internal" href="../../classes/class_node.html#class-node"><span class="std std-ref">Node</span></a> tratados aquí. Se podría crear
+un nodo <a class="reference internal" href="../../classes/class_sprite2d.html#class-sprite2d"><span class="std std-ref">Sprite2D</span></a> que utilice AnimatedTexture como su textura.
+O bien (algo que los demás no pueden hacer) se podrían agregar AnimatedTextures como teselas
+en un <a class="reference internal" href="../../classes/class_tileset.html#class-tileset"><span class="std std-ref">TileSet</span></a> e integrarlo con una
+<a class="reference internal" href="../../classes/class_tilemaplayer.html#class-tilemaplayer"><span class="std std-ref">TileMapLayer</span></a> para lograr múltiples fondos autoanimados que
+se renderizan todos en una única llamada de dibujado por lotes (draw call).</p>
+<p>El nodo <a class="reference internal" href="../../classes/class_animatedsprite2d.html#class-animatedsprite2d"><span class="std std-ref">AnimatedSprite2D</span></a>, en combinación con el
+recurso <a class="reference internal" href="../../classes/class_spriteframes.html#class-spriteframes"><span class="std std-ref">SpriteFrames</span></a>, permite crear una
+variedad de secuencias de animación mediante hojas de sprites (spritesheets), alternar entre animaciones
+y controlar su velocidad, desfase regional y orientación. Esto los hace
+muy adecuados para controlar animaciones 2D basadas en fotogramas.</p>
+<p>Si se necesita activar otros efectos relacionados con los cambios de animación (por
+ejemplo, crear efectos de partículas, llamar a funciones o manipular otros
+elementos periféricos además de la animación basada en fotogramas), entonces será necesario utilizar
+un nodo <a class="reference internal" href="../../classes/class_animationplayer.html#class-animationplayer"><span class="std std-ref">AnimationPlayer</span></a> en conjunto con
+el AnimatedSprite2D.</p>
 <p>AnimationPlayers también es la herramienta que uno necesita utilizar si se desea diseñar sistemas de animación 2D mas complejos, como…</p>
 <ol class="arabic simple">
 <li><p><strong>Animaciones cut-out :</strong> editando las transformaciones de los sprites en el momento de la ejecución.</p></li>

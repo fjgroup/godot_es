@@ -13041,9 +13041,7 @@
   <section id="using-the-xr-editor">
 <span id="doc-using-the-xr-editor"></span><h1>Usar el editor XR<a class="headerlink" href="#using-the-xr-editor" title="Link to this heading"></a></h1>
 <p>En 2024, presentamos el «editor Godot XR &lt;<a class="reference external" href="https://godotengine.org/article/godot-editor-horizon-store-early-access-release/">https://godotengine.org/article/godot-editor-horizon-store-early-access-release/</a>&gt;`__, una versión del editor Godot <strong>diseñada para ejecutarse de forma nativa en dispositivos XR</strong>, lo que permite la creación, el desarrollo y la exportación de aplicaciones y juegos 2D, 3D y <strong>XR</strong> directamente en el dispositivo.</p>
-<p>The app can be downloaded from the <a class="reference external" href="https://play.google.com/store/apps/details?id=org.godotengine.editor.v4">Google Play Store</a>,
-<a class="reference external" href="https://www.meta.com/experiences/godot-game-engine/7713660705416473/">Meta Horizon Store</a>,
-or from the <a class="reference external" href="https://godotengine.org/download/preview/">Godot download page</a>.</p>
+<p>La aplicación se puede descargar desde la <a class="reference external" href="https://play.google.com/store/apps/details?id=org.godotengine.editor.v4">Google Play Store</a>, <a class="reference external" href="https://www.meta.com/experiences/godot-game-engine/8172909159495044/">Meta Horizon Store</a> o desde el <a class="reference external" href="https://godotengine.org/download/archive/">repositorio de descargas de Godot</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>El editor XR está en acceso anticipado mientras seguimos perfeccionando la experiencia. Véase <a class="reference internal" href="#doc-using-the-xr-editor-limitations"><span class="std std-ref">Limitaciones y problemas conocidos</span></a> a continuación.</p>
@@ -13068,12 +13066,10 @@ following <a class="reference external" href="https://www.meta.com/quest/">Meta 
 <section id="runtime-permissions">
 <h2>Permisos de tiempo de ejecución<a class="headerlink" href="#runtime-permissions" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://developer.android.com/training/data-storage/manage-all-files#all-files-access">All files access permission</a>:
-Enables the editor to create, import, and read project files from any file locations on the device.
-Without this permission, the editor is still functional, but has limited access to the device's files and directories.</p></li>
+<li><li><p><a class="reference external" href="https://developer.android.com/training/data-storage/manage-all-files#all-files-access">Permiso de acceso a todos los archivos</a>: Permite que el editor cree, importe y lea archivos de proyecto desde cualquier carpeta en el dispositivo.</p></li></li>
 <li><p><a class="reference external" href="https://developer.android.com/reference/android/Manifest.permission#REQUEST_INSTALL_PACKAGES">REQUEST_INSTALL_PACKAGES</a>: Permite al editor instalar APK de proyectos exportados.</p></li>
 <li><p><a class="reference external" href="https://developer.android.com/reference/android/Manifest.permission#RECORD_AUDIO">RECORD_AUDIO</a>: Se solicita cuando la configuración del proyecto <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-audio-driver-enable-input">audio/driver/enable_input</a> está habilitada.</p></li>
-<li><p><a class="reference external" href="https://developers.meta.com/horizon/documentation/native/native-spatial-data-perm/">USE_SCENE (META ONLY)</a>: Required to enable and access the scene APIs when running an XR project.</p></li>
+<li><li><p><a class="reference external" href="https://developers.meta.com/horizon/documentation/native/native-spatial-data-perm/">Permiso de datos espaciales</a> (solo Meta Quest): Permite al editor consultar las gafas para el seguimiento de la entrada de las manos.</p></li></li>
 </ul>
 </section>
 <section id="tips-tricks">
@@ -13086,7 +13082,7 @@ Without this permission, the editor is still functional, but has limited access 
 </ul>
 <p><strong>Multi-tasking on Quest</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.meta.com/blog/quest/meta-quest-v67-update-new-window-layout-creator-content-horizon-feed/">Theater View</a> can be used to fullscreen the <em>Editor window</em>.</p></li>
+<li><li><p>Se puede usar <a class="reference external" href="https://www.meta.com/blog/quest/meta-quest-v67-update-new-window-layout-creator-content-meta-quest-plus-catalogue/">Vista de Teatro (Theater View)</a> para poner la ventana del Editor en pantalla completa.</p></li></li>
 <li><p>Habilite <a class="reference external" href="https://www.uploadvr.com/seamless-multitasking-experimental-quest/">Multitarea sin interrupciones</a>, disponible en <em>Configuración experimental</em> de Quest, para habilitar la capacidad de realizar una transición rápida entre un proyecto XR en ejecución y la <em>ventana del editor</em>.</p></li>
 <li><p>Al desarrollar un proyecto que no sea XR, el icono de la aplicación del editor Godot brindará la posibilidad de cambiar entre la <em>ventana del editor</em> y la <em>ventana de reproducción</em> cuando esta última esté activa, usando la función <em>Menú de aplicaciones</em> de Quest.</p></li>
 <li><p>Al desarrollar y ejecutar un proyecto XR, puede recuperar la <em>ventana del editor</em> de la siguiente manera:</p>

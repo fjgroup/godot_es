@@ -13046,13 +13046,13 @@
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>En Windows y Linux, puedes ejecutar un binario de Godot en una terminal especificando su ruta relativa o absoluta.</p>
-<p>On macOS, the process is different due to Godot being contained within a
-<code class="docutils literal notranslate"><span class="pre">.app</span></code> bundle (which is a <em>folder</em>, not a file). To run a Godot binary
-from a terminal on macOS, you have to <code class="docutils literal notranslate"><span class="pre">cd</span></code> to the folder where the Godot
-application bundle is located, then run <code class="docutils literal notranslate"><span class="pre">Godot.app/Contents/MacOS/Godot</span></code>
-followed by any command line arguments. If you've renamed the application
-bundle from <code class="docutils literal notranslate"><span class="pre">Godot</span></code> to another name, make sure to edit this command line
-accordingly.</p>
+<p>En macOS, el proceso es diferente debido a que Godot está contenido dentro de un
+paquete <code class="docutils literal notranslate"><span class="pre">.app</span></code> (que es una <em>carpeta</em>, no un archivo). Para ejecutar un binario de Godot
+desde una terminal en macOS, debes hacer <code class="docutils literal notranslate"><span class="pre">cd</span></code> a la carpeta donde se encuentra el paquete
+de la aplicación Godot y luego ejecutar <code class="docutils literal notranslate"><span class="pre">Godot.app/Contents/MacOS/Godot</span></code>
+seguido de cualquier argumento de línea de comandos. Si has renombrado el paquete
+de la aplicación de <code class="docutils literal notranslate"><span class="pre">Godot</span></code> a otro nombre, asegúrate de modificar esta línea de comandos
+en consecuencia.</p>
 </div>
 <section id="command-line-reference">
 <h2>Referencia de la línea de comandos<a class="headerlink" href="#command-line-reference" title="Link to this heading"></a></h2>
@@ -13060,7 +13060,7 @@ accordingly.</p>
 <ul class="simple">
 <li><p><img alt="release" src="../../_images/template_release.svg" /> Disponible en la versión de editor, en las plantillas de exportación de depuración y de lanzamiento.</p></li>
 <li><p><img alt="debug" src="../../_images/template_debug.svg" /> Disponible únicamente en las versiones de editor y en las plantillas de exportación.</p></li>
-<li><p><img alt="extended" src="../../_images/template_extended.svg" /> Only available in editor builds, and export templates compiled with <code class="docutils literal notranslate"><span class="pre">disable_path_overrides=false</span></code>.</p></li>
+<li><p><img alt="extended" src="../../_images/template_extended.svg" /> Disponible únicamente en versiones de editor y en plantillas de exportación compiladas con <code class="docutils literal notranslate"><span class="pre">disable_path_overrides=false</span></code>.</p></li>
 <li><p><img alt="editor" src="../../_images/editor.svg" /> Disponible únicamente en la versión de editor.</p></li>
 </ul>
 <p>Ten en cuenta que los argumentos desconocidos de la línea de comandos no tienen ningún efecto en absoluto. El motor <strong>no</strong> te dará ningún aviso cuando uses un argumento en la línea de comandos que no exista para una compilación determinada.</p>
@@ -13128,10 +13128,10 @@ GDExtension addons, and others.</p></td>
 <td><p><img alt="extended" src="../../_images/template_extended.svg" /> Path to a project (<code class="docutils literal notranslate"><span class="pre">&lt;directory&gt;</span></code> must contain a &quot;project.godot&quot; file).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--scene</span> <span class="pre">&lt;path&gt;</span></code></p></td>
-<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Path or UID of a scene in the project that should be started.</p></td>
+<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Ruta o UID de una escena en el proyecto que debe iniciarse.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--main-pack</span> <span class="pre">&lt;archivo&gt;</span></code></p></td>
-<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Path to a pack (.pck) file to load.</p></td>
+<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Ruta a un archivo de paquete (.pck) para cargar.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--render-thread</span> <span class="pre">&lt;modo&gt;</span></code></p></td>
 <td><p><img alt="release" src="../../_images/template_release.svg" /> Render thread mode (&quot;unsafe&quot;, &quot;safe&quot;, &quot;separate&quot;). See <a class="reference internal" href="../../classes/class_projectsettings.html#class-projectsettings-property-rendering-driver-threads-thread-model"><span class="std std-ref">Thread Model</span></a>
@@ -13172,8 +13172,8 @@ result in audio cracking if the CPU can't keep up.</p></td>
 <td><p><img alt="release" src="../../_images/template_release.svg" /> Habilitar el modo descabezado (<code class="docutils literal notranslate"><span class="pre">--display-driver</span> <span class="pre">headless</span> <span class="pre">--audio-driver</span> <span class="pre">Dummy</span></code>). Útil para servidores y con <code class="docutils literal notranslate"><span class="pre">--script</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--log-file</span></code></p></td>
-<td><p><img alt="release" src="../../_images/template_release.svg" /> Write output/error log to the specified path instead of the default location defined by the project. <code class="docutils literal notranslate"><span class="pre">&lt;file&gt;</span></code> path should be absolute or
-relative to the project directory.</p></td>
+<td><p><img alt="release" src="../../_images/template_release.svg" /> Escribe el registro de salida/error en la ruta especificada en lugar de la ubicación predeterminada definida por el proyecto. La ruta de <code class="docutils literal notranslate"><span class="pre">&lt;archivo&gt;</span></code> debe ser absoluta o
+relativa al directorio del proyecto.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--write-movie</span> <span class="pre">&lt;file&gt;</span></code></p></td>
 <td><p><img alt="release" src="../../_images/template_release.svg" /> Ejecutar el motor en cierto modo tal que una película es grabada en disco (usualmente con una extensión .avi or .png). La opción <code class="docutils literal notranslate"><span class="pre">--fixed-fps</span></code> es forzada cuando se activa, pero puede ser utilizada para cambiar los FPS de la película. La opción <code class="docutils literal notranslate"><span class="pre">--disable-vsync</span></code> puede acelerar la grabación de la película pero dificulta la interacción. La opción <code class="docutils literal notranslate"><span class="pre">--quit-after</span></code> puede ser utilizada para especificar el número de fotogramas a grabar.</p></td>
@@ -13315,7 +13315,7 @@ mode).</p></td>
 <td><p><img alt="release" src="../../_images/template_release.svg" /> Imprime los fotogramas por segundo en la stdout.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--editor-pseudolocalization</span></code></p></td>
-<td><p><img alt="editor" src="../../_images/editor.svg" /> Enable pseudolocalization for the editor and the project manager.</p></td>
+<td><p><img alt="editor" src="../../_images/editor.svg" /> Habilita la seudolocalización para el editor y el administrador de proyectos.</p></td>
 </tr>
 </tbody>
 </table>
@@ -13332,7 +13332,7 @@ mode).</p></td>
 <td><p><img alt="extended" src="../../_images/template_extended.svg" /> Run a MainLoop specified by its global class name.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--check-only</span></code></p></td>
-<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Only parse for errors and quit (use with <code class="docutils literal notranslate"><span class="pre">--script</span></code>).</p></td>
+<td><p><img alt="extended" src="../../_images/template_extended.svg" /> Solo analiza en busca de errores y sale (usar con <code class="docutils literal notranslate"><span class="pre">-e</span></code> o <code class="docutils literal notranslate"><span class="pre">-s</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--import</span></code></p></td>
 <td><p><img alt="editor" src="../../_images/editor.svg" /> Inicia el editor, espera a que se importen los recursos y luego sale. Implica <code class="docutils literal notranslate"><span class="pre">--editor</span></code> y <code class="docutils literal notranslate"><span class="pre">--quit</span></code>.</p></td>
@@ -13352,10 +13352,10 @@ directory must exist.</p></td>
 <td><p><img alt="editor" src="../../_images/editor.svg" /> Export pack with changed files only. See <code class="docutils literal notranslate"><span class="pre">--export-pack</span></code> description for other considerations.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--patches</span> <span class="pre">&lt;paths&gt;</span></code></p></td>
-<td><p><img alt="editor" src="../../_images/editor.svg" /> List of patches to use with <code class="docutils literal notranslate"><span class="pre">--export-patch</span></code>. The list is comma-separated.</p></td>
+<td><p><img alt="editor" src="../../_images/editor.svg" /> Lista de parches para usar con <code class="docutils literal notranslate"><span class="pre">--export-patch</span></code>. La lista está separada por comas.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--instalar-plantilla-de-compilación-de-android</span></code></p></td>
-<td><p><img alt="editor" src="../../_images/editor.svg" /> Install the Android build template. Used in conjunction with <code class="docutils literal notranslate"><span class="pre">--export-release</span></code> or <code class="docutils literal notranslate"><span class="pre">--export-debug</span></code>.</p></td>
+<td><p><img alt="editor" src="../../_images/editor.svg" /> Instala la plantilla de compilación de Android. Se utiliza en conjunto con <code class="docutils literal notranslate"><span class="pre">--export</span></code> o <code class="docutils literal notranslate"><span class="pre">--export-debug</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--convert-3to4</span> <span class="pre">[&lt;max_file_kb&gt;]</span> <span class="pre">[&lt;max_line_size&gt;]</span></code></p></td>
 <td><p><img alt="editor" src="../../_images/editor.svg" /> Convierte el proyecto de Godot 3.x a Godot 4.x.</p></td>
@@ -13370,12 +13370,12 @@ directory must exist.</p></td>
 <td><p><img alt="editor" src="../../_images/editor.svg" /> Impide el volcado de los tipos base (utilizado con <code class="docutils literal notranslate"><span class="pre">--doctool</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--gdextension-docs</span></code></p></td>
-<td><p><img alt="editor" src="../../_images/editor.svg" /> Rather than dumping the engine API, generate API reference from all the GDExtensions loaded in the current project (used with
+<td><p><img alt="editor" src="../../_images/editor.svg" /> En lugar de volcar la API del motor, genera la referencia de la API a partir de todas las GDExtensions cargadas en el proyecto actual (utilizado con
 <code class="docutils literal notranslate"><span class="pre">--doctool</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--gdscript-docs</span> <span class="pre">&lt;path&gt;</span></code></p></td>
-<td><p><img alt="editor" src="../../_images/editor.svg" /> Rather than dumping the engine API, generate API reference from the inline documentation in the GDScript files found in <code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code>
-(used with <code class="docutils literal notranslate"><span class="pre">--doctool</span></code>).</p></td>
+<td><p><img alt="editor" src="../../_images/editor.svg" /> En lugar de volcar la API del motor, genera la referencia de la API a partir de la documentación integrada en los archivos GDScript ubicados en <code class="docutils literal notranslate"><span class="pre">&lt;ruta&gt;</span></code>
+(se usa con <code class="docutils literal notranslate"><span class="pre">--doctool</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--build-solutions</span></code></p></td>
 <td><p><img alt="editor" src="../../_images/editor.svg" /> Construye las soluciones de scripting (ej. para proyectos en C#). Implica <code class="docutils literal notranslate"><span class="pre">--editor</span></code> y requiere un proyecto válido para editar.</p></td>

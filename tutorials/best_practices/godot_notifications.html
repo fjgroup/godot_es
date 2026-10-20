@@ -13226,8 +13226,8 @@ de delta time según sea necesario.</p>
 <p><code class="docutils literal notranslate"><span class="pre">_init()</span></code> se dispara antes de <code class="docutils literal notranslate"><span class="pre">_enter_tree()</span></code> o <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>. pero después de que un script crea e inicializa sus propiedades. Cuando se instancia una escena, los valores de las propiedades se asignarán de acuerdo a la siguiente secuencia:</p>
 <ol class="arabic simple">
 <li><p><strong>Valor de asignación inicial:</strong> la propiedad tendr{a asignado su valor de inicialización o su valor por defecto si no es especificado. Si existe un setter, este no será usado.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_init()</span></code> <strong>assignment:</strong> the property's value is replaced by any assignments
-made in <code class="docutils literal notranslate"><span class="pre">_init()</span></code>, triggering the setter.</p></li>
+<li><p><strong>Asignación en</strong> <code class="docutils literal notranslate"><span class="pre">_init()</span></code>: el valor de la propiedad se reemplaza por cualquier asignación
+realizada en <code class="docutils literal notranslate"><span class="pre">_init()</span></code>, activando el setter.</p></li>
 <li><p><strong>Asignación de valores eportados:</strong> un valor exportado de una propiedad es reemplazado de nuevo por el valor asignado en el Inspector, disparando el setter.</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
@@ -13303,12 +13303,12 @@ made in <code class="docutils literal notranslate"><span class="pre">_init()</sp
 <h2>_ready vs. _enter_tree vs. NOTIFICATION_PARENTED<a class="headerlink" href="#ready-vs-enter-tree-vs-notification-parented" title="Link to this heading"></a></h2>
 <p>Cuando se instancia una escena conectada a la primer escena ejecutada, Godot instanciará nodos en el árbol (haciendo llamadas a <code class="docutils literal notranslate"><span class="pre">_init()</span></code>) y construirá el árbol hacia abajo desde la raíz. Esto causa llamadas <code class="docutils literal notranslate"><span class="pre">_enter_tree()</span></code> en cascada hacia abajo. Una vez que el árbol esté completo, los nodos hoja llaman a <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>. Un nodo llamará a este método una vez que todos los nodos hijos han finalizado su ejecución. Esto causa una cascada en reversa, hacia arriba hasta la raíz del árbol.</p>
 <p>Cuando se instancia un script o una escena independiente, los nodos no son agregados al Árbol de Escenas en su creación, por lo que no se activan los callbacks <code class="docutils literal notranslate"><span class="pre">_enter_tree()</span></code>. En cambio, sólo se produce la llamada <code class="docutils literal notranslate"><span class="pre">_init()</span></code>. Cuando la escena se agrega al Árbol de Escenas, ocurren las llamadas <code class="docutils literal notranslate"><span class="pre">_enter_tree()</span></code> y luego <code class="docutils literal notranslate"><span class="pre">_ready()</span></code>.</p>
-<p>If you need to trigger behavior that occurs as nodes parent to another,
-regardless of whether it occurs as part of the main/active scene or not, you
-can use the <a class="reference internal" href="../../classes/class_node.html#class-node-constant-notification-parented"><span class="std std-ref">PARENTED</span></a> notification.
-For example, here is a snippet that connects a node's method to
-a custom signal on the parent node without failing. Useful on data-centric
-nodes potentially created at runtime.</p>
+<p>Si necesitas activar un comportamiento que ocurre cuando los nodos se emparentan con otro,
+independientemente de si ocurre como parte de la escena principal/activa o no,
+puedes utilizar la notificación <a class="reference internal" href="../../classes/class_node.html#class-node-constant-notification-parented"><span class="std std-ref">PARENTED</span></a>.
+Por ejemplo, aquí hay un fragmento que conecta el método de un nodo a
+una señal personalizada en el nodo padre sin fallar. Es útil en nodos centrados en datos
+que potencialmente se crean en tiempo de ejecución.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-3-R0RTY3JpcHQ=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tab" tabindex="0">GDScript</button><button aria-controls="panel-3-QyM=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-QyM=" name="QyM=" role="tab" tabindex="-1">C#</button><button aria-controls="panel-3-Qysr" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Qysr" name="Qysr" role="tab" tabindex="-1">C++</button></div><div aria-labelledby="tab-3-R0RTY3JpcHQ=" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-R0RTY3JpcHQ=" name="R0RTY3JpcHQ=" role="tabpanel" tabindex="0"><div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="k">extends</span><span class="w"> </span><span class="nb">Node</span>
 

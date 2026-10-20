@@ -13058,16 +13058,16 @@
 </div></blockquote>
 </li>
 </ul>
-<p>Don't forget to set the children so they can't be selected, like you did with
-the Player scene. This is done by selecting the parent node (<code class="docutils literal notranslate"><span class="pre">RigidBody2D</span></code>) in the
-Scene tree dock, then using the <span class="role-button role-ui">Group</span> button at the top of the 2D editor
-(<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">G</kbd></kbd> or <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">G</kbd></kbd> on macOS).</p>
+<p>No olvides configurar los nodos hijos para que no puedan seleccionarse, tal como hiciste con
+la escena Player. Esto se hace seleccionando el nodo padre (<code class="docutils literal notranslate"><span class="pre">RigidBody2D</span></code>) en el
+panel del Árbol de Escenas y luego usando el botón <span class="role-button role-ui">Agrupar</span> en la parte superior del editor 2D
+(<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">G</kbd></kbd> o <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">G</kbd></kbd> en macOS).</p>
 <p>Selecciona el nodo <code class="docutils literal notranslate"><span class="pre">Mob</span></code> y establece su propiedad <code class="docutils literal notranslate"><span class="pre">Gravity</span> <span class="pre">Scale</span></code> en la sección <a class="reference internal" href="../../classes/class_rigidbody2d.html#class-rigidbody2d"><span class="std std-ref">RigidBody2D</span></a> del inspector en <code class="docutils literal notranslate"><span class="pre">0</span></code>. Esto evitará que el mob caiga hacia abajo.</p>
-<p>In addition, in the <code class="docutils literal notranslate"><span class="pre">Mob</span></code> node inspector,
-under the <a class="reference internal" href="../../classes/class_collisionobject2d.html#class-collisionobject2d"><span class="std std-ref">CollisionObject2D</span></a>
-section, expand the <strong>Collision</strong> group and
-uncheck the <code class="docutils literal notranslate"><span class="pre">1</span></code> inside the <code class="docutils literal notranslate"><span class="pre">Mask</span></code> property.
-This will ensure the mobs do not collide with each other.</p>
+<p>Además, en el inspector del nodo <code class="docutils literal notranslate"><span class="pre">Mob</span></code>,
+bajo la sección <a class="reference internal" href="../../classes/class_collisionobject2d.html#class-collisionobject2d"><span class="std std-ref">CollisionObject2D</span></a>,
+despliega el grupo <strong>Collision</strong> y
+desmarca el <code class="docutils literal notranslate"><span class="pre">1</span></code> dentro de la propiedad <code class="docutils literal notranslate"><span class="pre">Mask</span></code>.
+Esto asegurará que los enemigos no colisionen entre sí.</p>
 <img alt="../../_images/set_collision_mask.webp" src="../../_images/set_collision_mask.webp" />
 <p>Configura el <a class="reference internal" href="../../classes/class_animatedsprite2d.html#class-animatedsprite2d"><span class="std std-ref">AnimatedSprite2D</span></a> como hiciste con el jugador. Esta vez, tenemos 3 animaciones: <code class="docutils literal notranslate"><span class="pre">fly</span></code>, <code class="docutils literal notranslate"><span class="pre">swim</span></code>, y <code class="docutils literal notranslate"><span class="pre">walk</span></code>. Hay dos imágenes para cada animación en la carpeta art.</p>
 <p>La propiedad <code class="docutils literal notranslate"><span class="pre">Animation</span> <span class="pre">Speed</span></code> tiene que ser ajustada para cada animación individual. Ajústala a <code class="docutils literal notranslate"><span class="pre">3</span></code> para las 3 animaciones.</p>

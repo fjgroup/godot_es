@@ -13135,9 +13135,9 @@
 </pre></div>
 </div>
 </div></div>
-<p>Here, instead of <code class="docutils literal notranslate"><span class="pre">_process()</span></code>, we're going to make all calculations using the <code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code>
-virtual function. It's designed specifically for physics-related code like moving a
-kinematic or rigid body. It updates the node using fixed time intervals.</p>
+<p>Aquí, en lugar de <code class="docutils literal notranslate"><span class="pre">_process()</span></code>, vamos a realizar todos los cálculos utilizando la función virtual <code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code>.
+Está diseñada específicamente para código relacionado con la física, como mover un cuerpo cinemático o rígido.
+Actualiza el nodo utilizando intervalos de tiempo fijos.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
 <p>Para aprender más sobre la diferencia entre <code class="docutils literal notranslate"><span class="pre">_process()</span></code> y <code class="docutils literal notranslate"><span class="pre">_physics_process()</span></code>, véase <a class="reference internal" href="../../tutorials/scripting/idle_and_physics_processing.html#doc-idle-and-physics-processing"><span class="std std-ref">Procesamiento en Reposo y Físico</span></a>.</p>
@@ -13333,11 +13333,11 @@ kinematic or rigid body. It updates the node using fixed time intervals.</p>
 <p>En la ventana emergente, haz doble click en <code class="docutils literal notranslate"><span class="pre">player.tscn</span></code>. El personaje deberia aparecer en el centro del puerto de vista.</p>
 <section id="adding-a-camera">
 <h3>Agregar una cámara<a class="headerlink" href="#adding-a-camera" title="Link to this heading"></a></h3>
-<p>Let's add the camera next. Like we did with our <em>Player</em>'s <em>Pivot</em>, we're
-going to create a basic rig. Right-click on the <code class="docutils literal notranslate"><span class="pre">Main</span></code> node again and select
-<em>Add Child Node</em>. Create a new <a class="reference internal" href="../../classes/class_marker3d.html#class-marker3d"><span class="std std-ref">Marker3D</span></a>, and name it <code class="docutils literal notranslate"><span class="pre">CameraPivot</span></code>.
-Select <code class="docutils literal notranslate"><span class="pre">CameraPivot</span></code> and add a child node <a class="reference internal" href="../../classes/class_camera3d.html#class-camera3d"><span class="std std-ref">Camera3D</span></a> to it.
-Your scene tree should look similar to this.</p>
+<p>A continuación agreguemos la cámara. Al igual que hicimos con el <em>Pivot</em> de nuestro <em>Player</em>,
+vamos a crear una estructura básica. Haz clic derecho en el nodo <code class="docutils literal notranslate"><span class="pre">Main</span></code> nuevamente y selecciona
+<em>Añadir Nodo Hijo</em>. Crea un nuevo <a class="reference internal" href="../../classes/class_marker3d.html#class-marker3d"><span class="std std-ref">Marker3D</span></a> y nómbralo <code class="docutils literal notranslate"><span class="pre">CameraPivot</span></code>.
+Selecciona <code class="docutils literal notranslate"><span class="pre">CameraPivot</span></code> y añade un nodo hijo <a class="reference internal" href="../../classes/class_camera3d.html#class-camera3d"><span class="std std-ref">Camera3D</span></a> a este.
+Tu árbol de escenas debería verse similar a esto.</p>
 <p><img alt="image3" src="../../_images/04.scene_tree_with_camera.webp" /></p>
 <p>Observa la casilla de verificación <em>Preview</em> que aparece en la parte superior izquierda de la vista 3D cuando tiene la <em>Camera</em> seleccionada. Puedes hacer clic en él para obtener una vista previa de la proyección de la cámara del juego.</p>
 <p><img alt="image4" src="../../_images/05.camera_preview_checkbox.webp" /></p>
@@ -13351,8 +13351,8 @@ Your scene tree should look similar to this.</p>
 <p><img alt="image7" src="../../_images/08.camera_moved.png" /></p>
 <p>Aquí es donde la magia sucede. Selecciona la <em>CameraPivot</em> y rotála <code class="docutils literal notranslate"><span class="pre">-45</span></code> grados alrededor del eje de X (usando el circulo rojo). Veras la cámara moverse como si estuviera adherida a la grúa.</p>
 <p><img alt="image8" src="../../_images/09.camera_rotated.png" /></p>
-<p>You can run the scene by pressing <kbd class="kbd docutils literal notranslate">F6</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">R</kbd></kbd> on macOS) and
-press the arrow keys to move the character.</p>
+<p>Puedes ejecutar la escena presionando <kbd class="kbd docutils literal notranslate">F6</kbd> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Cmd</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">R</kbd></kbd> en macOS) y
+presionar las teclas de flecha para mover al personaje.</p>
 <p><img alt="image9" src="../../_images/10.camera_perspective.png" /></p>
 <p>Podemos ver algo de espacio vacío alrededor del personaje debido a la proyección en perspectiva. En este juego, vamos a utilizar en su lugar una proyección ortográfica para enmarcar mejor el área de juego y facilitar al jugador la lectura de las distancias.</p>
 <p>Selecciona nuevamente la <em>Cámara</em> y en el <em>Inspector</em>, establece la <em>Proyección</em> en <em>Ortogonal</em> y el <em>Tamaño</em> en <code class="docutils literal notranslate"><span class="pre">19</span></code>. El personaje ahora debería lucir más plano y el suelo debería llenar el fondo.</p>

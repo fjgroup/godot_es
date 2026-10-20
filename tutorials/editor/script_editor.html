@@ -13067,9 +13067,7 @@
 <p>Si estás usando GDScript, el editor de texto integrado de Godot te ofrece todo lo necesario, sirviendo como un punto de acceso único para aprovechar al máximo el motor Godot. Casi todos los parámetros que se pueden ajustar mediante la interfaz de usuario también se pueden modificar directamente mediante código.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>If you would like to use an external text editor or prefer to use C#
-in your project, see <a class="reference internal" href="external_editor.html#doc-external-editor"><span class="std std-ref">Uso de un editor de texto externo</span></a> and
-<a class="reference internal" href="../scripting/c_sharp/c_sharp_basics.html#doc-c-sharp-setup-external-editor"><span class="std std-ref">Configuración de un editor externo</span></a>.</p>
+<p>Si deseas utilizar un editor de texto externo o prefieres usar C# en tu proyecto, consulta <a class="reference internal" href="external_editor.html#doc-external-editor"><span class="std std-ref">Uso de un editor de texto externo</span></a> para configurar Godot con un editor externo.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
@@ -13102,12 +13100,12 @@ in your project, see <a class="reference internal" href="external_editor.html#do
 <p>Si simplemente ingresa &quot;*&quot; en la barra de filtro, puede mostrar todos los archivos no guardados.</p>
 </div>
 <p>Puedes arrastrar un archivo para cambiar su orden. Al hacer clic con el botón central en un archivo, este se cierra. Al hacer clic con el botón derecho en un archivo, se ofrecen varias opciones para guardarlo o cerrarlo, o para copiar su ruta relativa. En este menú:</p>
-<p>You can also use <strong>Move Up</strong> and <strong>Move Down</strong> to change the order of the file, or use <strong>Sort</strong>
-to sort all files alphabetically. <strong>Toggle Scripts Panel</strong> hides the panel, which
-can be displayed again using the right arrow on the status bar.
-<strong>Close Docs</strong> closes all opened in-class reference documents leaving only
-script files open. <strong>Show in FileSystem</strong> finds and highlights the file in the
-FileSystem dock.</p>
+<p>También puedes usar <strong>Mover Arriba</strong> y <strong>Mover Abajo</strong> para cambiar el orden del archivo, o usar <strong>Ordenar</strong>
+para ordenar todos los archivos alfabéticamente. <strong>Alternar Panel de Scripts</strong> oculta el panel, el cual
+se puede volver a mostrar usando la flecha derecha en la barra de estado.
+<strong>Cerrar Documentación</strong> cierra todos los documentos de referencia de clases abiertos dejando únicamente
+archivos de script abiertos. <strong>Mostrar en Sistema de Archivos</strong> busca y resalta el archivo en el
+panel del Sistema de Archivos.</p>
 <p>Debajo de la lista de archivos, verá el nombre del archivo abierto. El botón junto a este cambia el orden de los métodos definidos en este archivo entre orden alfabético y orden de aparición. Debajo se encuentra el esquema del archivo. Si se trata de un archivo de script, contendrá la lista de métodos definidos. Sin embargo, si hay una página de referencia de clase abierta, esta área mostrará el índice del documento. Al hacer clic en un elemento de esta lista, accederá a la función o sección correspondiente del archivo. De igual forma, la barra <strong>Filtrar métodos</strong> permite buscar una función o sección específica dentro del documento seleccionado con el mismo comportamiento que al filtrar scripts.</p>
 </section>
 <section id="menus">
@@ -13118,7 +13116,7 @@ FileSystem dock.</p>
 <p>Un asterisco (*) junto a una acción significa que esta operación también está disponible en el menú contextual, que se puede abrir haciendo clic derecho en el editor de código.</p>
 </div>
 <img alt="../../_images/text_editor_menu.webp" src="../../_images/text_editor_menu.webp" />
-<p>The <strong>File</strong> menu provides the following options:</p>
+<p>El menú <strong>Archivo</strong> proporciona las siguientes opciones:</p>
 <img alt="../../_images/text_editor_file_menu.webp" src="../../_images/text_editor_file_menu.webp" />
 <ul class="simple">
 <li><p><strong>Nuevo script...</strong>: Abre el cuadro de diálogo de nuevo script para crearlo y añadirlo al proyecto. Si la creación se realiza correctamente, se abrirá directamente en el editor de texto. Según la versión de Godot (compatible con C# o no), puede elegir <code class="docutils literal notranslate"><span class="pre">.gd</span></code> o <code class="docutils literal notranslate"><span class="pre">.cs</span></code> como la extensión.</p></li>
@@ -13184,8 +13182,7 @@ scripts.</p></li>
 <li><p><strong>Sangría automática</strong>: Convierte la sangría de las líneas seleccionadas (o de todo el archivo) siguiendo la configuración de sangría.</p></li>
 </ul>
 </li>
-<li><p><strong>Convert Case</strong>: Changes the case of the selected text to <cite>Upper Case*</cite>, <cite>Lower Case*</cite>, or
-capitalizes each initial letter of the words.</p></li>
+<li><p><strong>Convertir Mayúsculas/Minúsculas</strong>: Cambia las mayúsculas/minúsculas del texto seleccionado a <cite>Mayúsculas</cite>, <cite>Minúsculas</cite> o coloca en mayúscula cada palabra.</p></li>
 <li><p><strong>Resaltador de sintaxis</strong>: Le permite elegir el resaltador de sintaxis.</p>
 <ul>
 <li><p><strong>Texto sin formato</strong>: deshabilita el resaltado.</p></li>
@@ -13232,11 +13229,11 @@ capitalizes each initial letter of the words.</p></li>
 <li><p>El menú <strong>Marcadores</strong> también contendrá la lista de líneas marcadas, incluido su número de línea y mostrando el contenido parcial de esa línea.</p></li>
 </ul>
 </li>
-<li><p><strong>Breakpoints</strong>: Breakpoints are helpful while debugging your code. Similar to <strong>Bookmarks</strong>
-menu, this menu lets you add or remove breakpoints, navigate between them and directly
-jump to a specific breakpoint. An easy way to add a breakpoint is hovering over the blank area
-left of a line number. It will show a faded red circle. Clicking it will add a
-breakpoint and the circle will stay there. Clicking on a circle removes the breakpoint.</p></li>
+<li><p><strong>Puntos de interrupción</strong>: Los puntos de interrupción son útiles al depurar tu código. Similar al menú
+<strong>Marcadores</strong>, este menú te permite agregar o quitar puntos de interrupción, navegar entre ellos y saltar
+directamente a un punto de interrupción específico. Una forma fácil de añadir un punto de interrupción es pasar el cursor sobre el área en blanco
+a la izquierda de un número de línea. Se mostrará un círculo rojo tenue. Al hacer clic se añadirá un
+punto de interrupción y el círculo permanecerá allí. Al hacer clic en un círculo se elimina el punto de interrupción.</p></li>
 </ul>
 <p>El menú <strong>Depurar</strong> ofrece acciones que se pueden usar durante la depuración. Véase <a class="reference internal" href="../scripting/debug/overview_of_debugging_tools.html#doc-debugger-tools-and-options"><span class="std std-ref">Herramientas y opciones de depuración del editor de scripts</span></a> para obtener más información.</p>
 </section>
@@ -13250,13 +13247,13 @@ breakpoint and the circle will stay there. Clicking on a circle removes the brea
 <p>El área de codificación es donde escribirá sus scripts si usas el editor de texto integrado. Ofrece funciones de resaltado y completado automático para ayudarle mientras codificas.</p>
 <p>El área de codificación muestra los números de línea a la izquierda. Debajo de las flechas de navegación, a la derecha, hay un minimapa interactivo que ofrece una vista general del script, permitiéndole navegar por él.</p>
 <p>Si una línea de código es lo suficientemente larga (más de 80 caracteres por defecto), el editor de texto mostrará una línea vertical que puede usarse como guía suave. Para una guía rígida, este valor se establece en 100 caracteres por defecto. Ambos valores se pueden cambiar, o la visualización de la línea se puede activar o desactivar en la configuración de &quot;Apariencia&quot; del editor de texto.</p>
-<p>In the script, to the left of function definitions, you might see additional icons. The <img alt="sobreescritura" src="../../_images/override.webp" />
-icon indicates that this function is an <a class="reference internal" href="../scripting/overridable_functions.html#doc-overridable-functions"><span class="std std-ref">override</span></a> of an existing
-function. Clicking it opens the documentation of the original function. The <img alt="recibidor" src="../../_images/receiver.webp" /> icon means
-that it is a receiving method of a signal. Clicking it shows where the signal is coming
-from. A <img alt="plegable" src="../../_images/Foldable.webp" /> icon to the left of the line denotes a foldable block. You can
-click to collapse or expand it.
-Alternatively, the ellipsis (...) icon can also be clicked to expand a folded block.</p>
+<p>En el script, a la izquierda de las definiciones de función, es posible que veas iconos adicionales. El icono <img alt="sobreescritura" src="../../_images/override.webp" />
+indica que esta función es una <a class="reference internal" href="../scripting/overridable_functions.html#doc-overridable-functions"><span class="std std-ref">sobreescritura</span></a> de una función
+existente. Al hacer clic en él se abre la documentación de la función original. El icono <img alt="recibidor" src="../../_images/receiver.webp" /> significa
+que es un método receptor de una señal. Al hacer clic en él se muestra de dónde proviene la señal.
+Un icono <img alt="plegable" src="../../_images/Foldable.webp" /> a la izquierda de la línea denota un bloque plegable. Puedes
+hacer clic para contraerlo o expandirlo.
+Alternativamente, también se puede hacer clic en el icono de puntos suspensivos (...) para expandir un bloque plegado.</p>
 <p>El siguiente ejemplo resume el párrafo anterior. Las líneas 52, 56 y 58 son bloques plegables; la línea 57 es una región de código llamada &quot;Nueva Región de Código&quot;, que también se puede plegar; y la línea 62 es un bloque plegable. La línea 53 es un marcador, al que se puede acceder rápidamente mediante el menú <strong>Ir a &gt; Marcadores</strong>. La línea 55 es un punto de interrupción que se puede usar en <a class="reference internal" href="../scripting/debug/overview_of_debugging_tools.html#doc-overview-of-debugging-tools"><span class="std std-ref">debugging</span></a>.</p>
 <img alt="../../_images/text_editor_coding_area_indicators.webp" src="../../_images/text_editor_coding_area_indicators.webp" />
 <p>Muchos de los colores del editor de texto, como los de resaltado o incluso los de los iconos de puntos de interrupción o marcadores, se pueden personalizar. Puedes experimentar con ellos abriendo la configuración del editor de texto y navegando a la sección <strong>Editor &gt; Configuración del editor &gt; Editor de texto</strong>.</p>

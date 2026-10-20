@@ -13040,12 +13040,12 @@
   
   <section id="using-the-android-editor">
 <span id="doc-using-the-android-editor"></span><h1>Usar el editor en Android<a class="headerlink" href="#using-the-android-editor" title="Link to this heading"></a></h1>
-<p>In 2023, we added an <a class="reference external" href="https://godotengine.org/article/android_godot_editor_play_store_beta_release/">Android port of the editor</a>
-that can be used to create, develop, and export 2D and 3D projects on Android devices.</p>
+<p>En 2023, agregamos una <a class="reference external" href="https://godotengine.org/article/android_godot_editor_play_store_beta_release/">versión del editor para Android</a>
+que se puede utilizar para crear, desarrollar y exportar proyectos 2D y 3D en dispositivos Android.</p>
 <p>La aplicación se puede descargar desde la página de descarga de Godot &lt;<a class="reference external" href="https://godotengine.org/download/android/">https://godotengine.org/download/android/</a>&gt;`__ o desde <a class="reference external" href="https://play.google.com/store/apps/details?id=org.godotengine.editor.v4">Google Play Store</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>The Android editor is in early access, while we continue to refine the experience. See <a class="reference internal" href="#doc-using-the-android-editor-limitations"><span class="std std-ref">Limitaciones y problemas conocidos</span></a> below.</p>
+<p>El editor de Android se encuentra en acceso anticipado mientras continuamos perfeccionando la experiencia. Consulta los <a class="reference external" href="https://github.com/godotengine/godot/issues?q=is%3Aopen+is%3Aissue+label%3Aplatform%3Aandroid+label%3Atopic%3Aeditor">problemas de GitHub con las etiquetas "platform:android" y "topic:editor"</a> para obtener una lista de problemas conocidos.</p>
 </div>
 <section id="android-devices-support">
 <h2>Soporte de dispositivos Android<a class="headerlink" href="#android-devices-support" title="Link to this heading"></a></h2>
@@ -13059,9 +13059,7 @@ that can be used to create, develop, and export 2D and 3D projects on Android de
 <section id="runtime-permissions">
 <h2>Permisos de tiempo de ejecución<a class="headerlink" href="#runtime-permissions" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://developer.android.com/training/data-storage/manage-all-files#all-files-access">All files access permission</a>:
-Enables the editor to create, import, and read project files from any file locations on the device.
-Without this permission, the editor is still functional, but has limited access to the device's files and directories.</p></li>
+<li><li><p><a class="reference external" href="https://developer.android.com/training/data-storage/manage-all-files#all-files-access">Permiso de acceso a todos los archivos</a>: Permite que el editor cree, importe y lea archivos de proyecto desde cualquier carpeta en el dispositivo.</p></li></li>
 <li><p><a class="reference external" href="https://developer.android.com/reference/android/Manifest.permission#REQUEST_INSTALL_PACKAGES">REQUEST_INSTALL_PACKAGES</a>: Permite al editor instalar APK de proyectos exportados.</p></li>
 <li><p><a class="reference external" href="https://developer.android.com/reference/android/Manifest.permission#RECORD_AUDIO">RECORD_AUDIO</a>: Se solicita cuando la configuración del proyecto <a class="reference external" href="https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-audio-driver-enable-input">audio/driver/enable_input</a> está habilitada.</p></li>
 </ul>
@@ -13103,7 +13101,7 @@ Without this permission, the editor is still functional, but has limited access 
 <ul class="simple">
 <li><p>No hay soporte para C#/Mono.</p></li>
 <li><p>Sin soporte para editores de scripts externos.</p></li>
-<li><p>While available, the Forward+ renderer is not recommended due to severe performance issues.</p></li>
+<li><p>Aunque está disponible, no se recomienda el renderizador Forward+ debido a graves problemas de rendimiento.</p></li>
 <li><p>La UX no está optimizada para el factor de forma de los dispositivos Android.</p></li>
 <li><p><a class="reference external" href="https://developer.android.com/guide/topics/androidgo">Dispositivos Android Go</a> carecen de permiso de <em>Acceso a todos los archivos</em> requerido para acceso de lectura/escritura en el dispositivo. Como alternativa cuando se utiliza un dispositivo Android Go, es recomendable crear proyectos nuevos en los directorios <em>Documentos</em> o <em>Descargas</em> de Android.</p></li>
 <li><p>El editor no se recupera correctamente cuando <em>No mantener actividades</em> está habilitado en <em>Opciones de Desarrollador</em>.</p></li>

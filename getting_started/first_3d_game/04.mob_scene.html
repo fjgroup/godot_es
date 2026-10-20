@@ -13065,11 +13065,11 @@
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Para cuando instancias objetos continuamente hay una técnica que puedes usar para evitar el coste de crearlos y destruirlos todo el tiempo, esta se llama pooling. Consiste en crear una lista de objetos y reusarlos una y otra vez.</p>
-<p>When working with GDScript, this usually isn't needed. The main
-reason to use pools is to avoid freezes with garbage-collected languages
-like C# or Lua. GDScript uses a different technique to manage memory,
-reference counting, which doesn't have that caveat. You can learn more
-about that here: <a class="reference internal" href="../../tutorials/scripting/gdscript/gdscript_basics.html#doc-gdscript-basics-memory-management"><span class="std std-ref">Gestión de la memoria</span></a>.</p>
+<p>Al trabajar con GDScript, esto normalmente no es necesario. La razón principal
+para usar pools es evitar congelamientos con lenguajes que utilizan recolección de basura
+como C# o Lua. GDScript utiliza una técnica diferente para gestionar la memoria,
+el recuento de referencias, que no presenta ese inconveniente. Puedes obtener más información
+al respecto aquí: <a class="reference internal" href="../../tutorials/scripting/gdscript/gdscript_basics.html#doc-gdscript-basics-memory-management"><span class="std std-ref">Gestión de la memoria</span></a>.</p>
 </div>
 <p>Selecciona el nodo <code class="docutils literal notranslate"><span class="pre">Mob</span></code> y agrega un nodo <a class="reference internal" href="../../classes/class_visibleonscreennotifier3d.html#class-visibleonscreennotifier3d"><span class="std std-ref">VisibleOnScreenNotifier3D</span></a> como hijo de este. Aparecerá otro recuadro, esta vez de color rosa. Cuando este recuadro salga completamente de la pantalla, el nodo emitirá una señal.</p>
 <p><img alt="image5" src="../../_images/06.visibility_notifier.webp" /></p>
@@ -13176,8 +13176,8 @@ about that here: <a class="reference internal" href="../../tutorials/scripting/g
 <section id="leaving-the-screen">
 <h3>Salir de la escena<a class="headerlink" href="#leaving-the-screen" title="Link to this heading"></a></h3>
 <p>Todavía tenemos que destruir a los monstruos cuando salen de la pantalla. Para hacerlo, conectaremos la señal <code class="docutils literal notranslate"><span class="pre">screen_exited</span></code> del nodo <a class="reference internal" href="../../classes/class_visibleonscreennotifier3d.html#class-visibleonscreennotifier3d"><span class="std std-ref">VisibleOnScreenNotifier3D</span></a> al nodo <code class="docutils literal notranslate"><span class="pre">Mob</span></code>.</p>
-<p>Select the <a class="reference internal" href="../../classes/class_visibleonscreennotifier3d.html#class-visibleonscreennotifier3d"><span class="std std-ref">VisibleOnScreenNotifier3D</span></a> node and on the right side of the interface,
-navigate to the <em>Signals</em> dock. Double-click the <code class="docutils literal notranslate"><span class="pre">screen_exited()</span></code> signal.</p>
+<p>Selecciona el nodo <a class="reference internal" href="../../classes/class_visibleonscreennotifier3d.html#class-visibleonscreennotifier3d"><span class="std std-ref">VisibleOnScreenNotifier3D</span></a> y en el lado derecho de la interfaz,
+navega hasta el panel de <em>Señales</em>. Haz doble clic en la señal <code class="docutils literal notranslate"><span class="pre">screen_exited()</span></code>.</p>
 <p><img alt="image9" src="../../_images/10.node_dock.webp" /></p>
 <p>Conecta la señal al <em>Mob</em></p>
 <p><img alt="image10" src="../../_images/11.connect_signal.webp" /></p>
