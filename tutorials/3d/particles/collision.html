@@ -13040,58 +13040,48 @@
 
   
   <section id="d-particle-collisions">
-<span id="doc-3d-particles-collision"></span><h1>3D Particle collisions<a class="headerlink" href="#d-particle-collisions" title="Link to this heading"></a></h1>
+<span id="doc-3d-particles-collision"></span><h1>Colisiones de partículas 3D<a class="headerlink" href="#d-particle-collisions" title="Link to this heading"></a></h1>
 <figure class="align-default">
 <img alt="Particle collisions" src="../../../_images/particle_collision.webp" />
 </figure>
 <p>Dado que las partículas GPU se procesan íntegramente en la GPU, no tienen acceso directo al mundo de físicas del juego. Si necesitas que las partículas colisionen con el entorno, debes configurar nodos dedicados de colisión de partículas.</p>
 <section id="common-properties">
-<h2>Common properties<a class="headerlink" href="#common-properties" title="Link to this heading"></a></h2>
+<h2>Propiedades comunes (Common properties)<a class="headerlink" href="#common-properties" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id1">
 <img alt="Common particle collision properties" src="../../../_images/particle_collision_common.webp" />
 <figcaption>
-<p><span class="caption-text">Common collision properties</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Propiedades comunes de colisión</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>There are some properties that you can find on all collision nodes. They're located in the
-<code class="docutils literal notranslate"><span class="pre">GPUParticlesCollision3D</span></code> section in the inspector.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Cull</span> <span class="pre">Mask</span></code> property controls which particle systems are affected by a collision node based
-on each system's <a class="reference internal" href="../../../classes/class_visualinstance3d.html#class-visualinstance3d"><span class="std std-ref">visibility layers</span></a>. A particle system collides with a
-collision node only if at least one of the system's visibility layers is enabled in the
-collider's cull mask.</p>
+<p>Hay algunas propiedades que encontrarás en todos los nodos de colisión. Se encuentran en la sección <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollision3D</span></code> en el inspector.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Cull</span> <span class="pre">Mask</span></code> controla qué sistemas de partículas se ven afectados por un nodo de colisión basándose en las <a class="reference internal" href="../../../classes/class_visualinstance3d.html#class-visualinstance3d"><span class="std std-ref">capas de visibilidad</span></a> de cada sistema. Un sistema de partículas colisiona con un nodo de colisión solo si al menos una de las capas de visibilidad del sistema está habilitada en la máscara de exclusión (cull mask) del colisionador.</p>
 </section>
 <section id="box-collision">
-<h2>Box collision<a class="headerlink" href="#box-collision" title="Link to this heading"></a></h2>
+<h2>Colisión de caja (Box collision)<a class="headerlink" href="#box-collision" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id2">
 <img alt="Particle collision box" src="../../../_images/particle_collision_box_entry.webp" />
 <figcaption>
-<p><span class="caption-text">Box collision in the node list</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Colisión de caja en la lista de nodos</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Box collision nodes are shaped like a solid, rectangular box. You control their size with the <code class="docutils literal notranslate"><span class="pre">Extents</span></code>
-property. Box extents always measure half of the sides of its bounds, so a value of <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code>
-creates a box that is 2 meters wide on each side. Box collision nodes are useful for simulating floor
-and wall geometry that particles should collide against.</p>
+<p>Los nodos de colisión de caja tienen la forma de una caja rectangular sólida. Controlas su tamaño mediante la propiedad <code class="docutils literal notranslate"><span class="pre">Extents</span></code>. Las extensiones de la caja siempre miden la mitad de los lados de sus límites, por lo que un valor de <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> crea una caja de 2 metros de ancho en cada lado. Los nodos de colisión de caja son útiles para simular la geometría del suelo y las paredes contra las que deben colisionar las partículas.</p>
 <p>Para crear un nodo de colisión de caja, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionBox3D</span></code> de la lista de nodos disponibles.</p>
 <figure class="align-default" id="id3">
 <img alt="Box collision with particle systems" src="../../../_images/particle_collision_box.webp" />
 <figcaption>
-<p><span class="caption-text">Dos sistemas de aprtículas colisionan con una caja de nodo de colisión</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Dos sistemas de partículas colisionan con un nodo de colisión de caja</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="sphere-collision">
-<h2>Sphere collision<a class="headerlink" href="#sphere-collision" title="Link to this heading"></a></h2>
+<h2>Colisión esférica (Sphere collision)<a class="headerlink" href="#sphere-collision" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id4">
 <img alt="Particle collision sphere" src="../../../_images/particle_collision_sphere_entry.webp" />
 <figcaption>
-<p><span class="caption-text">Sphere collision in the node list</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Colisión esférica en la lista de nodos</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Sphere collision nodes are shaped like a solid sphere. The <code class="docutils literal notranslate"><span class="pre">Radius</span></code> property controls the size of the sphere.
-While box collision nodes don't have to be perfect cubes, sphere collision nodes will always be
-spheres. If you want to set width independently from height, you have to change the <code class="docutils literal notranslate"><span class="pre">Scale</span></code>
-property in the <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> section.</p>
+<p>Los nodos de colisión esférica tienen la forma de una esfera sólida. La propiedad <code class="docutils literal notranslate"><span class="pre">Radius</span></code> controla el tamaño de la esfera. Mientras que los nodos de colisión de caja no tienen que ser cubos perfectos, los nodos de colisión esférica siempre serán esferas. Si deseas establecer el ancho de forma independiente a la altura, debes modificar la propiedad <code class="docutils literal notranslate"><span class="pre">Scale</span></code> en la sección <code class="docutils literal notranslate"><span class="pre">Node3D</span></code>.</p>
 <p>Para crear un nodo de colisión esférico, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionSphere3D</span></code> de la lista de nodos disponibles.</p>
 <figure class="align-default" id="id5">
 <img alt="Sphere collision with particle systems" src="../../../_images/particle_collision_sphere.webp" />
@@ -13101,44 +13091,32 @@ property in the <code class="docutils literal notranslate"><span class="pre">Nod
 </figure>
 </section>
 <section id="height-field-collision">
-<h2>Height field collision<a class="headerlink" href="#height-field-collision" title="Link to this heading"></a></h2>
+<h2>Colisión por campo de alturas (Height field collision)<a class="headerlink" href="#height-field-collision" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id6">
 <img alt="Particle collision height field" src="../../../_images/particle_collision_height.webp" />
 <figcaption>
-<p><span class="caption-text">Height field collision in the node list</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Colisión por campo de alturas en la lista de nodos</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>La colisión de partículas por campo de alturas (height field) es muy útil para grandes áreas exteriores que necesitan colisionar con terrenos extensos.</p>
-<p>To create a height field collision node, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionHeightField3D</span></code>
-from the list of available nodes.</p>
-<p>A height field collision node is shaped like a box. The <code class="docutils literal notranslate"><span class="pre">Extents</span></code> property controls its size. Extents
-always measure half of the sides of its bounds, so a value of <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> creates a box that
-is 2 meters wide on each side. Anything outside of the node's extents is ignored for height field creation.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Resolution</span></code> property controls how detailed the height field is. A lower resolution performs faster
-at the cost of accuracy. If the height field resolution is too low, it may look like particles penetrate level geometry
-or get stuck in the air during collision events. They might also ignore some smaller meshes completely.</p>
+<p>Para crear un nodo de colisión por campo de alturas, añade un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionHeightField3D</span></code> de la lista de nodos disponibles.</p>
+<p>Un nodo de colisión por campo de alturas tiene forma de caja. La propiedad <code class="docutils literal notranslate"><span class="pre">Extents</span></code> controla su tamaño. Las extensiones siempre miden la mitad de los lados de sus límites, por lo que un valor de <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> crea una caja de 2 metros de ancho en cada lado. Todo lo que esté fuera de las extensiones del nodo se ignora para la creación del campo de alturas.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Resolution</span></code> controla qué tan detallado es el campo de alturas. Una resolución más baja tiene mejor rendimiento a costa de la precisión. Si la resolución del campo de alturas es demasiado baja, puede parecer que las partículas penetran la geometría del nivel o se quedan flotando en el aire durante los eventos de colisión. También podrían ignorar por completo algunas mallas más pequeñas.</p>
 <figure class="align-default" id="id7">
 <img alt="Height field resolutions" src="../../../_images/particle_heightfield_res.webp" />
 <figcaption>
-<p><span class="caption-text">At low resolutions, height field collision misses some finer details (left)</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">En resoluciones bajas, la colisión por campo de alturas pierde algunos detalles más finos (izquierda)</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Mode</span></code> property controls when the height field is recreated from the meshes within its
-bounds. Set it to <code class="docutils literal notranslate"><span class="pre">When</span> <span class="pre">Moved</span></code> to make it refresh only when it moves. This performs well and is
-suited for static scenes that don't change very often. If you need particles to collide with dynamic objects
-that change position frequently, you can select <code class="docutils literal notranslate"><span class="pre">Always</span></code> to refresh every frame. This comes with a
-cost to performance and should only be used when necessary.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Mode</span></code> controla cuándo se recrea el campo de alturas a partir de las mallas dentro de sus límites. Establécela en <code class="docutils literal notranslate"><span class="pre">When</span> <span class="pre">Moved</span></code> para que se actualice solo cuando se mueva. Esto tiene buen rendimiento y es adecuado para escenas estáticas que no cambian con frecuencia. Si necesitas que las partículas colisionen con objetos dinámicos que cambian de posición a menudo, puedes seleccionar <code class="docutils literal notranslate"><span class="pre">Always</span></code> para actualizar en cada fotograma. Esto conlleva un costo de rendimiento y solo debe utilizarse cuando sea necesario.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>It's important to remember that when <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Mode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">When</span> <span class="pre">Moved</span></code>, it is the <em>height field node</em>
-whose movement triggers an update. The height field is not updated when one of the meshes inside it moves.</p>
+<p>Es importante recordar que cuando <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Mode</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">When</span> <span class="pre">Moved</span></code>, es el movimiento del <em>nodo de campo de alturas</em> el que activa una actualización. El campo de alturas no se actualiza cuando una de las mallas dentro de él se mueve.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Follow</span> <span class="pre">Camera</span> <span class="pre">Enabled</span></code> property makes the height field follow the current camera when enabled. It will
-update whenever the camera moves. This property can be used to make sure that there is always particle collision
-around the player while not wasting performance on regions that are out of sight or too far away.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Follow</span> <span class="pre">Camera</span> <span class="pre">Enabled</span></code> hace que el campo de alturas siga a la cámara actual cuando está habilitada. Se actualizará cada vez que la cámara se mueva. Esta propiedad se puede utilizar para asegurar que siempre haya colisión de partículas alrededor del jugador sin desperdiciar rendimiento en regiones que están fuera de la vista o demasiado lejos.</p>
 </section>
 <section id="sdf-collision">
-<h2>SDF collision<a class="headerlink" href="#sdf-collision" title="Link to this heading"></a></h2>
+<h2>Colisión por SDF (SDF collision)<a class="headerlink" href="#sdf-collision" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>La colisión de partículas por SDF solo es compatible con los renderizadores Forward+ y Mobile, no con Compatibility.</p>
@@ -13146,59 +13124,35 @@ around the player while not wasting performance on regions that are out of sight
 <figure class="align-right" id="id8">
 <img alt="Particle collision SDF" src="../../../_images/particle_collision_sdf_entry.webp" />
 <figcaption>
-<p><span class="caption-text">SDF collision in the node list</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-text">Colisión SDF en la lista de nodos</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>SDF collision nodes create a <a class="reference external" href="https://www.reddit.com/r/explainlikeimfive/comments/k2zbos/eli5_what_are_distance_fields_in_graphics">signed distance field</a>
-that particles can collide with. SDF collision is similar to height field collision in that it turns multiple
-meshes within its bounds into a single collision volume for particles. A major difference is that signed distance
-fields can represent holes, tunnels and overhangs, which is impossible to do with height fields alone. The
-performance overhead is larger compared to height fields, so they're best suited for small-to-medium-sized environments.</p>
-<p>To create an SDF collision node, add a new child node to your scene and select <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionSDF3D</span></code>
-from the list of available nodes. SDF collision nodes have to be baked in order to have any effect on particles
-in the level. To do that, click the <span class="role-button role-ui">Bake SDF</span> button in the viewport toolbar
-while the SDF collision node is selected and choose a directory to store the baked data. Since SDF collision needs
-to be baked in the editor, it's static and cannot change at runtime.</p>
+<p>Los nodos de colisión SDF crean un <a class="reference external" href="https://www.reddit.com/r/explainlikeimfive/comments/k2zbos/eli5_what_are_distance_fields_in_graphics">campo de distancia con signo (SDF)</a> con el que las partículas pueden colisionar. La colisión SDF es similar a la colisión por campo de alturas en el sentido de que convierte múltiples mallas dentro de sus límites en un único volumen de colisión para las partículas. Una gran diferencia es que los campos de distancia con signo pueden representar agujeros, túneles y salientes, lo cual es imposible de lograr solo con campos de alturas. El impacto en el rendimiento es mayor en comparación con los campos de alturas, por lo que son más adecuados para entornos de tamaño pequeño a mediano.</p>
+<p>Para crear un nodo de colisión SDF, añade un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesCollisionSDF3D</span></code> de la lista de nodos disponibles. Los nodos de colisión SDF deben hornearse (bake) para tener efecto sobre las partículas en el nivel. Para hacerlo, haz clic en el botón <span class="role-button role-ui">Bake SDF</span> en la barra de herramientas del viewport mientras el nodo de colisión SDF esté seleccionado y elige un directorio para almacenar los datos horneados. Dado que la colisión SDF necesita hornearse en el editor, es estática y no puede cambiar en tiempo de ejecución.</p>
 <figure class="align-default" id="id9">
 <img alt="Colisiones de partículas SDF" src="../../../_images/particle_collision_sdf.webp" />
 <figcaption>
-<p><span class="caption-text">SDF particle collision allows for very detailed 3-dimensional collision shapes</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+<p><span class="caption-text">La colisión de partículas por SDF permite formas de colisión tridimensionales muy detalladas</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>An SDF collision node is shaped like a box. The <code class="docutils literal notranslate"><span class="pre">Extents</span></code> property controls its size. Extents
-always measure half of the sides of its bounds, so a value of <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> creates a box that
-is 2 meters wide on each side. Anything outside of the node's extents is ignored for collision.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Resolution</span></code> property controls how detailed the distance field is. A lower resolution performs faster
-at the cost of accuracy. If the resolution is too low, it may look like particles penetrate level geometry
-or get stuck in the air during collision events. They might also ignore some smaller meshes completely.</p>
+<p>Un nodo de colisión SDF tiene forma de caja. La propiedad <code class="docutils literal notranslate"><span class="pre">Extents</span></code> controla su tamaño. Las extensiones siempre miden la mitad de los lados de sus límites, por lo que un valor de <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> crea una caja de 2 metros de ancho en cada lado. Todo lo que quede fuera de las extensiones del nodo se ignora para la colisión.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Resolution</span></code> controla qué tan detallado es el campo de distancia. Una resolución más baja tiene mejor rendimiento a costa de la precisión. Si la resolución es demasiado baja, puede parecer que las partículas penetran la geometría del nivel o se quedan flotando en el aire durante los eventos de colisión. También podrían ignorar mallas pequeñas por completo.</p>
 <figure class="align-default" id="id10">
 <img alt="Resolution comparison" src="../../../_images/particle_collision_sdf_res.webp" />
 <figcaption>
-<p><span class="caption-text">The same area covered by a signed distance field at different resolutions: 16 (left) and 256 (right)</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+<p><span class="caption-text">La misma área cubierta por un campo de distancia con signo a diferentes resoluciones: 16 (izquierda) y 256 (derecha)</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Thickness</span></code> property gives the distance field, which is usually hollow on the inside, a thickness to
-prevent particles from penetrating at high speeds. If you find that some particles don't collide with the
-level geometry and instead shoot right through it, try setting this property to a higher value.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Bake</span> <span class="pre">Mask</span></code> property controls which meshes will be considered when the SDF is baked. Only meshes that
-render on the active layers in the bake mask contribute to particle collision.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Thickness</span></code> (Grosor) le otorga al campo de distancia, que normalmente es hueco por dentro, un grosor para evitar que las partículas lo penetren a altas velocidades. Si notas que algunas partículas no colisionan con la geometría del nivel y la atraviesan de largo, prueba a establecer esta propiedad en un valor más alto.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Bake</span> <span class="pre">Mask</span></code> controla qué mallas se considerarán al hornear el SDF. Solo las mallas que se renderizan en las capas activas de la máscara de horneado contribuyen a la colisión de partículas.</p>
 </section>
 <section id="troubleshooting">
-<h2>Solución De Problemas<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
-<p>For particle collision to work, the particle's <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">visibility AABB</span></a>
-must overlap with the collider's AABB. If collisions appear to be not working
-despite colliders being set up, generate an updated visibility AABB by selecting
-the GPUParticles3D node and choosing <strong>GPUParticles3D &gt; Generate Visibility AABB…</strong>
-at the top of the 3D editor viewport.</p>
-<p>If the particles move fast and colliders are thin. There are two solutions for this:</p>
+<h2>Solución de problemas (Troubleshooting)<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>Para que la colisión de partículas funcione, el <a class="reference internal" href="properties.html#doc-3d-particles-properties-draw"><span class="std std-ref">AABB de visibilidad</span></a> de la partícula debe superponerse con el AABB del colisionador. Si las colisiones parecen no funcionar a pesar de que los colisionadores están configurados, genera un AABB de visibilidad actualizado seleccionando el nodo GPUParticles3D y eligiendo <strong>GPUParticles3D &gt; Generate Visibility AABB…</strong> en la parte superior del viewport del editor 3D.</p>
+<p>Si las partículas se mueven rápido y los colisionadores son delgados, existen dos soluciones para esto:</p>
 <ul class="simple">
-<li><p>Make the colliders thicker. For instance, if particles cannot get below a
-solid floor, you could make the collider representing the floor thicker than
-its actual visual representation. The heightfield collider automatically
-handles this by design, as heightfields cannot represent &quot;room over room&quot;
-collision.</p></li>
-<li><p>Increased <code class="docutils literal notranslate"><span class="pre">Fixed</span> <span class="pre">FPS</span></code> in the GPUParticles3D node, which will perform collision
-checks more often. This comes at a performance cost, so avoid setting this too high.</p></li>
+<li><p>Hacer los colisionadores más gruesos. Por ejemplo, si las partículas no deben atravesar un suelo sólido, podrías hacer que el colisionador que representa el suelo sea más grueso que su representación visual real. El colisionador por campo de alturas maneja esto automáticamente por diseño, ya que los campos de alturas no pueden representar colisiones de &quot;habitación sobre habitación&quot;.</p></li>
+<li><p>Aumentar <code class="docutils literal notranslate"><span class="pre">Fixed</span> <span class="pre">FPS</span></code> en el nodo GPUParticles3D, lo que realizará comprobaciones de colisión con más frecuencia. Esto conlleva un costo de rendimiento, así que evita configurarlo demasiado alto.</p></li>
 </ul>
 </section>
 </section>
@@ -13209,7 +13163,7 @@ checks more often. This comes at a performance cost, so avoid setting this too h
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="attractors.html" class="btn btn-neutral float-left" title="Atractores de partículas 3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="complex_shapes.html" class="btn btn-neutral float-right" title="Complex emission shapes" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="complex_shapes.html" class="btn btn-neutral float-right" title="Formas de emisión complejas" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

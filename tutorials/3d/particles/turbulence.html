@@ -13040,7 +13040,7 @@
 
   
   <section id="particle-turbulence">
-<span id="doc-3d-particles-turbulence"></span><h1>Particle turbulence<a class="headerlink" href="#particle-turbulence" title="Link to this heading"></a></h1>
+<span id="doc-3d-particles-turbulence"></span><h1>Turbulencia de partículas<a class="headerlink" href="#particle-turbulence" title="Link to this heading"></a></h1>
 <figure class="align-default">
 <img alt="Particle turbulence" src="../../../_images/particle_turbulence.webp" />
 </figure>
@@ -13054,75 +13054,58 @@
 <p>Hay dos cosas que debes hacer antes de que la turbulencia tenga efecto en un sistema de partículas: primero debes habilitar la casilla <strong>Turbulence Enabled</strong> en el material de proceso y segundo asegurarte de que las partículas tengan una velocidad inicial o aceleración sobre la cual actuar.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Turbulence makes use of 3D noise, which has a high performance cost on the GPU.
-Only enable turbulence on a few particle systems on screen at most.
-Using turbulence is not recommended when targeting mobile/web platforms.</p>
+<p>La turbulencia hace uso de ruido 3D, lo cual tiene un alto costo de rendimiento en la GPU. Habilita la turbulencia en solo unos pocos sistemas de partículas en pantalla como máximo. No se recomienda usar turbulencia cuando se apunta a plataformas móviles o web.</p>
 </div>
 <section id="noise-properties">
-<h2>Noise properties<a class="headerlink" href="#noise-properties" title="Link to this heading"></a></h2>
+<h2>Propiedades de ruido (Noise properties)<a class="headerlink" href="#noise-properties" title="Link to this heading"></a></h2>
 <p>La base de la turbulencia de partículas es un patrón de ruido. Hay varias propiedades que te permiten ajustar la frecuencia, el contraste y la escala de este ruido.</p>
 <p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Strength</span></code> controla el contraste y la fuerza del patrón de ruido.</p>
 <figure class="align-default" id="id2">
 <img alt="Turbulence noise strength" src="../../../_images/particle_turbulence_strength.webp" />
 <figcaption>
-<p><span class="caption-text">At a value of 1 (left), the noise strength produces softer turbulence patterns than at 20 (right)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Con un valor de 1 (izquierda), la fuerza del ruido produce patrones de turbulencia más suaves que con 20 (derecha)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Scale</span></code> property controls the pattern's frequency. It basically changes the noise texture's UV scale
-where a smaller value produces finer detail, but repeating patterns become noticeable faster. A larger value
-results in a weaker turbulence pattern overall, but the particle system can cover a larger area before repetition
-starts to become an issue.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Scale</span></code> controla la frecuencia del patrón. Básicamente cambia la escala UV de la textura de ruido, donde un valor más pequeño produce detalles más finos pero los patrones repetitivos se hacen perceptibles más rápido. Un valor mayor da como resultado un patrón de turbulencia más débil en general, pero el sistema de partículas puede cubrir un área más grande antes de que la repetición comience a ser un problema.</p>
 <figure class="align-default" id="id3">
 <img alt="Turbulence noise scale" src="../../../_images/particle_turbulence_scale.webp" />
 <figcaption>
-<p><span class="caption-text">Turbulence noise scale produces finer details at a value of 1.5 (left) than at 6 (right)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">La escala de ruido de turbulencia produce detalles más finos con un valor de 1.5 (izquierda) que con 6 (derecha)</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span></code> determina qué tan rápido evoluciona o se desplaza el patrón de ruido con el tiempo.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p>Don't mix up particle movement speed and noise panning speed! They are two different things.
-Particle movement is determined by a number of properties, including the turbulence noise.
-The <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span></code> property moves the pattern itself, which in turn changes where the
-noise affects the particles.</p>
+<p>¡No confundas la velocidad de movimiento de las partículas con la velocidad de desplazamiento (panning) del ruido! Son dos cosas diferentes. El movimiento de las partículas viene determinado por varias propiedades, incluido el ruido de turbulencia. La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span></code> desplaza el patrón en sí mismo, lo que a su vez altera en qué lugares el ruido afecta a las partículas.</p>
 </div>
-<p>At a value of <code class="docutils literal notranslate"><span class="pre">(X=0,Y=0,Z=0)</span></code>, the noise pattern doesn't move at all. The influence on particle
-movement stays the same at any given point. Set the speed to <code class="docutils literal notranslate"><span class="pre">(X=1,Y=0,Z=0)</span></code> instead, and the
-noise pattern moves along the X-axis.</p>
+<p>Con un valor de <code class="docutils literal notranslate"><span class="pre">(X=0,Y=0,Z=0)</span></code>, el patrón de ruido no se mueve en absoluto. La influencia sobre el movimiento de las partículas permanece igual en cualquier punto dado. Si estableces la velocidad en <code class="docutils literal notranslate"><span class="pre">(X=1,Y=0,Z=0)</span></code> en su lugar, el patrón de ruido se moverá a lo largo del eje X.</p>
 <figure class="align-default" id="id4">
 <img alt="Turbulence noise speed" src="../../../_images/particle_turbulence_speed.webp" />
 <figcaption>
-<p><span class="caption-text">Different noise speed values. Left: (X=0,Y=0,Z=0), middle: (X=0.5,Y=0.5,Z=0.5), right: (X=0,Y=-2,Z=0).</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Diferentes valores de velocidad de ruido. Izquierda: (X=0,Y=0,Z=0), centro: (X=0.5,Y=0.5,Z=0.5), derecha: (X=0,Y=-2,Z=0).</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span> <span class="pre">Random</span></code> property adds some randomness to the noise panning speed. This helps
-with breaking up visible patterns, especially at higher panning speeds when repetition becomes
-noticeable faster.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">Speed</span> <span class="pre">Random</span></code> añade cierta aleatoriedad a la velocidad de paneo del ruido. Esto ayuda a romper patrones visibles, especialmente a velocidades de desplazamiento más altas cuando la repetición se nota con mayor rapidez.</p>
 </section>
 <section id="influence-properties">
-<h2>Influence properties<a class="headerlink" href="#influence-properties" title="Link to this heading"></a></h2>
+<h2>Propiedades de influencia (Influence properties)<a class="headerlink" href="#influence-properties" title="Link to this heading"></a></h2>
 <p>Las propiedades de influencia determinan qué tanto se ve afectada cada partícula por la turbulencia a lo largo de su ciclo de vida mediante curvas de influencia.</p>
-<p>Since these properties affect the overall influence of the turbulence over a particle system,
-both movement direction and speed change as you set different values. A stronger influence causes
-a particle to move faster and all particles to follow along narrower paths as a result of that.</p>
+<p>Dado que estas propiedades afectan la influencia general de la turbulencia sobre el sistema de partículas, tanto la dirección de movimiento como la velocidad cambian conforme estableces valores diferentes. Una influencia más fuerte hace que una partícula se mueva más rápido y que todas las partículas sigan trayectorias más estrechas como resultado de ello.</p>
 <figure class="align-default" id="id5">
 <img alt="Turbulence influence" src="../../../_images/particle_turbulence_influence.webp" />
 <figcaption>
-<p><span class="caption-text">Notice how the particle paths are more narrow and less spread out at high influence values (right)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Observa cómo las trayectorias de las partículas son más estrechas y menos dispersas con valores altos de influencia (derecha)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="displacement-properties">
-<h2>Displacement properties<a class="headerlink" href="#displacement-properties" title="Link to this heading"></a></h2>
-<p>Displacement changes a particle's starting position. Use <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Displacement</span> <span class="pre">Min</span></code> to set a
-lower limit and <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Displacement</span> <span class="pre">Max</span></code> to set an upper limit. When a particle spawns, the
-amount of displacement is randomly chosen from within this range and multiplied by a random
-direction.</p>
+<h2>Propiedades de desplazamiento (Displacement properties)<a class="headerlink" href="#displacement-properties" title="Link to this heading"></a></h2>
+<p>El desplazamiento modifica la posición inicial de una partícula. Utiliza <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Displacement</span> <span class="pre">Min</span></code> para establecer un límite inferior e <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Displacement</span> <span class="pre">Max</span></code> para un límite superior. Cuando una partícula se genera, la magnitud del desplazamiento se elige aleatoriamente dentro de este rango y se multiplica por una dirección aleatoria.</p>
 <p>El desplazamiento es muy útil para romper formas geométricas regulares o para generar formas complejas a partir de emisores sencillos.</p>
 <figure class="align-default" id="id6">
 <img alt="Turbulence displacement" src="../../../_images/particle_turbulence_displacement.webp" />
 <figcaption>
-<p><span class="caption-text">No displacement (left), displacement value of 5 (middle), displacement range [-20, 20] (right)</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Sin desplazamiento (izquierda), valor de desplazamiento de 5 (centro), rango de desplazamiento [-20, 20] (derecha)</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>

@@ -13040,86 +13040,49 @@
 
   
   <section id="complex-emission-shapes">
-<span id="doc-3d-particles-complex-shapes"></span><h1>Complex emission shapes<a class="headerlink" href="#complex-emission-shapes" title="Link to this heading"></a></h1>
+<span id="doc-3d-particles-complex-shapes"></span><h1>Formas de emisión complejas<a class="headerlink" href="#complex-emission-shapes" title="Link to this heading"></a></h1>
 <figure class="align-default">
 <img alt="Complex emission shapes" src="../../../_images/particle_complex_emission.webp" />
 </figure>
-<p>When it is not enough to emit particles from one of the simple shapes available
-in the <a class="reference internal" href="process_material_properties.html#doc-process-material-properties-shapes"><span class="std std-ref">process material</span></a>, Godot provides
-a way to emit particles from arbitrary, complex shapes. The shapes are generated from
-meshes in the scene and stored as textures in the particle process material. This is a
-very versatile workflow that has allowed users to use particle systems for things that
-go beyond traditional use cases, like foliage, leaves on a tree, or complex
-holographic effects.</p>
+<p>Cuando no es suficiente emitir partículas desde una de las formas simples disponibles en el <a class="reference internal" href="process_material_properties.html#doc-process-material-properties-shapes"><span class="std std-ref">material de proceso</span></a>, Godot ofrece una forma de emitir partículas a partir de formas complejas y arbitrarias. Las formas se generan a partir de mallas en la escena y se almacenan como texturas en el material de proceso de las partículas. Este es un flujo de trabajo muy versátil que permite a los usuarios utilizar sistemas de partículas para tareas que van más allá de los casos de uso tradicionales, como vegetación, hojas en un árbol o efectos holográficos complejos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When you create emission points from meshes, you can only select a single node as
-emission source. If you want particles to emit from multiple shapes, you either
-have to create several particle systems or combine the meshes into one in an
-external DCC software.</p>
+<p>Cuando creas puntos de emisión a partir de mallas, solo puedes seleccionar un único nodo como fuente de emisión. Si deseas que las partículas se emitan desde múltiples formas, tendrás que crear varios sistemas de partículas o combinar las mallas en una sola en un software DCC externo.</p>
 </div>
 <figure class="align-right" id="id1">
 <img alt="Creating emission points" src="../../../_images/particle_create_emission_points.webp" />
 <figcaption>
-<p><span class="caption-text">Create particle emission points...</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Crear puntos de emisión de partículas...</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-right" id="id2">
 <img alt="Select mesh for emission" src="../../../_images/particle_select_emission_mesh.webp" />
 <figcaption>
-<p><span class="caption-text">...from a mesh instance as the source</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">...a partir de una instancia de malla como fuente</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-right" id="id3">
 <img alt="Set emission density" src="../../../_images/particle_emission_density.webp" />
 <figcaption>
-<p><span class="caption-text">More points = higher particle density</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Más puntos = mayor densidad de partículas</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>To make use of this feature, start by creating a particle system in the current scene.
-Add a mesh instance that serves as the source of the particle emission points. With the
-particle system selected, navigate to the viewport menu and select the <em>GPUParticles3D</em>
-entry. From there, select <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Emission</span> <span class="pre">Points</span> <span class="pre">From</span> <span class="pre">Node</span></code>.</p>
-<p>A dialog window will pop up and ask you to select a node as the emission source.
-Choose one of the mesh instances in the scene and confirm your selection. The next
-dialog window deals with the amount of points and how to generate them.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Points</span></code> controls the total number of points that you are about to generate.
-Particles will spawn from these points, so what to enter here depends on the
-size of the source mesh (how much area you have to cover) and the desired density of
-the particles.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Source</span></code> offers 3 different options for how the points are generated.
-Select <code class="docutils literal notranslate"><span class="pre">Surface</span> <span class="pre">Points</span></code> if all you want to do is distribute the emission points across the
-surface of the mesh. Select <code class="docutils literal notranslate"><span class="pre">Surface</span> <span class="pre">Points</span> <span class="pre">+</span> <span class="pre">Normal</span> <span class="pre">(Directed)</span></code> if you also want to
-generate information about the surface normals and make particles move in the direction
-that the normals point at. The last option, <code class="docutils literal notranslate"><span class="pre">Volume</span></code>, creates emission points everywhere
-inside the mesh, not just across its surface.</p>
-<p>The emission points are stored in the particle system's local coordinate system, so
-you can move the particle node around and the emission points will follow. This might be
-useful when you want to use the same particle system in several different places. On the
-other hand, you might have to regenerate the emission points when you move either
-the particle system or the source mesh.</p>
+<p>Para hacer uso de esta función, comienza creando un sistema de partículas en la escena actual. Añade una instancia de malla que servirá como fuente de los puntos de emisión de partículas. Con el sistema de partículas seleccionado, dirígete al menú del viewport y selecciona la entrada <em>GPUParticles3D</em>. Desde allí, selecciona <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Emission</span> <span class="pre">Points</span> <span class="pre">From</span> <span class="pre">Node</span></code> (Crear puntos de emisión desde nodo).</p>
+<p>Aparecerá una ventana de diálogo pidiéndote que selecciones un nodo como fuente de emisión. Elige una de las instancias de malla en la escena y confirma tu selección. La siguiente ventana de diálogo se encarga de la cantidad de puntos y de cómo generarlos.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Points</span></code> controla la cantidad total de puntos que estás a punto de generar. Las partículas se generarán a partir de estos puntos, por lo que el valor a ingresar aquí depende del tamaño de la malla de origen (cuánta área necesitas cubrir) y de la densidad deseada para las partículas.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Source</span></code> ofrece 3 opciones diferentes para determinar cómo se generan los puntos. Selecciona <code class="docutils literal notranslate"><span class="pre">Surface</span> <span class="pre">Points</span></code> si solo deseas distribuir los puntos de emisión sobre la superficie de la malla. Selecciona <code class="docutils literal notranslate"><span class="pre">Surface</span> <span class="pre">Points</span> <span class="pre">+</span> <span class="pre">Normal</span> <span class="pre">(Directed)</span></code> si además deseas generar información sobre las normales de la superficie y hacer que las partículas se muevan en la dirección a la que apuntan dichas normales. La última opción, <code class="docutils literal notranslate"><span class="pre">Volume</span></code>, crea puntos de emisión en todo el interior de la malla, no solo en su superficie.</p>
+<p>Los puntos de emisión se almacenan en el sistema de coordenadas local del sistema de partículas, por lo que puedes mover el nodo de partículas y los puntos de emisión lo seguirán. Esto puede ser útil cuando deseas usar el mismo sistema de partículas en varios lugares diferentes. Por otro lado, es posible que tengas que regenerar los puntos de emisión si mueves el sistema de partículas o la malla de origen de forma independiente.</p>
 <section id="emission-shape-textures">
-<h2>Emission shape textures<a class="headerlink" href="#emission-shape-textures" title="Link to this heading"></a></h2>
+<h2>Texturas de formas de emisión (Emission shape textures)<a class="headerlink" href="#emission-shape-textures" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id4">
 <img alt="Emission textures" src="../../../_images/particle_emission_textures.webp" />
 <figcaption>
-<p><span class="caption-text">The available emission shape textures</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Las texturas de formas de emisión disponibles</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>All the data for complex particle emission shapes is stored in a set of textures. How
-many, depends on the type of emission shape you use. If you set the <code class="docutils literal notranslate"><span class="pre">Shape</span></code> property
-in the <code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Shape</span></code> group on the particle process material to <code class="docutils literal notranslate"><span class="pre">Points</span></code>, you
-have access to 2 texture properties, the <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Texture</span></code> and the <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Texture</span></code>.
-Set it to <code class="docutils literal notranslate"><span class="pre">Directed</span> <span class="pre">Points</span></code> and there is a third property called <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">Texture</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Texture</span></code> contains all possible emission points that were generated in the
-previous step. A point is randomly selected for every particle when it spawns.
-<code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">Texture</span></code>, if it exists, provides a direction vector at that same location.
-If the <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Texture</span></code> property is also set, it provides color for the particle,
-sampled at the same location as the other two textures and modulating any other color
-that was set up on the process material.</p>
-<p>There is also the <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Count</span></code> property that you can use to change the number of
-emission points at any time after creating the emission shape. This includes dynamically
-at runtime while the playing the game.</p>
+<p>Todos los datos para las formas de emisión de partículas complejas se almacenan en un conjunto de texturas. La cantidad depende del tipo de forma de emisión que utilices. Si estableces la propiedad <code class="docutils literal notranslate"><span class="pre">Shape</span></code> en el grupo <code class="docutils literal notranslate"><span class="pre">Emission</span> <span class="pre">Shape</span></code> en el material de proceso en <code class="docutils literal notranslate"><span class="pre">Points</span></code>, tendrás acceso a 2 propiedades de textura: <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Texture</span></code> y <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Texture</span></code>. Si la estableces en <code class="docutils literal notranslate"><span class="pre">Directed</span> <span class="pre">Points</span></code>, habrá una tercera propiedad llamada <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">Texture</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Texture</span></code> contiene todos los posibles puntos de emisión que se generaron en el paso anterior. Se selecciona un punto aleatoriamente para cada partícula cuando se crea. <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">Texture</span></code>, si existe, proporciona un vector de dirección en esa misma ubicación. Si la propiedad <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Texture</span></code> también está configurada, proporciona color a la partícula, muestreado en la misma ubicación que las otras dos texturas y modulando cualquier otro color configurado en el material de proceso.</p>
+<p>También está disponible la propiedad <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Count</span></code> que puedes usar para modificar el número de puntos de emisión en cualquier momento después de haber creado la forma de emisión. Esto incluye hacerlo dinámicamente en tiempo de ejecución mientras juegas.</p>
 </section>
 </section>
 

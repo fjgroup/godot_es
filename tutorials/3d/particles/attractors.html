@@ -13044,133 +13044,89 @@
 <figure class="align-default">
 <img alt="Atractores de partículas" src="../../../_images/particle_attractor.webp" />
 </figure>
-<p>Particle attractors are nodes that apply a force to all particles within their reach. They pull
-particles closer or push them away based on the direction of that force. There are three types
-of attractors: <a class="reference internal" href="../../../classes/class_gpuparticlesattractorbox3d.html#class-gpuparticlesattractorbox3d"><span class="std std-ref">GPUParticlesAttractorBox3D</span></a>, <a class="reference internal" href="../../../classes/class_gpuparticlesattractorsphere3d.html#class-gpuparticlesattractorsphere3d"><span class="std std-ref">GPUParticlesAttractorSphere3D</span></a>,
-and <a class="reference internal" href="../../../classes/class_gpuparticlesattractorvectorfield3d.html#class-gpuparticlesattractorvectorfield3d"><span class="std std-ref">GPUParticlesAttractorVectorField3D</span></a>. You can instantiate them at runtime and
-change their properties from gameplay code; you can even animate and combine them for complex
-attraction effects.</p>
+<p>Los atractores de partículas son nodos que aplican una fuerza a todas las partículas dentro de su alcance. Atraen las partículas acercándolas o las empujan alejándolas según la dirección de dicha fuerza. Existen tres tipos de atractores: <a class="reference internal" href="../../../classes/class_gpuparticlesattractorbox3d.html#class-gpuparticlesattractorbox3d"><span class="std std-ref">GPUParticlesAttractorBox3D</span></a>, <a class="reference internal" href="../../../classes/class_gpuparticlesattractorsphere3d.html#class-gpuparticlesattractorsphere3d"><span class="std std-ref">GPUParticlesAttractorSphere3D</span></a> y <a class="reference internal" href="../../../classes/class_gpuparticlesattractorvectorfield3d.html#class-gpuparticlesattractorvectorfield3d"><span class="std std-ref">GPUParticlesAttractorVectorField3D</span></a>. Puedes instanciarlos en tiempo de ejecución y modificar sus propiedades mediante código de juego; incluso puedes animarlos y combinarlos para lograr efectos de atracción complejos.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Particle attractors are not yet implemented for 2D particle systems.</p>
+<p>Los atractores de partículas aún no están implementados para sistemas de partículas en 2D.</p>
 </div>
-<p>The first thing you have to do if you want to use attractors is enable the <code class="docutils literal notranslate"><span class="pre">Attractor</span> <span class="pre">Interaction</span></code>
-property on the ParticleProcessMaterial. Do this for every particle system that needs to react to attractors.
-Like most properties in Godot, you can also change this at runtime.</p>
+<p>Lo primero que debes hacer si deseas utilizar atractores es habilitar la propiedad <code class="docutils literal notranslate"><span class="pre">Attractor</span> <span class="pre">Interaction</span></code> en el ParticleProcessMaterial. Haz esto para cada sistema de partículas que necesite reaccionar a los atractores. Como la mayoría de las propiedades en Godot, también puedes modificar esto en tiempo de ejecución.</p>
 <section id="common-properties">
-<h2>Common properties<a class="headerlink" href="#common-properties" title="Link to this heading"></a></h2>
+<h2>Propiedades comunes (Common properties)<a class="headerlink" href="#common-properties" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id1">
 <img alt="Common particle attractor properties" src="../../../_images/particle_attractor_common.webp" />
 <figcaption>
-<p><span class="caption-text">Common attractor properties</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Propiedades comunes de atractores</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>There are some properties that you can find on all attractors. They're located in the
-<code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractor3D</span></code> section in the inspector.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Strength</span></code> controls how strong the attractor force is. A positive value pulls particles
-closer to the attractor's center, while a negative value pushes them away.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Attenuation</span></code> controls the strength falloff within the attractor's influence region. Every
-particle attractor has a boundary. Its strength is weakest at the border of this boundary
-and strongest at its center. Particles outside of the boundary are not affected by the attractor
-at all. The attenuation curve controls how the strength weakens over that distance. A straight
-line means that the strength is proportional to the distance: if a particle is halfway
-between the boundary and the center, the attractor strength will be half of what it is
-at the center. Different curve shapes change how fast particles accelerate towards the
-attractor.</p>
+<p>Hay algunas propiedades que encontrarás en todos los atractores. Se ubican en la sección <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractor3D</span></code> en el inspector.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Strength</span></code> (Fuerza) controla qué tan intensa es la fuerza del atractor. Un valor positivo atrae las partículas hacia el centro del atractor, mientras que un valor negativo las repele.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Attenuation</span></code> (Atenuación) controla la caída de intensidad dentro de la región de influencia del atractor. Cada atractor de partículas tiene un límite o frontera. Su fuerza es más débil en el borde de este límite y más fuerte en su centro. Las partículas fuera del límite no se ven afectadas en absoluto por el atractor. La curva de atenuación controla cómo se debilita la fuerza a lo largo de esa distancia. Una línea recta significa que la fuerza es proporcional a la distancia: si una partícula está a mitad de camino entre el límite y el centro, la fuerza del atractor será la mitad de la que tiene en el centro. Diferentes formas de curva modifican la rapidez con la que las partículas aceleran hacia el atractor.</p>
 <figure class="align-default" id="id2">
 <img alt="Different attractor attenuation curves" src="../../../_images/particle_attractor_curve.webp" />
 <figcaption>
-<p><span class="caption-text">Strength increase variations: constantly over the distance to the attractor (left), fast
-at the boundary border and slowly at the center (middle), slowly at the boundary and
-fast at the center (right).</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Variaciones en el incremento de fuerza: constante sobre la distancia al atractor (izquierda), rápida en el borde del límite y lenta en el centro (centro), lenta en el límite y rápida en el centro (derecha).</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Directionality</span></code> property changes the direction towards which particles are pulled.
-At a value of <code class="docutils literal notranslate"><span class="pre">0.0</span></code>, there is no directionality, which means that particles are pulled towards
-the attractor's center. At <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, the attractor is fully directional, which means particles
-will be pulled along the attractor's local <code class="docutils literal notranslate"><span class="pre">-Z</span></code>-axis. You can change the global direction
-by rotating the attractor. If <code class="docutils literal notranslate"><span class="pre">Strength</span></code> is negative, particles are instead pulled along
-the <code class="docutils literal notranslate"><span class="pre">+Z</span></code>-axis.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Directionality</span></code> (Direccionalidad) cambia la dirección hacia la cual son atraídas las partículas. Con un valor de <code class="docutils literal notranslate"><span class="pre">0.0</span></code>, no hay direccionalidad, lo que significa que las partículas son atraídas hacia el centro del atractor. Con <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, el atractor es completamente direccional, lo que significa que las partículas serán atraídas a lo largo del eje local <code class="docutils literal notranslate"><span class="pre">-Z</span></code> del atractor. Puedes cambiar la dirección global rotando el atractor. Si <code class="docutils literal notranslate"><span class="pre">Strength</span></code> es negativa, las partículas son empujadas a lo largo del eje <code class="docutils literal notranslate"><span class="pre">+Z</span></code>.</p>
 <figure class="align-default" id="id3">
 <img alt="Different attractor directionality values" src="../../../_images/particle_attractor_direction.webp" />
 <figcaption>
-<p><span class="caption-text">No directionality (left) vs. full directionality (right). Notice how the particles move along
-the attractor's local Z-axis.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Sin direccionalidad (izquierda) frente a direccionalidad completa (derecha). Observa cómo las partículas se mueven a lo largo del eje Z local del atractor.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Cull</span> <span class="pre">Mask</span></code> property controls which particle systems are affected by an attractor based
-on each system's <a class="reference internal" href="../../../classes/class_visualinstance3d.html#class-visualinstance3d"><span class="std std-ref">visibility layers</span></a>. A particle system is only
-affected by an attractor if at least one of the system's visibility layers is enabled in the
-attractor's cull mask.</p>
+<p>La propiedad <code class="docutils literal notranslate"><span class="pre">Cull</span> <span class="pre">Mask</span></code> controla qué sistemas de partículas se ven afectados por un atractor basándose en las <a class="reference internal" href="../../../classes/class_visualinstance3d.html#class-visualinstance3d"><span class="std std-ref">capas de visibilidad</span></a> de cada sistema. Un sistema de partículas solo es afectado por un atractor si al menos una de las capas de visibilidad del sistema está habilitada en la máscara de exclusión (cull mask) del atractor.</p>
 </section>
 <section id="box-attractors">
-<h2>Box attractors<a class="headerlink" href="#box-attractors" title="Link to this heading"></a></h2>
+<h2>Atractores de caja (Box attractors)<a class="headerlink" href="#box-attractors" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id4">
 <img alt="Caja de atractor de partículas" src="../../../_images/particle_attractor_box_entry.webp" />
 <figcaption>
-<p><span class="caption-text">Box attractor in the node list</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Atractor de caja en la lista de nodos</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Box attractors have a box-shaped influence region. You control their size with the <code class="docutils literal notranslate"><span class="pre">Extents</span></code>
-property. Box extents always measure half of the sides of its bounds, so a value of
-<code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> creates a box with an influence region that is 2 meters wide on each side.</p>
+<p>Los atractores de caja tienen una región de influencia en forma de caja. Controlas su tamaño mediante la propiedad <code class="docutils literal notranslate"><span class="pre">Extents</span></code>. Las extensiones de la caja siempre miden la mitad de los lados de sus límites, por lo que un valor de <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> crea una caja con una región de influencia de 2 metros de ancho en cada lado.</p>
 <p>Para crear un atractor de caja, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorBox3D</span></code> de la lista de nodos disponibles. Puedes animar la posición de la caja o adjuntarla a un nodo en movimiento para lograr efectos más dinámicos.</p>
 <figure class="align-default" id="id5">
 <img alt="Box attractor parts particle field" src="../../../_images/particle_attractor_box.webp" />
 <figcaption>
-<p><span class="caption-text">A box attractor with a negative strength value parts a particle field as it moves through it.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Un atractor de caja con un valor de fuerza negativo aparta un campo de partículas a medida que se desplaza a través de él.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="sphere-attractors">
-<h2>Sphere attractors<a class="headerlink" href="#sphere-attractors" title="Link to this heading"></a></h2>
+<h2>Atractores esféricos (Sphere attractors)<a class="headerlink" href="#sphere-attractors" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id6">
 <img alt="Esfera de atractor de partículas" src="../../../_images/particle_attractor_sphere_entry.webp" />
 <figcaption>
-<p><span class="caption-text">Sphere attractor in the node list</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Atractor esférico en la lista de nodos</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Sphere attractors have a spherical influence region. You control their size with the <code class="docutils literal notranslate"><span class="pre">Radius</span></code>
-property. While box attractors don't have to be perfect cubes, sphere attractors will always be
-spheres: You can't set width independently from height. If you want to use a sphere attractor for
-elongated shapes, you have to change its <code class="docutils literal notranslate"><span class="pre">Scale</span></code> in the attractor's <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> section.</p>
+<p>Los atractores esféricos tienen una región de influencia esférica. Controlas su tamaño con la propiedad <code class="docutils literal notranslate"><span class="pre">Radius</span></code>. Mientras que los atractores de caja no tienen que ser cubos perfectos, los atractores esféricos siempre serán esferas: no puedes configurar el ancho de forma independiente a la altura. Si deseas utilizar un atractor esférico para formas alargadas, debes cambiar su <code class="docutils literal notranslate"><span class="pre">Scale</span></code> en la sección <code class="docutils literal notranslate"><span class="pre">Node3D</span></code> del atractor.</p>
 <p>Para crear un atractor esférico, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorSphere3D</span></code> de la lista de nodos disponibles. Puedes animar la posición de la esfera o adjuntarla a un nodo en movimiento.</p>
 <figure class="align-default" id="id7">
 <img alt="Sphere attractor parts particle field" src="../../../_images/particle_attractor_sphere.webp" />
 <figcaption>
-<p><span class="caption-text">A sphere attractor with a negative strength value parts a particle field as it moves through it.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">Un atractor esférico con un valor de fuerza negativo aparta un campo de partículas a medida que se mueve a través de él.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="vector-field-attractors">
-<h2>Vector field attractors<a class="headerlink" href="#vector-field-attractors" title="Link to this heading"></a></h2>
+<h2>Atractores de campo vectorial (Vector field attractors)<a class="headerlink" href="#vector-field-attractors" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id8">
 <img alt="Particle attractor vector field" src="../../../_images/particle_attractor_vector_entry.webp" />
 <figcaption>
-<p><span class="caption-text">Vector field attractor in the node list</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-text">Atractor de campo vectorial en la lista de nodos</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Un campo vectorial es un área 3D que contiene vectores organizados sobre una cuadrícula tridimensional. Cada vector apunta en una dirección y magnitud específicas que guían el movimiento de las partículas a través del espacio.</p>
-<p>When particles interact with a vector field, their movement direction changes to match the nearest vector
-in the field. As a particle moves closer to the next vector in the field, it changes
-direction to match that vector's direction. The particle's speed depends on the vector's length.</p>
-<p>Like box attractors, vector field attractors have a box-shaped influence region. You control their size with the <code class="docutils literal notranslate"><span class="pre">Extents</span></code>
-property, where a value of <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> creates a box with an influence region that is
-2 meters wide on each side. The <code class="docutils literal notranslate"><span class="pre">Texture</span></code> property takes a <a class="reference internal" href="../../../classes/class_texture3d.html#class-texture3d"><span class="std std-ref">3D texture</span></a>
-where every pixel represents a vector with the pixel's color interpreted as the vector's direction and size.</p>
+<p>Cuando las partículas interactúan con un campo vectorial, su dirección de movimiento cambia para coincidir con el vector más cercano en el campo. A medida que una partícula se acerca al siguiente vector en el campo, cambia de dirección para coincidir con la dirección de ese vector. La velocidad de la partícula depende de la longitud del vector.</p>
+<p>Al igual que los atractores de caja, los atractores de campo vectorial tienen una región de influencia en forma de caja. Controlas su tamaño mediante la propiedad <code class="docutils literal notranslate"><span class="pre">Extents</span></code>, donde un valor de <code class="docutils literal notranslate"><span class="pre">(X=1.0,Y=1.0,Z=1.0)</span></code> crea una caja con una región de influencia de 2 metros de ancho en cada lado. La propiedad <code class="docutils literal notranslate"><span class="pre">Texture</span></code> recibe una <a class="reference internal" href="../../../classes/class_texture3d.html#class-texture3d"><span class="std std-ref">textura 3D</span></a> donde cada píxel representa un vector, interpretando el color del píxel como la dirección y el tamaño del vector.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>When a texture is used as a vector field, there are two types of conversion you need to be aware of:</p>
+<p>Cuando se utiliza una textura como campo vectorial, hay dos tipos de conversión que debes tener en cuenta:</p>
 <ol class="arabic simple">
-<li><p>The texture coordinates map to the attractor bounds. The image below shows which part of the texture
-corresponds to which part of the vector field volume. For example, the bottom half of the texture
-affects the top half of the vector field attractor because <code class="docutils literal notranslate"><span class="pre">+Y</span></code> points down in the texture UV space,
-but up in Godot's world space.</p></li>
-<li><p>The pixel color values map to direction vectors in space. The image below provides an overview. Since
-particles can move in two directions along each axis, the lower half of the color range represents
-negative direction values while the upper half represents positive direction values. So a yellow pixel
-<code class="docutils literal notranslate"><span class="pre">(R=1,G=1,B=0)</span></code> maps to the vector <code class="docutils literal notranslate"><span class="pre">(X=1,Y=1,Z=-1)</span></code> while a neutral gray <code class="docutils literal notranslate"><span class="pre">(R=0.5,G=0.5,B=0.5)</span></code>
-results in no movement at all.</p></li>
+<li><p>Las coordenadas de la textura se asignan a los límites del atractor. La imagen a continuación muestra qué parte de la textura corresponde a qué parte del volumen del campo vectorial. Por ejemplo, la mitad inferior de la textura afecta la mitad superior del atractor de campo vectorial porque <code class="docutils literal notranslate"><span class="pre">+Y</span></code> apunta hacia abajo en el espacio UV de la textura, pero hacia arriba en el espacio del mundo de Godot.</p></li>
+<li><p>Los valores de color de los píxeles se asignan a vectores de dirección en el espacio. La imagen siguiente proporciona una descripción general. Dado que las partículas pueden moverse en dos direcciones a lo largo de cada eje, la mitad inferior del rango de color representa valores de dirección negativos mientras que la mitad superior representa valores de dirección positivos. Por lo tanto, un píxel amarillo <code class="docutils literal notranslate"><span class="pre">(R=1,G=1,B=0)</span></code> se asigna al vector <code class="docutils literal notranslate"><span class="pre">(X=1,Y=1,Z=-1)</span></code> mientras que un gris neutro <code class="docutils literal notranslate"><span class="pre">(R=0.5,G=0.5,B=0.5)</span></code> produce ningún movimiento en absoluto.</p></li>
 </ol>
 <figure class="align-default">
 <img alt="Mapping from texture to vector field" src="../../../_images/particle_attractor_vector_mapping.webp" />
@@ -13179,15 +13135,12 @@ results in no movement at all.</p></li>
 <p>Para crear un atractor de campo vectorial, agrega un nuevo nodo hijo a tu escena y selecciona <code class="docutils literal notranslate"><span class="pre">GPUParticlesAttractorVectorField3D</span></code> de la lista de nodos disponibles.</p>
 <div class="admonition tip">
 <p class="admonition-title">Truco</p>
-<p>If you don't have external tools to create vector field textures, you can use
-a NoiseTexture3D with a Color Ramp attached as a vector field texture. The
-Color Ramp can be modified to adjust how much each coordinate is affected by
-the vector field.</p>
+<p>Si no tienes herramientas externas para crear texturas de campos vectoriales, puedes utilizar una NoiseTexture3D con una rampa de color (Color Ramp) adjunta como textura de campo vectorial. La rampa de color se puede modificar para ajustar qué tanto se ve afectada cada coordenada por el campo vectorial.</p>
 </div>
 <figure class="align-default" id="id9">
 <img alt="Vector field attractor in a field of particles" src="../../../_images/particle_attractor_vector.webp" />
 <figcaption>
-<p><span class="caption-text">Two particle systems are affected by the same vector field attractor. <a class="reference download internal" download="" href="../../../_downloads/15109f418f400f6aa6956b46deb773b9/particle_vector_field_16x16x16.bmp"><code class="xref download docutils literal notranslate"><span class="pre">Click</span> <span class="pre">here</span> <span class="pre">to</span> <span class="pre">download</span> <span class="pre">the</span> <span class="pre">3D</span> <span class="pre">texture</span></code></a>.</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+<p><span class="caption-text">Dos sistemas de partículas afectados por el mismo atractor de campo vectorial. <a class="reference download internal" download="" href="../../../_downloads/15109f418f400f6aa6956b46deb773b9/particle_vector_field_16x16x16.bmp"><code class="xref download docutils literal notranslate"><span class="pre">Haz clic aquí para descargar la textura 3D</span></code></a>.</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>

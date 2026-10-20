@@ -13043,8 +13043,7 @@
 <span id="doc-3d-particles-trails"></span><h1>Rastro de partículas 3D<a class="headerlink" href="#d-particle-trails" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Particle trails are only supported in the Forward+ and Mobile renderers,
-not Compatibility.</p>
+<p>Las estelas de partículas solo son compatibles con los renderizadores Forward+ y Mobile, no con Compatibility.</p>
 </div>
 <figure class="align-default">
 <img alt="Rastros de partículas" src="../../../_images/particle_trails.webp" />
@@ -13052,125 +13051,75 @@ not Compatibility.</p>
 <figure class="align-right" id="id1">
 <img alt="Parámetros de rastros de partículas" src="../../../_images/particle_trail_params.webp" />
 <figcaption>
-<p><span class="caption-text">Setting up particle trails</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Configuración de rastros de partículas</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Godot provides several types of trails you can add to a particle system. Before you can
-work with trails, you need to set up a couple of parameters first. Create a new particle
-system and assign a process material <a class="reference internal" href="creating_a_3d_particle_system.html#doc-creating-3d-particle-system"><span class="std std-ref">as described before</span></a>.
-In the <code class="docutils literal notranslate"><span class="pre">Trails</span></code> group of the particle system, check the box next to <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> and
-increase the emission duration by setting <code class="docutils literal notranslate"><span class="pre">Lifetime</span></code> to something like <code class="docutils literal notranslate"><span class="pre">0.8</span></code>. On
-the process material, set <code class="docutils literal notranslate"><span class="pre">Direction</span></code> to <code class="docutils literal notranslate"><span class="pre">(X=0,Y=1.0,Z=0)</span></code> and <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Velocity</span></code> to
-<code class="docutils literal notranslate"><span class="pre">10.0</span></code> for both <code class="docutils literal notranslate"><span class="pre">Min</span></code> and <code class="docutils literal notranslate"><span class="pre">Max</span></code>.</p>
-<p>The only thing that's still missing is a mesh for the draw pass. The type of mesh that you
-set here controls what kind of particle trail you will end up with.</p>
+<p>Godot proporciona varios tipos de estelas o rastros que puedes añadir a un sistema de partículas. Antes de poder trabajar con estelas, necesitas configurar primero un par de parámetros. Crea un nuevo sistema de partículas y asigna un material de proceso <a class="reference internal" href="creating_a_3d_particle_system.html#doc-creating-3d-particle-system"><span class="std std-ref">como se describió anteriormente</span></a>. En el grupo <code class="docutils literal notranslate"><span class="pre">Trails</span></code> del sistema de partículas, marca la casilla junto a <code class="docutils literal notranslate"><span class="pre">Enabled</span></code> e incrementa la duración de la emisión configurando <code class="docutils literal notranslate"><span class="pre">Lifetime</span></code> en algo como <code class="docutils literal notranslate"><span class="pre">0.8</span></code>. En el material de proceso, establece <code class="docutils literal notranslate"><span class="pre">Direction</span></code> en <code class="docutils literal notranslate"><span class="pre">(X=0,Y=1.0,Z=0)</span></code> e <code class="docutils literal notranslate"><span class="pre">Initial</span> <span class="pre">Velocity</span></code> en <code class="docutils literal notranslate"><span class="pre">10.0</span></code> tanto para <code class="docutils literal notranslate"><span class="pre">Min</span></code> como para <code class="docutils literal notranslate"><span class="pre">Max</span></code>.</p>
+<p>Lo único que todavía falta es una malla para el pase de dibujado. El tipo de malla que configures aquí controla qué clase de estela de partículas obtendrás.</p>
 <section id="ribbon-trails">
-<h2>Ribbon trails<a class="headerlink" href="#ribbon-trails" title="Link to this heading"></a></h2>
+<h2>Estelas de cinta (Ribbon trails)<a class="headerlink" href="#ribbon-trails" title="Link to this heading"></a></h2>
 <figure class="align-right" id="id2">
 <img alt="Particle ribbon" src="../../../_images/particle_ribbon_mesh.webp" />
 <figcaption>
-<p><span class="caption-text">Important ribbon mesh parameters</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Parámetros importantes de la malla de cinta</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The simplest type of particle trail is the ribbon trail. Navigate to the <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">Passes</span></code>
-section and select <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">RibbonTrailMesh</span></code> from the options for <code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">1</span></code>. A
-<a class="reference internal" href="../../../classes/class_ribbontrailmesh.html#class-ribbontrailmesh"><span class="std std-ref">RibbonTrailMesh</span></a> is a simple quad that is divided into
-sections and then stretched and repeated along those sections.</p>
-<p>Assign a new <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a> to the <code class="docutils literal notranslate"><span class="pre">Material</span></code>
-property and enable <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Particle</span> <span class="pre">Trails</span></code> in the <code class="docutils literal notranslate"><span class="pre">Transform</span></code> property group. The
-particles should now be emitting in trails.</p>
-<p>You have two options for the ribbon mesh <code class="docutils literal notranslate"><span class="pre">Shape</span></code> parameter. <code class="docutils literal notranslate"><span class="pre">Cross</span></code> creates two
-perpendicular quads, making the particle trail a little more three-dimensional. This
-really only makes sense if you don't draw the trails in <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code> mode
-and helps when looking at the particles from different angles. The <code class="docutils literal notranslate"><span class="pre">Flat</span></code> option
-limits the mesh to a single quad and works best with billboard particles.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Size</span></code> parameter controls the trail's width. Use it to make trails wider or
-more narrow.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Sections</span></code>, <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> and <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> all work together to
-control how smooth the particle trail looks. When a particle trail does not travel
-in a straight line, the more sections it has the smoother it looks as it bends and swirls.
-<code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> controls the length of each section. Multiply this value by
-the number of sections to know the trail's total length.</p>
+<p>El tipo más simple de estela de partículas es la estela de cinta. Ve a la sección <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">Passes</span></code> y selecciona <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">RibbonTrailMesh</span></code> de las opciones para <code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">1</span></code>. Un <a class="reference internal" href="../../../classes/class_ribbontrailmesh.html#class-ribbontrailmesh"><span class="std std-ref">RibbonTrailMesh</span></a> es un cuadrilátero simple que se divide en secciones y luego se estira y repite a lo largo de esas secciones.</p>
+<p>Asigna un nuevo <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a> a la propiedad <code class="docutils literal notranslate"><span class="pre">Material</span></code> y habilita <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Particle</span> <span class="pre">Trails</span></code> en el grupo de propiedades <code class="docutils literal notranslate"><span class="pre">Transform</span></code>. Las partículas ahora deberían emitirse formando estelas.</p>
+<p>Tienes dos opciones para el parámetro <code class="docutils literal notranslate"><span class="pre">Shape</span></code> de la malla de cinta. <code class="docutils literal notranslate"><span class="pre">Cross</span></code> crea dos cuadriláteros perpendiculares, haciendo que la estela de partículas sea un poco más tridimensional. Esto solo tiene sentido real si no dibujas las estelas en modo <code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Billboard</span></code> y ayuda cuando se observan las partículas desde diferentes ángulos. La opción <code class="docutils literal notranslate"><span class="pre">Flat</span></code> limita la malla a un único cuadrilátero y funciona mejor con partículas billboard.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">Size</span></code> controla el ancho de la estela. Úsalo para hacer las estelas más anchas o más estrechas.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Sections</span></code>, <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> y <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> colaboran estrechamente para controlar qué tan suave luce la estela de partículas. Cuando una estela de partículas no viaja en línea recta, cuantas más secciones tenga, más suave lucirá al doblarse y girar. <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> controla la longitud de cada sección. Multiplica este valor por el número de secciones para conocer la longitud total de la estela.</p>
 <figure class="align-default" id="id3">
 <img alt="Particle ribbon sections" src="../../../_images/particle_ribbon_sections.webp" />
 <figcaption>
-<p><span class="caption-text">3 sections, 1m section length (left) vs. 12 sections, 0.25m section length (right). Notice how the total length of the trails stays the same.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">3 secciones con 1 m de longitud de sección (izquierda) frente a 12 secciones con 0.25 m de longitud de sección (derecha). Observa cómo la longitud total de las estelas se mantiene igual.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> parameter further subdivides each section into segments.
-It has no effect on the smoothness of the trail's sections, though. Instead, it controls
-the smoothness of the particle trail's overall shape. The <code class="docutils literal notranslate"><span class="pre">Curve</span></code> property defines
-this shape. Click the box next to <code class="docutils literal notranslate"><span class="pre">Curve</span></code> and assign or create a new curve. The
-trail will be shaped just like the curve with the curve's value at <code class="docutils literal notranslate"><span class="pre">0.0</span></code> at the
-trail's head and the curve's value at <code class="docutils literal notranslate"><span class="pre">1.0</span></code> at the trail's tail.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> subdivide aún más cada sección en segmentos. Sin embargo, no influye en la suavidad de las secciones de la estela en sí; en su lugar, controla la suavidad de la forma general de la estela de partículas. La propiedad <code class="docutils literal notranslate"><span class="pre">Curve</span></code> define esta forma. Haz clic en la casilla junto a <code class="docutils literal notranslate"><span class="pre">Curve</span></code> y asigna o crea una nueva curva. La estela tomará exactamente la forma de la curva, con el valor de la curva en <code class="docutils literal notranslate"><span class="pre">0.0</span></code> en la cabeza de la estela y el valor en <code class="docutils literal notranslate"><span class="pre">1.0</span></code> en la cola de la estela.</p>
 <figure class="align-default" id="id4">
 <img alt="Particle ribbon curves" src="../../../_images/particle_ribbon_curve.webp" />
 <figcaption>
-<p><span class="caption-text">Particle trails shaped by different curves. The trails move from left to right.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Estelas de partículas modeladas por diferentes curvas. Las estelas se mueven de izquierda a derecha.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Depending on the complexity of the curve, the particle trail's shape will not look
-very smooth when the number of sections is low. This is where the <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> property
-comes in. Increasing the amount of section segments adds more vertices to the trail's
-sides so that it can follow the curve more closely.</p>
+<p>Dependiendo de la complejidad de la curva, la forma de la estela de partículas no se verá muy suave cuando el número de secciones sea bajo. Aquí es donde entra en juego la propiedad <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code>. Incrementar la cantidad de segmentos por sección añade más vértices a los lados de la estela para que pueda seguir la curva con mayor precisión.</p>
 <figure class="align-default" id="id5">
 <img alt="Particle ribbon segments" src="../../../_images/particle_ribbon_segments.webp" />
 <figcaption>
-<p><span class="caption-text">Particle trail shape smoothness: 1 segment per section (top), 12 segments per section (bottom)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Suavidad de la forma de la estela de partículas: 1 segmento por sección (arriba), 12 segmentos por sección (abajo)</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="tube-trails">
-<h2>Tube trails<a class="headerlink" href="#tube-trails" title="Link to this heading"></a></h2>
-<p>Tube trails share a lot of their properties with ribbon trails. The big difference between them
-is that tube trails emit cylindrical meshes instead of quads.</p>
+<h2>Estelas de tubo (Tube trails)<a class="headerlink" href="#tube-trails" title="Link to this heading"></a></h2>
+<p>Las estelas de tubo comparten muchas de sus propiedades con las estelas de cinta. La gran diferencia entre ambas es que las estelas de tubo emiten mallas cilíndricas en lugar de cuadriláteros planos.</p>
 <figure class="align-default" id="id6">
 <img alt="Particle tube trails" src="../../../_images/particle_tube.webp" />
 <figcaption>
-<p><span class="caption-text">Tube trails emit cylindrical particles</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Las estelas de tubo emiten partículas cilíndricas</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>To create a tube trail, navigate to the <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">Passes</span></code> section and select <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">TubeTrailMesh</span></code>
-from the options for <code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">1</span></code>. A <a class="reference internal" href="../../../classes/class_tubetrailmesh.html#class-tubetrailmesh"><span class="std std-ref">TubeTrailMesh</span></a> is a cylinder
-that is divided into sections and then stretched and repeated along those sections. Assign a
-new <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a> to the <code class="docutils literal notranslate"><span class="pre">Material</span></code> property and enable
-<code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Particle</span> <span class="pre">Trails</span></code> in the <code class="docutils literal notranslate"><span class="pre">Transform</span></code> property group. The particles should now be emitting
-in long, cylindrical trails.</p>
+<p>Para crear una estela de tubo, ve a la sección <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">Passes</span></code> y selecciona <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">TubeTrailMesh</span></code> de las opciones para <code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">1</span></code>. Un <a class="reference internal" href="../../../classes/class_tubetrailmesh.html#class-tubetrailmesh"><span class="std std-ref">TubeTrailMesh</span></a> es un cilindro dividido en secciones que luego se estira y repite a lo largo de esas secciones. Asigna un nuevo <a class="reference internal" href="../standard_material_3d.html#doc-standard-material-3d"><span class="std std-ref">Standard Material</span></a> a la propiedad <code class="docutils literal notranslate"><span class="pre">Material</span></code> y habilita <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Particle</span> <span class="pre">Trails</span></code> en el grupo de propiedades <code class="docutils literal notranslate"><span class="pre">Transform</span></code>. Las partículas ahora deberían emitirse en estelas largas y cilíndricas.</p>
 <figure class="align-right" id="id7">
 <img alt="Particle tube" src="../../../_images/particle_tube_mesh.webp" />
 <figcaption>
-<p><span class="caption-text">Important tube mesh parameters</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">Parámetros importantes de la malla de tubo</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">Radius</span></code> and <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Steps</span></code> properties are to tube trails what <code class="docutils literal notranslate"><span class="pre">Size</span></code> is to ribbon trails.
-<code class="docutils literal notranslate"><span class="pre">Radius</span></code> defines the radius of the tube and increases or decreases its overall size. <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Steps</span></code>
-controls the number of sides around the tube's circumference. A higher value increases the resolution
-of the tube's cap.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Sections</span></code> and <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> work the same for tube trails and ribbon trails. They control how
-smooth the tube trail looks when it is bending and twisting instead of moving in a straight line.
-Increasing the number of sections will make it look smoother. Change the <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> property
-to change the length of each section and with it the total length of the trail. <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Rings</span></code>
-is the tube equivalent of the <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> property for ribbons. It subdivides the sections
-and adds more geometry to the tube to better fit the custom shape defined in the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> property.</p>
-<p>You can shape tube trails with curves, just as you can with ribbon trails. Click the box next to the
-<code class="docutils literal notranslate"><span class="pre">Curve</span></code> property and assign or create a new curve. The trail will be shaped like the curve with
-the curve's value at <code class="docutils literal notranslate"><span class="pre">0.0</span></code> at the trail's head and the curve's value at <code class="docutils literal notranslate"><span class="pre">1.0</span></code> at the trail's tail.</p>
+<p>Las propiedades <code class="docutils literal notranslate"><span class="pre">Radius</span></code> y <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Steps</span></code> son para las estelas de tubo lo que <code class="docutils literal notranslate"><span class="pre">Size</span></code> es para las estelas de cinta. <code class="docutils literal notranslate"><span class="pre">Radius</span></code> define el radio del tubo y aumenta o disminuye su tamaño general. <code class="docutils literal notranslate"><span class="pre">Radial</span> <span class="pre">Steps</span></code> controla el número de caras alrededor de la circunferencia del tubo. Un valor más alto incrementa la resolución de los extremos del tubo.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Sections</span></code> y <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> funcionan igual para estelas de tubo y de cinta. Controlan qué tan suave se ve la estela de tubo cuando se curva y retuerce en lugar de moverse en línea recta. Aumentar el número de secciones hará que luzca más suave. Modifica la propiedad <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Length</span></code> para cambiar la longitud de cada sección y, con ello, la longitud total de la estela. <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Rings</span></code> es el equivalente en tubos de la propiedad <code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">Segments</span></code> para cintas. Subdivide las secciones y agrega más geometría al tubo para ajustarse mejor a la forma personalizada definida en la propiedad <code class="docutils literal notranslate"><span class="pre">Curve</span></code>.</p>
+<p>Puedes dar forma a las estelas de tubo mediante curvas, tal como con las estelas de cinta. Haz clic en la casilla junto a la propiedad <code class="docutils literal notranslate"><span class="pre">Curve</span></code> y asigna o crea una nueva curva. La estela tomará la forma de la curva, con el valor de la curva en <code class="docutils literal notranslate"><span class="pre">0.0</span></code> en la cabeza de la estela y el valor en <code class="docutils literal notranslate"><span class="pre">1.0</span></code> en la cola de la estela.</p>
 <figure class="align-default" id="id8">
 <img alt="Particle tubes" src="../../../_images/particle_tube_curve.webp" />
 <figcaption>
-<p><span class="caption-text">Particle tube trails with a custom curve shape: 4 radial steps, 3 sections, 1 section ring (left),
-12 radial steps, 9 sections, 3 section rings (right)</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-text">Estelas de partículas de tubo con forma de curva personalizada: 4 pasos radiales, 3 secciones, 1 anillo de sección (izquierda); 12 pasos radiales, 9 secciones, 3 anillos de sección (derecha)</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>An important property you might want to set is <code class="docutils literal notranslate"><span class="pre">Transform</span> <span class="pre">Align</span></code> in the particle
-system's <code class="docutils literal notranslate"><span class="pre">Drawing</span></code> group. If you leave it as is, the tubes will not preserve volume; they
-flatten out as they move because their Y-axis keeps pointing up even as they change direction.
-This can cause a lot of rendering artifacts. Set the property to <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">to</span> <span class="pre">Velocity</span></code> instead
-and each particle trail keeps its Y-axis aligned along the direction of its movement.</p>
+<p>Una propiedad importante que querrás configurar es <code class="docutils literal notranslate"><span class="pre">Transform</span> <span class="pre">Align</span></code> en el grupo <code class="docutils literal notranslate"><span class="pre">Drawing</span></code> del sistema de partículas. Si la dejas como está por defecto, los tubos no conservarán su volumen; se aplanarán a medida que se mueven porque su eje Y continúa apuntando hacia arriba incluso cuando cambian de dirección. Esto puede causar muchos artefactos visuales de renderizado. En su lugar, establece la propiedad en <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">to</span> <span class="pre">Velocity</span></code> y cada estela de partículas mantendrá su eje Y alineado a lo largo de la dirección de su movimiento.</p>
 <figure class="align-default" id="id9">
 <img alt="Particle tubes aligned" src="../../../_images/particle_tube_align.webp" />
 <figcaption>
-<p><span class="caption-text">Particle tube trails without alignment (left) and with Y-axis aligned to velocity (right)</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+<p><span class="caption-text">Estelas de tubo de partículas sin alineación (izquierda) y con el eje Y alineado con la velocidad (derecha)</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
@@ -13182,7 +13131,7 @@ and each particle trail keeps its Y-axis aligned along the direction of its move
 </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
         <a href="subemitters.html" class="btn btn-neutral float-left" title="Subemisores de partículas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="turbulence.html" class="btn btn-neutral float-right" title="Particle turbulence" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="turbulence.html" class="btn btn-neutral float-right" title="Turbulencia de partículas" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
